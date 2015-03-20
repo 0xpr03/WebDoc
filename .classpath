@@ -7,5 +7,15 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/webdoc/mariadb-java-client-1.1.8-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="log4j-core-2.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/webdoc/log4j-core-2.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="log4j-iostreams-2.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/webdoc/log4j-iostreams-2.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
