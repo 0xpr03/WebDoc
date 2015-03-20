@@ -3,8 +3,7 @@ For the docs please look into the wiki
 Protocoll is also there
 
 ## Structure
-* src quellcode
- * webdoc hauptordner
+* src/webdoc quellcode
   * gui GUI Klassen
   * lib eigene Bibliotheken (config, log etc)
   * webdoc Hauptklassen ordner
