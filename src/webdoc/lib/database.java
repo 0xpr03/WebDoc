@@ -16,12 +16,18 @@ public class database extends webdoc {
 	
 	private static Logger logger = LogManager.getLogger("database");
 	
+	public database(){
+		i = -1;
+		logger.info("Lol this is NEVER called!");
+		test();
+	}
+	
 	public static void test(){
-		logger.info("Lol");
 		logger.info("I = {}", i);
 	}
 	
 	public static void add(){
+		logger.info("i++");
 		i++;
 	}
 }

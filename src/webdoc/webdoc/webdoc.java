@@ -30,6 +30,7 @@ public class webdoc {
 		logger.warn("test");
 		logger.error("test");
 		
+		logger.info("First test:");
 		database.test();
 		database.add();
 		database.test();
@@ -45,7 +46,6 @@ public class webdoc {
 		crap.addTest();
 		
 		crap.runInheritanceTest();
-		
 		database.test();
 	}
 	
