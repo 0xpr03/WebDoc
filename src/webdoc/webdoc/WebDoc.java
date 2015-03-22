@@ -20,7 +20,7 @@ public class WebDoc {
 	private static String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
 	protected  static final Logger logger = LogManager.getLogger();
-	private static String VERSION = "0.1 alpha";
+	private static String VERSION = "0.2 alpha";
 	protected  static HashMap<String,String> SETTINGS = new HashMap<String,String>();
 	
 	public static void main(String[] args){
