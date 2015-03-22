@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.GUI;
 import webdoc.lib.*;
 
 /***
@@ -29,6 +30,8 @@ public class WebDoc {
 		
 		loadConfig();
 		//Database.connect();
+		
+		registerExitFunction();
 	}
 	
 	
@@ -39,8 +42,31 @@ public class WebDoc {
 		Config config = new Config(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
 		
 		if(!config.loadConfig()){
+			if(config.gotScannerException()){
+				if( GUI.showErrorYesNoDialog("Die config Datei ist beschädigt, soll sie überschrieben werden ?", "Config Fehler") == 1){
+					logger.fatal("Can't replace faulty config file.");
+					System.exit(1);
+					//TODO: registerExitFunction isn't called till now!
+				}
+			}
 			config.loadDefaults();
 		}
+	}
+	
+	private static void registerExitFunction() {
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				logger.entry();
+				ShutDown();
+			}
+		});
+	}
+	
+	private static void ShutDown(){
+		logger.info("Shutting down");
+		
+		
 	}
 	
 	/*private static void runTest(){

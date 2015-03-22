@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.scanner.ScannerException;
 
 /***
  * Config loader, handler & parser class
@@ -23,6 +24,7 @@ public class Config {
 	Yaml yaml;
 	Logger logger = LogManager.getLogger();
 	String DEFAULT_PATH;
+	boolean scanner_exception = false;
 	
 	public Config(String file, String default_path){
 		logger.debug("Initializing config");
@@ -36,7 +38,7 @@ public class Config {
 	 * Trys to load the config file
 	 * @return return true on success
 	 */
-	public boolean loadConfig(){
+	public boolean loadConfig() {
 		logger.entry();
 		boolean passed = false;
 		try{
@@ -46,6 +48,10 @@ public class Config {
 			passed = true;
 		}catch(FileNotFoundException e){
 			logger.warn("Config file not found");
+		}catch(ScannerException e){
+			scanner_exception = true;
+			logger.error("Faulty config file!");
+			logger.debug(e);
 		}catch(Exception e){
 			logger.error("Error loading the configuration", e);
 		}
@@ -76,5 +82,9 @@ public class Config {
 			logger.fatal("Interal error!", e);
 		}
 		logger.exit();
+	}
+	
+	public boolean gotScannerException(){
+		return this.scanner_exception;
 	}
 }
