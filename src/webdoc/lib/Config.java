@@ -30,7 +30,7 @@ public class Config {
 	private boolean scanner_exception = false;
 	private Map<String, Object> config;
 	private HashMap<String,Object> defaults = new HashMap<String, Object>();
-	private int missing_entry = 0;
+	private int missing_entrys = 0;
 	
 	
 	public Config(String file, String default_path){
@@ -88,36 +88,34 @@ public class Config {
 	}
 	
 	/**
-	 * return an entry, if it exists, otherwise return null
-	 * @param key object key
-	 * @param map result set to search inside
-	 * @return object or null
+	 * return an string entry
+	 * @param key value key
+	 * @param map result set
+	 * @return string or null
 	 */
-	private Object getEntry(String key, Map<String,Object> map){
+	private String getEntryStr(String key, Map<String,Object> map){
 		if(map.containsKey(key))
-			return map.get(key);
+			return String.valueOf(map.get(key));
 		else{
-			logger.info("Missing entry {}",key);
-			config.put(key,defaults.get(key));
-			missing_entry++;
-			return config.get(key);
+			logger.warn("Missing entry {}",key);
+			missing_entrys++;
+			return String.valueOf(defaults.get(key));
 		}
-			
 	}
 	
-	@SuppressWarnings("unchecked")
-	public HashMap<String, Object> parseConfig(){
-		HashMap<String,Object> config_db = new HashMap<String, Object>();
+	public HashMap<String, String> parseConfig(){
+		HashMap<String, String> config_db = new HashMap<String, String>();
+		
 		loadDefaults();
 		
-		Map<String,Object> cDatabase = (Map<String, Object>) getEntry("database",config);
-			config_db.put("password", getEntry("password",cDatabase));
-			config_db.put("user", getEntry("user",cDatabase));
-			config_db.put("port", getEntry("port",cDatabase));
-			config_db.put("ip", getEntry("ip",cDatabase));
+		config_db.put("password", getEntryStr("password",config));
+		config_db.put("user", getEntryStr("user",config));
+		config_db.put("port", getEntryStr("port",config));
+		config_db.put("ip", getEntryStr("ip",config));
+		config_db.put("db", getEntryStr("db",config));
 		
-		config_db.put("firstrun", getEntry("firstrun",config));
-		config_db.put("guistyle", getEntry("guistyle",config));
+		config_db.put("firstrun", getEntryStr("firstrun",config));
+		config_db.put("guistyle", getEntryStr("guistyle",config));
 		
 		return config_db;
 	}
@@ -177,6 +175,6 @@ public class Config {
 		return this.scanner_exception;
 	}
 	public int getMissingEntrys(){
-		return this.missing_entry;
+		return this.missing_entrys;
 	}
 }

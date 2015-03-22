@@ -21,20 +21,19 @@ public class WebDoc {
 	
 	protected  static final Logger logger = LogManager.getLogger();
 	private static String VERSION = "0.1 alpha";
-	protected  static HashMap<String,Object> SETTINGS = new HashMap<String,Object>();
+	protected  static HashMap<String,String> SETTINGS = new HashMap<String,String>();
 	
 	public static void main(String[] args){
 		// bsp: nur bei log level info werden die strings zusammengefügt
 		logger.info("Starting up {}", VERSION);
 		
 		loadConfig();
-		//Database.connect();
+		Database.connect();
 		
 		registerExitFunction();
 		
 		logger.debug(SETTINGS);
 	}
-	
 	
 	/***
 	 * Loads the config file or defaults in case of a invalid / missing file
@@ -56,8 +55,8 @@ public class WebDoc {
 		SETTINGS = config.parseConfig();
 		
 		if(config.getMissingEntrys()>0){
-			if( GUI.showErrorYesNoDialog("Es fehlen"+config.getMissingEntrys()+"Einträge in der Config!"+
-										"Soll eine Vergleichsdatei \"origin.yml\" erzeugt werden ?", "Config Fehler") == 0){
+			if( GUI.showErrorYesNoDialog("Es fehlen "+config.getMissingEntrys()+" Einträge in der Config!"+
+										"\nSoll eine Vergleichsdatei \"origin.yml\" erzeugt werden ?", "Config Fehler") == 0){
 				config.writeDefaults(false);
 			}
 		}
@@ -67,7 +66,6 @@ public class WebDoc {
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
-				logger.entry();
 				ShutDown();
 			}
 		});
@@ -83,7 +81,7 @@ public class WebDoc {
 	
 	private static void ShutDown(){
 		logger.info("Shutting down");
-		
+		Database.disconnect();
 		
 	}
 	
