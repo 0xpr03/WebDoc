@@ -1,7 +1,5 @@
 package webdoc.lib;
 
-import java.io.IOException;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -64,8 +62,6 @@ public class Database extends WebDoc {
 	 * @throws SQLException
 	 */
 	private static List<String> getProcedures() throws SQLException{
-		logger.entry();
-		
 		Statement stm = connection.createStatement();
 		stm.execute("SHOW PROCEDURE STATUS;");
 		ResultSet rs = stm.getResultSet();
@@ -82,6 +78,7 @@ public class Database extends WebDoc {
 	 * Prints a complete ResultSet to the debug log
 	 * @param rs
 	 */
+	@SuppressWarnings("unused")
 	private static void printResultSet(ResultSet rs){
 		try {
 			StringBuilder sb = new StringBuilder();

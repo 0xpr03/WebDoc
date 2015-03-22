@@ -77,6 +77,7 @@ public class WebDoc {
 		});
 	}
 	
+	@SuppressWarnings("unused")
 	private static void test(){
 		logger.entry();
 		Config config = new Config(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
