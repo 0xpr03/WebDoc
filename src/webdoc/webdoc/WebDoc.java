@@ -28,7 +28,7 @@ public class WebDoc {
 		logger.info("Starting up {}", version);
 		
 		loadConfig();
-		Database.connect();
+		//Database.connect();
 	}
 	
 	

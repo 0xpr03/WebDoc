@@ -1,0 +1,8 @@
+##### WebDoc config ####
+firstrun: true
+
+database:
+	ip: localhost
+	port: 3306
+	user: webdoc
+	password: webdoc

@@ -27,6 +27,7 @@ public class Config {
 	public Config(String file, String default_path){
 		logger.debug("Initializing config");
 		this.FILE = new File(System.getProperty("user.dir")+"/"+file);
+		logger.debug("Config file: {}", FILE.getAbsolutePath());
 		yaml = new Yaml();
 		DEFAULT_PATH = default_path;
 	}
@@ -37,7 +38,6 @@ public class Config {
 	 */
 	public boolean loadConfig(){
 		logger.entry();
-		logger.debug("loading config");
 		boolean passed = false;
 		try{
 			FileReader reader = new FileReader(FILE);
@@ -49,9 +49,7 @@ public class Config {
 		}catch(Exception e){
 			logger.error("Error loading the configuration", e);
 		}
-		logger.exit();
-		return passed;
-		
+		return logger.exit(passed);
 	}
 	
 	/***
@@ -70,10 +68,12 @@ public class Config {
 			}
 			out.flush();
 			out.close();
-		}catch(FileNotFoundException e){
-			logger.error("Inter error!", e);
+			
+			yaml.load(in);
+		}catch(FileNotFoundException | NullPointerException e){
+			logger.fatal("Interal error!", e);
 		}catch(IOException e){
-			logger.error("Inter error!", e);
+			logger.fatal("Interal error!", e);
 		}
 		logger.exit();
 	}
