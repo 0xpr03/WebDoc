@@ -1,5 +1,6 @@
 ##### WebDoc config ####
 firstrun: true
+guistyle: 0
 
 database:
  ip: localhost

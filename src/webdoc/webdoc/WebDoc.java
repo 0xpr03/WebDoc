@@ -15,23 +15,24 @@ import webdoc.lib.*;
  */
 public class WebDoc {
 	
-	private static String sdf = "yyyy-MM-dd HH:mm:ss";
 //	private static String log_file_name = "webdoc-client.log";
 	private static String CONFIG_FILE_NAME = "config.yml";
 	private static String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
 	protected  static final Logger logger = LogManager.getLogger();
-	private static String version = "0.1 alpha";
-	protected  static HashMap<String,Object> settings = new HashMap<String,Object>();
+	private static String VERSION = "0.1 alpha";
+	protected  static HashMap<String,Object> SETTINGS = new HashMap<String,Object>();
 	
 	public static void main(String[] args){
 		// bsp: nur bei log level info werden die strings zusammengefügt
-		logger.info("Starting up {}", version);
+		logger.info("Starting up {}", VERSION);
 		
 		loadConfig();
 		//Database.connect();
 		
 		registerExitFunction();
+		
+		logger.debug(SETTINGS);
 	}
 	
 	
@@ -49,7 +50,16 @@ public class WebDoc {
 					//TODO: registerExitFunction isn't called till now!
 				}
 			}
-			config.loadDefaults();
+			config.writeDefaults(true);
+			config.loadConfig();
+		}
+		SETTINGS = config.parseConfig();
+		
+		if(config.getMissingEntrys()>0){
+			if( GUI.showErrorYesNoDialog("Es fehlen"+config.getMissingEntrys()+"Einträge in der Config!"+
+										"Soll eine Vergleichsdatei \"origin.yml\" erzeugt werden ?", "Config Fehler") == 0){
+				config.writeDefaults(false);
+			}
 		}
 	}
 	
@@ -61,6 +71,14 @@ public class WebDoc {
 				ShutDown();
 			}
 		});
+	}
+	
+	private static void test(){
+		logger.entry();
+		Config config = new Config(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
+		
+		
+		logger.exit();
 	}
 	
 	private static void ShutDown(){
