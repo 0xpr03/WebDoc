@@ -55,7 +55,7 @@ public class Config {
 			config = (HashMap<String, Object>) yaml.load(reader);
 			reader.close();
 			
-			logger.debug(config);
+			logger.debug("Config: {}",config);
 			
 			passed = true;
 		}catch(FileNotFoundException e){
@@ -86,6 +86,12 @@ public class Config {
 		}
 		return false;
 	}
+	
+	
+//	public boolean writeConfig(Map<String,String>){
+//		
+//		return true;
+//	}
 	
 	/**
 	 * return an string entry

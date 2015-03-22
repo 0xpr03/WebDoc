@@ -1,8 +1,15 @@
 package webdoc.lib;
 
+import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,6 +46,76 @@ public class Database extends WebDoc {
 		try {
 			connection.close();
 		} catch (NullPointerException | SQLException e) {
+			logger.debug(e);
+		}
+	}
+	
+	public static void test(){
+		try {
+			getProcedures();
+		}catch(Exception e){
+			logger.error(e);
+		}
+	}
+	
+	/**
+	 * Returns a list of stored procedures
+	 * @return list of procedures
+	 * @throws SQLException
+	 */
+	private static List<String> getProcedures() throws SQLException{
+		logger.entry();
+		
+		Statement stm = connection.createStatement();
+		stm.execute("SHOW PROCEDURE STATUS;");
+		ResultSet rs = stm.getResultSet();
+		List<String> procedures = new ArrayList<String>();
+		while(rs.next()){
+			procedures.add(rs.getString(2)); // ROUTINE_NAME
+		}
+		
+		logger.debug("Found procedures: {}",procedures);
+		return procedures;
+	}
+	
+	/**
+	 * Prints a complete ResultSet to the debug log
+	 * @param rs
+	 */
+	private static void printResultSet(ResultSet rs){
+		try {
+			StringBuilder sb = new StringBuilder();
+
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columns = rsmd.getColumnCount();
+			for (int i = 1; i <= columns; i++) {
+				int jdbcType = rsmd.getColumnType(i);
+				String name = rsmd.getColumnTypeName(i);
+				sb.append("Column " + i + " JDBC type " + jdbcType + ", Typename " + name + "\n");
+			}
+
+			int numberOfColumns = rsmd.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				if (i > 1)
+					sb.append(",\t");
+				String columnName = rsmd.getColumnName(i);
+				sb.append(columnName);
+			}
+			sb.append("\n");
+
+			while (rs.next()) {
+				for (int i = 1; i <= numberOfColumns; i++) {
+					if (i > 1)
+						sb.append(",\t");
+					String columnValue = rs.getString(i);
+					sb.append(columnValue);
+				}
+				sb.append("\n");
+			}
+
+			logger.debug("ResultSet: \n{}", sb);
+		}catch( SQLException e){
 			logger.debug(e);
 		}
 	}

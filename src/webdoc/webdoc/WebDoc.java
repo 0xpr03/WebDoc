@@ -30,6 +30,12 @@ public class WebDoc {
 		loadConfig();
 		Database.connect();
 		
+		//###
+		
+		Database.test();
+		
+		//###
+		
 		registerExitFunction();
 		
 		logger.debug(SETTINGS);

@@ -1,0 +1,10 @@
+##### WebDoc config ####
+guistyle: 0
+firstrun: true
+
+#database related stuff
+ip: localhost # ip or localhost
+port: 3306
+user: webdoc
+password: webdoc
+db: webdoc # database to use
