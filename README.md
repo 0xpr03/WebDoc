@@ -7,6 +7,8 @@ Protocoll is also there
   * gui GUI Klassen
   * lib eigene Bibliotheken (config, log etc)
   * webdoc Hauptklassen ordner
+  
+**Please use UTF-8 for compatibility reasons!**
 
 [Is it any good?](https://news.ycombinator.com/item?id=3067434)
 Yes
