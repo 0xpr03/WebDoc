@@ -111,7 +111,7 @@ public class Config {
 	
 	public HashMap<String, String> parseConfig(){
 		HashMap<String, String> config_db = new HashMap<String, String>();
-		
+
 		loadDefaults();
 		
 		config_db.put("password", getEntryStr("password",config));
