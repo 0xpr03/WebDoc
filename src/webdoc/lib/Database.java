@@ -75,6 +75,32 @@ public class Database extends WebDoc {
 	}
 	
 	/**
+	 * Runns an SQL command, NOT injection safe!
+	 * @param sql
+	 * @return dbResult dbResult which's ResultSet WASN'T closed till now!
+	 */
+	public static dbResult execUpdateQuery(String sql){
+		Statement stm = null;
+		dbResult dbResult = null;
+		try {
+			stm = connection.createStatement();
+			stm.executeUpdate(sql);
+			dbResult = new dbResult(stm.getUpdateCount(),stm.getResultSet());
+			
+		} catch (SQLException e) {
+			logger.error("Unable to query \n{}\n{}", sql,e);
+		} finally{
+			try {
+				stm.close();
+			} catch (Exception e) {
+			}
+		}
+		return dbResult;
+		
+		
+	}
+	
+	/**
 	 * Prints a complete ResultSet to the debug log
 	 * @param rs
 	 */

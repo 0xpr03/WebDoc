@@ -29,9 +29,10 @@ public class db_lib {
 					//TODO: do sql command
 					
 					sb.setLength(0);
-					
 				}
 			}
+			br.close();
+			fr.close();
 			return true;
 		}catch(IOException e){
 			logger.error("Unable to open file!", e);

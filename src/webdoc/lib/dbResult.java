@@ -1,0 +1,32 @@
+package webdoc.lib;
+
+import java.sql.ResultSet;
+
+public class dbResult {
+	
+	private int affectedLines;
+	private ResultSet ResultSet;
+	
+	public dbResult(int affectedLines, java.sql.ResultSet resultSet) {
+		this.affectedLines = affectedLines;
+		ResultSet = resultSet;
+	}
+	public dbResult(int affectedLines) {
+		this.affectedLines = affectedLines;
+	}
+	public dbResult() {
+	}
+	public void setAffectedLines(int affectedLines) {
+		this.affectedLines = affectedLines;
+	}
+	public void setResultSet(ResultSet resultSet) {
+		ResultSet = resultSet;
+	}
+	public int getAffectedLines() {
+		return affectedLines;
+	}
+	public ResultSet getResultSet() {
+		return ResultSet;
+	}
+	
+}
