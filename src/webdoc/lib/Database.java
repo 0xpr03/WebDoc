@@ -29,7 +29,7 @@ public class Database{
 		
 		logger.info("Starting database connection");
 		
-		base = base+Config.getStrValue("ip")+":"+Config.getStrValue("port")+"/"+Config.getStrValue("db")
+		base = base+Config.getStrValue("ip")+":"+Config.getIntValue("port")+"/"+Config.getStrValue("db")
 				+"?tcpKeepAlive=true";
 		logger.debug("DB conn base: {}",base);
 		try{
