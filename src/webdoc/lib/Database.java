@@ -50,7 +50,7 @@ public class Database extends WebDoc {
 	
 	public static void test(){
 		try {
-			getProcedures();
+			execUpdateQuery("");
 		}catch(Exception e){
 			logger.error(e);
 		}
@@ -79,23 +79,22 @@ public class Database extends WebDoc {
 	 * @param sql
 	 * @return dbResult dbResult which's ResultSet WASN'T closed till now!
 	 */
-	public static dbResult execUpdateQuery(String sql){
-		Statement stm = null;
-		dbResult dbResult = null;
+	public static int execUpdateQuery(String sql){
+		int affectedLines = -1;
 		try {
+			Statement stm = null;
+			dbResult dbResult = null;
 			stm = connection.createStatement();
 			stm.executeUpdate(sql);
-			dbResult = new dbResult(stm.getUpdateCount(),stm.getResultSet());
 			
+			printResultSet(stm.getResultSet());
+			logger.debug("Affected lines {}", stm.getUpdateCount());
+			
+			stm.close();
 		} catch (SQLException e) {
 			logger.error("Unable to query \n{}\n{}", sql,e);
-		} finally{
-			try {
-				stm.close();
-			} catch (Exception e) {
-			}
 		}
-		return dbResult;
+		return affectedLines;
 		
 		
 	}
