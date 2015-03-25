@@ -10,6 +10,11 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * DB related functions without the direct connection
+ * @author Aron
+ *
+ */
 public class db_lib {
 	
 	private static Logger logger = LogManager.getLogger();

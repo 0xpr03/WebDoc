@@ -2,6 +2,11 @@ package webdoc.lib;
 
 import java.sql.ResultSet;
 
+/**
+ * Custom result provider for db querys
+ * @author Aron
+ *
+ */
 public class dbResult {
 	
 	private int affectedLines;
