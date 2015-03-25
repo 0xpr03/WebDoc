@@ -14,9 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.webdoc.WebDoc;
 
-/***
+/**
  * Backend to DBMS class
- * @author Aron
+ * @author "Aron Heinecke"
  *
  */
 public class Database extends WebDoc {

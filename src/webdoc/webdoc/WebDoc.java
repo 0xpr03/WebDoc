@@ -8,9 +8,9 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.GUI;
 import webdoc.lib.*;
 
-/***
- * Main class
- * @author Aron
+/**
+ * WebDoc Main Class
+ * @author "Aron Heinecke"
  *
  */
 public class WebDoc {

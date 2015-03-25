@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * DB related functions without the direct connection
- * @author Aron
+ * @author "Aron Heinecke"
  *
  */
 public class db_lib {

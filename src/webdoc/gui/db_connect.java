@@ -14,6 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Setup window
+ * @author "Aron Heinecke"
+ *
+ */
 public class db_connect extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

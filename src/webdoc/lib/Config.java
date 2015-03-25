@@ -16,9 +16,9 @@ import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.scanner.ScannerException;
 
-/***
+/**
  * Config loader, handler & parser class
- * @author Aron
+ * @author "Aron Heinecke"
  *
  */
 public class Config {
