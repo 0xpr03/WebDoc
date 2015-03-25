@@ -21,13 +21,17 @@ public class WebDoc {
 	
 	private  static final Logger logger = LogManager.getLogger();
 	private static String VERSION = "0.2 alpha";
-	protected  static HashMap<String,String> SETTINGS = new HashMap<String,String>();
 	
 	public static void main(String[] args){
 		// bsp: nur bei log level info werden die strings zusammengefügt
 		logger.info("Starting up {}", VERSION);
 		
 		loadConfig();
+		
+		if(Config.getBoolValue("firstrun")){
+			
+		}
+		
 		Database.connect();
 		
 		//###
@@ -38,32 +42,31 @@ public class WebDoc {
 		
 		registerExitFunction();
 		
-		logger.debug(SETTINGS);
 	}
 	
 	/***
 	 * Loads the config file or defaults in case of a invalid / missing file
 	 */
 	private static void loadConfig(){
-		Config config = new Config(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
+		ConfigLib configLib = new ConfigLib(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
 		
-		if(!config.loadConfig()){
-			if(config.gotScannerException()){
+		if(!configLib.loadConfig()){
+			if(configLib.gotScannerException()){
 				if( GUI.showErrorYesNoDialog("Die config Datei ist beschädigt, soll sie überschrieben werden ?", "Config Fehler") == 1){
 					logger.fatal("Can't replace faulty config file.");
 					System.exit(1);
 					//TODO: registerExitFunction isn't called till now!
 				}
 			}
-			config.writeDefaults(true);
-			config.loadConfig();
+			configLib.writeDefaults(true);
+			configLib.loadConfig();
 		}
-		SETTINGS = config.parseConfig();
+		configLib.parseConfig();
 		
-		if(config.getMissingEntrys()>0){
-			if( GUI.showErrorYesNoDialog("Es fehlen "+config.getMissingEntrys()+" Einträge in der Config!"+
+		if(configLib.getMissingEntrys()>0){
+			if( GUI.showErrorYesNoDialog("Es fehlen "+configLib.getMissingEntrys()+" Einträge in der Config!"+
 										"\nSoll eine Vergleichsdatei \"origin.yml\" erzeugt werden ?", "Config Fehler") == 0){
-				config.writeDefaults(false);
+				configLib.writeDefaults(false);
 			}
 		}
 	}
@@ -80,7 +83,7 @@ public class WebDoc {
 	@SuppressWarnings("unused")
 	private static void test(){
 		logger.entry();
-		Config config = new Config(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
+		ConfigLib configLib = new ConfigLib(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
 		
 		
 		logger.exit();
@@ -91,6 +94,7 @@ public class WebDoc {
 		Database.disconnect();
 		
 	}
+	
 	
 	/*private static void runTest(){
 	logger.debug("Test");

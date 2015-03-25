@@ -16,12 +16,14 @@ import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.scanner.ScannerException;
 
+import webdoc.webdoc.Config;
+
 /**
  * Config loader, handler & parser class
  * @author "Aron Heinecke"
  *
  */
-public class Config {
+public class ConfigLib {
 	
 	private File FILE;
 	private Yaml yaml;
@@ -33,7 +35,7 @@ public class Config {
 	private int missing_entrys = 0;
 	
 	
-	public Config(String file, String default_path){
+	public ConfigLib(String file, String default_path){
 		logger.debug("Initializing config");
 		this.FILE = new File(System.getProperty("user.dir")+"/"+file);
 		logger.debug("Config file: {}", FILE.getAbsolutePath());
@@ -109,21 +111,18 @@ public class Config {
 		}
 	}
 	
-	public HashMap<String, String> parseConfig(){
-		HashMap<String, String> config_db = new HashMap<String, String>();
-
+	public void parseConfig(){
 		loadDefaults();
 		
-		config_db.put("password", getEntryStr("password",config));
-		config_db.put("user", getEntryStr("user",config));
-		config_db.put("port", getEntryStr("port",config));
-		config_db.put("ip", getEntryStr("ip",config));
-		config_db.put("db", getEntryStr("db",config));
+		Config.setValue("password", getEntryStr("password",config));
+		Config.setValue("user", getEntryStr("user",config));
+		Config.setIntValue("port", getEntryStr("port",config));
+		Config.setValue("ip", getEntryStr("ip",config));
+		Config.setValue("db", getEntryStr("db",config));
 		
-		config_db.put("firstrun", getEntryStr("firstrun",config));
-		config_db.put("guistyle", getEntryStr("guistyle",config));
+		Config.setBoolValue("firstrun", getEntryStr("firstrun",config));
+		Config.setIntValue("guistyle", getEntryStr("guistyle",config));
 		
-		return config_db;
 	}
 	
 	/***

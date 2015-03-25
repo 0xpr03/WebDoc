@@ -12,14 +12,14 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import webdoc.webdoc.WebDoc;
+import webdoc.webdoc.Config;
 
 /**
  * Backend to DBMS class
  * @author "Aron Heinecke"
  *
  */
-public class Database extends WebDoc {
+public class Database{
 	
 	private static Logger logger = LogManager.getLogger("database");
 	private static Connection connection;
@@ -29,12 +29,12 @@ public class Database extends WebDoc {
 		
 		logger.info("Starting database connection");
 		
-		base = base+SETTINGS.get("ip")+":"+SETTINGS.get("port")+"/"+SETTINGS.get("db")
+		base = base+Config.getStrValue("ip")+":"+Config.getStrValue("port")+"/"+Config.getStrValue("db")
 				+"?tcpKeepAlive=true";
 		logger.debug("DB conn base: {}",base);
 		try{
 			//Class.forName("org.mariadb.jdbc.Driver");
-			connection = DriverManager.getConnection(base, SETTINGS.get("user"), SETTINGS.get("password"));
+			connection = DriverManager.getConnection(base, Config.getStrValue("user"), Config.getStrValue("password"));
 		}catch(Exception e){
 			logger.error("Error initializing the jdbc driver!", e);
 		}
