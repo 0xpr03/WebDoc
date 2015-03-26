@@ -29,22 +29,11 @@ public class db_connect extends JDialog {
 	private JPasswordField pwdWebdoc;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			db_connect dialog = new db_connect();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
 	public db_connect() {
+	    this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    this.setVisible(true);
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 300);
