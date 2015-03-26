@@ -1,4 +1,4 @@
-package webdoc.webdoc;
+﻿package webdoc.webdoc;
 
 import java.util.HashMap;
 
@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
+import webdoc.gui.db_connect;
 import webdoc.lib.*;
 
 /**
@@ -28,13 +29,12 @@ public class WebDoc {
 		
 		loadConfig();
 		
-		if(Config.getBoolValue("firstrun")){
-			
-		}
+		//startup init
+		startup();
 		
 		Database.connect();
 		
-		//###
+		//### Testing area, all components loaded
 		
 		Database.test();
 		
@@ -78,6 +78,12 @@ public class WebDoc {
 				ShutDown();
 			}
 		});
+	}
+
+	private static void startup(){
+		if(Config.getBoolValue("firstrun")){
+			db_connect dbc = new db_connect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"));
+		}
 	}
 	
 	@SuppressWarnings("unused")

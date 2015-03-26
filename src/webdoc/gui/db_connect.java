@@ -29,22 +29,11 @@ public class db_connect extends JDialog {
 	private JPasswordField pwdWebdoc;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			db_connect dialog = new db_connect();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public db_connect() {
+	public db_connect(String db,String ip,int port,String user,String password) {
+	    this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    this.setVisible(true);
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -94,13 +83,13 @@ public class db_connect extends JDialog {
 		JLabel lblPort = new JLabel("Port:");
 		
 		textField = new JTextField();
-		textField.setText("3306");
+		textField.setText(String.valueOf(port));
 		textField.setColumns(10);
 		
 		JLabel lblDb = new JLabel("DB:");
 		
 		txtWebdoc = new JTextField();
-		txtWebdoc.setText("webdoc");
+		txtWebdoc.setText(user);
 		txtWebdoc.setColumns(10);
 		
 		JLabel lblUser = new JLabel("User:");
@@ -108,11 +97,11 @@ public class db_connect extends JDialog {
 		JLabel lblPassword = new JLabel("Password:");
 		
 		txtWebdoc_2 = new JTextField();
-		txtWebdoc_2.setText("webdoc");
+		txtWebdoc_2.setText(user);
 		txtWebdoc_2.setColumns(10);
 		
 		pwdWebdoc = new JPasswordField();
-		pwdWebdoc.setText("webdoc");
+		pwdWebdoc.setText(password);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -183,5 +172,11 @@ public class db_connect extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private void ok_pressed(){
+		ConfigLib cfl = new ConifgLib();
+		cfl.loadConfig();
+		cfl.
 	}
 }
