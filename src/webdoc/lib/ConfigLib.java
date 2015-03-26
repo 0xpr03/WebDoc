@@ -76,7 +76,6 @@ public class ConfigLib {
 	 * Writes the actual config back to the file
 	 * @return success
 	 */
-	@Deprecated
 	public boolean writeConfig(){
 		try {
 			FileWriter writer = new FileWriter(FILE);
@@ -136,9 +135,9 @@ public class ConfigLib {
 			defaults = (HashMap<String, Object>) yaml.load(in);
 			in.close();
 		}catch(FileNotFoundException | NullPointerException e){
-			logger.fatal("Interal error!", e);
+			logger.fatal("Internal error!", e);
 		}catch(IOException e){
-			logger.fatal("Interal error!", e);
+			logger.fatal("Internal error!", e);
 		}
 		logger.exit();
 	}
