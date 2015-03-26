@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
-import webdoc.gui.db_connect;
+import webdoc.gui.WDBConnect;
 import webdoc.lib.*;
 
 /**
@@ -82,7 +82,9 @@ public class WebDoc {
 
 	private static void startup(){
 		if(Config.getBoolValue("firstrun")){
-			db_connect dbc = new db_connect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"));
+			WDBConnect dbc = new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"));
+		}else{
+			//TODO: show mainwindow
 		}
 	}
 	

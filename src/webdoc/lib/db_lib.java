@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.WProgress;
+
 /**
  * DB related functions without the direct connection
  * @author "Aron Heinecke"
@@ -21,6 +23,7 @@ public class db_lib {
 	
 	public static boolean sqlTblCreator(File f){
 		try{
+			WProgress pwg = new WProgress();
 			FileReader fr = new FileReader(f);
 			BufferedReader br = new BufferedReader(fr);
 			StringBuffer sb = new StringBuffer();

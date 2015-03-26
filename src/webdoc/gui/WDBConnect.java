@@ -13,13 +13,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import java.awt.Dialog.ModalityType;
 
 /**
  * Setup window
  * @author "Aron Heinecke"
  *
  */
-public class db_connect extends JDialog {
+public class WDBConnect extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtLocalhost;
@@ -31,7 +32,7 @@ public class db_connect extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public db_connect(String db,String ip,int port,String user,String password) {
+	public WDBConnect(String db,String ip,int port,String user,String password) {
 	    this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    this.setVisible(true);
 		setResizable(false);
@@ -175,8 +176,8 @@ public class db_connect extends JDialog {
 	}
 	
 	private void ok_pressed(){
-		ConfigLib cfl = new ConifgLib();
+		/*ConfigLib cfl = new ConifgLib();
 		cfl.loadConfig();
-		cfl.
+		cfl.*/
 	}
 }
