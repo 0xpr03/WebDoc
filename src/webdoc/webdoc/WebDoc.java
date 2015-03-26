@@ -1,4 +1,4 @@
-package webdoc.webdoc;
+﻿package webdoc.webdoc;
 
 import java.util.HashMap;
 
@@ -28,13 +28,12 @@ public class WebDoc {
 		
 		loadConfig();
 		
-		if(Config.getBoolValue("firstrun")){
-			
-		}
+		//startup init
+		startup();
 		
 		Database.connect();
 		
-		//###
+		//### Testing area, all components loaded
 		
 		Database.test();
 		
@@ -78,6 +77,13 @@ public class WebDoc {
 				ShutDown();
 			}
 		});
+	}
+
+	private static void startup(){
+		if(Config.getBoolValue("firstrun")){
+			//TODO: show dialog
+			db_connect dbc = new db_connect(Config.getStrValue("user"),Config.getStrValue("password"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue(""));
+		}
 	}
 	
 	@SuppressWarnings("unused")
