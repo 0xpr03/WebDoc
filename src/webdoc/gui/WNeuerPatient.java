@@ -144,7 +144,7 @@ public class WNeuerPatient {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"mänlich", "weiblich"}));
 		
-		JLabel lblDiagnose = new JLabel("Diagnose:");
+		JLabel lblDiagnose = new JLabel("Befund:");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
