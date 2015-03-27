@@ -32,7 +32,7 @@ public class dbTools {
 			Pattern pattern = Pattern.compile(".*;.*");
 			Matcher matcher = pattern.matcher("");
 			window.setSubMax(getMaxLines(file));
-			window.setSubText("Creating tables..");
+			window.setSubText("Creating missing tables..");
 			
 			for(String line = br.readLine(); line != null;line=br.readLine()){
 				matcher.reset(line);

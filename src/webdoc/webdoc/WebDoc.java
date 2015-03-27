@@ -1,14 +1,14 @@
 ﻿package webdoc.webdoc;
 
-import java.util.HashMap;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WProgress;
-import webdoc.lib.*;
+import webdoc.lib.ConfigLib;
+import webdoc.lib.Database;
+import webdoc.lib.dbTools;
 
 /**
  * WebDoc Main Class
@@ -89,7 +89,7 @@ public class WebDoc {
 			WProgress wpg = new WProgress();
 			wpg.setMax(2);
 			wpg.setVisible(true);
-			wpg.setText("asd");
+			wpg.setText("Überprüfe Einstellungen");
 			dbTools dbt = new dbTools();
 			dbt.sqlTblCreator("/webdoc/files/tables.sql", wpg);
 			
