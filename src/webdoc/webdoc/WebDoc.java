@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
+import webdoc.gui.WProgress;
 import webdoc.lib.*;
 
 /**
@@ -32,7 +33,6 @@ public class WebDoc {
 		//startup init
 		startup();
 		
-		Database.connect();
 		
 		//### Testing area, all components loaded
 		
@@ -81,11 +81,25 @@ public class WebDoc {
 	}
 
 	private static void startup(){
+		logger.entry();
 		if(Config.getBoolValue("firstrun")){
-			WDBConnect dbc = new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"));
+			
+			WDBConnect dbc = new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
+			Database.connect();
+			WProgress wpg = new WProgress();
+			wpg.setMax(2);
+			wpg.setVisible(true);
+			wpg.setText("asd");
+			dbTools dbt = new dbTools();
+			dbt.sqlTblCreator("/webdoc/files/tables.sql", wpg);
+			
+			
+			wpg.dispose();
 		}else{
+			Database.connect();
 			//TODO: show mainwindow
 		}
+		logger.exit();
 	}
 	
 	@SuppressWarnings("unused")

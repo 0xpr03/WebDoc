@@ -50,7 +50,7 @@ public class Database{
 	
 	public static void test(){
 		try {
-			execUpdateQuery("");
+			execUpdateQuery("SELECT @@version");
 		}catch(Exception e){
 			logger.error(e);
 		}
@@ -87,12 +87,12 @@ public class Database{
 			stm = connection.createStatement();
 			stm.executeUpdate(sql);
 			
-			printResultSet(stm.getResultSet());
 			logger.debug("Affected lines {}", stm.getUpdateCount());
 			
 			stm.close();
+			
 		} catch (SQLException e) {
-			logger.error("Unable to query \n{}\n{}", sql,e);
+			logger.error("Unable to query \n{}\n", sql,e);
 		}
 		return affectedLines;
 		

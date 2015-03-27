@@ -2,6 +2,10 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,7 +17,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-import java.awt.Dialog.ModalityType;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Setup window
@@ -22,19 +28,29 @@ import java.awt.Dialog.ModalityType;
  */
 public class WDBConnect extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9180933401774432315L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtLocalhost;
 	private JTextField textField;
 	private JTextField txtWebdoc;
 	private JTextField txtWebdoc_2;
 	private JPasswordField pwdWebdoc;
-
+	private Logger logger = LogManager.getLogger();
+	
 	/**
 	 * Create the dialog.
+	 * @wbp.parser.constructor
 	 */
 	public WDBConnect(String db,String ip,int port,String user,String password) {
-	    this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	    this.setVisible(true);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				exit();
+			}
+		});
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -163,6 +179,11 @@ public class WDBConnect extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						close();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -173,6 +194,28 @@ public class WDBConnect extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+		
+	}
+	
+	private void exit(){
+		if(GUI.showErrorYesNoDialog("Wollen Sie das Programm beenden ?", "Beenden")==0){
+			logger.debug("Exiting..");
+			System.exit(0);
+		}
+	}
+	
+	public void close() {
+	    this.dispose();
+	}
+	
+	/**
+	 * Main runner, call this function
+	 */
+	public WDBConnect(String db,String ip,int port,String user,String password, boolean main){
+		WDBConnect dialog = new WDBConnect(db,ip,port,user,password);
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		dialog.setVisible(true);
 	}
 	
 	private void ok_pressed(){

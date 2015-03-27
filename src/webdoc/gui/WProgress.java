@@ -1,26 +1,35 @@
 package webdoc.gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JProgressBar;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Dialog.ModalityType;
 import java.awt.Component;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.Dialog.ModalExclusionType;
+
+/**
+ * ProgressWindow for external usage
+ * @author "Aron Heinecke"
+ *
+ */
 public class WProgress extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -945912363222219370L;
 	private final JPanel contentPanel = new JPanel();
-	private JProgressBar progressBar;
+	private JProgressBar progressBarTop;
+	private JLabel lblNewLabel_Top;
+	private JProgressBar progressBarSub;
+	private JLabel lblNewLabel_Sub;
 
 	/**
 	 * Launch the application.
@@ -39,47 +48,84 @@ public class WProgress extends JDialog {
 	 * Create the dialog.
 	 */
 	public WProgress() {
-		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setResizable(false);
-		setModalityType(ModalityType.DOCUMENT_MODAL);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setModal(true);
-		setBounds(100, 100, 600, 150);
+		setBounds(100, 100, 600, 175);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		progressBar = new JProgressBar();
+		progressBarTop = new JProgressBar();
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblNewLabel_Top = new JLabel("New label");
+		lblNewLabel_Top.setVerticalTextPosition(SwingConstants.TOP);
+		lblNewLabel_Top.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_Top.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		progressBarSub = new JProgressBar();
+		
+		lblNewLabel_Sub = new JLabel("New label");
+		lblNewLabel_Sub.setVerticalTextPosition(SwingConstants.TOP);
+		lblNewLabel_Sub.setVerticalAlignment(SwingConstants.TOP);
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-						.addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_Sub, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblNewLabel_Top, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+						.addComponent(progressBarSub, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+						.addComponent(progressBarTop, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(23))
+					.addComponent(lblNewLabel_Top, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(progressBarTop, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_Sub, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(progressBarSub, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 	}
 	
 	public void setMax(int i){
-		progressBar.setMaximum(i);
+		progressBarTop.setMaximum(i);
 	}
 	public void setProgress(int i){
-		progressBar.setValue(i);
+		progressBarTop.setValue(i);
+	}
+	/**
+	 * Add x to progress
+	 * @param i
+	 */
+	public void addProgress(int i){
+		progressBarTop.setValue(progressBarTop.getValue()+i);
+	}
+	public void setText(String text){
+		lblNewLabel_Top.setText(text);
+	}
+	
+	public void setSubMax(int i){
+		progressBarSub.setMaximum(i);
+	}
+	public void setSubProgress(int i){
+		progressBarSub.setValue(i);
+	}
+	/**
+	 * Add x to progress
+	 * @param i
+	 */
+	public void addSubProgress(int i){
+		progressBarSub.setValue(progressBarSub.getValue()+i);
+	}
+	public void setSubText(String text){
+		lblNewLabel_Sub.setText(text);
 	}
 }
