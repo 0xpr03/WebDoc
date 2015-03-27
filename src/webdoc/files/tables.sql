@@ -1,4 +1,4 @@
-/* SQL File for the table creation DO NOT edit this, unless you know what you're doing */
+/* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
 CREATE TABLE IF NOT EXISTS `partner` (
  `PartnerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `birthday` date NOT NULL,
