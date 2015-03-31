@@ -12,7 +12,6 @@ import javax.swing.JProgressBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Dialog.ModalExclusionType;
 
 /**
  * ProgressWindow for external usage
