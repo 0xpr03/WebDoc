@@ -129,7 +129,21 @@ public class WHomescreen {
 		panel_2.setLayout(gl_panel_2);
 		navigation.setLayout(new BorderLayout(0, 0));
 		
-		JTree navigationsbaum = new JTree();
+		final JTree navigationsbaum = new JTree();
+		navigationsbaum.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println(navigationsbaum.getLastSelectedPathComponent() + "");
+				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) navigationsbaum.getLastSelectedPathComponent();
+				System.out.println(selectedNode.getChildCount());
+				int zahl = selectedNode.getChildCount();
+						if (zahl > 0 || zahl < 0) {
+							return;
+						}else{
+							return;
+						}
+			}
+		});
 		navigationsbaum.setModel(GUIMethoden.Navi());
 		navigation.add(navigationsbaum);
 		frmWebdocHome.getContentPane().setLayout(groupLayout);

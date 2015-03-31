@@ -15,7 +15,7 @@ import webdoc.gui.GUIMethoden;
 
 public class WNeuerPatient {
 
-	private JFrame frame;
+	private JFrame frmNeuerPatient;
 	private JTextField textField;
 
 	/**
@@ -26,7 +26,7 @@ public class WNeuerPatient {
 			public void run() {
 				try {
 					WNeuerPatient window = new WNeuerPatient();
-					window.frame.setVisible(true);
+					window.frmNeuerPatient.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,12 +45,13 @@ public class WNeuerPatient {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 882, 592);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNeuerPatient = new JFrame();
+		frmNeuerPatient.setTitle("Neuer Patient");
+		frmNeuerPatient.setBounds(100, 100, 882, 592);
+		frmNeuerPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmNeuerPatient.setJMenuBar(menuBar);
 		menuBar.add(GUIMethoden.menus(menuBar));
 		
 		JPanel navigation = new JPanel();
@@ -77,7 +78,7 @@ public class WNeuerPatient {
 		suche.setLayout(gl_suche);
 		
 		JPanel daten = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(frmNeuerPatient.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -117,7 +118,7 @@ public class WNeuerPatient {
 					.addComponent(navigationsbaum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		navigation.setLayout(gl_navigation);
-		frame.getContentPane().setLayout(groupLayout);
+		frmNeuerPatient.getContentPane().setLayout(groupLayout);
 	}
 
 }
