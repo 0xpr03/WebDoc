@@ -28,6 +28,7 @@ import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import javax.swing.JTree;
 
 public class WNeuerPatient {
 
@@ -83,6 +84,9 @@ public class WNeuerPatient {
 		
 		JMenuItem menuItem_2 = new JMenuItem("Close");
 		menu.add(menuItem_2);
+		
+		JTree tree = new JTree();
+		menuBar.add(tree);
 		
 		JPanel panel = new JPanel();
 		
