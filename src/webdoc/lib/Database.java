@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLNonTransientConnectionException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +24,53 @@ public class Database{
 	
 	private static Logger logger = LogManager.getLogger("database");
 	private static Connection connection;
+	/**
+	 * Error constant, external is for NON sql errors
+	 * @author "Aron Heinecke"
+	 *
+	 */
+	public static enum DBError{
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4);
+		private DBError(int dberror){
+			this.DBError = dberror;
+		}
+		private int DBError;
+		public int getError(){
+			return this.DBError;
+		}
+	}
 	
-	public static void connect(){
+	/**
+	 * Connects to the DB server
+	 * Returns null if it was successful
+	 * @return error error type or null
+	 * @author "Aron Heinecke"
+	 */
+	public static DBError connect(boolean db){
+		DBError dberr = DBError.NOERROR;
 		String base = "jdbc:mariadb://";
 		
 		logger.info("Starting database connection");
 		
-		base = base+Config.getStrValue("ip")+":"+Config.getIntValue("port")+"/"+Config.getStrValue("db")
-				+"?tcpKeepAlive=true";
+		base = base+Config.getStrValue("ip")+":"+Config.getIntValue("port");
+		if(db){
+			base += "/"+Config.getStrValue("db");
+		}
+		base +="?tcpKeepAlive=true";
 		logger.debug("DB conn base: {}",base);
 		try{
 			//Class.forName("org.mariadb.jdbc.Driver");
 			connection = DriverManager.getConnection(base, Config.getStrValue("user"), Config.getStrValue("password"));
-		}catch(Exception e){
-			logger.error("Error initializing the jdbc driver!", e);
+		}catch(SQLNonTransientConnectionException e){ //see https://git.proctet.net/webdoc/webdoc/snippets/11
+			dberr = DBError.NOCONNECTION;
+		}catch(SQLException e){
+			dberr = DBExceptionConverter(e);
+		}finally{
+			if(dberr != DBError.NOERROR && connection != null){
+				try{connection.close();}catch(SQLException e){}
+			}
 		}
+		return dberr;
 	}
 	
 	public static void disconnect(){
@@ -78,22 +111,27 @@ public class Database{
 	 * Runns an SQL command, NOT injection safe!
 	 * @param sql
 	 * @return dbResult dbResult which's ResultSet WASN'T closed till now!
+	 * @throws SQLException 
 	 */
-	public static int execUpdateQuery(String sql){
+	public static int execUpdateQuery(String sql) throws SQLException{
 		int affectedLines = -1;
-		try {
-			Statement stm = null;
-			dbResult dbResult = null;
-			stm = connection.createStatement();
-			stm.executeUpdate(sql);
-			
-			logger.debug("Affected lines {}", stm.getUpdateCount());
-			
-			stm.close();
-			
-		} catch (SQLException e) {
-			logger.error("Unable to query \n{}\n", sql,e);
+		
+		Statement stm = null;
+		try{
+		
+		dbResult dbResult = null;
+		stm = connection.createStatement();
+		stm.executeUpdate(sql);
+		
+		logger.debug("Affected lines {}", stm.getUpdateCount());
+		
+		stm.close();
+		}finally{
+			if(stm != null){
+				try{stm.close();}catch(Exception e){}
+			}
 		}
+		
 		return affectedLines;
 		
 		
@@ -142,5 +180,24 @@ public class Database{
 		}
 	}
 	
-	
+	/**
+	 * Converts the (mostly) string based SQLExceptions to DBErrors
+	 * This function already loggs errors on debug level!
+	 * @param e
+	 * @return
+	 */
+	public static DBError DBExceptionConverter(SQLException e){
+		logger.debug("Converter catched\n{}",e);
+		if(e.getMessage().contains("Access denied for user")){
+			if(e.getMessage().contains("to database")){
+				return DBError.NO_DB_OR_NO_PERM;
+			}else{
+				return DBError.INVALID_LOGIN;
+			}
+		}else if(e.getMessage().contains("No database selected")){
+			return DBError.NO_DB_SELECTED;
+		}else{
+			return DBError.UNDEFINED_ERROR;
+		}
+	}
 }
