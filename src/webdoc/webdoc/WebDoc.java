@@ -1,5 +1,7 @@
 ﻿package webdoc.webdoc;
 
+import javax.swing.UIManager;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,11 +20,11 @@ import webdoc.lib.dbTools;
 public class WebDoc {
 	
 //	private static String log_file_name = "webdoc-client.log";
-	private static String CONFIG_FILE_NAME = "config.yml";
-	private static String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
+	private static final String CONFIG_FILE_NAME = "config.yml";
+	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
 	private  static final Logger logger = LogManager.getLogger();
-	private static String VERSION = "0.2 alpha";
+	private static final String VERSION = "0.2 alpha";
 	
 	public static void main(String[] args){
 		// bsp: nur bei log level info werden die strings zusammengefügt
@@ -30,13 +32,20 @@ public class WebDoc {
 		
 		loadConfig();
 		
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error("Error setting look and feel \n{}",e);
+		}
+		
 		//startup init
 		startup();
 		
 		
 		//### Testing area, all components loaded
 		
-		Database.test();
+		//test();
 		
 		//###
 		
@@ -83,20 +92,35 @@ public class WebDoc {
 	private static void startup(){
 		logger.entry();
 		if(Config.getBoolValue("firstrun")){
-			
-			WDBConnect dbc = new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
-			Database.connect();
-			WProgress wpg = new WProgress();
-			wpg.setMax(2);
-			wpg.setVisible(true);
-			wpg.setText("Überprüfe Einstellungen");
-			dbTools dbt = new dbTools();
-			dbt.sqlTblCreator("/webdoc/files/tables.sql", wpg);
-			
-			
-			wpg.dispose();
+			boolean runSetup = true;
+			while(runSetup){
+				new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
+				logger.debug("going to runt he setup..");
+				
+				switch(new dbTools().runDBSetup()){
+				case EXTERNAL_ERROR:
+					break;
+				case INVALID_LOGIN:
+					break;
+				case NOCONNECTION:
+					break;
+				case NOERROR:
+					runSetup = false;
+					break;
+				case NO_DB_OR_NO_PERM:
+					break;
+				case NO_DB_SELECTED:
+					break;
+				case UNDEFINED_ERROR:
+					break;
+				default:
+					break;
+				
+				}
+				runSetup = false;
+			}
 		}else{
-			Database.connect();
+			Database.connect(true);
 			//TODO: show mainwindow
 		}
 		logger.exit();
@@ -105,7 +129,7 @@ public class WebDoc {
 	@SuppressWarnings("unused")
 	private static void test(){
 		logger.entry();
-		ConfigLib configLib = new ConfigLib(CONFIG_FILE_NAME,DEFAULT_CONFIG_PATH);
+		Database.connect(false);
 		
 		
 		logger.exit();
