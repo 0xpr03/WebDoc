@@ -1,5 +1,7 @@
 package webdoc.gui;
 
+import java.awt.Component;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -33,7 +35,7 @@ public class GUIMethoden {
         root.add(main);
         root.add( patientenundpartner );
         root.add( behandlung );
- 
+		
         return root;
 	}
 	/* */

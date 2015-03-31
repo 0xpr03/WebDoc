@@ -24,6 +24,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class WHomescreen {
 
@@ -84,7 +86,7 @@ public class WHomescreen {
 					.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 799, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
 							.addGap(4)))
@@ -94,14 +96,14 @@ public class WHomescreen {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(navigation, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 569, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
 							.addGap(11)))
-					.addGap(0, 0, Short.MAX_VALUE))
+					.addGap(0))
 		);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
@@ -119,16 +121,16 @@ public class WHomescreen {
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(23)
-					.addComponent(txtSuche, GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-					.addGap(113))
+					.addContainerGap()
+					.addComponent(txtSuche, GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(5)
+				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(txtSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(13, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		panel_2.setLayout(gl_panel_2);
 		navigation.setLayout(new BorderLayout(0, 0));
@@ -138,6 +140,5 @@ public class WHomescreen {
 		navigation.add(navigationsbaum);
 		frmWebdocHome.getContentPane().setLayout(groupLayout);
 	}
-	
 }
 
