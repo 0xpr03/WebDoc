@@ -145,7 +145,7 @@ public class WHomescreen {
 			}
 		});
 		navigationsbaum.setModel(GUIMethoden.Navi());
-		navigation.add(navigationsbaum);
+		navigation.add(navigationsbaum, BorderLayout.NORTH);
 		frmWebdocHome.getContentPane().setLayout(groupLayout);
 	}
 }
