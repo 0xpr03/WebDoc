@@ -2,6 +2,9 @@ package webdoc.gui;
 
 import java.awt.Component;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -38,5 +41,17 @@ public class GUIMethoden {
 		
         return root;
 	}
-	/* */
+	/*Erstellt das Dropdown Menu */
+	public static JMenu menus(JMenuBar menuBar) {
+		JMenu menu = new JMenu("Menu");
+		menuBar.add(menu);
+		
+		JMenuItem hilfe = new JMenuItem("Hilfe");
+		JMenuItem close = new JMenuItem("Close");
+		
+		menu.add(hilfe);
+		menu.add(close);
+		
+		return menu;
+	}
 }

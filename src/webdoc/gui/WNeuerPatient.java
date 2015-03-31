@@ -5,8 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -48,6 +48,10 @@ public class WNeuerPatient {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 882, 592);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		menuBar.add(GUIMethoden.menus(menuBar));
 		
 		JPanel navigation = new JPanel();
 		

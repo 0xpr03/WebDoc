@@ -83,19 +83,9 @@ public class WNeuerPatner {
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		menuBar.add(GUIMethoden.menus(menuBar));
 		
-		JMenu menu = new JMenu("Menu");
-		menuBar.add(menu);
-		
-		JMenuItem menuItem = new JMenuItem("Neuer Patient");
-		menu.add(menuItem);
-		
-		JMenuItem menuItem_1 = new JMenuItem("Neuer Partner");
-		menu.add(menuItem_1);
-		
-		JMenuItem menuItem_2 = new JMenuItem("Close");
-		menu.add(menuItem_2);
-		
+
 		JPanel panel = new JPanel();
 		
 		textField = new JTextField();

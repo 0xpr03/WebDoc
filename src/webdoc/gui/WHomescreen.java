@@ -66,13 +66,7 @@ public class WHomescreen {
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmWebdocHome.setJMenuBar(menuBar);
-		
-		JMenu mnMenu = new JMenu("Menu");
-		menuBar.add(mnMenu);
-		
-		JMenuItem mntmHilfe = new JMenuItem("Hilfe");
-		mnMenu.add(mntmHilfe);
-		
+		menuBar.add(GUIMethoden.menus(menuBar));
 		JPanel navigation = new JPanel();
 		
 		JPanel panel_1 = new JPanel();
