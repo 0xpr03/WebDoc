@@ -10,14 +10,20 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTree;
+
 import java.awt.BorderLayout;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+
 import java.awt.Color;
+
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 
 public class WHomescreen {
 
@@ -65,7 +71,7 @@ public class WHomescreen {
 		JMenuItem mntmHilfe = new JMenuItem("Hilfe");
 		mnMenu.add(mntmHilfe);
 		
-		JPanel panel = new JPanel();
+		JPanel navigation = new JPanel();
 		
 		JPanel panel_1 = new JPanel();
 		
@@ -75,7 +81,7 @@ public class WHomescreen {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+					.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 799, GroupLayout.PREFERRED_SIZE)
@@ -89,7 +95,7 @@ public class WHomescreen {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
+						.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -125,24 +131,13 @@ public class WHomescreen {
 					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
-		panel.setLayout(new BorderLayout(0, 0));
+		navigation.setLayout(new BorderLayout(0, 0));
 		
-		JTree tree = new JTree();
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("WebDoc") {
-				{
-					DefaultMutableTreeNode node_1;
-					node_1 = new DefaultMutableTreeNode("Patienten und Patner");
-						node_1.add(new DefaultMutableTreeNode("Neuer Patient"));
-						node_1.add(new DefaultMutableTreeNode("Neuer Patner"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("Behandlung");
-						node_1.add(new DefaultMutableTreeNode("Neue Behandlung"));
-					add(node_1);
-				}
-			}
-		));
-		panel.add(tree);
+		JTree navigationsbaum = new JTree();
+		navigationsbaum.setModel(GUIMethoden.Navi());
+		navigation.add(navigationsbaum);
 		frmWebdocHome.getContentPane().setLayout(groupLayout);
 	}
+	
 }
+
