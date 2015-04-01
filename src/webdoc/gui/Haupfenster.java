@@ -2,13 +2,23 @@ package webdoc.gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTree;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JInternalFrame;
+import javax.swing.border.TitledBorder;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import javax.swing.JLayeredPane;
+import javax.swing.JDesktopPane;
+import java.awt.Color;
 
 public class Haupfenster extends GUIMethoden{
 

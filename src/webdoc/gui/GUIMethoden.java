@@ -1,5 +1,7 @@
 package webdoc.gui;
 
+import java.awt.Component;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
