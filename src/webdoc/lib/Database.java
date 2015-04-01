@@ -110,7 +110,7 @@ public class Database{
 	/**
 	 * Runns an SQL command, NOT injection safe!
 	 * @param sql
-	 * @return dbResult dbResult which's ResultSet WASN'T closed till now!
+	 * @return affected lines!
 	 * @throws SQLException 
 	 */
 	public static int execUpdateQuery(String sql) throws SQLException{
@@ -133,8 +133,6 @@ public class Database{
 		}
 		
 		return affectedLines;
-		
-		
 	}
 	
 	/**
