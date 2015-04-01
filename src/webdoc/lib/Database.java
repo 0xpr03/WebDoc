@@ -30,7 +30,7 @@ public class Database{
 	 *
 	 */
 	public static enum DBError{
-		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4);
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5);
 		private DBError(int dberror){
 			this.DBError = dberror;
 		}
@@ -196,6 +196,8 @@ public class Database{
 			}
 		}else if(e.getMessage().contains("No database selected")){
 			return DBError.NO_DB_SELECTED;
+		}else if(e.getMessage().contains("Access denied; you need")){
+			return DBError.NO_PERMISSIONS;
 		}else{
 			return DBError.UNDEFINED_ERROR;
 		}
