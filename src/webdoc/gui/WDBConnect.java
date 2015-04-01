@@ -36,7 +36,6 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.lib.Database;
-import webdoc.lib.PasswordGenerator;
 import webdoc.lib.Database.DBError;
 import webdoc.webdoc.Config;
 
@@ -196,7 +195,7 @@ public class WDBConnect extends JDialog {
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setText(password);
-		txtPassword.getDocument().addDocumentListener(new TextDocListener());
+//		txtPassword.getDocument().addDocumentListener(new TextDocListener()); DEBUG
 		
 		chckbxErstelleNutzer = new JCheckBox("Erstelle Nutzer & DB");
 		
