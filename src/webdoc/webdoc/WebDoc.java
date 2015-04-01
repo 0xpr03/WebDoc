@@ -78,6 +78,8 @@ public class WebDoc {
 				configLib.writeDefaults(false);
 			}
 		}
+		
+		Config.setValue("tablesql", "/webdoc/files/tables.sql");
 	}
 	
 	private static void registerExitFunction() {
@@ -113,9 +115,11 @@ public class WebDoc {
 					break;
 				case UNDEFINED_ERROR:
 					break;
+				case NO_PERMISSIONS:
+					GUI.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
+					break;
 				default:
 					break;
-				
 				}
 				runSetup = false;
 			}
