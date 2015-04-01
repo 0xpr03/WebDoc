@@ -1,11 +1,14 @@
 package webdoc.lib;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +35,7 @@ public class dbTools {
 	 * @param window
 	 * @return
 	 */
-	public DBError sqlTblCreator(boolean overwrite,String file, WProgress window){
+	public DBError sqlTblCreator(String file, WProgress window){
 		try{
 			InputStream is = getClass().getResourceAsStream(file);
 		    InputStreamReader isr = new InputStreamReader(is);
@@ -53,9 +56,8 @@ public class dbTools {
 					Database.execUpdateQuery(sb.toString());
 					sb.setLength(0);
 				}
-				window.addSubProgress(1);
+				window.addSubProgress();
 			}
-			window.addProgress(1);
 			br.close();
 			isr.close();
 			is.close();
@@ -79,44 +81,61 @@ public class dbTools {
 		int max = 1;
 			max += Config.getBoolValue("createDB") ? 1 : 0;
 			max += Config.getBoolValue("createUser") ? 1 : 0;
-			max += Config.getBoolValue("overwriteDB") ? 1 : 0;
+			max += Config.getBoolValue("overwriteDB") ? 2 : 0;
 			// max += Config.getBoolValue("safeConfig") ? 1 : 0;
 			wpg.setMax(max);
 			wpg.setVisible(true);
-
+			
+			String file = Config.getStrValue("tablesql");
+			
+			if(Config.getBoolValue("createDB")){
+				wpg.setText("Creating DB");
+				wpg.setSubMax(1);
+				wpg.setSubText("Creating DB");
+				Database.execUpdateQuery("CREATE DATABASE IF NOT EXISTS webdoc;");
+				wpg.addSubProgress();
+			}
+			
+			Database.execUpdateQuery("use webdoc;");
+			
+			if (Config.getBoolValue("overwriteDB")) {
+				wpg.setText("Overwriting DBs..");
+				wpg.setSubText("Getting DBs");
+				
+				List<String> dbs = getTableNames(file, wpg);
+				wpg.addProgress();
+				wpg.setSubText("Deleting DBs..");
+				wpg.setSubMax(dbs.size());
+				for(String table : dbs){
+					Database.execUpdateQuery("DROP TABLE IF EXISTS `"+table+"`;");
+					wpg.addSubProgress();
+				}
+				wpg.addProgress();
+			}
+			
+			if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
+				sqlTblCreator(file, wpg);
+			}
+			
 			if (Config.getBoolValue("createUser")) {
 				wpg.setText("Creating User..");
 				wpg.setSubMax(2);
 				wpg.setSubText("Creating user webdoc");
-				// TODO: create user webdoc
 				PasswordGenerator pwdg = new PasswordGenerator();
 				Config.setValue("password", pwdg.generateGenericPassword(20));
-				Database.execUpdateQuery("CREATE USER 'test1'@'%' IDENTIFIED BY '" + Config.getStrValue("password")
+				Database.execUpdateQuery("CREATE USER 'webdoc'@'%' IDENTIFIED BY '" + Config.getStrValue("password")
 						+ "';");
-				// CREATE USER 'test1'@'%' IDENTIFIED BY '***';GRANT USAGE ON
-				// *.* TO 'test1'@'%' IDENTIFIED BY '***' WITH
-				// MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0
-				// MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL
-				// PRIVILEGES ON `webdoc`.* TO 'test1'@'%';
-				// REVOKE ALL PRIVILEGES ON `webdoc`.* FROM 'test1'@'%'; GRANT
-				// SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX,
-				// CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT,
-				// TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON
-				// `webdoc`.* TO 'test1'@'%';
-				wpg.addSubProgress(1);
-				wpg.setSubText("Creating user webdocroot");
-				// TODO: create user webdocroot
-				wpg.addSubProgress(1);
-				wpg.addProgress(1);
+				wpg.addSubProgress();
+				wpg.setSubText("Granting permissions on DB");
+				wpg.setSubMax(1);
+				String sql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX,"
+						+"CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT,"
+						+"TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON "
+						+"`"+Config.getStrValue("db")+"`.* TO 'webdoc'@'%';";
+				Database.execUpdateQuery(sql);
+				wpg.addSubProgress();
+				wpg.addProgress();
 			}
-			if (Config.getBoolValue("overwriteDB")) {
-				wpg.setText("Deleting tables..");
-				// TODO: get tables & get max
-				wpg.setSubMax(2);
-				// TODO: iterate through listfor() & delete DROP TABLE IF EXISTS
-			}
-
-			sqlTblCreator(false, "/webdoc/files/tables.sql", wpg);
 		}catch(SQLException e){
 			dberr = Database.DBExceptionConverter(e);
 		}
@@ -145,6 +164,44 @@ public class dbTools {
 		}catch(IOException e){
 			logger.error("Unable to open file!",e);
 			return -1;
+		}
+	}
+	
+	/**
+	 * Extracts the table names out of the table.sql
+	 * @param file ressource file
+	 * @return List of table names, null on error
+	 */
+	private List<String> getTableNames(String file, WProgress window){
+		try{
+			InputStream is = getClass().getResourceAsStream(file);
+		    InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			
+			Pattern pattern = Pattern.compile("^CREATE TABLE IF NOT EXISTS \\`[a-zA-Z]+\\` \\(");
+			Matcher matcher = pattern.matcher("");
+			List<String> tables = new ArrayList<String>();
+			
+			window.setSubMax(getMaxLines(file));
+			window.setSubText("Getting table names..");
+			
+			for(String line = br.readLine(); line != null;line=br.readLine()){
+				matcher.reset(line);
+				window.addSubProgress();
+				if(matcher.find()){
+					//TODO: do sql command
+					logger.debug("Found ; {}",line);
+					tables.add(line.substring(line.indexOf("`")+1, line.lastIndexOf("`")));
+					logger.debug("trimmed {}",tables.get(tables.size()-1));
+				}
+			}
+			br.close();
+			isr.close();
+			is.close();
+			return tables;
+		}catch(IOException e){
+			logger.fatal("Unable to open file!",e);
+			return null;
 		}
 	}
 }
