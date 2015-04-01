@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
-import webdoc.gui.WProgress;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.Database;
 import webdoc.lib.dbTools;
