@@ -1,36 +1,23 @@
 package webdoc.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JSeparator;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-
-import java.awt.Color;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JList;
-import javax.swing.JTabbedPane;
-import javax.swing.JCheckBoxMenuItem;
-
-import java.awt.FlowLayout;
 
 public class WNeuerPatner {
 
