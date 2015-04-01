@@ -51,6 +51,7 @@ public class WProgress extends JDialog {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 600, 175);
+		setLocationRelativeTo(null); // center it
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -107,11 +108,21 @@ public class WProgress extends JDialog {
 	public void addProgress(int i){
 		progressBarTop.setValue(progressBarTop.getValue()+i);
 	}
+	public void addProgress(){
+		addProgress(1);
+	}
 	public void setText(String text){
 		lblNewLabel_Top.setText(text);
 	}
 	
 	public void setSubMax(int i){
+		progressBarSub.setValue(0);
+		progressBarSub.setMaximum(i);
+	}
+	public void setSubMax(int i, boolean reset){
+		if(reset){
+			progressBarSub.setValue(0);
+		}
 		progressBarSub.setMaximum(i);
 	}
 	public void setSubProgress(int i){
@@ -123,6 +134,9 @@ public class WProgress extends JDialog {
 	 */
 	public void addSubProgress(int i){
 		progressBarSub.setValue(progressBarSub.getValue()+i);
+	}
+	public void addSubProgress(){
+		addSubProgress(1);
 	}
 	public void setSubText(String text){
 		lblNewLabel_Sub.setText(text);
