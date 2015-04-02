@@ -26,7 +26,7 @@ import webdoc.webdoc.Config;
 public class ConfigLib {
 	
 	private File FILE;
-	private Yaml yaml;
+	private Yaml yaml = new Yaml();
 	private Logger logger = LogManager.getLogger();
 	private String DEFAULT_PATH;
 	private boolean scanner_exception = false;
@@ -37,12 +37,18 @@ public class ConfigLib {
 	
 	public ConfigLib(String file, String default_path){
 		logger.debug("Initializing config");
-		this.FILE = new File(System.getProperty("user.dir")+"/"+file);
-		logger.debug("Config file: {}", FILE.getAbsolutePath());
-		yaml = new Yaml();
+		logger.debug("OS: {}",System.getProperty("os.name"));
+		File folder;
+		if(System.getProperty("os.name").contains("Window")){
+			folder = new File(System.getenv("APPDATA")+"/.webdoc");
+		}else{
+			folder = new File(System.getProperty("user.home")+"/.webdoc");
+		}
+		folder.mkdirs();
+		FILE = new File(folder.getAbsolutePath()+"/"+file);
 		DEFAULT_PATH = default_path;
+		logger.debug("Config file: {}", FILE.getAbsolutePath());
 	}
-	
 	
 	/***
 	 * Trys to load the config file
@@ -78,6 +84,12 @@ public class ConfigLib {
 	 */
 	public boolean writeConfig(){
 		try {
+			loadDefaults();
+			for (String key : defaults.keySet()){
+				logger.debug("Writing: {}",key);
+				config.put(key, Config.getValue(key));
+			}
+			logger.debug("Config: {}",config);
 			FileWriter writer = new FileWriter(FILE);
 			yaml.dump(config, writer);
 			writer.close();
@@ -88,40 +100,27 @@ public class ConfigLib {
 		return false;
 	}
 	
-	
-//	public boolean writeConfig(Map<String,String>){
-//		
-//		return true;
-//	}
-	
 	/**
 	 * return an string entry
 	 * @param key value key
 	 * @param map result set
 	 * @return string or null
 	 */
-	private String getEntryStr(String key, Map<String,Object> map){
+	private Object getEntry(String key, Map<String,Object> map){
 		if(map.containsKey(key))
-			return String.valueOf(map.get(key));
+			return map.get(key);
 		else{
 			logger.warn("Missing entry {}",key);
 			missing_entrys++;
-			return String.valueOf(defaults.get(key));
+			return defaults.get(key);
 		}
 	}
 	
 	public void parseConfig(){
 		loadDefaults();
-		
-		Config.setValue("password", getEntryStr("password",config));
-		Config.setValue("user", getEntryStr("user",config));
-		Config.setIntValue("port", getEntryStr("port",config));
-		Config.setValue("ip", getEntryStr("ip",config));
-		Config.setValue("db", getEntryStr("db",config));
-		
-		Config.setBoolValue("firstrun", getEntryStr("firstrun",config));
-		Config.setIntValue("guistyle", getEntryStr("guistyle",config));
-		
+		for(String key : defaults.keySet()){
+			Config.setValue(key, getEntry(key,config));
+		}
 	}
 	
 	/***
