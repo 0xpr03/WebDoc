@@ -77,11 +77,10 @@ public class dbTools {
 		DBError dberr = DBError.NOERROR;
 		WProgress wpg = new WProgress();
 		try{
-		int max = 1;
+		int max = 0;
 			max += Config.getBoolValue("createDB") ? 1 : 0;
 			max += Config.getBoolValue("createUser") ? 1 : 0;
 			max += Config.getBoolValue("overwriteDB") ? 2 : 0;
-			// max += Config.getBoolValue("safeConfig") ? 1 : 0;
 			wpg.setMax(max);
 			wpg.setVisible(true);
 			
@@ -135,6 +134,7 @@ public class dbTools {
 				wpg.addSubProgress();
 				wpg.addProgress();
 			}
+			
 		}catch(SQLException e){
 			dberr = Database.DBExceptionConverter(e);
 		}
