@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 /**
  * Config holder for all instances
+ * Local variables for the session inclusive
  * @author "Aron Heinecke"
  *
  */
@@ -26,6 +27,15 @@ public class Config {
 	 */
 	public static String getStrValue(String key){
 		return (String) SETTINGS.get(key);
+	}
+	
+	/**
+	 * Get value, undefined type
+	 * @param key string
+	 * @return value string
+	 */
+	public static Object getValue(String key){
+		return SETTINGS.get(key);
 	}
 	
 	/**
@@ -62,6 +72,15 @@ public class Config {
 	 */
 	public synchronized static void setIntValue(String key, String value){
 		SETTINGS.put(key, Integer.valueOf(value));
+	}
+	
+	/**
+	 * Not for normal use !
+	 * @return the complete config
+	 */
+	@Deprecated
+	public static HashMap<String,Object> getMap(){
+		return SETTINGS;
 	}
 	
 }
