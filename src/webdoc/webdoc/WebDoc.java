@@ -79,6 +79,8 @@ public class WebDoc {
 		}
 		
 		Config.setValue("tablesql", "/webdoc/files/tables.sql");
+		Config.setValue("configFileName", CONFIG_FILE_NAME);
+		Config.setValue("defaultConfigPath", DEFAULT_CONFIG_PATH);
 	}
 	
 	private static void registerExitFunction() {
@@ -106,6 +108,10 @@ public class WebDoc {
 				case NOCONNECTION:
 					break;
 				case NOERROR:
+					Config.setValue("firstrun", false);
+					ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
+					cfg.loadConfig();
+					cfg.writeConfig();
 					runSetup = false;
 					break;
 				case NO_DB_OR_NO_PERM:
@@ -120,7 +126,6 @@ public class WebDoc {
 				default:
 					break;
 				}
-				runSetup = false;
 			}
 		}else{
 			Database.connect(true);
