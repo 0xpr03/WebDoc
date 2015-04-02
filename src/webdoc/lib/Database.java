@@ -94,6 +94,7 @@ public class Database{
 	 * @return list of procedures
 	 * @throws SQLException
 	 */
+	@SuppressWarnings("unused")
 	private static List<String> getProcedures() throws SQLException{
 		Statement stm = connection.createStatement();
 		stm.execute("SHOW PROCEDURE STATUS;");
@@ -118,14 +119,11 @@ public class Database{
 		
 		Statement stm = null;
 		try{
-		
-		dbResult dbResult = null;
-		stm = connection.createStatement();
-		stm.executeUpdate(sql);
-		
-		logger.debug("Affected lines {}", stm.getUpdateCount());
-		
-		stm.close();
+			stm = connection.createStatement();
+			stm.executeUpdate(sql);
+			
+			logger.debug("Affected lines {}", stm.getUpdateCount());
+			stm.close();
 		}finally{
 			if(stm != null){
 				try{stm.close();}catch(Exception e){}
