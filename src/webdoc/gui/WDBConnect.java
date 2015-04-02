@@ -63,8 +63,9 @@ public class WDBConnect extends JDialog {
 	private JCheckBox chckbxErstelleNutzer;
 	private boolean createDB = false;
 	private WDBConnect parent;
-	private JCheckBox chckbxUeberschreibeTabellen;
+	private JCheckBox chckbxOverwriteTables;
 	private DisabledGlassPane glassPane = new DisabledGlassPane();
+	private JCheckBox chckbxCreateDB;
 	
 	/**
 	 * Create the dialog.
@@ -82,13 +83,13 @@ public class WDBConnect extends JDialog {
 			}
 		});
 		setModal(true);
-		setBounds(100, 100, 450, 333);
+		setBounds(100, 100, 458, 345);
 		setLocationRelativeTo(null); // center it
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setFocusable(false);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		JLabel lblNetterInfotext = new JLabel("<html>Bitte geben Sie die Logindaten und die Datenbank an.<br><br>\r\n\r\nNutzer & DB selbst erstellen: (bei erstinstallation) Hier muss unter User und Password ein Nutzer mit höheren Rechte angegeben werden (bpsw. root ).<br>\r\nWebDoc erzeugt sich dann den Nutzer selbst & gibt die Logindaten nach Durchfürhung der Konfiguration aus.");
+		JLabel lblNetterInfotext = new JLabel("<html>Bitte geben Sie die Logindaten und die Datenbank an.<br><br>\r\n\r\nNutzer & DB selbst erstellen: (bei Erstinstallation) Hier muss unter User und Password ein Nutzer mit höheren Rechten angegeben werden (z.B.: root ).<br>\r\nWebDoc wird sich dann den Nutzer selbst erstellen & gibt die Logindaten nach erfolgreicher Konfiguration aus.");
 		lblNetterInfotext.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNetterInfotext.setRequestFocusEnabled(false);
 		lblNetterInfotext.setVerifyInputWhenFocusTarget(false);
@@ -104,24 +105,23 @@ public class WDBConnect extends JDialog {
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNetterInfotext, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNetterInfotext, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+				.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNetterInfotext, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+					.addComponent(lblNetterInfotext, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		
 		JLabel lblIp = new JLabel("IP:");
@@ -197,13 +197,15 @@ public class WDBConnect extends JDialog {
 		txtPassword.setText(password);
 //		txtPassword.getDocument().addDocumentListener(new TextDocListener()); DEBUG
 		
-		chckbxErstelleNutzer = new JCheckBox("Erstelle Nutzer & DB");
+		chckbxErstelleNutzer = new JCheckBox("Erstelle Nutzer");
 		
-		chckbxUeberschreibeTabellen = new JCheckBox("Überschreibe Tabellen");
+		chckbxOverwriteTables = new JCheckBox("Überschreibe Tabellen");
+		
+		chckbxCreateDB = new JCheckBox("Erstelle DB");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
@@ -217,20 +219,21 @@ public class WDBConnect extends JDialog {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblDb)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(txtDB, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(chckbxCreateDB)
+								.addComponent(txtDB, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))))
 					.addGap(58)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(chckbxUeberschreibeTabellen)
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(gl_panel.createSequentialGroup()
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblUser)
-									.addComponent(lblPassword))
-								.addGap(10)
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(txtPassword)
-									.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)))
-							.addComponent(chckbxErstelleNutzer)))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblUser)
+								.addComponent(lblPassword))
+							.addGap(10)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(txtPassword)
+								.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(chckbxErstelleNutzer)
+						.addComponent(chckbxOverwriteTables))
 					.addGap(29))
 		);
 		gl_panel.setVerticalGroup(
@@ -247,9 +250,7 @@ public class WDBConnect extends JDialog {
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblPassword))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(chckbxErstelleNutzer)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(chckbxUeberschreibeTabellen))
+							.addComponent(chckbxErstelleNutzer))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblIp)
@@ -261,11 +262,15 @@ public class WDBConnect extends JDialog {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDb)
-								.addComponent(txtDB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(19, Short.MAX_VALUE))
+								.addComponent(txtDB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(chckbxCreateDB)
+								.addComponent(chckbxOverwriteTables))))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
-		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtIP, txtPort, txtDB, txtUser, txtPassword, chckbxErstelleNutzer, chckbxUeberschreibeTabellen}));
+		panel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtIP, txtPort, txtDB, txtUser, txtPassword, chckbxErstelleNutzer, chckbxOverwriteTables}));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -298,7 +303,7 @@ public class WDBConnect extends JDialog {
 			buttonPane.add(okButton, "cell 1 0,growx,aligny center");
 			buttonPane.add(cancelButton, "cell 2 0,growx,aligny center");
 		}
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtIP, txtPort, txtDB, txtUser, txtPassword, chckbxErstelleNutzer, chckbxUeberschreibeTabellen, okButton, cancelButton}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtIP, txtPort, txtDB, txtUser, txtPassword, chckbxErstelleNutzer, chckbxOverwriteTables, okButton, cancelButton}));
 		
 		
 	}
@@ -330,11 +335,10 @@ public class WDBConnect extends JDialog {
 			public void run() {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
-						logger.entry();
 						progressBar.setVisible(true);
-						Config.setValue("createDB", chckbxErstelleNutzer.isSelected());
+						Config.setValue("createDB", chckbxCreateDB.isSelected());
 						Config.setValue("createUser", chckbxErstelleNutzer.isSelected());
-						Config.setValue("overwriteDB", chckbxUeberschreibeTabellen.isSelected());
+						Config.setValue("overwriteDB", chckbxOverwriteTables.isSelected());
 						logger.debug("crateDB: {}", createDB);
 						Config.setValue("user", txtUser.getText());
 						Config.setValue("password", String.valueOf(txtPassword.getPassword()));
@@ -353,6 +357,11 @@ public class WDBConnect extends JDialog {
 							GUI.showErrorDialog(parent, "Die IP und/oder der Port stimmen nicht!", "Fehler beim Verbinden");
 							break;
 						case NOERROR:
+							if(Config.getBoolValue("overwriteDB")){
+								if(GUI.showErrorYesNoDialog(parent, "Wollen Sie wirklich alle Datensätze überschreiben ?\nDies führt zum Verlust aller bestehenden Daten!", "Tabellen überschreiben..") == 1){
+									break;
+								}
+							}
 							close();
 							break;
 						case NO_DB_OR_NO_PERM:
@@ -361,7 +370,6 @@ public class WDBConnect extends JDialog {
 						default:
 							break;
 						}
-						logger.exit();
 					}
 				});
 				t.start();
