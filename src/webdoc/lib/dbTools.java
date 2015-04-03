@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.GUI;
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 import webdoc.webdoc.Config;
@@ -73,14 +74,14 @@ public class dbTools {
 	 * runns the DBSetup
 	 * @return
 	 */
-	public DBError runDBSetup(){
-		DBError dberr = DBError.NOERROR;
+	public DBEError runDBSetup(){
+		DBEError dberr = new DBEError(DBError.NOERROR,null);
 		WProgress wpg = new WProgress();
 		try{
 		int max = 0;
 			max += Config.getBoolValue("createDB") ? 1 : 0;
 			max += Config.getBoolValue("createUser") ? 1 : 0;
-			max += Config.getBoolValue("overwriteDB") ? 2 : 0;
+			max += Config.getBoolValue("overwriteDB") ? 3 : 0;
 			wpg.setMax(max);
 			wpg.setVisible(true);
 			
@@ -121,8 +122,20 @@ public class dbTools {
 				wpg.setSubText("Creating user webdoc");
 				PasswordGenerator pwdg = new PasswordGenerator();
 				Config.setValue("password", pwdg.generateGenericPassword(20));
-				Database.execUpdateQuery("CREATE USER 'webdoc'@'%' IDENTIFIED BY '" + Config.getStrValue("password")
-						+ "';");
+				Config.setValue("user", "webdoc");
+				try{
+					Database.execUpdateQuery("CREATE USER 'webdoc'@'%' IDENTIFIED BY '" + Config.getStrValue("password")
+							+ "';");
+				}catch(SQLException e){
+					// catch only the "user already exists" error, throw all other
+					if(e.getMessage().contains("Operation CREATE USER failed")){
+						GUI.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
+						Database.execUpdateQuery("SET PASSWORD FOR 'webdoc'@'%' = PASSWORD('" + Config.getStrValue("password")
+								+ "');");
+					}else{
+						throw e;
+					}
+				}
 				wpg.addSubProgress();
 				wpg.setSubText("Granting permissions on DB");
 				wpg.setSubMax(1);
@@ -136,7 +149,7 @@ public class dbTools {
 			}
 			
 		}catch(SQLException e){
-			dberr = Database.DBExceptionConverter(e);
+			dberr = Database.DBEExceptionConverter(e);
 		}
 		wpg.dispose();
 		return dberr;
