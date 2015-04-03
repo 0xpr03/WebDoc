@@ -7,9 +7,12 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
+import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
+import webdoc.lib.DBEError;
 import webdoc.lib.Database;
 import webdoc.lib.dbTools;
+import webdoc.lib.Database.DBError;
 
 /**
  * WebDoc Main Class
@@ -98,32 +101,29 @@ public class WebDoc {
 			boolean runSetup = true;
 			while(runSetup){
 				new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
-				logger.debug("going to runt he setup..");
+				logger.debug("going to run the setup..");
 				
-				switch(new dbTools().runDBSetup()){
-				case EXTERNAL_ERROR:
-					break;
-				case INVALID_LOGIN:
-					break;
-				case NOCONNECTION:
-					break;
+				DBEError dbee = new dbTools().runDBSetup();
+				switch(dbee.getError()){
 				case NOERROR:
 					Config.setValue("firstrun", false);
 					ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
 					cfg.loadConfig();
 					cfg.writeConfig();
 					runSetup = false;
+					new WSetupData("User: "+Config.getStrValue("user")+"\nPassword: "+Config.getStrValue("password")+"\nIP: "+Config.getStrValue("ip")+"\nport: "+Config.getIntValue("port")+"\nDB: "+Config.getStrValue("db"));
+					break;
+				case OPERATION_FAILED:
+					GUI.showErrorDialog("Einer der Befehle konnte nicht ausgeführt werden!\n"+dbee.getMsg(), "Fehler beim Setup");
 					break;
 				case NO_DB_OR_NO_PERM:
-					break;
-				case NO_DB_SELECTED:
-					break;
-				case UNDEFINED_ERROR:
+					GUI.showErrorDialog("Der Benutzer besitzt nicht genug Rechte auf die Datenbank!", "Fehler beim Setup");
 					break;
 				case NO_PERMISSIONS:
 					GUI.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
 					break;
 				default:
+					GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dbee.getError(), "Unerwarteter Setup Fehler");
 					break;
 				}
 			}
