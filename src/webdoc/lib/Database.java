@@ -30,7 +30,7 @@ public class Database{
 	 *
 	 */
 	public static enum DBError{
-		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5);
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6);
 		private DBError(int dberror){
 			this.DBError = dberror;
 		}
@@ -57,7 +57,7 @@ public class Database{
 			base += "/"+Config.getStrValue("db");
 		}
 		base +="?tcpKeepAlive=true";
-		logger.debug("DB conn base: {}",base);
+		logger.debug("DB conn base: {} {} {}",base,Config.getStrValue("user"), Config.getStrValue("password"));
 		try{
 			//Class.forName("org.mariadb.jdbc.Driver");
 			connection = DriverManager.getConnection(base, Config.getStrValue("user"), Config.getStrValue("password"));
@@ -178,9 +178,10 @@ public class Database{
 	
 	/**
 	 * Converts the (mostly) string based SQLExceptions to DBErrors
-	 * This function already loggs errors on debug level!
+	 * This function already logs errors on debug level!
+	 * Extended usage for functions where the MSG return matters
 	 * @param e
-	 * @return
+	 * @return DBError enum
 	 */
 	public static DBError DBExceptionConverter(SQLException e){
 		logger.debug("Converter catched\n{}",e);
@@ -194,8 +195,24 @@ public class Database{
 			return DBError.NO_DB_SELECTED;
 		}else if(e.getMessage().contains("Access denied; you need")){
 			return DBError.NO_PERMISSIONS;
+		}else if(e.getMessage().contains("Operation")){
+			if(e.getMessage().contains("failed")){
+				return DBError.OPERATION_FAILED;
+			}else{
+				return DBError.UNDEFINED_ERROR;
+			}
 		}else{
 			return DBError.UNDEFINED_ERROR;
 		}
+	}
+	
+	/**
+	 * Converts the (mostly) string based SQLExceptions to DBEErrors,
+	 * a extended error with the error msg itself.
+	 * @param e
+	 * @return DBEError containing the DBError enum and the ErrorMSG
+	 */
+	public static DBEError DBEExceptionConverter(SQLException e){
+		return new DBEError(DBExceptionConverter(e), e.getMessage());
 	}
 }
