@@ -39,7 +39,7 @@ public class ConfigLib {
 		logger.debug("Initializing config");
 		logger.debug("OS: {}",System.getProperty("os.name"));
 		File folder;
-		if(System.getProperty("os.name").contains("Window")){
+		if(System.getProperty("os.name").contains("Windows")){
 			folder = new File(System.getenv("APPDATA")+"/.webdoc");
 		}else{
 			folder = new File(System.getProperty("user.home")+"/.webdoc");
