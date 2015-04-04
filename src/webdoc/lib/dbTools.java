@@ -48,13 +48,17 @@ public class dbTools {
 			window.setSubText("Creating missing tables..");
 			
 			for(String line = br.readLine(); line != null;line=br.readLine()){
-				matcher.reset(line);
-				sb.append(line);
-				if(matcher.find()){
-					//TODO: do sql command
-					logger.debug("Found ; {}",line);
-					Database.execUpdateQuery(sb.toString());
-					sb.setLength(0);
+				if(line.startsWith("/*")){
+					//do nothing, ignore comment lines
+				}else{
+					matcher.reset(line);
+					sb.append(line);
+					if(matcher.find()){
+						//TODO: do sql command
+						logger.debug("Creating Tbl {}",line);
+						Database.execUpdateQuery(sb.toString());
+						sb.setLength(0);
+					}
 				}
 				window.addSubProgress();
 			}
@@ -106,6 +110,7 @@ public class dbTools {
 				wpg.setSubText("Deleting DBs..");
 				wpg.setSubMax(dbs.size());
 				for(String table : dbs){
+					logger.debug("Dropping Tbl {}",table);
 					Database.execUpdateQuery("DROP TABLE IF EXISTS `"+table+"`;");
 					wpg.addSubProgress();
 				}
@@ -202,9 +207,8 @@ public class dbTools {
 				window.addSubProgress();
 				if(matcher.find()){
 					//TODO: do sql command
-					logger.debug("Found ; {}",line);
+					logger.debug("Found {}",line);
 					tables.add(line.substring(line.indexOf("`")+1, line.lastIndexOf("`")));
-					logger.debug("trimmed {}",tables.get(tables.size()-1));
 				}
 			}
 			br.close();
