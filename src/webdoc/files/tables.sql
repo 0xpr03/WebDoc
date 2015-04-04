@@ -1,13 +1,17 @@
 /* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
+/* lines starting with this are IGNORES! completely */
+/* Tables NEED the IF NOT EXISTS line! */
+/* Table partner / Partner */
 CREATE TABLE IF NOT EXISTS `partner` (
  `PartnerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `birthday` date NOT NULL,
  `firstname` varchar(20) NOT NULL,
  `secondname` varchar(20) NOT NULL,
  `title` int(11) NOT NULL,
- `comment` varchar(100) NOT NULL,
+ `comment` varchar(100) DEFAULT NULL,
  PRIMARY KEY (`PartnerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v1.0';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table addresses / Adresse */
 CREATE TABLE IF NOT EXISTS `addresses` (
  `AddressID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `plc` int(11) NOT NULL,
@@ -15,11 +19,57 @@ CREATE TABLE IF NOT EXISTS `addresses` (
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
- `comment` varchar(100) NOT NULL,
+ `comment` varchar(100) DEFAULT NULL,
  PRIMARY KEY (`AddressID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v1.0';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
  `RoleID` int(11) unsigned NOT NULL AUTO_INCREMENT,
  `role` varchar(15) NOT NULL,
  PRIMARY KEY (`RoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v1.0';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table communicatontype / Kommunikationsart */
+CREATE TABLE IF NOT EXISTS `communicatontype` (
+ `CommunicationID` int(10) unsigned NOT NULL,
+ `name` varchar(20) NOT NULL,
+ PRIMARY KEY (`CommunicationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table telecommunication / Telekommunikation */
+CREATE TABLE IF NOT EXISTS `telecommunication` (
+ `CommunicationID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `areacode` varchar(10) NOT NULL,
+ `number` varchar(20) NOT NULL,
+ `TeleID` int(10) unsigned NOT NULL,
+ `comment` varchar(50) DEFAULT NULL,
+ PRIMARY KEY (`CommunicationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table email / Email */
+CREATE TABLE IF NOT EXISTS `email` (
+ `CommunicationID` int(11) NOT NULL,
+ `MailID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `mail` varchar(40) NOT NULL,
+ PRIMARY KEY (`MailID`),
+ KEY `CommunicationID` (`CommunicationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table partnerroles / Rollen */
+CREATE TABLE IF NOT EXISTS `partnerroles` (
+ `PartnerID` int(10) unsigned NOT NULL,
+ `RoleID` int(10) unsigned NOT NULL,
+ PRIMARY KEY (`PartnerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table race / Rasse */
+CREATE TABLE IF NOT EXISTS `race` (
+ `RaceID` int(11) NOT NULL AUTO_INCREMENT,
+ `race` varchar(20) NOT NULL,
+ PRIMARY KEY (`RaceID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table animal / Tier */
+CREATE TABLE IF NOT EXISTS `animal` (
+ `Name` varchar(50) NOT NULL,
+ `Callname` varchar(20) NOT NULL,
+ `birthdate` varchar(8) NOT NULL,
+ `gender` tinyint(1) NOT NULL,
+ `Picture` int(10) unsigned NOT NULL,
+ `RaceID` int(10) unsigned NOT NULL,
+ `comment` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
