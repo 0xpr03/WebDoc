@@ -304,8 +304,6 @@ public class WDBConnect extends JDialog {
 			buttonPane.add(cancelButton, "cell 2 0,growx,aligny center");
 		}
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtIP, txtPort, txtDB, txtUser, txtPassword, chckbxErstelleNutzer, chckbxOverwriteTables, okButton, cancelButton}));
-		
-		
 	}
 	
 	private void exit(){
