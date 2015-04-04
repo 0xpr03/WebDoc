@@ -1,6 +1,6 @@
 /* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
 /* lines starting with this are IGNORES! completely */
-/* Tables NEED the IF NOT EXISTS line! */
+/* "IF NOT EXISTS" is REQUIRED! */
 /* Table partner / Partner */
 CREATE TABLE IF NOT EXISTS `partner` (
  `PartnerID` int(10) unsigned NOT NULL AUTO_INCREMENT,

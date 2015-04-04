@@ -7,12 +7,12 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
+import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
 import webdoc.lib.Database;
 import webdoc.lib.dbTools;
-import webdoc.lib.Database.DBError;
 
 /**
  * WebDoc Main Class
@@ -27,6 +27,7 @@ public class WebDoc {
 	
 	private  static final Logger logger = LogManager.getLogger();
 	private static final String VERSION = "0.2 alpha";
+	private static WHomescreen WHomescreen;
 	
 	public static void main(String[] args){
 		// bsp: nur bei log level info werden die strings zusammengefügt
@@ -44,7 +45,7 @@ public class WebDoc {
 		//startup init
 		startup();
 		
-		
+		loadMainwindow();
 		//### Testing area, all components loaded
 		
 		//test();
@@ -55,6 +56,11 @@ public class WebDoc {
 		
 	}
 	
+	private static void loadMainwindow() {
+		WHomescreen = new WHomescreen();
+		WHomescreen.run();
+	}
+
 	/***
 	 * Loads the config file or defaults in case of a invalid / missing file
 	 */
