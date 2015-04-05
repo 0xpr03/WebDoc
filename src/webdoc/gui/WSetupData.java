@@ -20,8 +20,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Dialog.ModalityType;
 
 /**
  * Shows the setup data after a automatically succeeded setup
