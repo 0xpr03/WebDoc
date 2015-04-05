@@ -12,6 +12,7 @@ import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
 import webdoc.lib.Database;
+import webdoc.lib.Database.DBError;
 import webdoc.lib.dbTools;
 
 /**
@@ -104,46 +105,65 @@ public class WebDoc {
 	private static void startup(){
 		logger.entry();
 		if(Config.getBoolValue("firstrun")){
-			boolean runSetup = true;
-			while(runSetup){
-				new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
-				logger.debug("going to run the setup..");
-				
-				DBEError dbee = new dbTools().runDBSetup();
-				switch(dbee.getError()){
-				case NOERROR:
-					Config.setValue("firstrun", false);
-					ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
-					cfg.loadConfig();
-					cfg.writeConfig();
-					runSetup = false;
-					new WSetupData("User: "+Config.getStrValue("user")+"\nPassword: "+Config.getStrValue("password")+"\nIP: "+Config.getStrValue("ip")+"\nport: "+Config.getIntValue("port")+"\nDB: "+Config.getStrValue("db"));
-					break;
-				case OPERATION_FAILED:
-					GUI.showErrorDialog("Einer der Befehle konnte nicht ausgeführt werden!\n"+dbee.getMsg(), "Fehler beim Setup");
-					break;
-				case NO_DB_OR_NO_PERM:
-					GUI.showErrorDialog("Der Benutzer besitzt nicht genug Rechte auf die Datenbank!", "Fehler beim Setup");
-					break;
-				case NO_PERMISSIONS:
-					GUI.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
-					break;
-				default:
-					GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dbee.getError(), "Unerwarteter Setup Fehler");
-					break;
-				}
-			}
+			setup();
 		}else{
-			Database.connect(true);
+			DBError dberr = Database.connect(true,false);
+			logger.debug("Connect error {}",dberr);
+			boolean showsetup = false;
+			switch(dberr){
+			case NOERROR:
+				break;
+			case INVALID_LOGIN:
+				GUI.showErrorDialog("Der Login auf den Datenbankserver ist fehlgeschalgen!", "Login Fehler");
+				showsetup = true;
+				break;
+			default:
+				GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dberr.getError(), "Login Fehler");
+				break;
+			}
+			if(showsetup)
+				setup();
 			//TODO: show mainwindow
 		}
 		logger.exit();
 	}
 	
+	private static void setup(){
+		boolean runSetup = true;
+		while(runSetup){
+			new WDBConnect(Config.getStrValue("db"),Config.getStrValue("ip"),Config.getIntValue("port"),Config.getStrValue("user"),Config.getStrValue("password"), true);
+			logger.debug("going to run the setup..");
+			
+			DBEError dbee = new dbTools().runDBSetup();
+			switch(dbee.getError()){
+			case NOERROR:
+				Config.setValue("firstrun", false);
+				ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
+				cfg.loadConfig();
+				cfg.writeConfig();
+				runSetup = false;
+				new WSetupData("User: "+Config.getStrValue("user")+"\nPassword: "+Config.getStrValue("password")+"\nIP: "+Config.getStrValue("ip")+"\nport: "+Config.getIntValue("port")+"\nDB: "+Config.getStrValue("db"));
+				break;
+			case OPERATION_FAILED:
+				GUI.showErrorDialog("Einer der Befehle konnte nicht ausgeführt werden!\n"+dbee.getMsg(), "Fehler beim Setup");
+				break;
+			case NO_DB_OR_NO_PERM:
+				GUI.showErrorDialog("Der Benutzer besitzt nicht genug Rechte auf die Datenbank!", "Fehler beim Setup");
+				break;
+			case NO_PERMISSIONS:
+				GUI.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
+				break;
+			default:
+				GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dbee.getError(), "Unerwarteter Setup Fehler");
+				break;
+			}
+		}
+	}
+	
 	@SuppressWarnings("unused")
 	private static void test(){
 		logger.entry();
-		Database.connect(false);
+		Database.connect(false,false);
 		
 		
 		logger.exit();
