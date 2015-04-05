@@ -28,13 +28,6 @@ public class dbTools {
 	
 	private static Logger logger = LogManager.getLogger();
 	
-	/**
-	 * 
-	 * @param overwrite
-	 * @param file
-	 * @param window
-	 * @return
-	 */
 	public DBError sqlTblCreator(String file, WProgress window){
 		try{
 			InputStream is = getClass().getResourceAsStream(file);
@@ -54,7 +47,6 @@ public class dbTools {
 					matcher.reset(line);
 					sb.append(line);
 					if(matcher.find()){
-						//TODO: do sql command
 						logger.debug("Creating Tbl {}",line);
 						Database.execUpdateQuery(sb.toString());
 						sb.setLength(0);
@@ -82,7 +74,7 @@ public class dbTools {
 		DBEError dberr = new DBEError(DBError.NOERROR,null);
 		WProgress wpg = new WProgress();
 		try{
-		int max = 0;
+		int max = 1;
 			max += Config.getBoolValue("createDB") ? 1 : 0;
 			max += Config.getBoolValue("createUser") ? 1 : 0;
 			max += Config.getBoolValue("overwriteDB") ? 3 : 0;
@@ -93,13 +85,20 @@ public class dbTools {
 			
 			if(Config.getBoolValue("createDB")){
 				wpg.setText("Creating DB");
-				wpg.setSubMax(1);
+				wpg.setSubMax(Config.getBoolValue("overwriteDB") ? 2 : 1);
+				
+				if(Config.getBoolValue("overwriteDB")){
+					wpg.setSubText("Dropping DB");
+					Database.execUpdateQuery(String.format("DROP DATABASE IF EXISTS `%s`", Config.getStrValue("db")));
+					wpg.addSubProgress();
+				}
+				
 				wpg.setSubText("Creating DB");
-				Database.execUpdateQuery("CREATE DATABASE IF NOT EXISTS webdoc;");
+				Database.execUpdateQuery(String.format("CREATE DATABASE IF NOT EXISTS `%s` ;",Config.getStrValue("db")));
 				wpg.addSubProgress();
 			}
 			
-			Database.execUpdateQuery("use webdoc;");
+			Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
 			
 			if (Config.getBoolValue("overwriteDB")) {
 				wpg.setText("Overwriting DBs..");
@@ -111,7 +110,7 @@ public class dbTools {
 				wpg.setSubMax(dbs.size());
 				for(String table : dbs){
 					logger.debug("Dropping Tbl {}",table);
-					Database.execUpdateQuery("DROP TABLE IF EXISTS `"+table+"`;");
+					Database.execUpdateQuery(String.format("DROP TABLE IF EXISTS `%s`;", table));
 					wpg.addSubProgress();
 				}
 				wpg.addProgress();
@@ -129,14 +128,15 @@ public class dbTools {
 				Config.setValue("password", pwdg.generateGenericPassword(20));
 				Config.setValue("user", "webdoc");
 				try{
-					Database.execUpdateQuery("CREATE USER 'webdoc'@'%' IDENTIFIED BY '" + Config.getStrValue("password")
-							+ "';");
+					String query = String.format("CREATE USER '%s'@'%s' IDENTIFIED BY '%s' ;", Config.getStrValue("user"),Config.getStrValue("userIPs"), Config.getStrValue("password"));
+					Database.execUpdateQuery(query);
 				}catch(SQLException e){
 					// catch only the "user already exists" error, throw all other
 					if(e.getMessage().contains("Operation CREATE USER failed")){
 						GUI.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
-						Database.execUpdateQuery("SET PASSWORD FOR 'webdoc'@'%' = PASSWORD('" + Config.getStrValue("password")
-								+ "');");
+						String query = String.format("UPDATE mysql.user SET Password=PASSWORD('%s') WHERE User='%s';", Config.getStrValue("password"), Config.getStrValue("user"));
+						Database.execUpdateQuery(query);
+						Database.execUpdateQuery("FLUSH PRIVILEGES;");
 					}else{
 						throw e;
 					}
@@ -147,9 +147,15 @@ public class dbTools {
 				String sql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX,"
 						+"CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT,"
 						+"TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON "
-						+"`"+Config.getStrValue("db")+"`.* TO 'webdoc'@'%';";
+						+"`%s`.* TO '%s'@'%s';";
+				sql = String.format(sql, Config.getStrValue("db"), Config.getStrValue("db"), Config.getStrValue("userIPs"));
 				Database.execUpdateQuery(sql);
 				wpg.addSubProgress();
+				wpg.addProgress();
+				
+				wpg.setText("Reconnecting..");
+				Database.disconnect();
+				Database.connect(true, false);
 				wpg.addProgress();
 			}
 			
@@ -159,8 +165,6 @@ public class dbTools {
 		wpg.dispose();
 		return dberr;
 	}
-	
-	
 	
 	/**
 	 * Returns the max lines of a file
