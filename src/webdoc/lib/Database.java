@@ -42,11 +42,12 @@ public class Database{
 	
 	/**
 	 * Connects to the DB server
-	 * Returns null if it was successful
-	 * @return error error type or null
+	 * @param db connect directly to DB
+	 * @param useRoot use root privilieges from r_user & r_password
+	 * @return DBError DBError.NOERROR on success
 	 * @author "Aron Heinecke"
 	 */
-	public static DBError connect(boolean db){
+	public static DBError connect(boolean db,boolean useRoot){
 		DBError dberr = DBError.NOERROR;
 		String base = "jdbc:mariadb://";
 		
@@ -59,8 +60,11 @@ public class Database{
 		base +="?tcpKeepAlive=true";
 		logger.debug("DB conn base: {} {} {}",base,Config.getStrValue("user"), Config.getStrValue("password"));
 		try{
-			//Class.forName("org.mariadb.jdbc.Driver");
-			connection = DriverManager.getConnection(base, Config.getStrValue("user"), Config.getStrValue("password"));
+			//Class.forName("org.mariadb.jdbc.Driver"); not necessary here atm?
+			if(useRoot)
+				connection = DriverManager.getConnection(base, Config.getStrValue("r_user"), Config.getStrValue("r_password"));
+			else
+				connection = DriverManager.getConnection(base, Config.getStrValue("user"), Config.getStrValue("password"));
 		}catch(SQLNonTransientConnectionException e){ //see https://git.proctet.net/webdoc/webdoc/snippets/11
 			dberr = DBError.NOCONNECTION;
 		}catch(SQLException e){
@@ -73,6 +77,9 @@ public class Database{
 		return dberr;
 	}
 	
+	/**
+	 * Closes the SQL connection
+	 */
 	public static void disconnect(){
 		try {
 			connection.close();
@@ -116,7 +123,7 @@ public class Database{
 	 */
 	public static int execUpdateQuery(String sql) throws SQLException{
 		int affectedLines = -1;
-		
+		logger.debug("Executing {}",sql);
 		Statement stm = null;
 		try{
 			stm = connection.createStatement();
