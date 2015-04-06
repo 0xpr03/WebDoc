@@ -441,7 +441,7 @@ public class WDBConnect extends JDialog {
 						Config.setValue("overwriteDB", chckbxOverwriteTables.isSelected());
 						if(Config.getBoolValue("createUser"))
 							Config.setValue("userIPs", txtZugriffsIPs.getText());
-						if(Config.getBoolValue("createDB") || Config.getBoolValue("createDB") || Config.getBoolValue("overwriteDB")){
+						if(Config.getBoolValue("createDB") || Config.getBoolValue("createUser") || Config.getBoolValue("overwriteDB")){
 							Config.setValue("r_user", txtAdminUser.getText());
 							Config.setValue("r_password", String.valueOf(txtAdminPW.getPassword()));
 						}
