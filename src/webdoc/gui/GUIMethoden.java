@@ -8,6 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 
+import webdoc.gui.CustomTreeObj.EntryType;
+
 public class GUIMethoden {
 	/*Erstellen den Menuebaum*/ 
 	public static TreeModel Navi() {
@@ -21,7 +23,9 @@ public class GUIMethoden {
 		 
         DefaultMutableTreeNode patientenundpartner = new DefaultMutableTreeNode( "Patienten und Partner" );
         DefaultMutableTreeNode behandlung = new DefaultMutableTreeNode( "Behandlung" );
-        DefaultMutableTreeNode main = new DefaultMutableTreeNode("Hauptmenü");
+//        DefaultMutableTreeNode main = new DefaultMutableTreeNode("Hauptmenü");
+        DefaultMutableTreeNode main = new DefaultMutableTreeNode(new CustomTreeObj("Hauptmenü",EntryType.HAUPTMENÜ));
+        //CustomTreeObj
  
         DefaultMutableTreeNode neuerPatient = new DefaultMutableTreeNode( "Neuer Patient" );
         DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode( "Neuer Partner" );
