@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -19,9 +19,12 @@ import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class WNeuerPatner {
+public class WNeuerPatner extends JInternalFrame {
 
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2791732649836492001L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -45,7 +48,7 @@ public class WNeuerPatner {
 			public void run() {
 				try {
 					WNeuerPatner window = new WNeuerPatner();
-					window.frame.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,15 +64,14 @@ public class WNeuerPatner {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the 
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setTitle("Neuer Patner");
-		frame.setBounds(100, 100, 882, 592);
+		setTitle("Neuer Patner");
+		setBounds(100, 100, 882, 592);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		menuBar.add(GUIMethoden.menus(menuBar));
 		
 
@@ -101,7 +103,7 @@ public class WNeuerPatner {
 		JPanel rollendaten = new JPanel();
 		
 		JPanel navigation = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -388,7 +390,7 @@ public class WNeuerPatner {
 		JTree navigationsbaum = new JTree();
 		navigationsbaum.setModel(GUIMethoden.Navi());
 		navigation.add(navigationsbaum);
-		frame.getContentPane().setLayout(groupLayout);
+		getContentPane().setLayout(groupLayout);
 		
 	}
 }
