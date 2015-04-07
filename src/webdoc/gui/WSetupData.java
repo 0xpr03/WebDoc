@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.awt.Color;
 
 /**
  * Shows the setup data after a automatically succeeded setup
@@ -56,6 +57,8 @@ public class WSetupData extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			txtpnDocument = new JTextPane();
+			txtpnDocument.setDisabledTextColor(Color.WHITE);
+			txtpnDocument.setBackground(new Color(255, 255, 255));
 			txtpnDocument.setEditable(false);
 			txtpnDocument.setText(data);
 		}
