@@ -17,10 +17,15 @@ import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class WHomescreen {
+public class WHomescreen extends JFrame {
 
-	private JFrame frmWebdocHome;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4091113544481728677L;
 	private JTextField txtSuche;
+	private WNeuerPartner FNeuerPartner;
+	private WNeuerPatient FNeuerPatient;
 
 	/**
 	 * Launch the application.
@@ -30,7 +35,7 @@ public class WHomescreen {
 			public void run() {
 				try {
 					WHomescreen window = new WHomescreen();
-					window.frmWebdocHome.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,20 +54,19 @@ public class WHomescreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmWebdocHome = new JFrame();
-		frmWebdocHome.setTitle("WebDoc Home");
-		frmWebdocHome.setBounds(100, 100, 1006, 692);
-		frmWebdocHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("WebDoc Home");
+		setBounds(100, 100, 1006, 692);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frmWebdocHome.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		menuBar.add(GUIMethoden.menus(menuBar));
 		JPanel navigation = new JPanel();
 		
 		JPanel panel_1 = new JPanel();
 		
 		JPanel panel_2 = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(frmWebdocHome.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -133,7 +137,7 @@ public class WHomescreen {
 		});
 		navigationsbaum.setModel(GUIMethoden.Navi());
 		navigation.add(navigationsbaum, BorderLayout.CENTER);
-		frmWebdocHome.getContentPane().setLayout(groupLayout);
+		getContentPane().setLayout(groupLayout);
 	}
 }
 
