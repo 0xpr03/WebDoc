@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import webdoc.gui.GUI;
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 import webdoc.webdoc.Config;

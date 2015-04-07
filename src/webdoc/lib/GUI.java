@@ -1,4 +1,4 @@
-package webdoc.gui;
+package webdoc.lib;
 
 import java.awt.Component;
 

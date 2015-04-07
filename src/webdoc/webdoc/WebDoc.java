@@ -5,13 +5,13 @@ import javax.swing.UIManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import webdoc.gui.GUI;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
 import webdoc.lib.Database;
+import webdoc.lib.GUI;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.dbTools;
 
