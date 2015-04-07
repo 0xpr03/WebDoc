@@ -17,6 +17,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JDesktopPane;
 
 public class WHomescreen {
 
@@ -92,12 +93,9 @@ public class WHomescreen {
 		);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setBackground(new Color(255, 255, 153));
-		scrollPane.setViewportView(textPane);
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.WHITE);
+		panel_1.add(desktopPane, BorderLayout.CENTER);
 		
 		txtSuche = new JTextField();
 		txtSuche.setText("Suche");
@@ -136,7 +134,7 @@ public class WHomescreen {
 			}
 		});
 		navigationsbaum.setModel(GUIMethoden.Navi());
-		navigation.add(navigationsbaum, BorderLayout.NORTH);
+		navigation.add(navigationsbaum, BorderLayout.CENTER);
 		frmWebdocHome.getContentPane().setLayout(groupLayout);
 	}
 }
