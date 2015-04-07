@@ -148,8 +148,24 @@ public class WHomescreen extends JFrame {
 		if(row != -1){
 			// detect doubleklick
 			if(mevent.getClickCount() >= 2){
-				String sel = String.valueOf((DefaultMutableTreeNode) selPath.getLastPathComponent());
-				logger.debug("selected: {}", sel);
+				CustomTreeObj selMenu = (CustomTreeObj) ((DefaultMutableTreeNode) selPath.getLastPathComponent()).getUserObject();
+				logger.debug("selected: {}", selMenu.getType());
+				switch(selMenu.getType()){
+				case HAUPTMENÜ:
+					//TODO: show main menu
+					break;
+				case N_PATIENT:
+					//TODO: show new patient
+					break;
+				case N_PARTNER:
+					//TODO: show new partner
+					break;
+				case N_BEHANDLUNG:
+					//TODO: show new behandlung
+					break;
+				default:
+					
+				}
 			}
 		}
 	}
