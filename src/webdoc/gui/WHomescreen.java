@@ -16,10 +16,15 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Mainframe of the GUI
+ * @author "Aron Heinecke"
+ */
 public class WHomescreen extends JFrame {
 
 	/**
@@ -137,15 +142,16 @@ public class WHomescreen extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 	
-	private void mouseClickAction(MouseEvent arg0){
-		logger.debug("Selected: {}",navigationsbaum.getLastSelectedPathComponent());
-		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) navigationsbaum.getLastSelectedPathComponent();
-		int zahl = selectedNode.getChildCount();
-				if (zahl > 0 || zahl < 0) {
-					return;
-				}else{
-					return;
-				}
+	private void mouseClickAction(MouseEvent mevent){
+		int row = navigationsbaum.getRowForLocation(mevent.getX(), mevent.getY());
+		TreePath selPath = navigationsbaum.getPathForLocation(mevent.getX(), mevent.getY());
+		if(row != -1){
+			// detect doubleklick
+			if(mevent.getClickCount() >= 2){
+				String sel = String.valueOf((DefaultMutableTreeNode) selPath.getLastPathComponent());
+				logger.debug("selected: {}", sel);
+			}
+		}
 	}
 }
 
