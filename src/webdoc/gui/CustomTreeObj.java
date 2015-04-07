@@ -1,13 +1,12 @@
 package webdoc.gui;
 
 /**
- * Custom Tree Obj for localisation
+ * Custom Tree Obj for localization
  * @author "Aron Heinecke"
- *
  */
 public class CustomTreeObj {
 	public static enum EntryType{
-		HAUPTMENÜ(0);
+		ZWEIG(-1),HAUPTMENÜ(0),N_PATIENT(1),N_PARTNER(2),N_BEHANDLUNG(3);
 		private EntryType(int EntryType){
 			this.EntryType = EntryType;
 		}
