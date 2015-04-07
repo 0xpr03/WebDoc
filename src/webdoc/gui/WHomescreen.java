@@ -32,8 +32,8 @@ public class WHomescreen extends JFrame {
 	 */
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JTextField txtSuche;
-	private WNeuerPartner FNeuerPartner;
-	private WNeuerPatient FNeuerPatient;
+	private WNeuerPartner FNeuerPartner = new WNeuerPartner();
+	private WNeuerPatient FNeuerPatient = new WNeuerPatient();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 
@@ -106,6 +106,8 @@ public class WHomescreen extends JFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.add(FNeuerPartner);
+		desktopPane.add(FNeuerPatient);
 		desktopPane.setBackground(Color.WHITE);
 		panel_1.add(desktopPane, BorderLayout.CENTER);
 		
@@ -156,9 +158,11 @@ public class WHomescreen extends JFrame {
 					break;
 				case N_PATIENT:
 					//TODO: show new patient
+					FNeuerPatient.setVisible(true);
 					break;
 				case N_PARTNER:
 					//TODO: show new partner
+					FNeuerPartner.setVisible(true);
 					break;
 				case N_BEHANDLUNG:
 					//TODO: show new behandlung
