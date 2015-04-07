@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,12 +13,16 @@ import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import webdoc.gui.GUIMethoden;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
-public class WNeuerPatient {
+public class WNeuerPatient extends JInternalFrame {
 
-	private JFrame frmNeuerPatient;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4647611743598708383L;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -33,7 +38,7 @@ public class WNeuerPatient {
 			public void run() {
 				try {
 					WNeuerPatient window = new WNeuerPatient();
-					window.frmNeuerPatient.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,14 +58,12 @@ public class WNeuerPatient {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmNeuerPatient = new JFrame();
-		frmNeuerPatient.setTitle("Neuer Patient");
-		frmNeuerPatient.setBounds(100, 100, 882, 592);
-		frmNeuerPatient.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		frmNeuerPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Neuer Patient");
+		setBounds(100, 100, 882, 592);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frmNeuerPatient.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		menuBar.add(GUIMethoden.menus(menuBar));
 		
 		JPanel navigation = new JPanel();
@@ -87,7 +90,7 @@ public class WNeuerPatient {
 		suche.setLayout(gl_suche);
 		
 		JPanel daten = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(frmNeuerPatient.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -250,6 +253,6 @@ public class WNeuerPatient {
 					.addComponent(navigationsbaum, GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
 		);
 		navigation.setLayout(gl_navigation);
-		frmNeuerPatient.getContentPane().setLayout(groupLayout);
+		getContentPane().setLayout(groupLayout);
 	}
 }
