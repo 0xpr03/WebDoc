@@ -19,18 +19,16 @@ public class GUIMethoden {
 	}
 
 	private static TreeNode createTree() {
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode( "WebDoc" );
-		 
-        DefaultMutableTreeNode patientenundpartner = new DefaultMutableTreeNode( "Patienten und Partner" );
-        DefaultMutableTreeNode behandlung = new DefaultMutableTreeNode( "Behandlung" );
-//        DefaultMutableTreeNode main = new DefaultMutableTreeNode("Hauptmenü");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode(new CustomTreeObj( "WebDoc",EntryType.ZWEIG) );
+		
+        DefaultMutableTreeNode patientenundpartner = new DefaultMutableTreeNode(new CustomTreeObj( "Patienten und Partner",EntryType.ZWEIG) );
+        DefaultMutableTreeNode behandlung = new DefaultMutableTreeNode(new CustomTreeObj( "Behandlung",EntryType.ZWEIG) );
         DefaultMutableTreeNode main = new DefaultMutableTreeNode(new CustomTreeObj("Hauptmenü",EntryType.HAUPTMENÜ));
-        //CustomTreeObj
  
-        DefaultMutableTreeNode neuerPatient = new DefaultMutableTreeNode( "Neuer Patient" );
-        DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode( "Neuer Partner" );
+        DefaultMutableTreeNode neuerPatient = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Patient",EntryType.N_PATIENT) );
+        DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Partner",EntryType.N_PARTNER) );
  
-        DefaultMutableTreeNode neueBehandlung = new DefaultMutableTreeNode( "Neue Behandlung" );
+        DefaultMutableTreeNode neueBehandlung = new DefaultMutableTreeNode( new CustomTreeObj("Neue Behandlung",EntryType.N_BEHANDLUNG) );
         
         patientenundpartner.add( neuerPatient );
         patientenundpartner.add( neuerPartner );
