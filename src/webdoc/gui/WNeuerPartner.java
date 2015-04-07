@@ -19,7 +19,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class WNeuerPatner extends JInternalFrame {
+public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class WNeuerPatner extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatner window = new WNeuerPatner();
+					WNeuerPartner window = new WNeuerPartner();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +59,7 @@ public class WNeuerPatner extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatner() {
+	public WNeuerPartner() {
 		initialize();
 	}
 
