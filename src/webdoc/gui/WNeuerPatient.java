@@ -50,6 +50,11 @@ public class WNeuerPatient extends JInternalFrame {
 	 * Create the application.
 	 */
 	public WNeuerPatient() {
+		setFrameIcon(null);
+		setResizable(true);
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
 		initialize();
 		
 	}
@@ -59,14 +64,8 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle("Neuer Patient");
-		setBounds(100, 100, 882, 592);
+		setBounds(100, 100, 705, 592);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuBar.add(GUIMethoden.menus(menuBar));
-		
-		JPanel navigation = new JPanel();
 		
 		JPanel suche = new JPanel();
 		
@@ -94,28 +93,21 @@ public class WNeuerPatient extends JInternalFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(suche, GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 156, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)
-							.addGap(1)))
-					.addGap(3))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(suche, GroupLayout.PREFERRED_SIZE, 694, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(172, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(navigation, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-							.addGap(4))
-						.addComponent(daten, GroupLayout.PREFERRED_SIZE, 496, GroupLayout.PREFERRED_SIZE))
-					.addGap(0))
+					.addGap(4)
+					.addComponent(daten, GroupLayout.PREFERRED_SIZE, 496, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		
 		JPanel allgemeineDaten = new JPanel();
@@ -236,23 +228,6 @@ public class WNeuerPatient extends JInternalFrame {
 		);
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
-		JTree navigationsbaum = new JTree();
-		navigationsbaum.setModel(GUIMethoden.Navi());
-		GroupLayout gl_navigation = new GroupLayout(navigation);
-		gl_navigation.setHorizontalGroup(
-			gl_navigation.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_navigation.createSequentialGroup()
-					.addGap(4)
-					.addComponent(navigationsbaum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_navigation.setVerticalGroup(
-			gl_navigation.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_navigation.createSequentialGroup()
-					.addGap(5)
-					.addComponent(navigationsbaum, GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
-		);
-		navigation.setLayout(gl_navigation);
 		getContentPane().setLayout(groupLayout);
 	}
 }

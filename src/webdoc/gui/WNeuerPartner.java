@@ -25,7 +25,6 @@ public class WNeuerPartner extends JInternalFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -2791732649836492001L;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -60,6 +59,11 @@ public class WNeuerPartner extends JInternalFrame {
 	 * Create the application.
 	 */
 	public WNeuerPartner() {
+		setFrameIcon(null);
+		setIconifiable(true);
+		setResizable(true);
+		setClosable(true);
+		setMaximizable(true);
 		initialize();
 	}
 
@@ -68,31 +72,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle("Neuer Patner");
-		setBounds(100, 100, 882, 592);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuBar.add(GUIMethoden.menus(menuBar));
-		
-
-		JPanel panel = new JPanel();
-		
-		textField = new JTextField();
-		textField.setText("Suche");
-		textField.setColumns(10);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(119)
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-					.addGap(129))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		);
-		panel.setLayout(gl_panel);
+		setBounds(100, 100, 610, 543);
 		
 		JPanel personenbezogeneDaten = new JPanel();
 		
@@ -101,47 +81,41 @@ public class WNeuerPartner extends JInternalFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JPanel rollendaten = new JPanel();
-		
-		JPanel navigation = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 846, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(navigation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)))
-					.addGap(10))
+							.addContainerGap()
+							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+					.addGap(276))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(rollendaten, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 492, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(label)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-							.addGap(17))
-						.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 478, GroupLayout.PREFERRED_SIZE)
-						.addComponent(rollendaten, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
-					.addGap(2))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)))
+					.addGap(60))
 		);
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setBackground(new Color(255, 153, 102));
+		textPane.setBackground(Color.WHITE);
 		scrollPane.setViewportView(textPane);
 		rollendaten.setLayout(null);
 		
@@ -159,7 +133,7 @@ public class WNeuerPartner extends JInternalFrame {
 		mnRolle.add(chckbxmntmArzt);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 21, 284, 356);
+		panel_3.setBounds(10, 32, 292, 401);
 		rollendaten.add(panel_3);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
@@ -387,9 +361,6 @@ public class WNeuerPartner extends JInternalFrame {
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		personenbezogeneDaten.setLayout(gl_personenbezogeneDaten);
-		JTree navigationsbaum = new JTree();
-		navigationsbaum.setModel(GUIMethoden.Navi());
-		navigation.add(navigationsbaum);
 		getContentPane().setLayout(groupLayout);
 		
 	}
