@@ -113,6 +113,10 @@ public class WebDoc {
 			switch(dberr){
 			case NOERROR:
 				break;
+			case NOCONNECTION:
+				GUI.showErrorDialog("Es konnte keine Verbindung zum DB Server aufgebaut werden!", "Login Fehler");
+				showsetup = true;
+				break;
 			case INVALID_LOGIN:
 				GUI.showErrorDialog("Der Login auf den Datenbankserver ist fehlgeschalgen!", "Login Fehler");
 				showsetup = true;
