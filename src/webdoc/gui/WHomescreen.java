@@ -17,6 +17,9 @@ import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WHomescreen extends JFrame {
 
 	/**
@@ -26,6 +29,8 @@ public class WHomescreen extends JFrame {
 	private JTextField txtSuche;
 	private WNeuerPartner FNeuerPartner;
 	private WNeuerPatient FNeuerPatient;
+	private JTree navigationsbaum;
+	private Logger logger = LogManager.getLogger();
 
 	/**
 	 * Launch the application.
@@ -120,24 +125,27 @@ public class WHomescreen extends JFrame {
 		panel_2.setLayout(gl_panel_2);
 		navigation.setLayout(new BorderLayout(0, 0));
 		
-		final JTree navigationsbaum = new JTree();
+		navigationsbaum = new JTree();
 		navigationsbaum.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println(navigationsbaum.getLastSelectedPathComponent() + "");
-				DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) navigationsbaum.getLastSelectedPathComponent();
-				System.out.println(selectedNode.getChildCount());
-				int zahl = selectedNode.getChildCount();
-						if (zahl > 0 || zahl < 0) {
-							return;
-						}else{
-							return;
-						}
+				mouseClickAction(arg0);
 			}
 		});
 		navigationsbaum.setModel(GUIMethoden.Navi());
 		navigation.add(navigationsbaum, BorderLayout.CENTER);
 		getContentPane().setLayout(groupLayout);
+	}
+	
+	private void mouseClickAction(MouseEvent arg0){
+		logger.debug("Selected: {}",navigationsbaum.getLastSelectedPathComponent());
+		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) navigationsbaum.getLastSelectedPathComponent();
+		int zahl = selectedNode.getChildCount();
+				if (zahl > 0 || zahl < 0) {
+					return;
+				}else{
+					return;
+				}
 	}
 }
 
