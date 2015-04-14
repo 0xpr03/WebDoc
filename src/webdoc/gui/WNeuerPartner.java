@@ -16,7 +16,6 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class WNeuerPartner extends JInternalFrame {

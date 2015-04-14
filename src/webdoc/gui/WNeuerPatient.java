@@ -2,20 +2,14 @@ package webdoc.gui;
 
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
-import javax.swing.JMenuBar;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import webdoc.gui.GUIMethoden;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -65,7 +59,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private void initialize() {
 		setTitle("Neuer Patient");
 		setBounds(100, 100, 705, 592);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel suche = new JPanel();
 		
