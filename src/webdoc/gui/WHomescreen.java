@@ -10,6 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,6 +37,7 @@ public class WHomescreen extends JFrame {
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
+	private JDesktopPane desktopPane;
 
 	/**
 	 * Launch the application.
@@ -105,7 +107,7 @@ public class WHomescreen extends JFrame {
 		);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.setBackground(Color.WHITE);
@@ -158,11 +160,13 @@ public class WHomescreen extends JFrame {
 					break;
 				case N_PATIENT:
 					//TODO: show new patient
-					FNeuerPatient.setVisible(true);
+					reOpen(FNeuerPatient);
+//					FNeuerPatient.setVisible(true);
 					break;
 				case N_PARTNER:
 					//TODO: show new partner
-					FNeuerPartner.setVisible(true);
+					reOpen(FNeuerPartner);
+//					FNeuerPartner.setVisible(true);;
 					break;
 				case N_BEHANDLUNG:
 					//TODO: show new behandlung
@@ -171,6 +175,18 @@ public class WHomescreen extends JFrame {
 					
 				}
 			}
+		}
+	}
+	
+	private void reOpen(JInternalFrame jif){
+		if(jif.isClosed()){
+			logger.debug("JIF ist closed.");
+			desktopPane.add(jif);
+			jif.setVisible(true);
+		}else if(!jif.isVisible()){
+			jif.setVisible(true);
+		}else{
+			jif.toFront();
 		}
 	}
 }
