@@ -21,8 +21,6 @@ import webdoc.lib.dbTools;
  *
  */
 public class WebDoc {
-	
-//	private static String log_file_name = "webdoc-client.log";
 	private static final String CONFIG_FILE_NAME = "config.yml";
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
@@ -31,7 +29,6 @@ public class WebDoc {
 	private static WHomescreen WHomescreen;
 	
 	public static void main(String[] args){
-		// bsp: nur bei log level info werden die strings zusammengefügt
 		logger.info("Starting up {}", VERSION);
 		
 		loadConfig();
@@ -178,17 +175,4 @@ public class WebDoc {
 		Database.disconnect();
 		
 	}
-	
-	
-	/*private static void runTest(){
-	logger.debug("Test");
-	logger.warn("test");
-	logger.error("test");
-	
-	Database.test();
-	Database.add();
-	Database.test();
-	
-	runCrap();
-}*/
 }
