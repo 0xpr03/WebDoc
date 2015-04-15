@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -185,6 +186,12 @@ public class WHomescreen extends JFrame {
 			jif.setVisible(true);
 		}else if(!jif.isVisible()){
 			jif.setVisible(true);
+		}else if(jif.isIcon()){
+			try {
+				jif.setIcon(false);
+			} catch (PropertyVetoException e) {
+				logger.debug(e);
+			};
 		}else{
 			jif.toFront();
 		}
