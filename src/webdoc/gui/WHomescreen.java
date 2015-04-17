@@ -34,8 +34,10 @@ public class WHomescreen extends JFrame {
 	 */
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JTextField txtSuche;
-	private WNeuerPartner FNeuerPartner = new WNeuerPartner();
-	private WNeuerPatient FNeuerPatient = new WNeuerPatient();
+	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true);
+	private WNeuerPartner FPartner = new WNeuerPartner(false);
+	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true);
+	private WPatient FPatient = new WPatient(false);
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -69,6 +71,7 @@ public class WHomescreen extends JFrame {
 	private void initialize() {
 		setTitle("WebDoc Home");
 		setBounds(100, 100, 1006, 692);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -110,6 +113,8 @@ public class WHomescreen extends JFrame {
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
+		desktopPane.add(FPartner);
+		desktopPane.add(FPatient);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.setBackground(Color.WHITE);
 		panel_1.add(desktopPane, BorderLayout.CENTER);
@@ -160,14 +165,16 @@ public class WHomescreen extends JFrame {
 					//TODO: show main menu
 					break;
 				case N_PATIENT:
-					//TODO: show new patient
 					reOpen(FNeuerPatient);
-//					FNeuerPatient.setVisible(true);
 					break;
 				case N_PARTNER:
-					//TODO: show new partner
 					reOpen(FNeuerPartner);
-//					FNeuerPartner.setVisible(true);;
+					break;
+				case PARTNER:
+					reOpen(FPartner);
+					break;
+				case PATIENT:
+					reOpen(FPatient);
 					break;
 				case N_BEHANDLUNG:
 					//TODO: show new behandlung
