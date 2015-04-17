@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.BoxLayout;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -23,16 +26,18 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField farbe;
 	private JTextField gewicht;
 	private JTextField identifizierung;
-	public  boolean edit = true;
+	public  boolean editable = true;
+	private JComboBox geschlecht;
+	private JPanel allgemeineDaten;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final boolean editable) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatient window = new WNeuerPatient();
+					WNeuerPatient window = new WNeuerPatient(editable);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,67 +49,69 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient() {
+	public WNeuerPatient(boolean editable) {
+		this.editable = editable;
+		initialize();
 		setFrameIcon(null);
 		setResizable(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		initialize();
-		
 	}
+
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setTitle("Neuer Patient");
-		setBounds(100, 100, 705, 592);
+		setTitle(editable ? "Neuer Patient" : "Patient");
+		setBounds(100, 100, 321, 340);
 		
 		JPanel suche = new JPanel();
 		
 		textField = new JTextField();
 		textField.setText("Suche");
 		textField.setColumns(10);
-		GroupLayout gl_suche = new GroupLayout(suche);
-		gl_suche.setHorizontalGroup(
-			gl_suche.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 846, Short.MAX_VALUE)
-				.addGroup(gl_suche.createSequentialGroup()
-					.addGap(119)
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-					.addGap(129))
-		);
-		gl_suche.setVerticalGroup(
-			gl_suche.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 35, Short.MAX_VALUE)
-				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		);
-		suche.setLayout(gl_suche);
 		
 		JPanel daten = new JPanel();
+		
+		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(suche, GroupLayout.PREFERRED_SIZE, 694, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 684, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(172, Short.MAX_VALUE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(daten, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
+								.addComponent(suche, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE))))
+					.addGap(389))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(daten, GroupLayout.PREFERRED_SIZE, 496, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(daten, GroupLayout.PREFERRED_SIZE, 226, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addGap(258))
 		);
+		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
+		suche.add(textField);
+		panel.setLayout(new MigLayout("", "[85.00][42.00][]", "[]"));
 		
-		JPanel allgemeineDaten = new JPanel();
+		JButton btnOk = new JButton("Ok");
+		panel.add(btnOk, "cell 1 0,alignx center");
+		
+		JButton btnNewButton = new JButton("Cancel");
+		panel.add(btnNewButton, "cell 2 0");
+		btnNewButton.setVisible(editable);
+		
+		allgemeineDaten = new JPanel();
 		GroupLayout gl_daten = new GroupLayout(daten);
 		gl_daten.setHorizontalGroup(
 			gl_daten.createParallelGroup(Alignment.LEADING)
@@ -137,20 +144,26 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		nameDesTieres = new JTextField();
 		nameDesTieres.setColumns(10);
+		nameDesTieres.setEditable(editable);
 		
 		rasse = new JTextField();
+		rasse.setEditable(editable);
 		rasse.setColumns(10);
 		
 		farbe = new JTextField();
 		farbe.setColumns(10);
+		farbe.setEditable(editable);
 		
 		gewicht = new JTextField();
+		gewicht.setEditable(editable);
 		gewicht.setColumns(10);
 		
 		identifizierung = new JTextField();
 		identifizierung.setColumns(10);
+		identifizierung.setEditable(editable);
 		
-		JComboBox geschlecht = new JComboBox();
+		geschlecht = new JComboBox();
+		geschlecht.setEditable(editable);
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
 		gl_allgemeineDaten.setHorizontalGroup(
 			gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
@@ -223,15 +236,5 @@ public class WNeuerPatient extends JInternalFrame {
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
 		getContentPane().setLayout(groupLayout);
-	}
-	private boolean getEdit(){
-		return edit;
-	}
-	public void setEdit(boolean editr){
-		if(editr = true){ 
-			edit = true;
-		}if(editr = false){
-			edit =false;
-		}
 	}
 }

@@ -27,11 +27,15 @@ public class GUIMethoden {
  
         DefaultMutableTreeNode neuerPatient = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Patient",EntryType.N_PATIENT) );
         DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Partner",EntryType.N_PARTNER) );
+        DefaultMutableTreeNode patient = new DefaultMutableTreeNode(new CustomTreeObj( "Patient",EntryType.PATIENT) );
+        DefaultMutableTreeNode partner = new DefaultMutableTreeNode(new CustomTreeObj( "Partner",EntryType.PARTNER) );
  
         DefaultMutableTreeNode neueBehandlung = new DefaultMutableTreeNode( new CustomTreeObj("Neue Behandlung",EntryType.N_BEHANDLUNG) );
         
         patientenundpartner.add( neuerPatient );
         patientenundpartner.add( neuerPartner );
+        patientenundpartner.add(patient);
+        patientenundpartner.add(partner);
  
         behandlung.add( neueBehandlung );
  
