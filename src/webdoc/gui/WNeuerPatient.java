@@ -107,9 +107,23 @@ public class WNeuerPatient extends JInternalFrame {
 		panel.setLayout(new MigLayout("", "[85.00][42.00][]", "[]"));
 		
 		JButton btnOk = new JButton("Ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(editable){
+					addPatient();
+				}else{
+					//TODO: add
+				}
+			}
+		});
 		panel.add(btnOk, "cell 1 0,alignx center");
 		
 		JButton buttonCancel = new JButton("Cancel");
+		buttonCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				exit();
+			}
+		});
 		
 		panel.add(buttonCancel, "cell 2 0");
 		buttonCancel.setVisible(editable);
@@ -239,5 +253,12 @@ public class WNeuerPatient extends JInternalFrame {
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
 		getContentPane().setLayout(groupLayout);
+	}
+	
+	private void exit(){
+		this.dispose();
+	}
+	private void addPatient() {
+		
 	}
 }

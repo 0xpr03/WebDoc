@@ -17,8 +17,17 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JButton;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyVetoException;
 
 public class WNeuerPartner extends JInternalFrame {
 
@@ -26,6 +35,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -2791732649836492001L;
+	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textField_8;
@@ -314,6 +324,11 @@ public class WNeuerPartner extends JInternalFrame {
 		panel.add(button, "cell 2 0");
 		
 		JButton bCancel = new JButton("Cancel");
+		bCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				exit();
+			}
+		});
 		panel.add(bCancel, "cell 4 0");
 		bCancel.setVisible(editable);
 		
@@ -400,5 +415,12 @@ public class WNeuerPartner extends JInternalFrame {
 		personenbezogeneDaten.setLayout(gl_personenbezogeneDaten);
 		getContentPane().setLayout(groupLayout);
 		
+	}
+	private void exit(){
+		try {
+			this.setClosed(true);
+		} catch (PropertyVetoException e) {
+			logger.info(e);
+		}
 	}
 }
