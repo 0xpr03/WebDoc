@@ -29,6 +29,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyVetoException;
 
+import javax.swing.SpinnerNumberModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class WNeuerPartner extends JInternalFrame {
 
 	/**
@@ -353,13 +357,22 @@ public class WNeuerPartner extends JInternalFrame {
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		
 		gebTag = new JSpinner();
+		gebTag.setModel(new SpinnerNumberModel(0, 0, 31, 1));
 		gebTag.setEnabled(editable);
+		
 		
 		gebMonat = new JSpinner();
 		gebMonat.setEnabled(editable);
 		
 		gebJahr = new JSpinner();
+		
 		gebJahr.setEnabled(editable);
+		
+		
+		gebMonat.setModel(new SpinnerNumberModel(1, 0, 12, 1));
+		gebJahr.setModel(new SpinnerNumberModel(1950,0,3000, 1));
+		
+		
 		GroupLayout gl_personenbezogeneDaten = new GroupLayout(personenbezogeneDaten);
 		gl_personenbezogeneDaten.setHorizontalGroup(
 			gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
@@ -416,6 +429,8 @@ public class WNeuerPartner extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		
 	}
+
+
 	private void exit(){
 		try {
 			this.setClosed(true);
