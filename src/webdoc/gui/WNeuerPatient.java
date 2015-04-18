@@ -1,6 +1,9 @@
 package webdoc.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,7 +18,14 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JSpinner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import webdoc.gui.GenderEnumObj.GenderType;
+import webdoc.lib.Database;
+import webdoc.lib.Database.DBError;
+import webdoc.lib.GUI;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -24,13 +34,15 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private static final long serialVersionUID = -4647611743598708383L;
 	private JTextField textField;
+	private Logger logger = LogManager.getLogger();
 	private JTextField nameDesTieres;
 	private JTextField rasse;
 	private JTextField farbe;
 	private JTextField gewicht;
 	private JTextField identifizierung;
+	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte AuswÃ¤hlen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("MÃ¤nnlich", GenderType.MALE) };
 	public  boolean editable = true;
-	private JComboBox geschlecht;
+	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 
 	/**
@@ -180,50 +192,40 @@ public class WNeuerPatient extends JInternalFrame {
 		identifizierung.setColumns(10);
 		identifizierung.setEditable(editable);
 		
-		geschlecht = new JComboBox();
-		geschlecht.setEditable(editable);
-		
-		JSpinner spinner = new JSpinner();
-		
-		JSpinner spinner_1 = new JSpinner();
-		
-		JSpinner spinner_2 = new JSpinner();
+		enumGeschlecht = new JComboBox<GenderEnumObj>();
+		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
+		enumGeschlecht.setEditable(editable);
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
 		gl_allgemeineDaten.setHorizontalGroup(
 			gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblGewicht)
-							.addComponent(lblGeburtsdatum)
-							.addComponent(lblName)
-							.addComponent(lblRasse)
-							.addComponent(lblGeschlecht)
-							.addComponent(lblIdentifizierung))
-						.addComponent(lblHaarkleidfarbe))
-					.addGap(18)
-					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_allgemeineDaten.createSequentialGroup()
+							.addComponent(lblIdentifizierung)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(identifizierung))
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(identifizierung, 129, 129, 129)
-								.addGroup(gl_allgemeineDaten.createSequentialGroup()
-									.addGap(2)
-									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(rasse)
-										.addComponent(nameDesTieres, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
-								.addComponent(gewicht, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-								.addComponent(farbe, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_allgemeineDaten.createSequentialGroup()
-									.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinner_2, GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)))
-							.addContainerGap(30, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblName)
+								.addComponent(lblRasse)
+								.addComponent(lblGeschlecht))
+							.addGap(3)
+							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+								.addComponent(enumGeschlecht, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(rasse)
+									.addComponent(nameDesTieres, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
-							.addComponent(geschlecht, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblHaarkleidfarbe)
+									.addComponent(lblGewicht))
+								.addComponent(lblGeburtsdatum))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+								.addComponent(farbe)
+								.addComponent(gewicht, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))))
+					.addContainerGap(40, Short.MAX_VALUE))
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addContainerGap(101, Short.MAX_VALUE)
 					.addComponent(lblAllgemeineDaten)
@@ -233,7 +235,7 @@ public class WNeuerPatient extends JInternalFrame {
 			gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addComponent(lblAllgemeineDaten)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
 						.addComponent(nameDesTieres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -244,20 +246,14 @@ public class WNeuerPatient extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeschlecht)
-						.addComponent(geschlecht, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+						.addComponent(enumGeschlecht, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
+							.addComponent(lblGeburtsdatum)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblGeburtsdatum)
-								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_allgemeineDaten.createSequentialGroup()
-							.addGap(31)
-							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
-								.addComponent(farbe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblHaarkleidfarbe))))
+							.addComponent(lblHaarkleidfarbe))
+						.addComponent(farbe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGewicht)
@@ -266,7 +262,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblIdentifizierung)
 						.addComponent(identifizierung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(19))
+					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
@@ -277,6 +273,21 @@ public class WNeuerPatient extends JInternalFrame {
 		this.dispose();
 	}
 	private void addPatient() {
-		
+		//TODO: add picture support
+		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
+			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
+			if(gender.getType() != GenderType.UNKNOWN){
+				String def = "DEFAULT";
+				try {
+					Database.insertPatient(strName.getText(), def, def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
+					this.dispose();
+				} catch (SQLException e) {
+					DBError error = Database.DBExceptionConverter(e);
+					GUI.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+				}
+			}else{
+				logger.info("No Gender selected!");
+			}
+		}
 	}
 }

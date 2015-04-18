@@ -1,11 +1,14 @@
 package webdoc.lib;
 
+import java.nio.file.Path;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLNonTransientConnectionException;
+import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ public class Database{
 	 *
 	 */
 	public static enum DBError{
-		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6);
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6), NO_DB(7), WRONG_SYNTAX(8);
 		private DBError(int dberror){
 			this.DBError = dberror;
 		}
@@ -101,8 +104,7 @@ public class Database{
 	 * @return list of procedures
 	 * @throws SQLException
 	 */
-	@SuppressWarnings("unused")
-	private static List<String> getProcedures() throws SQLException{
+	public static List<String> getProcedures() throws SQLException{
 		Statement stm = connection.createStatement();
 		stm.execute("SHOW PROCEDURE STATUS;");
 		ResultSet rs = stm.getResultSet();
@@ -113,6 +115,38 @@ public class Database{
 		
 		logger.debug("Found procedures: {}",procedures);
 		return procedures;
+	}
+	
+	//------------- USER SPACE
+	
+	/**
+	 * Insert patient, based on the procedure, -> recommended
+	 * @param name string(50)
+	 * @param callname string(50)
+	 * @param birthdate string(8)
+	 * @param gender boolean
+	 * @param race String(20)
+	 * @param comment String(100)
+	 * @param picture ID
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void insertPatient(String name, String callname, String birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
+		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?)}";
+		CallableStatement stm = connection.prepareCall(sql);
+		stm.setString(1, name);
+		stm.setString(2, callname);
+		stm.setString(3, birthdate);
+		stm.setBoolean(4, gender);
+		stm.setString(5, race);
+		stm.setString(6, comment);
+		stm.setLong(7, 0);
+		
+		if(picture != null)
+			logger.error("Picture currently not implemented!");
+		
+		stm.execute();
+		stm.closeOnCompletion();
 	}
 	
 	/**
@@ -191,23 +225,29 @@ public class Database{
 	 * @return DBError enum
 	 */
 	public static DBError DBExceptionConverter(SQLException e){
-		logger.debug("Converter catched\n{}",e);
-		if(e.getMessage().contains("Access denied for user")){
-			if(e.getMessage().contains("to database")){
+		
+		logger.debug("Converter catched:\n{}",e);
+		String message = e.getMessage();
+		if(message.contains("Access denied for user")){
+			if(message.contains("to database")){
 				return DBError.NO_DB_OR_NO_PERM;
 			}else{
 				return DBError.INVALID_LOGIN;
 			}
-		}else if(e.getMessage().contains("No database selected")){
+		}else if(message.contains("No database selected")){
 			return DBError.NO_DB_SELECTED;
-		}else if(e.getMessage().contains("Access denied; you need")){
+		}else if(message.contains("Access denied; you need")){
 			return DBError.NO_PERMISSIONS;
-		}else if(e.getMessage().contains("Operation")){
-			if(e.getMessage().contains("failed")){
+		}else if(message.contains("Unknown database")){
+			return DBError.NO_DB;
+		}else if(message.contains("Operation")){
+			if(message.contains("failed")){
 				return DBError.OPERATION_FAILED;
 			}else{
 				return DBError.UNDEFINED_ERROR;
 			}
+		}else if(e instanceof SQLSyntaxErrorException ){
+			return DBError.WRONG_SYNTAX;
 		}else{
 			return DBError.UNDEFINED_ERROR;
 		}
