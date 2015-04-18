@@ -5,6 +5,8 @@ import javax.swing.UIManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.crap.crap;
+import webdoc.lib.*;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
