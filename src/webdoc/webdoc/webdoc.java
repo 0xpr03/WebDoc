@@ -94,6 +94,7 @@ public class WebDoc {
 		}
 		
 		Config.setValue("tablesql", "/webdoc/files/tables.sql");
+		Config.setValue("proceduresql", "/webdoc/files/procedures.sql");
 		Config.setValue("configFileName", CONFIG_FILE_NAME);
 		Config.setValue("defaultConfigPath", DEFAULT_CONFIG_PATH);
 	}
