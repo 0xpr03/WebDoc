@@ -13,6 +13,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -107,9 +109,10 @@ public class WNeuerPatient extends JInternalFrame {
 		JButton btnOk = new JButton("Ok");
 		panel.add(btnOk, "cell 1 0,alignx center");
 		
-		JButton btnNewButton = new JButton("Cancel");
-		panel.add(btnNewButton, "cell 2 0");
-		btnNewButton.setVisible(editable);
+		JButton buttonCancel = new JButton("Cancel");
+		
+		panel.add(buttonCancel, "cell 2 0");
+		buttonCancel.setVisible(editable);
 		
 		allgemeineDaten = new JPanel();
 		GroupLayout gl_daten = new GroupLayout(daten);

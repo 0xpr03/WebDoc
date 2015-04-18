@@ -27,7 +27,6 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private static final long serialVersionUID = -2791732649836492001L;
 	private JTextField textName;
-	private JTextField textVorname;
 	private JTextField textTitel;
 	private JTextField textField_8;
 	private JTextField textField_4;
@@ -40,6 +39,12 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textField_12;
 	private JTextField textField_13;
 	private boolean editable;
+	private JTextPane textPaneBemerkungen;
+	private JPanel rollendaten;
+	private JSpinner gebJahr;
+	private JSpinner gebMonat;
+	private JSpinner gebTag;
+	private JTextField textVorname;
 
 	/**
 	 * Launch the application.
@@ -74,16 +79,16 @@ public class WNeuerPartner extends JInternalFrame {
 	 * Initialize the contents of the 
 	 */
 	private void initialize() {
-		setTitle("Neuer Patner");
+		setTitle(editable ? "Neuer Patner" : "Patner");
 		setBounds(100, 100, 610, 543);
 		
 		JPanel personenbezogeneDaten = new JPanel();
 		
-		JLabel label = new JLabel("Bemerkungen:");
+		JLabel labelBemerkungen = new JLabel("Bemerkungen:");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JPanel rollendaten = new JPanel();
+		rollendaten = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -94,7 +99,7 @@ public class WNeuerPartner extends JInternalFrame {
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+							.addComponent(labelBemerkungen, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)))
@@ -111,15 +116,16 @@ public class WNeuerPartner extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(label)
+							.addComponent(labelBemerkungen)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)))
 					.addGap(60))
 		);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBackground(Color.WHITE);
-		scrollPane.setViewportView(textPane);
+		textPaneBemerkungen = new JTextPane();
+		textPaneBemerkungen.setEditable(editable);
+		textPaneBemerkungen.setBackground(Color.WHITE);
+		scrollPane.setViewportView(textPaneBemerkungen);
 		rollendaten.setLayout(null);
 		
 		JMenuBar menuBar_1 = new JMenuBar();
@@ -331,11 +337,14 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		
-		JSpinner spinner = new JSpinner();
+		gebTag = new JSpinner();
+		gebTag.setEnabled(editable);
 		
-		JSpinner spinner_1 = new JSpinner();
+		gebMonat = new JSpinner();
+		gebMonat.setEnabled(editable);
 		
-		JSpinner spinner_2 = new JSpinner();
+		gebJahr = new JSpinner();
+		gebJahr.setEnabled(editable);
 		GroupLayout gl_personenbezogeneDaten = new GroupLayout(personenbezogeneDaten);
 		gl_personenbezogeneDaten.setHorizontalGroup(
 			gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
@@ -356,11 +365,11 @@ public class WNeuerPartner extends JInternalFrame {
 						.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
 							.addComponent(lblGeburtsdatum)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addComponent(gebTag, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+							.addComponent(gebMonat, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
 							.addGap(6)
-							.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(gebJahr, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_personenbezogeneDaten.setVerticalGroup(
@@ -383,9 +392,9 @@ public class WNeuerPartner extends JInternalFrame {
 						.addComponent(lblGeburtsdatum)
 						.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.BASELINE)
-								.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(gebMonat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(gebTag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(gebJahr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		personenbezogeneDaten.setLayout(gl_personenbezogeneDaten);

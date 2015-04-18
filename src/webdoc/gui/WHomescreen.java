@@ -162,7 +162,7 @@ public class WHomescreen extends JFrame {
 				logger.debug("selected: {}", selMenu.getType());
 				switch(selMenu.getType()){
 				case HAUPTMENÜ:
-					//TODO: show main menu
+					//TODO: show main menu					
 					break;
 				case N_PATIENT:
 					reOpen(FNeuerPatient);
