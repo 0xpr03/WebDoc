@@ -120,15 +120,16 @@ public class Database{
 	//------------- USER SPACE
 	
 	/**
-	 * 
-	 * @param name
-	 * @param callname
-	 * @param birthdate
-	 * @param gender
-	 * @param race
-	 * @param comment
-	 * @param picture
+	 * Insert patient, based on the procedure, -> recommended
+	 * @param name string(50)
+	 * @param callname string(50)
+	 * @param birthdate string(8)
+	 * @param gender boolean
+	 * @param race String(20)
+	 * @param comment String(100)
+	 * @param picture ID
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	public static void insertPatient(String name, String callname, String birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
 		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?)}";
