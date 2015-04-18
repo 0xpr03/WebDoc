@@ -5,19 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
+
 import net.miginfocom.swing.MigLayout;
-import javax.swing.BoxLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,8 +35,8 @@ public class WNeuerPatient extends JInternalFrame {
 	private static final long serialVersionUID = -4647611743598708383L;
 	private JTextField textField;
 	private Logger logger = LogManager.getLogger();
-	private JTextField nameDesTieres;
-	private JTextField rasse;
+	private JTextField strName;
+	private JTextField strRasse;
 	private JTextField farbe;
 	private JTextField gewicht;
 	private JTextField identifizierung;
@@ -172,13 +172,13 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JLabel lblAllgemeineDaten = new JLabel("Allgemeine Daten");
 		
-		nameDesTieres = new JTextField();
-		nameDesTieres.setColumns(10);
-		nameDesTieres.setEditable(editable);
+		strName = new JTextField();
+		strName.setColumns(10);
+		strName.setEditable(editable);
 		
-		rasse = new JTextField();
-		rasse.setEditable(editable);
-		rasse.setColumns(10);
+		strRasse = new JTextField();
+		strRasse.setEditable(editable);
+		strRasse.setColumns(10);
 		
 		farbe = new JTextField();
 		farbe.setColumns(10);
@@ -213,8 +213,8 @@ public class WNeuerPatient extends JInternalFrame {
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 								.addComponent(enumGeschlecht, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(rasse)
-									.addComponent(nameDesTieres, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
+									.addComponent(strRasse)
+									.addComponent(strName, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
@@ -238,11 +238,11 @@ public class WNeuerPatient extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
-						.addComponent(nameDesTieres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(strName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRasse)
-						.addComponent(rasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(strRasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeschlecht)
