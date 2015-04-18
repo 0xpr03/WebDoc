@@ -1,20 +1,31 @@
 package webdoc.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
+
 import net.miginfocom.swing.MigLayout;
-import javax.swing.BoxLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import webdoc.gui.GenderEnumObj.GenderType;
+import webdoc.lib.Database;
+import webdoc.lib.Database.DBError;
+import webdoc.lib.GUI;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -23,13 +34,15 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private static final long serialVersionUID = -4647611743598708383L;
 	private JTextField textField;
-	private JTextField nameDesTieres;
-	private JTextField rasse;
+	private Logger logger = LogManager.getLogger();
+	private JTextField strName;
+	private JTextField strRasse;
 	private JTextField farbe;
 	private JTextField gewicht;
 	private JTextField identifizierung;
+	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("Männlich", GenderType.MALE) };
 	public  boolean editable = true;
-	private JComboBox geschlecht;
+	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 
 	/**
@@ -159,13 +172,13 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JLabel lblAllgemeineDaten = new JLabel("Allgemeine Daten");
 		
-		nameDesTieres = new JTextField();
-		nameDesTieres.setColumns(10);
-		nameDesTieres.setEditable(editable);
+		strName = new JTextField();
+		strName.setColumns(10);
+		strName.setEditable(editable);
 		
-		rasse = new JTextField();
-		rasse.setEditable(editable);
-		rasse.setColumns(10);
+		strRasse = new JTextField();
+		strRasse.setEditable(editable);
+		strRasse.setColumns(10);
 		
 		farbe = new JTextField();
 		farbe.setColumns(10);
@@ -179,17 +192,14 @@ public class WNeuerPatient extends JInternalFrame {
 		identifizierung.setColumns(10);
 		identifizierung.setEditable(editable);
 		
-		geschlecht = new JComboBox();
-		geschlecht.setEditable(editable);
+		enumGeschlecht = new JComboBox<GenderEnumObj>();
+		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
+		enumGeschlecht.setEditable(editable);
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
 		gl_allgemeineDaten.setHorizontalGroup(
 			gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_allgemeineDaten.createSequentialGroup()
-							.addComponent(lblIdentifizierung)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(identifizierung))
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblName)
@@ -197,20 +207,23 @@ public class WNeuerPatient extends JInternalFrame {
 								.addComponent(lblGeschlecht))
 							.addGap(3)
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(geschlecht, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+								.addComponent(enumGeschlecht, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(rasse)
-									.addComponent(nameDesTieres, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
+									.addComponent(strRasse)
+									.addComponent(strName, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))))
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblHaarkleidfarbe)
-									.addComponent(lblGewicht))
+								.addComponent(lblHaarkleidfarbe)
+								.addComponent(lblGewicht)
 								.addComponent(lblGeburtsdatum))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 								.addComponent(farbe)
-								.addComponent(gewicht, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))))
+								.addComponent(gewicht, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
+						.addGroup(gl_allgemeineDaten.createSequentialGroup()
+							.addComponent(lblIdentifizierung)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(identifizierung)))
 					.addContainerGap(40, Short.MAX_VALUE))
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addContainerGap(101, Short.MAX_VALUE)
@@ -224,15 +237,15 @@ public class WNeuerPatient extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
-						.addComponent(nameDesTieres, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(strName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRasse)
-						.addComponent(rasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(strRasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeschlecht)
-						.addComponent(geschlecht, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addComponent(enumGeschlecht, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
@@ -248,7 +261,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblIdentifizierung)
 						.addComponent(identifizierung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(24, Short.MAX_VALUE))
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
@@ -259,6 +272,21 @@ public class WNeuerPatient extends JInternalFrame {
 		this.dispose();
 	}
 	private void addPatient() {
-		
+		//TODO: add picture support
+		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
+			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
+			if(gender.getType() != GenderType.UNKNOWN){
+				String def = "DEFAULT";
+				try {
+					Database.insertPatient(strName.getText(), def, def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
+					this.dispose();
+				} catch (SQLException e) {
+					DBError error = Database.DBExceptionConverter(e);
+					GUI.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+				}
+			}else{
+				logger.info("No Gender selected!");
+			}
+		}
 	}
 }
