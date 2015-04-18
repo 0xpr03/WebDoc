@@ -1,5 +1,7 @@
 ﻿package webdoc.webdoc;
 
+import java.sql.SQLException;
+
 import javax.swing.UIManager;
 
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +49,12 @@ public class WebDoc {
 		//### Testing area, all components loaded
 		
 		//test();
+		try {
+			logger.debug(Database.getProcedures());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.debug(e);
+		}
 		
 		//###
 		
@@ -118,6 +126,10 @@ public class WebDoc {
 				GUI.showErrorDialog("Der Login auf den Datenbankserver ist fehlgeschalgen!", "Login Fehler");
 				showsetup = true;
 				break;
+			case NO_DB:
+				GUI.showErrorDialog("Die Datenbank konnte nicht gefunden werden!", "Datenbank Fehler");
+				showsetup = true;
+				break;
 			default:
 				GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dberr.getError(), "Login Fehler");
 				break;
@@ -153,6 +165,9 @@ public class WebDoc {
 				break;
 			case NO_PERMISSIONS:
 				GUI.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
+				break;
+			case NO_DB:
+				GUI.showErrorDialog("Die angegebene Datenbank existiert nicht!", "Fehler beim Setup");
 				break;
 			default:
 				GUI.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dbee.getError(), "Unerwarteter Setup Fehler");
