@@ -155,7 +155,7 @@ public class Database{
 	 * @return affected lines!
 	 * @throws SQLException 
 	 */
-	public static int execUpdateQuery(String sql) throws SQLException{
+	public static int execUpdateQuery(String sql, String delimiter) throws SQLException{
 		int affectedLines = -1;
 		logger.debug("Executing {}",sql);
 		Statement stm = null;
@@ -172,6 +172,16 @@ public class Database{
 		}
 		
 		return affectedLines;
+	}
+	
+	/**
+	 * See execUpdateQuery(String sql, String delimiter), only with default delimiter
+	 * @param sql
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int execUpdateQuery(String sql) throws SQLException {
+		return execUpdateQuery(sql, ";");
 	}
 	
 	/**

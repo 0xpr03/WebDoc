@@ -61,8 +61,9 @@ CREATE TABLE IF NOT EXISTS `partnerroles` (
 CREATE TABLE IF NOT EXISTS `race` (
  `RaceID` int(11) NOT NULL AUTO_INCREMENT,
  `race` varchar(20) NOT NULL,
- PRIMARY KEY (`RaceID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+ PRIMARY KEY (`RaceID`),
+ KEY `race` (`race`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Table animal / Tier */
 CREATE TABLE IF NOT EXISTS `animal` (
  `Name` varchar(50) NOT NULL,
@@ -71,5 +72,8 @@ CREATE TABLE IF NOT EXISTS `animal` (
  `gender` tinyint(1) NOT NULL,
  `Picture` int(10) unsigned NOT NULL,
  `RaceID` int(10) unsigned NOT NULL,
- `comment` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+ `comment` varchar(100) DEFAULT NULL,
+ PRIMARY KEY (`Name`,`Callname`,`birthdate`,`RaceID`),
+ KEY `Callname` (`Callname`),
+ KEY `Name` (`Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';

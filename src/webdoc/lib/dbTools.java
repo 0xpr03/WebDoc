@@ -65,6 +65,44 @@ public class dbTools {
 		}
 	}
 	
+	public DBError sqlProcCreator(String file, WProgress window){
+		try{
+			InputStream is = getClass().getResourceAsStream(file);
+		    InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			StringBuffer sb = new StringBuffer();
+			
+			Pattern pattern = Pattern.compile(".*$$.*");
+			Matcher matcher = pattern.matcher("");
+			window.setSubMax(getMaxLines(file));
+			window.setSubText("Dropping & ReCreating Procedures");
+			
+			for(String line = br.readLine(); line != null;line=br.readLine()){
+				if(line.startsWith("/*")){
+					//do nothing, ignore comment lines
+				}else{
+					matcher.reset(line);
+					sb.append(line);
+					if(matcher.find()){
+						logger.debug("Creating Tbl {}",line);
+						Database.execUpdateQuery(sb.toString());
+						sb.setLength(0);
+					}
+				}
+				window.addSubProgress();
+			}
+			br.close();
+			isr.close();
+			is.close();
+			return DBError.NOERROR;
+		}catch(SQLException e){
+			return Database.DBExceptionConverter(e);
+		}catch(IOException | NullPointerException e){
+			logger.fatal("Unable to create tables from file!", e);
+			return DBError.EXTERNAL_ERROR;
+		}
+	}
+	
 	/**
 	 * runns the DBSetup
 	 * @return
@@ -80,7 +118,8 @@ public class dbTools {
 			wpg.setMax(max);
 			wpg.setVisible(true);
 			
-			String file = Config.getStrValue("tablesql");
+			String tablefile = Config.getStrValue("tablesql");
+			String procfile = Config.getStrValue("proceduresql");
 			
 			if(Config.getBoolValue("createDB")){
 				wpg.setText("Creating DB");
@@ -95,6 +134,7 @@ public class dbTools {
 				wpg.setSubText("Creating DB");
 				Database.execUpdateQuery(String.format("CREATE DATABASE IF NOT EXISTS `%s` ;",Config.getStrValue("db")));
 				wpg.addSubProgress();
+				
 			}
 			
 			Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
@@ -103,7 +143,7 @@ public class dbTools {
 				wpg.setText("Overwriting DBs..");
 				wpg.setSubText("Getting DBs");
 				
-				List<String> dbs = getTableNames(file, wpg);
+				List<String> dbs = getTableNames(tablefile, wpg);
 				wpg.addProgress();
 				wpg.setSubText("Deleting DBs..");
 				wpg.setSubMax(dbs.size());
@@ -116,7 +156,9 @@ public class dbTools {
 			}
 			
 			if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
-				sqlTblCreator(file, wpg);
+				sqlTblCreator(tablefile, wpg);
+				sqlProcCreator(procfile, wpg);
+				wpg.addProgress();
 			}
 			
 			if (Config.getBoolValue("createUser")) {
