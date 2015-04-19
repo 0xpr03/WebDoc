@@ -27,7 +27,7 @@ public class WebDoc {
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
 	private  static final Logger logger = LogManager.getLogger();
-	private static final String VERSION = "0.2 alpha";
+	private static final String VERSION = "0.3 alpha";
 	private static WHomescreen WHomescreen;
 	
 	public static void main(String[] args){
