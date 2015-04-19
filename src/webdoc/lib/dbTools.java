@@ -46,7 +46,6 @@ public class dbTools {
 					matcher.reset(line);
 					sb.append(line);
 					if(matcher.find()){
-						logger.debug("Creating Tbl {}",line);
 						Database.execUpdateQuery(sb.toString());
 						sb.setLength(0);
 					}
@@ -72,7 +71,7 @@ public class dbTools {
 			BufferedReader br = new BufferedReader(isr);
 			StringBuffer sb = new StringBuffer();
 			
-			Pattern pattern = Pattern.compile(".*$$.*");
+			Pattern pattern = Pattern.compile(".*\\$\\$.*");
 			Matcher matcher = pattern.matcher("");
 			window.setSubMax(getMaxLines(file));
 			window.setSubText("Dropping & ReCreating Procedures");
@@ -82,10 +81,9 @@ public class dbTools {
 					//do nothing, ignore comment lines
 				}else{
 					matcher.reset(line);
-					sb.append(line);
+					sb.append(line+"\n");
 					if(matcher.find()){
-						logger.debug("Creating Tbl {}",line);
-						Database.execUpdateQuery(sb.toString());
+						Database.execMulitline(sb.toString().replace("$$", ""));
 						sb.setLength(0);
 					}
 				}
@@ -113,8 +111,9 @@ public class dbTools {
 		try{
 		int max = 1;
 			max += Config.getBoolValue("createDB") ? 1 : 0;
-			max += Config.getBoolValue("createUser") ? 1 : 0;
-			max += Config.getBoolValue("overwriteDB") ? 3 : 0;
+			max += Config.getBoolValue("createUser") ? 2 : 0;
+			max += Config.getBoolValue("overwriteDB") ? 2 : 0;
+			max += Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB") ? 1 : 0;
 			wpg.setMax(max);
 			wpg.setVisible(true);
 			
@@ -134,10 +133,12 @@ public class dbTools {
 				wpg.setSubText("Creating DB");
 				Database.execUpdateQuery(String.format("CREATE DATABASE IF NOT EXISTS `%s` ;",Config.getStrValue("db")));
 				wpg.addSubProgress();
-				
+				wpg.addProgress();
 			}
 			
+			wpg.setText("Using DB");
 			Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
+			wpg.addProgress();
 			
 			if (Config.getBoolValue("overwriteDB")) {
 				wpg.setText("Overwriting DBs..");
@@ -156,7 +157,10 @@ public class dbTools {
 			}
 			
 			if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
+				wpg.setText("Creating DBs");
 				sqlTblCreator(tablefile, wpg);
+				wpg.addProgress();
+				wpg.setText("Creating Procedures");
 				sqlProcCreator(procfile, wpg);
 				wpg.addProgress();
 			}
