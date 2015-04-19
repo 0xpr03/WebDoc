@@ -1,4 +1,4 @@
-/*****PROCEDURES**DO NOT TOUCH!**/
+/* **** PROCEDURES ** DO NOT TOUCH! **********/
 DROP PROCEDURE IF EXISTS `insertPatient`$$
 CREATE PROCEDURE `insertPatient`(
 	IN `param_name` VARCHAR(50) CHARSET utf8,
