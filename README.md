@@ -1,6 +1,4 @@
 # WebDoc
-**Dies ist nur ein Vererbungs-Test & steht in keinerlei referenz zu dem eigentlichen Projekt!**
-
 For the docs please look into the wiki
 Protocoll is also there
 
