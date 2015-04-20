@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 public class test {
 
-	private JFrame frame;
+	private JFrame Testframe;
 
 	/**
 	 * Launch the application.
@@ -18,7 +18,7 @@ public class test {
 			public void run() {
 				try {
 					test window = new test();
-					window.frame.setVisible(true);
+					window.Testframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,18 +37,27 @@ public class test {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		Testframe = new JFrame();
+		Testframe.setTitle("Testframe");
+		Testframe.setBounds(100, 100, 242, 217);
+		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JAutoCompleteTextField autoCompleteTextField = new JAutoCompleteTextField();
+		GroupLayout groupLayout = new GroupLayout(Testframe.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 434, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(autoCompleteTextField, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(219, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 261, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(autoCompleteTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(231, Short.MAX_VALUE))
 		);
-		frame.getContentPane().setLayout(groupLayout);
+		Testframe.getContentPane().setLayout(groupLayout);
 	}
 }
