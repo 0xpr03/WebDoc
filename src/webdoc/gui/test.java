@@ -8,12 +8,15 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 
+import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.JAutoCompleteTextField;
+import webdoc.gui.utils.JAutoCompleteTextField.DataProvider;
 
 public class test {
 
 	private JFrame Testframe;
 	private JAutoCompleteTextField autoCompleteTextField;
+	private List<ACElement> l2 = new ArrayList<ACElement>();
 
 	/**
 	 * Launch the application.
@@ -48,6 +51,8 @@ public class test {
 		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		autoCompleteTextField = new JAutoCompleteTextField();
+		
+		
 		GroupLayout groupLayout = new GroupLayout(Testframe.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -64,14 +69,34 @@ public class test {
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		Testframe.getContentPane().setLayout(groupLayout);
-		List<String> l = new ArrayList<String>();
-		l.add("123");
-		l.add("234");
-		l.add("345");
-		l.add("456");
-		l.add("567");
-		l.add("678");
-		l.add("789");
-		autoCompleteTextField.setHistory(l);
+//		List<String> l = new ArrayList<String>();
+//		l.add("123");
+//		l.add("234");
+//		l.add("345");
+//		l.add("456");
+//		l.add("567");
+//		l.add("678");
+//		l.add("789");
+		
+		l2.add(new ACElement("123", 1L));
+		l2.add(new ACElement("234", 2L));
+		l2.add(new ACElement("345", 3L));
+		l2.add(new ACElement("456", 4L));
+		l2.add(new ACElement("567", 5L));
+		l2.add(new ACElement("678", 6L));
+		l2.add(new ACElement("789", 7L));
+		autoCompleteTextField.setHistory(l2);
+		class Provider implements DataProvider{
+			@Override
+			public List<ACElement> getData(String text){
+				return l2;
+			}
+		}
+		autoCompleteTextField.setDataProvider(new Provider());
+		
+		
+	}
+	List<ACElement> getd(){
+		return l2;
 	}
 }
