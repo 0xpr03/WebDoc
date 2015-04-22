@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `race` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Table animal / Tier */
 CREATE TABLE IF NOT EXISTS `animal` (
+ `AnimalID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `Name` varchar(50) NOT NULL,
  `Callname` varchar(20) NOT NULL,
  `birthdate` varchar(8) NOT NULL,
@@ -73,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `animal` (
  `Picture` int(10) unsigned NOT NULL,
  `RaceID` int(10) unsigned NOT NULL,
  `comment` varchar(100) DEFAULT NULL,
- PRIMARY KEY (`Name`,`Callname`,`birthdate`,`RaceID`),
+ PRIMARY KEY (`AnimalID`),
  KEY `Callname` (`Callname`),
  KEY `Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='v0.3';

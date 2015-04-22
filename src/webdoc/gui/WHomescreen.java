@@ -23,6 +23,8 @@ import javax.swing.tree.TreePath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.utils.CustomTreeObj;
+
 /**
  * Mainframe of the GUI
  * @author "Aron Heinecke"

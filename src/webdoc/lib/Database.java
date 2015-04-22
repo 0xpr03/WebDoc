@@ -150,21 +150,22 @@ public class Database{
 	}
 	
 	/**
-	 * Runns an SQL command, NOT injection safe!
-	 * @param sql
-	 * @return affected lines!
+	 * Execute an update query.
+	 * Not injection safe!
+	 * @param sql single-sql
+	 * @return affected lines
 	 * @throws SQLException 
+	 * @author "Aron Heinecke"
 	 */
-	public static int execUpdateQuery(String sql, String delimiter) throws SQLException{
-		int affectedLines = -1;
+	public static int execUpdateQuery(String sql) throws SQLException{
 		logger.debug("Executing {}",sql);
+		int affectedLines = -1;
 		Statement stm = null;
 		try{
 			stm = connection.createStatement();
 			stm.executeUpdate(sql);
-			
-			logger.debug("Affected lines {}", stm.getUpdateCount());
-			stm.close();
+			affectedLines = stm.getUpdateCount();
+			logger.debug("Affected lines {}", affectedLines);
 		}finally{
 			if(stm != null){
 				try{stm.close();}catch(Exception e){}
@@ -175,13 +176,29 @@ public class Database{
 	}
 	
 	/**
-	 * See execUpdateQuery(String sql, String delimiter), only with default delimiter
-	 * @param sql
-	 * @return
+	 * Execute an unsafe multiline query.
+	 * Not injection safe!
+	 * @param sql multiline sql
+	 * @return affected lines
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
-	public static int execUpdateQuery(String sql) throws SQLException {
-		return execUpdateQuery(sql, ";");
+	public static int execMulitline(String sql) throws SQLException{
+		logger.debug("Executing\n{}",sql);
+		int affectedLines = -1;
+		Statement stm = null;
+		try{
+			stm = connection.createStatement();
+			stm.execute(sql);
+			affectedLines = stm.getUpdateCount();
+			logger.debug("Affected lines {}", affectedLines);
+		}finally{
+			if(stm != null){
+				try{stm.close();}catch(Exception e){}
+			}
+		}
+		
+		return affectedLines;
 	}
 	
 	/**

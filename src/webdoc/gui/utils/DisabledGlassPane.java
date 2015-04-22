@@ -1,4 +1,4 @@
-package webdoc.gui;
+package webdoc.gui.utils;
 
 import java.awt.Color;
 import java.awt.Cursor;

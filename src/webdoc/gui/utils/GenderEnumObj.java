@@ -1,13 +1,14 @@
-package webdoc.gui;
+package webdoc.gui.utils;
+
 
 /**
- * Custom Tree Obj for localization
+ * Custom enum types for localization
  * @author "Aron Heinecke"
  */
-public class CustomTreeObj {
-	public static enum EntryType{
-		ZWEIG(-1),HAUPTMENÜ(0),N_PATIENT(1),N_PARTNER(2),PARTNER(5),N_BEHANDLUNG(3),PATIENT(4);
-		private EntryType(int EntryType){
+public class GenderEnumObj {
+	public static enum GenderType{
+		UNKNOWN(-1),MALE(1),FEMALE(1);
+		private GenderType(int EntryType){
 			this.EntryType = EntryType;
 		}
 		private int EntryType;
@@ -17,14 +18,14 @@ public class CustomTreeObj {
 	}
 	
 	private String name;
-	private EntryType type;
+	private GenderType type;
 	
-	public CustomTreeObj(String name, EntryType type){
+	public GenderEnumObj(String name, GenderType type){
 		this.name = name;
 		this.type = type;
 	}
 	
-	public EntryType getType(){
+	public GenderType getType(){
 		return type;
 	}
 	public String getName(){
