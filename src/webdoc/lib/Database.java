@@ -149,6 +149,9 @@ public class Database{
 		stm.closeOnCompletion();
 	}
 	
+	public static void insertPatner(){
+		
+	}
 	/**
 	 * Execute an update query.
 	 * Not injection safe!

@@ -33,6 +33,8 @@ import javax.swing.SpinnerNumberModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import webdoc.lib.Database;
+
 public class WNeuerPartner extends JInternalFrame {
 
 	/**
@@ -42,23 +44,23 @@ public class WNeuerPartner extends JInternalFrame {
 	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
-	private JTextField textField_8;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
+	private JTextField textHausnummer;
+	private JTextField textStraße;
+	private JTextField textOrtsteil;
+	private JTextField textOrt;
+	private JTextField textPostleitzahl;
+	private JTextField textZusatz;
+	private JTextField textTelefon;
+	private JTextField textFax;
+	private JTextField textEmail;
 	private boolean editable;
-	private JTextPane textPaneBemerkungen;
+	private JTextPane textPaneComment;
 	private JPanel rollendaten;
 	private JSpinner gebJahr;
 	private JSpinner gebMonat;
 	private JSpinner gebTag;
 	private JTextField textVorname;
+	private JTextField textHandy;
 
 	/**
 	 * Launch the application.
@@ -136,10 +138,10 @@ public class WNeuerPartner extends JInternalFrame {
 					.addGap(60))
 		);
 		
-		textPaneBemerkungen = new JTextPane();
-		textPaneBemerkungen.setEditable(editable);
-		textPaneBemerkungen.setBackground(Color.WHITE);
-		scrollPane.setViewportView(textPaneBemerkungen);
+		textPaneComment = new JTextPane();
+		textPaneComment.setEditable(editable);
+		textPaneComment.setBackground(Color.WHITE);
+		scrollPane.setViewportView(textPaneComment);
 		rollendaten.setLayout(null);
 		
 		JMenuBar menuBar_1 = new JMenuBar();
@@ -185,45 +187,45 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JLabel lblEmail = new JLabel("E-Mail");
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
+		textHausnummer = new JTextField();
+		textHausnummer.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		textStraße = new JTextField();
+		textStraße.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		textOrtsteil = new JTextField();
+		textOrtsteil.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		textOrt = new JTextField();
+		textOrt.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
+		textPostleitzahl = new JTextField();
+		textPostleitzahl.setColumns(10);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
+		textZusatz = new JTextField();
+		textZusatz.setColumns(10);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
+		textTelefon = new JTextField();
+		textTelefon.setColumns(10);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
+		textHandy = new JTextField();
+		textHandy.setColumns(10);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setEditable(editable);
-		textField_11.setEditable(editable);
-		textField_10.setEditable(editable);
-		textField_9.setEditable(editable);
-		textField_8.setEditable(editable);
-		textField_7.setEditable(editable);
-		textField_6.setEditable(editable);
-		textField_5.setEditable(editable);
-		textField_4.setEditable(editable);
+		textFax = new JTextField();
+		textFax.setColumns(10);
+		textFax.setEditable(editable);
+		textHandy.setEditable(editable);
+		textTelefon.setEditable(editable);
+		textZusatz.setEditable(editable);
+		textHausnummer.setEditable(editable);
+		textPostleitzahl.setEditable(editable);
+		textOrt.setEditable(editable);
+		textOrtsteil.setEditable(editable);
+		textStraße.setEditable(editable);
 		
-		textField_13 = new JTextField();
-		textField_13.setColumns(10);
-		textField_13.setEditable(editable);
+		textEmail = new JTextField();
+		textEmail.setColumns(10);
+		textEmail.setEditable(editable);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -244,12 +246,12 @@ public class WNeuerPartner extends JInternalFrame {
 									.addComponent(lblZusatz))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-									.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addGap(90)
 							.addComponent(lblKomunikation))
@@ -261,10 +263,10 @@ public class WNeuerPartner extends JInternalFrame {
 								.addComponent(lblEmail))
 							.addGap(34)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_13, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textFax, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel_3.setVerticalGroup(
@@ -274,27 +276,27 @@ public class WNeuerPartner extends JInternalFrame {
 					.addGap(9)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPostleitzahl)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblOrt)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblOrtsteil)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStrae)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHausnummer)
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblZusatz)
-						.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(14)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -302,19 +304,19 @@ public class WNeuerPartner extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTelefon)
-						.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHandy)
-						.addComponent(textField_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFax)
-						.addComponent(textField_12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
-						.addComponent(textField_13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(58))
 		);
 		panel_3.setLayout(gl_panel_3);
@@ -325,6 +327,12 @@ public class WNeuerPartner extends JInternalFrame {
 		panel.setLayout(new MigLayout("", "[44.00][][][][]", "[]"));
 		
 		JButton button = new JButton("Ok");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addPatner();
+			}
+
+		});
 		panel.add(button, "cell 2 0");
 		
 		JButton bCancel = new JButton("Cancel");
@@ -430,6 +438,11 @@ public class WNeuerPartner extends JInternalFrame {
 		
 	}
 
+
+	protected void addPatner() {
+		Database.insertPatner();
+		
+	}
 
 	private void exit(){
 		try {

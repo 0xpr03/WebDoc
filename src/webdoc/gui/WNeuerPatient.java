@@ -56,6 +56,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner spinGebMonth;
 	private JSpinner spinGebYear;
 	private String birthdate;
+	private JButton btnNeueAnamnese;
 	/**
 	 * Launch the application.
 	 */
@@ -148,7 +149,7 @@ public class WNeuerPatient extends JInternalFrame {
 		scrollPane.setViewportView(strComment);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
 		suche.add(textField);
-		panel.setLayout(new MigLayout("", "[85.00][42.00][]", "[]"));
+		panel.setLayout(new MigLayout("", "[85.00][42.00][][]", "[]"));
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -171,6 +172,19 @@ public class WNeuerPatient extends JInternalFrame {
 		});
 		
 		panel.add(buttonCancel, "cell 2 0");
+		
+		btnNeueAnamnese = new JButton("Neue Anamnese");
+		btnNeueAnamnese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				neueAnamnese(strName);
+			}
+
+		});
+		panel.add(btnNeueAnamnese, "cell 3 0");
+		btnNeueAnamnese.setVisible(!editable);
+		
+		
+		
 		buttonCancel.setVisible(editable);
 		
 		allgemeineDaten = new JPanel();
@@ -338,6 +352,10 @@ public class WNeuerPatient extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 	
+	protected void neueAnamnese(JTextField strName2) {
+		//TODO: Öffne neue Anamnese Fenster
+	}
+
 	private void exit(){
 		this.dispose();
 	}
