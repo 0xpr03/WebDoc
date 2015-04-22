@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -23,20 +22,28 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+
 /**
  * Custom Texfield with autocomplete support
  * Experimental!
  * @author "Aron Heinecke"
  */
 public class JAutoCompleteTextField extends JTextField {
+	
+	public interface DataProvider{
+		public List<ACElement> getData(String text);
+	}
+	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1317632194630187821L;
 
 	private static final int MAX_VISIBLE_ROWS = 8;
+	private static final int MIN_CHARS = 3;
+	private DataProvider dataprovider=null;
 
-    private final List<String> history = new ArrayList<String>();
+    private final List<ACElement> history = new ArrayList<ACElement>();
 
     private final JPopupMenu popup = new JPopupMenu() {
         /**
@@ -53,11 +60,15 @@ public class JAutoCompleteTextField extends JTextField {
         }
     };
 
-    private final JList list = new JList(new DefaultListModel());
+    private final JList<ACElement> list = new JList<ACElement>(new DefaultListModel<ACElement>());
 
     private String userText;
 
     private boolean notificationDenied;
+    
+    public void setDataProvider(DataProvider dataprovider){
+    	this.dataprovider = dataprovider;
+    }
 
     public JAutoCompleteTextField() {
         JScrollPane scrollPane = new JScrollPane(list,
@@ -89,7 +100,6 @@ public class JAutoCompleteTextField extends JTextField {
         list.addMouseMotionListener(new MouseAdapter() {
             public void mouseMoved(MouseEvent e) {
                 int index = list.locationToIndex(e.getPoint());
-
                 if (index >= 0 && list.getSelectedIndex() != index) {
                     list.setSelectedIndex(index);
                 }
@@ -99,8 +109,7 @@ public class JAutoCompleteTextField extends JTextField {
         list.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
-                    setTextWithoutNotification((String) list.getSelectedValue());
-
+                	setTextWithoutNotification(list.getSelectedValue().toString());
                     popup.setVisible(false);
                 }
             }
@@ -118,33 +127,27 @@ public class JAutoCompleteTextField extends JTextField {
                     switch (e.getKeyCode()) {
                         case KeyEvent.VK_UP: {
                             changeListSelectedIndex(-1);
-
                             break;
                         }
 
                         case KeyEvent.VK_PAGE_UP: {
                             changeListSelectedIndex(-list.getVisibleRowCount());
-
                             break;
                         }
 
                         case KeyEvent.VK_DOWN: {
                             changeListSelectedIndex(1);
-
                             break;
                         }
 
                         case KeyEvent.VK_PAGE_DOWN: {
                             changeListSelectedIndex(list.getVisibleRowCount());
-
                             break;
                         }
 
                         case KeyEvent.VK_ESCAPE: {
                             popup.setVisible(false);
-
                             setTextWithoutNotification(userText);
-
                             break;
                         }
 
@@ -152,7 +155,6 @@ public class JAutoCompleteTextField extends JTextField {
                         case KeyEvent.VK_LEFT:
                         case KeyEvent.VK_RIGHT: {
                             popup.setVisible(false);
-
                             break;
                         }
                     }
@@ -163,7 +165,7 @@ public class JAutoCompleteTextField extends JTextField {
                             e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
                         userText = getText();
 
-                        showFilteredHistory();
+                        showFilteredHistory(dataprovider.getData(userText));
                     }
                 }
             }
@@ -171,7 +173,7 @@ public class JAutoCompleteTextField extends JTextField {
     }
 
     private void changeListSelectedIndex(int delta) {
-        int size = list.getModel().getSize();
+    	int size = list.getModel().getSize();
         int index = list.getSelectedIndex();
 
         int newIndex;
@@ -184,7 +186,6 @@ public class JAutoCompleteTextField extends JTextField {
 
         if (newIndex >= size || newIndex < 0) {
             newIndex = newIndex < 0 ? 0 : size - 1;
-
             if (index == newIndex) {
                 newIndex = -1;
             }
@@ -193,19 +194,16 @@ public class JAutoCompleteTextField extends JTextField {
         if (newIndex < 0) {
             list.getSelectionModel().clearSelection();
             list.ensureIndexIsVisible(0);
-
             setTextWithoutNotification(userText);
         } else {
             list.setSelectedIndex(newIndex);
             list.ensureIndexIsVisible(newIndex);
-
-            setTextWithoutNotification((String) list.getSelectedValue());
+            setTextWithoutNotification(list.getSelectedValue().toString());
         }
     }
 
     private void setTextWithoutNotification(String text) {
         notificationDenied = true;
-
         try {
             setText(text);
         } finally {
@@ -216,22 +214,24 @@ public class JAutoCompleteTextField extends JTextField {
     private void onTextChanged() {
         if (!notificationDenied) {
             userText = getText();
-
-            showFilteredHistory();
+            if(userText.length() >= MIN_CHARS){
+            	showFilteredHistory(dataprovider.getData(userText));
+            }else{
+            	popup.setVisible(false);
+            }
         }
     }
 
-    private void showFilteredHistory() {
+    private void showFilteredHistory(List<ACElement> data) {
         list.getSelectionModel().clearSelection();
 
-        DefaultListModel model = (DefaultListModel) list.getModel();
+        DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) list.getModel();
 
         model.clear();
-
-        for (String s : history) {
-            if (s.contains(userText)) {
-                model.addElement(s);
-            }
+        
+        
+        for (ACElement s : data) {
+        	model.addElement(s);
         }
 
         int size = model.size();
@@ -248,13 +248,14 @@ public class JAutoCompleteTextField extends JTextField {
             }
         }
     }
-
-    public List<String> getHistory() {
-        return Collections.unmodifiableList(history);
+    
+    public List<ACElement> getElements(String text){
+    	return null;
     }
 
-    public void setHistory(List<? extends String> history) {
+    public void setHistory(List<? extends ACElement> history) {
         this.history.clear();
         this.history.addAll(history);
     }
+    
 }
