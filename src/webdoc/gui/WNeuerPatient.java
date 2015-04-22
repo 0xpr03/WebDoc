@@ -31,6 +31,8 @@ import webdoc.lib.GUI;
 import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.awt.Color;
+import javax.swing.JTextPane;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -50,13 +52,12 @@ public class WNeuerPatient extends JInternalFrame {
 	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 	private JTextField strRufname;
-	private JScrollPane scrollPane;
-	private JTextArea strComment;
 	private JSpinner spinGebDay;
 	private JSpinner spinGebMonth;
 	private JSpinner spinGebYear;
 	private String birthdate;
 	private JButton btnNeueAnamnese;
+	private JPanel panelVerlauf;
 	/**
 	 * Launch the application.
 	 */
@@ -92,7 +93,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 658, 452);
+		setBounds(100, 100, 911, 480);
 		
 		JPanel suche = new JPanel();
 		
@@ -104,49 +105,96 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JPanel panel = new JPanel();
 		
-		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
+		panelVerlauf = new JPanel();
 		
-		scrollPane = new JScrollPane();
+		JPanel panelBemerkungen = new JPanel();
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(suche, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
-							.addGap(389))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(suche, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
 								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 									.addComponent(daten, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblBemerkungen)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)
+									.addGap(11)
+									.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)))
 							.addGap(11))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
+					.addGap(23)
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblBemerkungen)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 312, GroupLayout.PREFERRED_SIZE))
-						.addComponent(daten, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(daten, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 					.addGap(143))
 		);
 		
-		strComment = new JTextArea();
-		strComment.setEditable(editable);
-		scrollPane.setViewportView(strComment);
+		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
+		
+		JScrollPane sPaneBemerkungen = new JScrollPane();
+		GroupLayout gl_panelBemerkungen = new GroupLayout(panelBemerkungen);
+		gl_panelBemerkungen.setHorizontalGroup(
+			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblBemerkungen)
+						.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+					.addGap(8))
+		);
+		gl_panelBemerkungen.setVerticalGroup(
+			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblBemerkungen)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+					.addGap(10))
+		);
+		
+		JTextPane textPane_1 = new JTextPane();
+		sPaneBemerkungen.setViewportView(textPane_1);
+		panelBemerkungen.setLayout(gl_panelBemerkungen);
+		
+		JLabel Verlauf = new JLabel("Verlauf:");
+		
+		JScrollPane sPaneVerlauf = new JScrollPane();
+		GroupLayout gl_PanelVerlauf = new GroupLayout(panelVerlauf);
+		gl_PanelVerlauf.setHorizontalGroup(
+			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelVerlauf.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+						.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+						.addComponent(Verlauf))
+					.addContainerGap())
+		);
+		gl_PanelVerlauf.setVerticalGroup(
+			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelVerlauf.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(Verlauf)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JTextPane textPane = new JTextPane();
+		sPaneVerlauf.setViewportView(textPane);
+		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
 		suche.add(textField);
 		panel.setLayout(new MigLayout("", "[85.00][42.00][][]", "[]"));
@@ -350,6 +398,12 @@ public class WNeuerPatient extends JInternalFrame {
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
 		getContentPane().setLayout(groupLayout);
+		
+		//panelBemerkungen.setVisible(!editable);
+		panelVerlauf.setVisible(!editable);
+		
+		
+		this.pack();
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
