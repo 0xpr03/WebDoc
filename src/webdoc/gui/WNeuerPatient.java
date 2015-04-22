@@ -14,7 +14,10 @@ import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import net.miginfocom.swing.MigLayout;
@@ -27,12 +30,6 @@ import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
-
-import javax.swing.JSpinner;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.Color;
-import javax.swing.JTextPane;
 
 public class WNeuerPatient extends JInternalFrame {
 

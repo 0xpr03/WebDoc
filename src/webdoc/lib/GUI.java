@@ -9,8 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 public class GUI {
 	
-	private static Logger logger = LogManager.getLogger();
-	
 	/**
 	 * Shows a generic error dialog with a yes & no button
 	 * @param parent parent window
