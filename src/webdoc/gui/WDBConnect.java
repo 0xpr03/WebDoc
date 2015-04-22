@@ -35,6 +35,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import webdoc.gui.utils.DisabledGlassPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
 import webdoc.lib.Database.DBError;

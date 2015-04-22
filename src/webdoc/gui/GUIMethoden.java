@@ -8,7 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 
-import webdoc.gui.CustomTreeObj.EntryType;
+import webdoc.gui.utils.CustomTreeObj;
+import webdoc.gui.utils.CustomTreeObj.EntryType;
 
 public class GUIMethoden {
 	/*Erstellen den Menuebaum*/ 
