@@ -50,7 +50,10 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField strRufname;
 	private JScrollPane scrollPane;
 	private JTextArea strComment;
-
+	private JSpinner spinGebDay;
+	private JSpinner spinGebMonth;
+	private JSpinner spinGebYear;
+	private String birthdate;
 	/**
 	 * Launch the application.
 	 */
@@ -149,6 +152,7 @@ public class WNeuerPatient extends JInternalFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(editable){
+					birthdate = " " + spinGebDay.getValue().toString()+ "." + spinGebMonth.getValue().toString() + "." + spinGebYear.getValue().toString() + "" ;
 					addPatient();
 				}else{
 					//TODO: add
@@ -222,15 +226,16 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		enumGeschlecht.setEditable(editable);
 		
-		JSpinner spinner_1 = new JSpinner();
+		spinGebMonth = new JSpinner();
 		
-		JSpinner spinner = new JSpinner();
+		spinGebDay = new JSpinner();
 		
-		JSpinner spinner_2 = new JSpinner();
+		spinGebYear = new JSpinner();
 		
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
 		strRufname.setEditable(editable);
+	
 		
 		JLabel lblRufname = new JLabel("Rufname:");
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
@@ -248,11 +253,11 @@ public class WNeuerPatient extends JInternalFrame {
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addComponent(lblGeburtsdatum)
 									.addGap(18)
-									.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+									.addComponent(spinGebDay, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+									.addComponent(spinGebMonth, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinner_2, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
+									.addComponent(spinGebYear, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblHaarkleidfarbe)
@@ -309,9 +314,9 @@ public class WNeuerPatient extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeburtsdatum)
-						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(spinner_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinGebMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(spinGebYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(spinGebDay, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(strFarbe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -341,7 +346,7 @@ public class WNeuerPatient extends JInternalFrame {
 			if(gender.getType() != GenderType.UNKNOWN){
 				String def = "DEFAULT";
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), def, gender.getType() == GenderType.MALE, strRasse.getText(), strComment.getText(), null);
+					Database.insertPatient(strName.getText(), def, def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
