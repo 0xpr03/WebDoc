@@ -90,7 +90,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 911, 480);
+		setBounds(100, 100, 911, 475);
 		
 		JPanel suche = new JPanel();
 		
@@ -103,6 +103,7 @@ public class WNeuerPatient extends JInternalFrame {
 		JPanel panel = new JPanel();
 		
 		panelVerlauf = new JPanel();
+		
 		
 		JPanel panelBemerkungen = new JPanel();
 		

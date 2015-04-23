@@ -91,7 +91,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Patner" : "Patner");
-		setBounds(100, 100, 610, 543);
+		setBounds(100, 100, 909, 543);
 		
 		JPanel personenbezogeneDaten = new JPanel();
 		
@@ -100,29 +100,29 @@ public class WNeuerPartner extends JInternalFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		
 		rollendaten = new JPanel();
+		
+		JPanel pVerlauf = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(labelBemerkungen, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+						.addComponent(labelBemerkungen, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-					.addGap(276))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
 						.addComponent(rollendaten, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 492, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
@@ -132,6 +132,38 @@ public class WNeuerPartner extends JInternalFrame {
 							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)))
 					.addGap(60))
 		);
+		pVerlauf.setVisible(!editable);
+		
+		JScrollPane sPaneVerlauf = new JScrollPane();
+		
+		
+		JLabel label = new JLabel("Verlauf:");
+		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
+		gl_pVerlauf.setHorizontalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_pVerlauf.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(259, Short.MAX_VALUE))
+				.addGroup(gl_pVerlauf.createSequentialGroup()
+					.addComponent(sPaneVerlauf, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(20, Short.MAX_VALUE))
+		);
+		gl_pVerlauf.setVerticalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pVerlauf.createSequentialGroup()
+					.addComponent(label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JTextPane textPaneVerlauf = new JTextPane();
+		textPaneVerlauf.setEditable(false);
+		textPaneVerlauf.setEditable(false);
+		textPaneVerlauf.setBackground(Color.WHITE);
+		sPaneVerlauf.setViewportView(textPaneVerlauf);
+		pVerlauf.setLayout(gl_pVerlauf);
 		
 		textPaneComment = new JTextPane();
 		textPaneComment.setEditable(editable);
