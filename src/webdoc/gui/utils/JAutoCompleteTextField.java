@@ -8,7 +8,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -42,8 +41,6 @@ public class JAutoCompleteTextField extends JTextField {
 	private static final int MAX_VISIBLE_ROWS = 8;
 	private static final int MIN_CHARS = 3;
 	private DataProvider dataprovider=null;
-
-    private final List<ACElement> history = new ArrayList<ACElement>();
 
     private final JPopupMenu popup = new JPopupMenu() {
         /**
@@ -248,14 +245,4 @@ public class JAutoCompleteTextField extends JTextField {
             }
         }
     }
-    
-    public List<ACElement> getElements(String text){
-    	return null;
-    }
-
-    public void setHistory(List<? extends ACElement> history) {
-        this.history.clear();
-        this.history.addAll(history);
-    }
-    
 }
