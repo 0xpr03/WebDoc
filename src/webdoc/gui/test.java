@@ -10,13 +10,18 @@ import javax.swing.JFrame;
 
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
-import webdoc.gui.utils.JAutoCompleteTextField;
-import webdoc.gui.utils.JAutoCompleteTextField.DataProvider;
+import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.JSearchTextField.DataProvider;
 
+/**
+ * Test class for JUnit tests like JSearchTextField
+ * @author "Aron Heinecke"
+ *
+ */
 public class test {
 
 	private JFrame Testframe;
-	private JAutoCompleteTextField autoCompleteTextField;
+	private JSearchTextField autoCompleteTextField;
 	private List<ACElement> l2 = new ArrayList<ACElement>();
 
 	/**
@@ -51,7 +56,7 @@ public class test {
 		Testframe.setBounds(100, 100, 242, 217);
 		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		autoCompleteTextField = new JAutoCompleteTextField();
+		autoCompleteTextField = new JSearchTextField();
 		
 		
 		GroupLayout groupLayout = new GroupLayout(Testframe.getContentPane());
