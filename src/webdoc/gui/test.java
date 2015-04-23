@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 
 import webdoc.gui.utils.ACElement;
+import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JAutoCompleteTextField;
 import webdoc.gui.utils.JAutoCompleteTextField.DataProvider;
 
@@ -69,23 +70,14 @@ public class test {
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		Testframe.getContentPane().setLayout(groupLayout);
-//		List<String> l = new ArrayList<String>();
-//		l.add("123");
-//		l.add("234");
-//		l.add("345");
-//		l.add("456");
-//		l.add("567");
-//		l.add("678");
-//		l.add("789");
-		
-		l2.add(new ACElement("123", 1L));
-		l2.add(new ACElement("234", 2L));
-		l2.add(new ACElement("345", 3L));
-		l2.add(new ACElement("456", 4L));
-		l2.add(new ACElement("567", 5L));
-		l2.add(new ACElement("678", 6L));
-		l2.add(new ACElement("789", 7L));
-		autoCompleteTextField.setHistory(l2);
+
+		l2.add(new ACElement("123", 1L, ElementType.ANIMAL));
+		l2.add(new ACElement("234", 2L, ElementType.PARTNER));
+		l2.add(new ACElement("345", 3L, ElementType.ANIMAL));
+		l2.add(new ACElement("456", 4L, ElementType.PARTNER));
+		l2.add(new ACElement("567", 5L, ElementType.ANIMAL));
+		l2.add(new ACElement("678", 6L, ElementType.PARTNER));
+		l2.add(new ACElement("789", 7L, ElementType.ANIMAL));
 		class Provider implements DataProvider{
 			@Override
 			public List<ACElement> getData(String text){
