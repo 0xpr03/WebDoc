@@ -38,7 +38,6 @@ public class WebDoc {
 		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			logger.error("Error setting look and feel \n{}",e);
 		}
 		
@@ -52,7 +51,6 @@ public class WebDoc {
 		try {
 			logger.debug(Database.getProcedures());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			logger.debug(e);
 		}
 		
@@ -137,7 +135,6 @@ public class WebDoc {
 			}
 			if(showsetup)
 				setup();
-			//TODO: show mainwindow
 		}
 		logger.exit();
 	}
