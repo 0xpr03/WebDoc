@@ -30,8 +30,7 @@ public class GUIMethoden {
         DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Partner",EntryType.N_PARTNER) );
         DefaultMutableTreeNode patient = new DefaultMutableTreeNode(new CustomTreeObj( "Patient",EntryType.PATIENT) );
         DefaultMutableTreeNode partner = new DefaultMutableTreeNode(new CustomTreeObj( "Partner",EntryType.PARTNER) );
-        DefaultMutableTreeNode test = new DefaultMutableTreeNode(new CustomTreeObj( "TEST",EntryType.TEST) );
-        
+ 
         DefaultMutableTreeNode neueBehandlung = new DefaultMutableTreeNode( new CustomTreeObj("Neue Behandlung",EntryType.N_BEHANDLUNG) );
         
         patientenundpartner.add( neuerPatient );
@@ -44,7 +43,6 @@ public class GUIMethoden {
         root.add(main);
         root.add( patientenundpartner );
         root.add( behandlung );
-        root.add(test);
 		
         return root;
 	}

@@ -1,38 +1,28 @@
 package webdoc.gui;
 
 import java.awt.EventQueue;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.DataProvider;
-import webdoc.lib.Database;
 
 /**
  * Test class for JUnit tests like JSearchTextField
  * @author "Aron Heinecke"
  *
  */
-public class test extends JInternalFrame {
+public class test {
 
-	private static final long serialVersionUID = -8772029628747927216L;
+	private JFrame Testframe;
 	private JSearchTextField autoCompleteTextField;
 	private List<ACElement> l2 = new ArrayList<ACElement>();
-	private PreparedStatement searchStm = null;
-	private Logger logger = LogManager.getLogger();
 
 	/**
 	 * Launch the application.
@@ -42,7 +32,7 @@ public class test extends JInternalFrame {
 			public void run() {
 				try {
 					test window = new test();
-					window.setVisible(true);
+					window.Testframe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,14 +51,15 @@ public class test extends JInternalFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setTitle("Testframe");
-		setBounds(100, 100, 242, 217);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Testframe = new JFrame();
+		Testframe.setTitle("Testframe");
+		Testframe.setBounds(100, 100, 242, 217);
+		Testframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		autoCompleteTextField = new JSearchTextField();
 		
 		
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		GroupLayout groupLayout = new GroupLayout(Testframe.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -83,7 +74,7 @@ public class test extends JInternalFrame {
 					.addComponent(autoCompleteTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
-		getContentPane().setLayout(groupLayout);
+		Testframe.getContentPane().setLayout(groupLayout);
 
 		l2.add(new ACElement("123", 1L, ElementType.ANIMAL));
 		l2.add(new ACElement("234", 2L, ElementType.PARTNER));
@@ -95,30 +86,14 @@ public class test extends JInternalFrame {
 		class Provider implements DataProvider{
 			@Override
 			public List<ACElement> getData(String text){
-				List<ACElement> list = new ArrayList<ACElement>();
-				try {
-					searchStm.setString(1, "%"+text+"%");
-					ResultSet result = searchStm.executeQuery();
-					
-					while(result.next()){
-						logger.debug("Found: {}", result.getString(1));
-						list.add(new ACElement(result.getString(1)+" "+result.getString(2),result.getLong(3), ElementType.ANIMAL));
-					}
-					result.close();
-					
-				} catch (SQLException e) {
-					logger.debug(e);
-				}
-				return list;
+				return l2;
 			}
 		}
 		autoCompleteTextField.setDataProvider(new Provider());
 		
-		try {
-			searchStm = Database.prepareSearchStm();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.debug(e);
-		}
+		
+	}
+	List<ACElement> getd(){
+		return l2;
 	}
 }
