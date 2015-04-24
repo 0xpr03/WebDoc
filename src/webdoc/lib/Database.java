@@ -180,10 +180,19 @@ public class Database{
 		return affectedLines;
 	}
 	
+	/**
+	 * Prepares a search statement for search inside the animal & partner tables
+	 * @return 'result' columns: name, optname, id, type, see ACElement, fully compatible
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
 	public static PreparedStatement prepareMultiSearchStm() throws SQLException{
 		String sql =
-		        "SELECT `Name`, `Callname`, `AnimalID` FROM animal " +
-		        "WHERE `Name` LIKE ?";
+				"SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
+				+"WHERE `Name` LIKE ?"
+				+"UNION ALL"
+				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner"
+				+"WHERE `firstname` LIKE ?";
 		return connection.prepareStatement(sql);
 	}
 	
@@ -216,6 +225,7 @@ public class Database{
 	/**
 	 * Prints a complete ResultSet to the debug log
 	 * @param rs
+	 * @author "Aron Heinecke"
 	 */
 	@SuppressWarnings("unused")
 	private static void printResultSet(ResultSet rs){
@@ -262,6 +272,7 @@ public class Database{
 	 * Extended usage for functions where the MSG return matters
 	 * @param e
 	 * @return DBError enum
+	 * @author "Aron Heinecke"
 	 */
 	public static DBError DBExceptionConverter(SQLException e, boolean printAsError){
 		if(printAsError)
