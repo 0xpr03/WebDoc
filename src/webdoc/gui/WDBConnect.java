@@ -155,7 +155,7 @@ public class WDBConnect extends JDialog {
 		txtZugriffsIPs.setColumns(10);
 		//		txtPassword.getDocument().addDocumentListener(new TextDocListener()); DEBUG
 				
-				chckbxErstelleNutzer = new JCheckBox("Erstelle Nutzer");
+				chckbxErstelleNutzer = new JCheckBox("Erstelle Nutzer (überscheibend)");
 				chckbxErstelleNutzer.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						adminInputChange();
