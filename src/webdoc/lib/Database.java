@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -176,6 +177,13 @@ public class Database{
 		}
 		
 		return affectedLines;
+	}
+	
+	public static PreparedStatement prepareSearchStm() throws SQLException{
+		String sql =
+		        "SELECT `Name`, `Callname`, `AnimalID` FROM animal " +
+		        "WHERE `Name` LIKE ?";
+		return connection.prepareStatement(sql);
 	}
 	
 	/**
