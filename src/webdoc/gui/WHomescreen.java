@@ -196,6 +196,7 @@ public class WHomescreen extends JFrame {
 	private void reOpen(JInternalFrame jif){
 		if(jif.isClosed()){
 			logger.debug("JIF ist closed.");
+			desktopPane.remove(jif);
 			desktopPane.add(jif);
 			jif.setVisible(true);
 		}else if(!jif.isVisible()){
