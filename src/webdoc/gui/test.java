@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +30,6 @@ public class test extends JInternalFrame {
 
 	private static final long serialVersionUID = -8772029628747927216L;
 	private JSearchTextField autoCompleteTextField;
-	private List<ACElement> l2 = new ArrayList<ACElement>();
 	private PreparedStatement searchStm = null;
 	private Logger logger = LogManager.getLogger();
 
@@ -86,13 +84,6 @@ public class test extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 
-		l2.add(new ACElement("123", 1L, ElementType.ANIMAL));
-		l2.add(new ACElement("234", 2L, ElementType.PARTNER));
-		l2.add(new ACElement("345", 3L, ElementType.ANIMAL));
-		l2.add(new ACElement("456", 4L, ElementType.PARTNER));
-		l2.add(new ACElement("567", 5L, ElementType.ANIMAL));
-		l2.add(new ACElement("678", 6L, ElementType.PARTNER));
-		l2.add(new ACElement("789", 7L, ElementType.ANIMAL));
 		class Provider implements DataProvider{
 			@Override
 			public List<ACElement> getData(String text){
@@ -116,7 +107,7 @@ public class test extends JInternalFrame {
 		autoCompleteTextField.setDataProvider(new Provider());
 		
 		try {
-			searchStm = Database.prepareSearchStm();
+			searchStm = Database.prepareMultiSearchStm();
 		} catch (SQLException e) {
 			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
