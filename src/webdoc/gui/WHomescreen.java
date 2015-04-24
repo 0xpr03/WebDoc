@@ -43,6 +43,7 @@ public class WHomescreen extends JFrame {
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
+	private test test = new test();
 
 	/**
 	 * Launch the application.
@@ -118,6 +119,7 @@ public class WHomescreen extends JFrame {
 		desktopPane.add(FPartner);
 		desktopPane.add(FPatient);
 		desktopPane.add(FNeuerPatient);
+		desktopPane.add(test);
 		desktopPane.setBackground(Color.WHITE);
 		panel_1.add(desktopPane, BorderLayout.CENTER);
 		
@@ -177,6 +179,9 @@ public class WHomescreen extends JFrame {
 					break;
 				case PATIENT:
 					reOpen(FPatient);
+					break;
+				case TEST:
+					reOpen(test);
 					break;
 				case N_BEHANDLUNG:
 					//TODO: show new behandlung

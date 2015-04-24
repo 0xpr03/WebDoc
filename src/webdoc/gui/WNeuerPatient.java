@@ -55,6 +55,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private String birthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
+	private JTextField textPartnerSuche;
 	/**
 	 * Launch the application.
 	 */
@@ -239,13 +240,13 @@ public class WNeuerPatient extends JInternalFrame {
 			gl_daten.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_daten.createSequentialGroup()
 					.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, 257, Short.MAX_VALUE)
-					.addGap(34))
+					.addGap(26))
 		);
 		gl_daten.setVerticalGroup(
 			gl_daten.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_daten.createSequentialGroup()
-					.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(164, Short.MAX_VALUE))
+					.addComponent(allgemeineDaten, GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
 		JLabel lblName = new JLabel("Name des Tieres:");
@@ -300,6 +301,13 @@ public class WNeuerPatient extends JInternalFrame {
 	
 		
 		JLabel lblRufname = new JLabel("Rufname:");
+		
+		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
+		
+		textPartnerSuche = new JTextField();
+		textPartnerSuche.setColumns(10);
+		textPartnerSuche.setEditable(editable);
+		
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
 		gl_allgemeineDaten.setHorizontalGroup(
 			gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
@@ -311,7 +319,7 @@ public class WNeuerPatient extends JInternalFrame {
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addComponent(lblIdentifizierung)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(identifizierung, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
+									.addComponent(identifizierung, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addComponent(lblGeburtsdatum)
 									.addGap(18)
@@ -319,15 +327,15 @@ public class WNeuerPatient extends JInternalFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(spinGebMonth, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinGebYear, GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
+									.addComponent(spinGebYear, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblHaarkleidfarbe)
 										.addComponent(lblGewicht))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-										.addComponent(strFarbe, 145, 145, 145)
-										.addComponent(strGewicht, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
+										.addComponent(strFarbe, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+										.addComponent(strGewicht, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))))
 							.addContainerGap())
 						.addGroup(gl_allgemeineDaten.createSequentialGroup()
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
@@ -335,13 +343,13 @@ public class WNeuerPatient extends JInternalFrame {
 								.addComponent(lblGeschlecht))
 							.addGap(30)
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(strRasse, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-								.addComponent(enumGeschlecht, 0, 157, Short.MAX_VALUE))
+								.addComponent(strRasse, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+								.addComponent(enumGeschlecht, 0, 151, Short.MAX_VALUE))
 							.addGap(10))))
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addGap(70)
 					.addComponent(lblAllgemeineDaten)
-					.addContainerGap(100, Short.MAX_VALUE))
+					.addContainerGap(104, Short.MAX_VALUE))
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
@@ -349,8 +357,14 @@ public class WNeuerPatient extends JInternalFrame {
 						.addComponent(lblName))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.TRAILING)
-						.addComponent(strRufname, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-						.addComponent(strName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+						.addComponent(strRufname, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+						.addComponent(strName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+					.addContainerGap())
+				.addGroup(gl_allgemeineDaten.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblZugehrigerPatner)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textPartnerSuche, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_allgemeineDaten.setVerticalGroup(
@@ -365,7 +379,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(strRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblRufname))
-					.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+					.addGap(25)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRasse)
 						.addComponent(strRasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -391,7 +405,11 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(identifizierung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblIdentifizierung))
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblZugehrigerPatner)
+						.addComponent(textPartnerSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(42, Short.MAX_VALUE))
 		);
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
