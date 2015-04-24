@@ -20,6 +20,7 @@ import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.DataProvider;
 import webdoc.lib.Database;
+import webdoc.lib.GUI;
 
 /**
  * Test class for JUnit tests like JSearchTextField
@@ -54,6 +55,7 @@ public class test extends JInternalFrame {
 	 * Create the application.
 	 */
 	public test() {
+		setClosable(true);
 		initialize();
 	}
 
@@ -63,7 +65,6 @@ public class test extends JInternalFrame {
 	private void initialize() {
 		setTitle("Testframe");
 		setBounds(100, 100, 242, 217);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		autoCompleteTextField = new JSearchTextField();
 		
@@ -107,7 +108,7 @@ public class test extends JInternalFrame {
 					result.close();
 					
 				} catch (SQLException e) {
-					logger.debug(e);
+					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
@@ -117,8 +118,7 @@ public class test extends JInternalFrame {
 		try {
 			searchStm = Database.prepareSearchStm();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.debug(e);
+			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 	}
 }
