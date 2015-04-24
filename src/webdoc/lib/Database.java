@@ -180,7 +180,7 @@ public class Database{
 		return affectedLines;
 	}
 	
-	public static PreparedStatement prepareSearchStm() throws SQLException{
+	public static PreparedStatement prepareMultiSearchStm() throws SQLException{
 		String sql =
 		        "SELECT `Name`, `Callname`, `AnimalID` FROM animal " +
 		        "WHERE `Name` LIKE ?";
