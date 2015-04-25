@@ -66,7 +66,6 @@ public class test extends JInternalFrame {
 		
 		autoCompleteTextField = new JSearchTextField();
 		
-		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -90,11 +89,11 @@ public class test extends JInternalFrame {
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
 					searchStm.setString(1, "%"+text+"%");
+					searchStm.setString(2, "%"+text+"%");
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
-						logger.debug("Found: {}", result.getString(1));
-						list.add(new ACElement(result.getString(1)+" "+result.getString(2),result.getLong(3), ElementType.ANIMAL));
+						list.add(new ACElement(result.getString(1),result.getString(2),result.getLong(3), ElementType.ANIMAL));
 					}
 					result.close();
 					
