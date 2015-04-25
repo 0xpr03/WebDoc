@@ -1,6 +1,7 @@
 package webdoc.gui.utils;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -11,16 +12,17 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 
 /**
  * Custom Texfield with autocomplete support
@@ -245,4 +247,29 @@ public class JSearchTextField extends JTextField {
             }
         }
     }
+    
+    
+	abstract class CellRenderer extends JLabel implements ListCellRenderer<ACElement> {
+		private static final long serialVersionUID = 6562532559604303553L;
+		private final Color HIGHLIGHT_COLOR = new Color(0, 0, 128);
+
+		public CellRenderer() {
+			setOpaque(true);
+			setIconTextGap(12);
+		}
+
+		public Component getListCellRendererComponent(JList<ACElement> list, ACElement element, int index, boolean isSelected,
+				boolean cellHasFocus) {
+			setText("<html>" + element.getName() + " " + element.getOptname() + " <font size=-2>" + element.getType()
+					+ "</font></html>");
+			if (isSelected) {
+				setBackground(HIGHLIGHT_COLOR);
+				setForeground(Color.white);
+			} else {
+				setBackground(Color.white);
+				setForeground(Color.black);
+			}
+			return this;
+		}
+	}
 }
