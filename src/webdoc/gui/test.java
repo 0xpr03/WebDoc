@@ -82,16 +82,20 @@ public class test extends JInternalFrame {
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
-
+		/**
+		 * Default DataProvider for these kinds
+		 * @author "Aron Heinecke"
+		 */
 		class Provider implements DataProvider{
 			@Override
 			public List<ACElement> getData(String text){
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
-					searchStm.setString(1, "%"+text+"%");
-					searchStm.setString(2, "%"+text+"%");
-					searchStm.setString(3, "%"+text+"%");
-					searchStm.setString(4, "%"+text+"%");
+					text = "%"+text+"%";
+					searchStm.setString(1, text);
+					searchStm.setString(2, text);
+					searchStm.setString(3, text);
+					searchStm.setString(4, text);
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
