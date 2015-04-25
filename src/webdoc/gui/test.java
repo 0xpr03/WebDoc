@@ -90,6 +90,8 @@ public class test extends JInternalFrame {
 				try {
 					searchStm.setString(1, "%"+text+"%");
 					searchStm.setString(2, "%"+text+"%");
+					searchStm.setString(3, "%"+text+"%");
+					searchStm.setString(4, "%"+text+"%");
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
