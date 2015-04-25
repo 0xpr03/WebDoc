@@ -35,7 +35,7 @@ public class Database{
 	 *
 	 */
 	public static enum DBError{
-		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6), NO_DB(7), WRONG_SYNTAX(8), SQL_TIMEOUT(9);
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6), NO_DB(7), WRONG_SYNTAX(8), SQL_TIMEOUT(9), WRONG_PARAMETER_BINDING(10);
 		private DBError(int dberror){
 			this.DBError = dberror;
 		}
@@ -298,6 +298,8 @@ public class Database{
 			}else{
 				return DBError.UNDEFINED_ERROR;
 			}
+		}else if(message.contains("Could not set parameter")){
+			return DBError.WRONG_PARAMETER_BINDING;
 		}else if(e instanceof SQLSyntaxErrorException ){
 			return DBError.WRONG_SYNTAX;
 		}else if(e instanceof SQLTimeoutException){
