@@ -20,7 +20,6 @@ import webdoc.lib.dbTools;
 /**
  * WebDoc Main Class
  * @author "Aron Heinecke"
- *
  */
 public class WebDoc {
 	private static final String CONFIG_FILE_NAME = "config.yml";
