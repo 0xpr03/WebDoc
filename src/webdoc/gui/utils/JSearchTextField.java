@@ -24,9 +24,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * Custom Texfield with autocomplete support
  * Experimental! Highly modded textfield
@@ -46,7 +43,6 @@ public class JSearchTextField extends JTextField {
 	private static final int MAX_VISIBLE_ROWS = 8;
 	private static final int MIN_CHARS = 3;
 	private DataProvider dataprovider=null;
-	private Logger logger = LogManager.getLogger();
 
     private final JPopupMenu popup = new JPopupMenu() {
         /**
@@ -251,5 +247,34 @@ public class JSearchTextField extends JTextField {
                 popup.show(JSearchTextField.this, 0, getHeight());
             }
         }
+    }
+    
+    /**
+     * Custom cell renderer for ACElement Lists
+     * @author "Aron Heinecke"
+     */
+    class SearchCellRenderer extends JLabel implements ListCellRenderer<ACElement> {
+    	private static final long serialVersionUID = 6562532559604303553L;
+    	private Color HIGHLIGHT_COLOR = new Color(51, 153, 255);
+
+    	public SearchCellRenderer() {
+    		setOpaque(true);
+    		setIconTextGap(12);
+    	}
+
+    	@Override
+    	public Component getListCellRendererComponent(JList<? extends ACElement> list, ACElement element, int index,
+    			boolean isSelected, boolean cellHasFocus) {
+    		setText("<html>" + element.getName() + " " + element.getOptname() + " <font size=-5><i>" + element.getType()
+    				+ "</i></font></html>");
+    		if (isSelected) {
+    			setBackground(HIGHLIGHT_COLOR);
+    			setForeground(Color.white);
+    		} else {
+    			setBackground(Color.white);
+    			setForeground(Color.black);
+    		}
+    		return this;
+    	}
     }
 }
