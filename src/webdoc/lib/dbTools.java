@@ -200,7 +200,11 @@ public class dbTools {
 				
 				wpg.setText("Reconnecting..");
 				Database.disconnect();
-				Database.connect(true, false);
+				DBError error = Database.connect(true, false);
+				if(error != DBError.NOERROR){
+					//TODO: add better erorr handler
+					GUI.showErrorDialog(wpg, "Failed during the setup\nreconnct: "+error+"\n\nSee the log for more infos.", "Setup error");
+				}
 				wpg.addProgress();
 			}
 			
