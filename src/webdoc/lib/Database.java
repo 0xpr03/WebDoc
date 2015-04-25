@@ -189,9 +189,9 @@ public class Database{
 	public static PreparedStatement prepareMultiSearchStm() throws SQLException{
 		String sql =
 				"SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
-				+"WHERE `Name` LIKE ?"
-				+"UNION ALL"
-				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner"
+				+"WHERE `Name` LIKE ? "
+				+"UNION ALL "
+				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
 				+"WHERE `firstname` LIKE ?";
 		return connection.prepareStatement(sql);
 	}
