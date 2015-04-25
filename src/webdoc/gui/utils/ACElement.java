@@ -27,6 +27,7 @@ public class ACElement {
 	 * @param optname optional name see partner secondname / patient callname
 	 * @param id PartnerID or PatientID
 	 * @param elemType Animal or Partner
+	 * @author "Aron Heinecke"
 	 */
 	public ACElement(String name, String optname, long id, ElementType elemType){
 		this.name = name;
@@ -52,6 +53,6 @@ public class ACElement {
 	
 	@Override
 	public String toString(){
-		return name;
+		return name+" "+optname+" "+id+" "+elemType;
 	}
 }
