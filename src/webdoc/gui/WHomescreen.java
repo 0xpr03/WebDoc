@@ -19,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -29,10 +28,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.utils.ACElement;
+import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.CustomTreeObj;
 import webdoc.gui.utils.JSearchTextField;
-import webdoc.gui.utils.ACElement.ElementType;
-import webdoc.gui.utils.JSearchTextField.DataProvider;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
 
@@ -172,7 +171,7 @@ public class WHomescreen extends JFrame {
 		 * Default DataProvider for these kinds
 		 * @author "Aron Heinecke"
 		 */
-		class Provider implements DataProvider{
+		class Provider implements searchFieldAPI{
 			@Override
 			public List<ACElement> getData(String text){
 				List<ACElement> list = new ArrayList<ACElement>();
@@ -194,6 +193,11 @@ public class WHomescreen extends JFrame {
 				}
 				return list;
 			}
+
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+			}
 		}
 		
 		try {
@@ -202,7 +206,7 @@ public class WHomescreen extends JFrame {
 			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 		
-		txtSuche.setDataProvider(new Provider());
+		txtSuche.setAPI(new Provider());
 	}
 	
 	private void mouseClickAction(MouseEvent mevent){

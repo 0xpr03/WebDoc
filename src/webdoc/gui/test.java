@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
-import webdoc.gui.utils.JSearchTextField.DataProvider;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
 
@@ -86,7 +86,7 @@ public class test extends JInternalFrame {
 		 * Default DataProvider for these kinds
 		 * @author "Aron Heinecke"
 		 */
-		class Provider implements DataProvider{
+		class Provider implements searchFieldAPI{
 			@Override
 			public List<ACElement> getData(String text){
 				List<ACElement> list = new ArrayList<ACElement>();
@@ -108,8 +108,12 @@ public class test extends JInternalFrame {
 				}
 				return list;
 			}
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+			}
 		}
-		autoCompleteTextField.setDataProvider(new Provider());
+		autoCompleteTextField.setAPI(new Provider());
 		
 		try {
 			searchStm = Database.prepareMultiSearchStm();
