@@ -50,7 +50,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField strRasse;
 	private JTextField strFarbe;
 	private JTextField strGewicht;
-	private JTextField identifizierung;
+	private JTextField textIdentifizierung;
 	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("Männlich", GenderType.MALE) };
 	public  boolean editable = true;
 	private JComboBox<GenderEnumObj> enumGeschlecht;
@@ -64,6 +64,8 @@ public class WNeuerPatient extends JInternalFrame {
 	private WHomescreen whs;
 	private JSpinner.DateEditor dateEditor;
 	private long id;
+	private JTextPane txtBemerkung;
+	private JList listVerlauf;
 	/**
 	 * Launch the application.
 	 */
@@ -176,8 +178,8 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGap(10))
 		);
 		
-		JTextPane textPane_1 = new JTextPane();
-		sPaneBemerkungen.setViewportView(textPane_1);
+		txtBemerkung = new JTextPane();
+		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
 		
 		JLabel Verlauf = new JLabel("Verlauf:");
@@ -203,8 +205,8 @@ public class WNeuerPatient extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		JList list = new JList();
-		sPaneVerlauf.setViewportView(list);
+		listVerlauf = new JList();
+		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
 		suche.add(textField);
@@ -278,27 +280,21 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		strName = new JTextField();
 		strName.setColumns(10);
-		strName.setEditable(editable);
 		
 		strRasse = new JTextField();
-		strRasse.setEditable(editable);
 		strRasse.setColumns(10);
 		
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
-		strFarbe.setEditable(editable);
 		
 		strGewicht = new JTextField();
-		strGewicht.setEditable(editable);
 		strGewicht.setColumns(10);
 		
-		identifizierung = new JTextField();
-		identifizierung.setColumns(10);
-		identifizierung.setEditable(editable);
+		textIdentifizierung = new JTextField();
+		textIdentifizierung.setColumns(10);
 		
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
-		enumGeschlecht.setEditable(editable);
 		
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
@@ -306,10 +302,10 @@ public class WNeuerPatient extends JInternalFrame {
 		spinBirthdate.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
 		spinBirthdate.setEditor(dateEditor);
+		spinBirthdate.setEnabled(editable);
 		
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
-		strRufname.setEditable(editable);
 	
 		
 		JLabel lblRufname = new JLabel("Rufname:");
@@ -318,7 +314,6 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		textPartnerSuche = new JTextField();
 		textPartnerSuche.setColumns(10);
-		textPartnerSuche.setEditable(editable);
 		
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
 		gl_allgemeineDaten.setHorizontalGroup(
@@ -331,7 +326,7 @@ public class WNeuerPatient extends JInternalFrame {
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addComponent(lblIdentifizierung)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(identifizierung, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+									.addComponent(textIdentifizierung, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblHaarkleidfarbe)
@@ -407,7 +402,7 @@ public class WNeuerPatient extends JInternalFrame {
 						.addComponent(lblGewicht))
 					.addGap(9)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
-						.addComponent(identifizierung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textIdentifizierung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblIdentifizierung))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
@@ -422,6 +417,7 @@ public class WNeuerPatient extends JInternalFrame {
 		//panelBemerkungen.setVisible(!editable);
 		panelVerlauf.setVisible(!editable);
 		
+		setEditable();
 		
 		this.pack();
 		loadData();
@@ -449,6 +445,26 @@ public class WNeuerPatient extends JInternalFrame {
 	
 	protected void neueAnamnese(JTextField strName2) {
 		whs.test();
+	}
+	
+	/**
+	 * ReSet editable for all input elements
+	 * @author "Aron Heinecke"
+	 */
+	private void setEditable(){
+		strName.setEditable(editable);
+		strFarbe.setEditable(editable);
+		strGewicht.setEditable(editable);
+		strRasse.setEditable(editable);
+		strRufname.setEditable(editable);
+		textField.setEditable(editable);
+		spinBirthdate.setEnabled(editable);
+		txtBemerkung.setEditable(editable);
+		listVerlauf.setEnabled(editable);
+		enumGeschlecht.setEditable(editable);
+		enumGeschlecht.setEnabled(editable);
+		textIdentifizierung.setEditable(editable);
+		textPartnerSuche.setEditable(editable);
 	}
 
 	private void exit(){
