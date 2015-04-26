@@ -30,6 +30,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.GenderEnumObj;
 import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.lib.Database;
@@ -38,16 +39,18 @@ import webdoc.lib.GUI;
 
 import javax.swing.JList;
 
+import webdoc.gui.utils.JSearchTextField;
+
 public class WNeuerPatient extends JInternalFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4647611743598708383L;
-	private JTextField textField;
+	private JTextField textSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;
-	private JTextField strRasse;
+	private JSearchTextField textRasse;
 	private JTextField strFarbe;
 	private JTextField strGewicht;
 	private JTextField textIdentifizierung;
@@ -60,12 +63,13 @@ public class WNeuerPatient extends JInternalFrame {
 	private String birthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
-	private JTextField textPartnerSuche;
+	private JSearchTextField textPartnerSuche;
 	private WHomescreen whs;
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
 	private JList listVerlauf;
+	private ACElement partner;
 	/**
 	 * Launch the application.
 	 */
@@ -107,9 +111,9 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JPanel suche = new JPanel();
 		
-		textField = new JTextField();
-		textField.setText("Suche");
-		textField.setColumns(10);
+		textSuche = new JTextField();
+		textSuche.setText("Suche");
+		textSuche.setColumns(10);
 		
 		JPanel daten = new JPanel();
 		
@@ -209,7 +213,7 @@ public class WNeuerPatient extends JInternalFrame {
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
-		suche.add(textField);
+		suche.add(textSuche);
 		panel.setLayout(new MigLayout("", "[85.00][42.00][][]", "[]"));
 		
 		JButton btnOk = new JButton("Ok");
@@ -281,8 +285,8 @@ public class WNeuerPatient extends JInternalFrame {
 		strName = new JTextField();
 		strName.setColumns(10);
 		
-		strRasse = new JTextField();
-		strRasse.setColumns(10);
+		textRasse = new JSearchTextField();
+		textRasse.setColumns(10);
 		
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
@@ -312,7 +316,7 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
 		
-		textPartnerSuche = new JTextField();
+		textPartnerSuche = new JSearchTextField();
 		textPartnerSuche.setColumns(10);
 		
 		GroupLayout gl_allgemeineDaten = new GroupLayout(allgemeineDaten);
@@ -344,7 +348,7 @@ public class WNeuerPatient extends JInternalFrame {
 								.addComponent(lblGeschlecht))
 							.addGap(30)
 							.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(strRasse, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+								.addComponent(textRasse, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
 								.addComponent(enumGeschlecht, 0, 151, Short.MAX_VALUE))
 							.addGap(10))))
 				.addGroup(gl_allgemeineDaten.createSequentialGroup()
@@ -383,7 +387,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGap(25)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRasse)
-						.addComponent(strRasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textRasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeschlecht)
@@ -436,7 +440,9 @@ public class WNeuerPatient extends JInternalFrame {
 				strName.setText(result.getString(1));
 				strRufname.setText(result.getString(2));
 				spinBirthdate.setValue(result.getDate(3));
-				enumGeschlecht.setSelectedItem(result.getBoolean(4) == true ? 0 : 1);
+				enumGeschlecht.setSelectedItem(result.getBoolean(4) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
+				logger.debug("col: {}", result.getString(8));
+				textRasse.setText(result.getString(8));
 			} catch (SQLException e) {
 				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
@@ -455,9 +461,8 @@ public class WNeuerPatient extends JInternalFrame {
 		strName.setEditable(editable);
 		strFarbe.setEditable(editable);
 		strGewicht.setEditable(editable);
-		strRasse.setEditable(editable);
+		textRasse.setEditable(editable);
 		strRufname.setEditable(editable);
-		textField.setEditable(editable);
 		spinBirthdate.setEnabled(editable);
 		txtBemerkung.setEditable(editable);
 		listVerlauf.setEnabled(editable);
@@ -477,14 +482,14 @@ public class WNeuerPatient extends JInternalFrame {
 			if(gender.getType() != GenderType.UNKNOWN){
 				String def = "DEFAULT";
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
+					Database.insertPatient(strName.getText(), strRufname.getText(), def, gender.getType() == GenderType.MALE, textRasse.getText(), def, null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
 					GUI.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
 				}
 			}else{
-				JOptionPane.showMessageDialog(strRasse, "Kein Geschlecht ausgewählt!");
+				JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");
 				logger.info("No Gender selected!");
 			}
 		}
