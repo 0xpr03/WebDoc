@@ -122,6 +122,7 @@ public class JSearchTextField extends JTextField {
 				int index = list.locationToIndex(e.getPoint());
 				if (index >= 0 && list.getSelectedIndex() != index) {
 					list.setSelectedIndex(index);
+					chosenElement = list.getSelectedValue();
 				}
 			}
 		});
@@ -195,7 +196,6 @@ public class JSearchTextField extends JTextField {
 	private void changeListSelectedIndex(int delta) {
 		int size = list.getModel().getSize();
 		int index = list.getSelectedIndex();
-		chosenElement = list.getSelectedValue();
 
 		int newIndex;
 
@@ -219,8 +219,9 @@ public class JSearchTextField extends JTextField {
 		} else {
 			list.setSelectedIndex(newIndex);
 			list.ensureIndexIsVisible(newIndex);
-			setTextWithoutNotification(list.getSelectedValue().toString());
+			setTextWithoutNotification(list.getSelectedValue().getName()+" "+list.getSelectedValue().getOptname());
 		}
+		chosenElement = list.getSelectedValue();
 	}
 
 	private void setTextWithoutNotification(String text) {
