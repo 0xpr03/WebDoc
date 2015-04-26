@@ -1,6 +1,7 @@
 /* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
 /* lines starting with this are IGNORES! completely */
 /* "IF NOT EXISTS" is REQUIRED! */
+/* DO NOT MODIFY! exact pattern matching */
 /* Table partner / Partner */
 CREATE TABLE IF NOT EXISTS `partner` (
  `PartnerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -93,4 +94,11 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `injurys` text NOT NULL,
  `scars` text NOT NULL,
  PRIMARY KEY (`AnamnesisID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.5'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table Beziehungen / relationship */
+CREATE TABLE IF NOT EXISTS `relationship` (
+ `RoleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `PartnerID` int(10) unsigned NOT NULL,
+ `AnimalID` int(10) unsigned NOT NULL,
+ PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
