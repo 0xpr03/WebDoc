@@ -201,6 +201,17 @@ public class Database{
 	}
 	
 	/**
+	 * Basic statement preparer
+	 * @param sql
+	 * @return PreparedStatment, unbound
+	 * @throws SQLException to be handled with DBExceptionConverter at best
+	 * @author "Aron Heinecke"
+	 */
+	public static PreparedStatement prepareStm(String sql) throws SQLException{
+		return connection.prepareStatement(sql);
+	}
+	
+	/**
 	 * Prepares a search statement for search inside the animal & partner tables
 	 * @return 'result' columns: name, optname, id, type, see ACElement, fully compatible
 	 * @throws SQLException
@@ -213,7 +224,19 @@ public class Database{
 				+"UNION ALL "
 				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
 				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ?";
-		return connection.prepareStatement(sql);
+		return prepareStm(sql);
+	}
+	
+	/**
+	 * Prepares a race search
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareRaceSearchStm() throws SQLException{
+		String sql =
+				"SELECT `RaceID`,`race` FROM race "
+				+"WHERE `race` LIKE ? ";
+		return prepareStm(sql);
 	}
 	
 	/**
