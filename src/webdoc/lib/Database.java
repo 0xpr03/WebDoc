@@ -154,6 +154,26 @@ public class Database{
 	public static void insertPatner(){
 		
 	}
+	
+	/**
+	 * Retrives all columns of an animal for WPatient
+	 * @param id long id of animal, unique
+	 * @return ResultSet, needs to be closed!
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static ResultSet getAnimal(long id) throws SQLException{
+		String sql = "SELECT `Name`, `Callname`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race"
+			+"FROM animal"
+			+"INNER JOIN race"
+			+"ON animal.RaceID = race.RaceID"
+			+"WHERE AnimalID = ?";	
+		
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setLong(0, id);
+		return stmt.executeQuery();
+	}
+	
 	/**
 	 * Execute an update query.
 	 * Not injection safe!
