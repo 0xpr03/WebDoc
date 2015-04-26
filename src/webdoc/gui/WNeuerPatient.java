@@ -3,7 +3,9 @@ package webdoc.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -19,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -32,6 +35,7 @@ import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
+
 import javax.swing.JList;
 
 public class WNeuerPatient extends JInternalFrame {
@@ -295,7 +299,11 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		enumGeschlecht.setEditable(editable);
 		
+		SpinnerDateModel model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate = new JSpinner();
+		spinBirthdate.setModel(model);
+		spinBirthdate.setEditor(new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy"));
 		//spinBirthdate.setEditor(spinBirthdate);
 		
 		strRufname = new JTextField();
@@ -415,6 +423,19 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		
 		this.pack();
+		loadData();
+	}
+	
+	private void loadData(){
+		if(id != -1){
+			try {
+				ResultSet result = Database.getAnimal(id);
+				strName.setText(result.getString(0));
+				strRufname.setText(result.getString(1));
+			} catch (SQLException e) {
+				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			}
+		}
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
