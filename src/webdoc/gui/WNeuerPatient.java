@@ -58,14 +58,15 @@ public class WNeuerPatient extends JInternalFrame {
 	private JPanel panelVerlauf;
 	private JTextField textPartnerSuche;
 	private WHomescreen whs;
+	private long id;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final boolean editable, final WHomescreen whs) {
+	public static void main(final boolean editable, final WHomescreen whs, final long id) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatient window = new WNeuerPatient(editable, whs);
+					WNeuerPatient window = new WNeuerPatient(editable, whs, id);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,9 +78,10 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable, WHomescreen whs) {
+	public WNeuerPatient(boolean editable, WHomescreen whs, long id) {
 		this.editable = editable;
 		this.whs = whs;
+		this.id = id;
 		initialize();
 		setFrameIcon(null);
 		setResizable(true);
