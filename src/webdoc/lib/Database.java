@@ -163,14 +163,14 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getAnimal(long id) throws SQLException{
-		String sql = "SELECT `Name`, `Callname`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race"
-			+"FROM animal"
-			+"INNER JOIN race"
-			+"ON animal.RaceID = race.RaceID"
+		String sql = "SELECT `Name`, `Callname`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race "
+			+"FROM animal "
+			+"INNER JOIN race "
+			+"ON animal.RaceID = race.RaceID "
 			+"WHERE AnimalID = ?";	
 		
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setLong(0, id);
+		stmt.setLong(1, id);
 		return stmt.executeQuery();
 	}
 	
