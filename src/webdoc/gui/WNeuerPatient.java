@@ -62,6 +62,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JPanel panelVerlauf;
 	private JTextField textPartnerSuche;
 	private WHomescreen whs;
+	private JSpinner.DateEditor dateEditor;
 	private long id;
 	/**
 	 * Launch the application.
@@ -303,8 +304,8 @@ public class WNeuerPatient extends JInternalFrame {
 		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate = new JSpinner();
 		spinBirthdate.setModel(model);
-		spinBirthdate.setEditor(new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy"));
-		//spinBirthdate.setEditor(spinBirthdate);
+		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		spinBirthdate.setEditor(dateEditor);
 		
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
@@ -426,12 +427,20 @@ public class WNeuerPatient extends JInternalFrame {
 		loadData();
 	}
 	
+	/**
+	 * Loads the animal data if id not -1
+	 * (while id 0 is also never given out)
+	 * @author "Aron Heinecke"
+	 */
 	private void loadData(){
 		if(id != -1){
 			try {
 				ResultSet result = Database.getAnimal(id);
-				strName.setText(result.getString(0));
-				strRufname.setText(result.getString(1));
+				result.next();
+				strName.setText(result.getString(1));
+				strRufname.setText(result.getString(2));
+				spinBirthdate.setValue(result.getDate(3));
+				enumGeschlecht.setSelectedItem(result.getBoolean(4) == true ? 0 : 1);
 			} catch (SQLException e) {
 				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
