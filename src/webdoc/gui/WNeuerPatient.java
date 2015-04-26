@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -201,10 +202,9 @@ public class WNeuerPatient extends JInternalFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(editable){
-					//birthdate = " " + spinGebDay.getValue().toString()+ "." + spinGebMonth.getValue().toString() + "." + spinBirthdate.getValue().toString() + "" ;
-					//addPatient();
+					addPatient();
 				}else{
-					//TODO: add
+					return;
 				}
 			}
 		});
@@ -289,7 +289,7 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setEditable(editable);
 		
 		spinBirthdate = new JSpinner();
-		spinBirthdate.setEditor(new JSpinner.DateEditor(spinBirthdate, "yyyy-MM-dd"));
+		//spinBirthdate.setEditor(spinBirthdate);
 		
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
@@ -417,26 +417,23 @@ public class WNeuerPatient extends JInternalFrame {
 	private void exit(){
 		this.dispose();
 	}
-	/*private void addPatient() {
+	private void addPatient() {
 		//TODO: add picture support
 		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if(gender.getType() != GenderType.UNKNOWN){
 				String def = "DEFAULT";
-				String concats = String.valueOf(spinBirthdate.getValue());
-				concats += String.valueOf(spinGebMonth.getValue());
-				concats += String.valueOf(spinGebDay.getValue());
-				logger.debug("Birthdate: {}",concats);
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), concats, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
+					Database.insertPatient(strName.getText(), strRufname.getText(), def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
 					GUI.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
 				}
 			}else{
+				JOptionPane.showMessageDialog(strRasse, "Kein Geschlecht ausgewählt!");
 				logger.info("No Gender selected!");
 			}
 		}
-	}*/
+	}
 }
