@@ -53,6 +53,12 @@ public class JSearchTextField extends JTextField {
 		 * @param element
 		 */
 		public void changedSelectionEvent(ACElement element);
+		/**
+		 * Custom renderer, what should be displayed.
+		 * Returns a String used as display text for an element
+		 * @param element
+		 */
+		public String listRenderer(ACElement element);
 	}
 
 	/**
@@ -287,8 +293,7 @@ public class JSearchTextField extends JTextField {
 		@Override
 		public Component getListCellRendererComponent(JList<? extends ACElement> list, ACElement element, int index,
 				boolean isSelected, boolean cellHasFocus) {
-			setText("<html>" + element.getName() + " " + element.getOptname() + " <font size=-5><i>"
-					+ element.getType() + "</i></font></html>");
+			setText(api.listRenderer(element));
 			if (isSelected) {
 				setBackground(HIGHLIGHT_COLOR);
 				setForeground(Color.white);
