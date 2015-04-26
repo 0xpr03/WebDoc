@@ -216,7 +216,7 @@ public class WHomescreen extends JFrame {
 			// detect doubleklick
 			if(mevent.getClickCount() >= 2){
 				CustomTreeObj selMenu = (CustomTreeObj) ((DefaultMutableTreeNode) selPath.getLastPathComponent()).getUserObject();
-				logger.debug("selected: {}", selMenu.getType());
+				logger.debug("menu: {}", selMenu.getType());
 				switch(selMenu.getType()){
 				case HAUPTMENÜ:
 					//TODO: show main menu					
@@ -248,7 +248,7 @@ public class WHomescreen extends JFrame {
 	
 	private void reOpen(JInternalFrame jif){
 		if(jif.isClosed()){
-			logger.debug("JIF ist closed.");
+			logger.debug("JIF = closed");
 			desktopPane.remove(jif);
 			desktopPane.add(jif);
 			jif.setVisible(true);
