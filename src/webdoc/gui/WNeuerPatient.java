@@ -3,9 +3,12 @@ package webdoc.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -32,7 +35,9 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.GenderEnumObj;
+import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.GenderEnumObj.GenderType;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
@@ -70,6 +75,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextPane txtBemerkung;
 	private JList listVerlauf;
 	private ACElement partner;
+	private PreparedStatement searchRaceStm;
 	/**
 	 * Launch the application.
 	 */
@@ -285,8 +291,44 @@ public class WNeuerPatient extends JInternalFrame {
 		strName = new JTextField();
 		strName.setColumns(10);
 		
+		/**
+		 * Default DataProvider for these kinds
+		 * @author "Aron Heinecke"
+		 */
+		class RaceProvider implements searchFieldAPI{
+			@Override
+			public List<ACElement> getData(String text){
+				List<ACElement> list = new ArrayList<ACElement>();
+				try {
+					searchRaceStm.setString(1, "%"+text+"%");
+					ResultSet result = searchRaceStm.executeQuery();
+					
+					while(result.next()){
+						list.add(new ACElement(result.getString(2),"", result.getLong(1), ElementType.RACE));
+					}
+					result.close();
+					
+				} catch (SQLException e) {
+					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+				}
+				return list;
+			}
+
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+				//doing nothing, we only want to provide a search for the existing types
+			}
+
+			@Override
+			public String listRenderer(ACElement element) {
+				return element.getName();
+			}
+		}
+		
 		textRasse = new JSearchTextField();
 		textRasse.setColumns(10);
+		textRasse.setAPI(new RaceProvider());
 		
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
@@ -421,9 +463,16 @@ public class WNeuerPatient extends JInternalFrame {
 		//panelBemerkungen.setVisible(!editable);
 		panelVerlauf.setVisible(!editable);
 		
+		try {
+			searchRaceStm = Database.prepareRaceSearchStm();
+		} catch (SQLException e) {
+			GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+		}
+		
 		setEditable();
 		
 		this.pack();
+		this.setVisible(true);
 		loadData();
 	}
 	
