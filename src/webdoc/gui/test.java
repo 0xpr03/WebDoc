@@ -76,6 +76,9 @@ public class test extends JInternalFrame {
 	 * Create the application.
 	 */
 	public test() {
+		setResizable(true);
+		setMaximizable(true);
+		setIconifiable(true);
 		setClosable(true);
 		initialize();
 	}
