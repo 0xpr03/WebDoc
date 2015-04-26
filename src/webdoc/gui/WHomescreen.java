@@ -48,7 +48,9 @@ public class WHomescreen extends JFrame {
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true);
 	private WNeuerPartner FPartner = new WNeuerPartner(false);
-	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true);
+	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, this);
+	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true);
+	private WNeueAnamnese FAnamnese = new WNeueAnamnese(false);
 	private WPatient FPatient = new WPatient(false);
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
@@ -263,6 +265,9 @@ public class WHomescreen extends JFrame {
 		}else{
 			jif.toFront();
 		}
+	}
+	public void test(){
+		reOpen(FNeueAnamnese);
 	}
 }
 
