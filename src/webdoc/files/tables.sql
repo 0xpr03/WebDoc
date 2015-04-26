@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `race` (
  `race` varchar(20) NOT NULL,
  PRIMARY KEY (`RaceID`),
  KEY `race` (`race`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='v0.2';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table animal / Tier */
 CREATE TABLE IF NOT EXISTS `animal` (
  `AnimalID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -77,4 +77,20 @@ CREATE TABLE IF NOT EXISTS `animal` (
  PRIMARY KEY (`AnimalID`),
  KEY `Callname` (`Callname`),
  KEY `Name` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='v0.4';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.5';
+/* Table Anamnese / anamnesis */
+CREATE TABLE IF NOT EXISTS `anamnesis` (
+ `AnamnesisID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `AnimalID` int(10) unsigned NOT NULL,
+ `purpose` varchar(25) NOT NULL,
+ `keeping` varchar(50) NOT NULL,
+ `possesionsince` date NOT NULL,
+ `origin` varchar(50) NOT NULL,
+ `familystrchanges` text NOT NULL,
+ `abroadstays` varchar(250) NOT NULL,
+ `attitudeconspicuity` varchar(250) NOT NULL,
+ `behaviourmodification` varchar(250) NOT NULL,
+ `injurys` text NOT NULL,
+ `scars` text NOT NULL,
+ PRIMARY KEY (`AnamnesisID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.5'
