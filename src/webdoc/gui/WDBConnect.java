@@ -373,9 +373,11 @@ public class WDBConnect extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 			}
 			
+			buttonPane.setLayout(new MigLayout("", "[146px][75px,right][75px,right]", "[23px]"));
+			
 			progressBar = new JProgressBar();
 			progressBar.setVisible(false);
-			buttonPane.setLayout(new MigLayout("", "[146px][75px,right][75px,right]", "[23px]"));
+			
 			progressBar.setIndeterminate(true);
 			glassPane.add(progressBar);
 			
