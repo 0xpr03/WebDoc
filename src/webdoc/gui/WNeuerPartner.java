@@ -348,10 +348,12 @@ public class WNeuerPartner extends JInternalFrame {
 		);
 		panel_3.setLayout(gl_panel_3);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 447, 116, 20);
+		rollendaten.add(panel_1);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 444, 305, 35);
-		rollendaten.add(panel);
-		panel.setLayout(new MigLayout("", "[44.00][][][][]", "[]"));
+		panel.setLayout(new MigLayout("", "[][][]", "[]"));
 		
 		JButton button = new JButton("Ok");
 		button.addActionListener(new ActionListener() {
@@ -360,7 +362,7 @@ public class WNeuerPartner extends JInternalFrame {
 			}
 
 		});
-		panel.add(button, "cell 2 0");
+		panel.add(button, "cell 0 0");
 		
 		JButton bCancel = new JButton("Cancel");
 		bCancel.addActionListener(new ActionListener() {
@@ -368,7 +370,19 @@ public class WNeuerPartner extends JInternalFrame {
 				exit();
 			}
 		});
-		panel.add(bCancel, "cell 4 0");
+		panel.add(bCancel, "cell 2 0");
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(5)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		bCancel.setVisible(editable);
 		
 		JLabel lblNewLabel = new JLabel("Name:");

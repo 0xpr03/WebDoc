@@ -32,6 +32,7 @@ import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
+import javax.swing.JList;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -56,14 +57,15 @@ public class WNeuerPatient extends JInternalFrame {
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
 	private JTextField textPartnerSuche;
+	private WHomescreen whs;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final boolean editable) {
+	public static void main(final boolean editable, final WHomescreen whs) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatient window = new WNeuerPatient(editable);
+					WNeuerPatient window = new WNeuerPatient(editable, whs);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -75,8 +77,9 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable) {
+	public WNeuerPatient(boolean editable, WHomescreen whs) {
 		this.editable = editable;
+		this.whs = whs;
 		initialize();
 		setFrameIcon(null);
 		setResizable(true);
@@ -91,7 +94,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 911, 475);
+		setBounds(100, 100, 911, 491);
 		
 		JPanel suche = new JPanel();
 		
@@ -113,15 +116,15 @@ public class WNeuerPatient extends JInternalFrame {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(suche, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(suche, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(daten, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)
+									.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
 									.addGap(11)
 									.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)))
 							.addGap(11))))
@@ -129,13 +132,15 @@ public class WNeuerPatient extends JInternalFrame {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(23)
+					.addGap(27)
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(daten, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 340, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+							.addGap(1)))
 					.addGap(18)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 					.addGap(143))
@@ -191,8 +196,8 @@ public class WNeuerPatient extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		JTextPane textPane = new JTextPane();
-		sPaneVerlauf.setViewportView(textPane);
+		JList list = new JList();
+		sPaneVerlauf.setViewportView(list);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
 		suche.add(textField);
@@ -411,7 +416,7 @@ public class WNeuerPatient extends JInternalFrame {
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
-		//TODO: Öffne neue Anamnese Fenster
+		whs.test();
 	}
 
 	private void exit(){
