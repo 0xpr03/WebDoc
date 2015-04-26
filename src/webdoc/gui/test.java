@@ -144,34 +144,65 @@ public class test extends JInternalFrame {
 		);
 		panelSideResizable.setLayout(new BoxLayout(panelSideResizable, BoxLayout.X_AXIS));
 		
-		JPanel panel = new JPanel();
-		panelSideResizable.add(panel);
+		JPanel panelInnerResizing1 = new JPanel();
+		panelSideResizable.add(panelInnerResizing1);
 		
 		JLabel titleCenter1 = new JLabel("Mein Textfeld");
 		titleCenter1.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JTextPane textResizing = new JTextPane();
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		GroupLayout gl_panelInnerResizing1 = new GroupLayout(panelInnerResizing1);
+		gl_panelInnerResizing1.setHorizontalGroup(
+			gl_panelInnerResizing1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelInnerResizing1.createSequentialGroup()
 					.addGap(1)
 					.addComponent(titleCenter1, GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
 					.addGap(1))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panelInnerResizing1.createSequentialGroup()
 					.addGap(2)
 					.addComponent(textResizing, GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
 					.addGap(1))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		gl_panelInnerResizing1.setVerticalGroup(
+			gl_panelInnerResizing1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelInnerResizing1.createSequentialGroup()
 					.addComponent(titleCenter1)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textResizing, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
 					.addGap(1))
 		);
-		panel.setLayout(gl_panel);
+		panelInnerResizing1.setLayout(gl_panelInnerResizing1);
+		
+		JPanel panelInnerResizing2 = new JPanel();
+		panelSideResizable.add(panelInnerResizing2);
+		
+		JTextPane textPane = new JTextPane();
+		
+		JLabel label_9 = new JLabel("Mein Textfeld");
+		label_9.setHorizontalAlignment(SwingConstants.CENTER);
+		GroupLayout gl_panelInnerResizing2 = new GroupLayout(panelInnerResizing2);
+		gl_panelInnerResizing2.setHorizontalGroup(
+			gl_panelInnerResizing2.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 550, Short.MAX_VALUE)
+				.addGroup(gl_panelInnerResizing2.createSequentialGroup()
+					.addGap(1)
+					.addComponent(label_9, GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(Alignment.TRAILING, gl_panelInnerResizing2.createSequentialGroup()
+					.addGap(2)
+					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panelInnerResizing2.setVerticalGroup(
+			gl_panelInnerResizing2.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 330, Short.MAX_VALUE)
+				.addGroup(gl_panelInnerResizing2.createSequentialGroup()
+					.addComponent(label_9)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		panelInnerResizing2.setLayout(gl_panelInnerResizing2);
 		
 		JLabel titelMiddleFixed = new JLabel("Meine Überschrift");
 		titelMiddleFixed.setHorizontalAlignment(SwingConstants.CENTER);
