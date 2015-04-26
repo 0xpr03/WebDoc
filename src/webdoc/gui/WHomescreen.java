@@ -207,6 +207,12 @@ public class WHomescreen extends JFrame {
 				}
 				txtSuche.setText("");
 			}
+
+			@Override
+			public String listRenderer(ACElement element) {
+				return "<html>" + element.getName() + " " + element.getOptname() + " <font size=-5><i>"
+						+ element.getType() + "</i></font></html>";
+			}
 		}
 		
 		try {
