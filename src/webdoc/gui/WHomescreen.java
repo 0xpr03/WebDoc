@@ -199,9 +199,9 @@ public class WHomescreen extends JFrame {
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				if(element.getType() == ElementType.ANIMAL){
-					WPatient tempwindow = new WPatient(false, getWindow(), element.getID());
-					desktopPane.add(tempwindow);
-					tempwindow.setVisible(true);
+					WPatient windowpointer = new WPatient(false, getWindow(), element.getID());
+					desktopPane.add(windowpointer);
+					windowpointer.setVisible(true);
 				}else{
 					logger.debug("atm unsupported");
 				}
