@@ -20,19 +20,27 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
+
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import net.miginfocom.swing.MigLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
+
 import webdoc.gui.utils.GenderEnumObj;
+
 import javax.swing.JSpinner;
 import javax.swing.BoxLayout;
 import javax.swing.JTextPane;
@@ -418,6 +426,11 @@ public class test extends JInternalFrame {
 			@Override
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
+			}
+			@Override
+			public String listRenderer(ACElement element) {
+				return "<html>" + element.getName() + " " + element.getOptname() + " <font size=-5><i>"
+						+ element.getType() + "</i></font></html>";
 			}
 		}
 		topFixed.setAPI(new Provider());
