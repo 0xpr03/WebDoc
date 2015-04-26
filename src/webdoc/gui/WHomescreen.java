@@ -51,7 +51,7 @@ public class WHomescreen extends JFrame {
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, this, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true);
 	private WNeueAnamnese FAnamnese = new WNeueAnamnese(false);
-	private WPatient FPatient = new WPatient(false);
+	private WPatient FPatient;
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -130,7 +130,6 @@ public class WHomescreen extends JFrame {
 		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FPartner);
-		desktopPane.add(FPatient);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.add(test);
 		desktopPane.setBackground(Color.WHITE);
@@ -199,6 +198,14 @@ public class WHomescreen extends JFrame {
 			@Override
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
+				if(element.getType() == ElementType.ANIMAL){
+					WPatient tempwindow = new WPatient(false, getWindow(), element.getID());
+					desktopPane.add(tempwindow);
+					tempwindow.setVisible(true);
+				}else{
+					logger.debug("atm unsupported");
+				}
+				txtSuche.setText("");
 			}
 		}
 		
@@ -209,6 +216,10 @@ public class WHomescreen extends JFrame {
 		}
 		
 		txtSuche.setAPI(new Provider());
+	}
+	
+	protected WHomescreen getWindow(){
+		return this;
 	}
 	
 	private void mouseClickAction(MouseEvent mevent){
@@ -249,6 +260,9 @@ public class WHomescreen extends JFrame {
 	}
 	
 	private void reOpen(JInternalFrame jif){
+		if(jif == null){
+			return;
+		}
 		if(jif.isClosed()){
 			logger.debug("JIF = closed");
 			desktopPane.remove(jif);
@@ -266,6 +280,7 @@ public class WHomescreen extends JFrame {
 			jif.toFront();
 		}
 	}
+	
 	public void test(){
 		reOpen(FNeueAnamnese);
 	}
