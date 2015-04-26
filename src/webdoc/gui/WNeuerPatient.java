@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import net.miginfocom.swing.MigLayout;
@@ -44,14 +45,12 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField strFarbe;
 	private JTextField strGewicht;
 	private JTextField identifizierung;
-	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte AuswÃ¤hlen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("MÃ¤nnlich", GenderType.MALE) };
+	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("Männlich", GenderType.MALE) };
 	public  boolean editable = true;
 	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 	private JTextField strRufname;
-	private JSpinner spinGebDay;
-	private JSpinner spinGebMonth;
-	private JSpinner spinGebYear;
+	private JSpinner spinBirthdate;
 	private String birthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
@@ -202,8 +201,8 @@ public class WNeuerPatient extends JInternalFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(editable){
-					birthdate = " " + spinGebDay.getValue().toString()+ "." + spinGebMonth.getValue().toString() + "." + spinGebYear.getValue().toString() + "" ;
-					addPatient();
+					//birthdate = " " + spinGebDay.getValue().toString()+ "." + spinGebMonth.getValue().toString() + "." + spinBirthdate.getValue().toString() + "" ;
+					//addPatient();
 				}else{
 					//TODO: add
 				}
@@ -289,11 +288,8 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		enumGeschlecht.setEditable(editable);
 		
-		spinGebMonth = new JSpinner();
-		
-		spinGebDay = new JSpinner();
-		
-		spinGebYear = new JSpinner();
+		spinBirthdate = new JSpinner();
+		spinBirthdate.setEditor(new JSpinner.DateEditor(spinBirthdate, "yyyy-MM-dd"));
 		
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
@@ -321,19 +317,13 @@ public class WNeuerPatient extends JInternalFrame {
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(identifizierung, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
 								.addGroup(gl_allgemeineDaten.createSequentialGroup()
-									.addComponent(lblGeburtsdatum)
-									.addGap(18)
-									.addComponent(spinGebDay, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinGebMonth, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spinGebYear, GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
-								.addGroup(gl_allgemeineDaten.createSequentialGroup()
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblHaarkleidfarbe)
-										.addComponent(lblGewicht))
+										.addComponent(lblGewicht)
+										.addComponent(lblGeburtsdatum))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.LEADING)
+										.addComponent(spinBirthdate, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 										.addComponent(strFarbe, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
 										.addComponent(strGewicht, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))))
 							.addContainerGap())
@@ -390,9 +380,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblGeburtsdatum)
-						.addComponent(spinGebMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(spinGebYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(spinGebDay, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinBirthdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(strFarbe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -409,7 +397,7 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGroup(gl_allgemeineDaten.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblZugehrigerPatner)
 						.addComponent(textPartnerSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(42, Short.MAX_VALUE))
+					.addContainerGap(36, Short.MAX_VALUE))
 		);
 		allgemeineDaten.setLayout(gl_allgemeineDaten);
 		daten.setLayout(gl_daten);
@@ -429,14 +417,18 @@ public class WNeuerPatient extends JInternalFrame {
 	private void exit(){
 		this.dispose();
 	}
-	private void addPatient() {
+	/*private void addPatient() {
 		//TODO: add picture support
 		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if(gender.getType() != GenderType.UNKNOWN){
 				String def = "DEFAULT";
+				String concats = String.valueOf(spinBirthdate.getValue());
+				concats += String.valueOf(spinGebMonth.getValue());
+				concats += String.valueOf(spinGebDay.getValue());
+				logger.debug("Birthdate: {}",concats);
 				try {
-					Database.insertPatient(strName.getText(), def, def, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
+					Database.insertPatient(strName.getText(), strRufname.getText(), concats, gender.getType() == GenderType.MALE, strRasse.getText(), def, null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
@@ -446,5 +438,5 @@ public class WNeuerPatient extends JInternalFrame {
 				logger.info("No Gender selected!");
 			}
 		}
-	}
+	}*/
 }
