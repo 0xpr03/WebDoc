@@ -72,13 +72,13 @@ CREATE TABLE IF NOT EXISTS `animal` (
  `Callname` varchar(20) NOT NULL,
  `birthdate` date NOT NULL,
  `gender` tinyint(1) NOT NULL,
- `Picture` int(10) unsigned NOT NULL,
+ `PictureID` int(10) unsigned NOT NULL,
  `RaceID` int(10) unsigned NOT NULL,
  `comment` varchar(100) DEFAULT NULL,
  PRIMARY KEY (`AnimalID`),
  KEY `Callname` (`Callname`),
  KEY `Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.5';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.6';
 /* Table Anamnese / anamnesis */
 CREATE TABLE IF NOT EXISTS `anamnesis` (
  `AnamnesisID` int(10) unsigned NOT NULL AUTO_INCREMENT,
