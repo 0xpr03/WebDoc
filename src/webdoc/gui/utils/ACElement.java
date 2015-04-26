@@ -17,11 +17,21 @@ public class ACElement {
 	}
 	
 	private String name;
+	private String optname;
 	private long id;
 	private ElementType elemType;
 	
-	public ACElement(String name, long id, ElementType elemType){
+	/**
+	 * Creates a new ACElement, containing it's name, optname id & element type
+	 * @param name name see partner name / patient name
+	 * @param optname optional name see partner secondname / patient callname
+	 * @param id PartnerID or PatientID
+	 * @param elemType Animal or Partner
+	 * @author "Aron Heinecke"
+	 */
+	public ACElement(String name, String optname, long id, ElementType elemType){
 		this.name = name;
+		this.optname = optname;
 		this.id = id;
 		this.elemType = elemType;
 	}
@@ -34,8 +44,15 @@ public class ACElement {
 		return this.elemType;
 	}
 	
+	public String getName(){
+		return name;
+	}
+	public String getOptname(){
+		return optname;
+	}
+	
 	@Override
 	public String toString(){
-		return name;
+		return name+" "+optname+" "+id+" "+elemType;
 	}
 }

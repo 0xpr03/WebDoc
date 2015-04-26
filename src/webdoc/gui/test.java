@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,8 +17,9 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
-import webdoc.gui.utils.JSearchTextField.DataProvider;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
+import webdoc.lib.GUI;
 
 /**
  * Test class for JUnit tests like JSearchTextField
@@ -30,7 +30,6 @@ public class test extends JInternalFrame {
 
 	private static final long serialVersionUID = -8772029628747927216L;
 	private JSearchTextField autoCompleteTextField;
-	private List<ACElement> l2 = new ArrayList<ACElement>();
 	private PreparedStatement searchStm = null;
 	private Logger logger = LogManager.getLogger();
 
@@ -54,6 +53,7 @@ public class test extends JInternalFrame {
 	 * Create the application.
 	 */
 	public test() {
+		setClosable(true);
 		initialize();
 	}
 
@@ -63,10 +63,8 @@ public class test extends JInternalFrame {
 	private void initialize() {
 		setTitle("Testframe");
 		setBounds(100, 100, 242, 217);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		autoCompleteTextField = new JSearchTextField();
-		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -84,41 +82,43 @@ public class test extends JInternalFrame {
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
-
-		l2.add(new ACElement("123", 1L, ElementType.ANIMAL));
-		l2.add(new ACElement("234", 2L, ElementType.PARTNER));
-		l2.add(new ACElement("345", 3L, ElementType.ANIMAL));
-		l2.add(new ACElement("456", 4L, ElementType.PARTNER));
-		l2.add(new ACElement("567", 5L, ElementType.ANIMAL));
-		l2.add(new ACElement("678", 6L, ElementType.PARTNER));
-		l2.add(new ACElement("789", 7L, ElementType.ANIMAL));
-		class Provider implements DataProvider{
+		/**
+		 * Default DataProvider for these kinds
+		 * @author "Aron Heinecke"
+		 */
+		class Provider implements searchFieldAPI{
 			@Override
 			public List<ACElement> getData(String text){
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
-					searchStm.setString(1, "%"+text+"%");
+					text = "%"+text+"%";
+					searchStm.setString(1, text);
+					searchStm.setString(2, text);
+					searchStm.setString(3, text);
+					searchStm.setString(4, text);
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
-						logger.debug("Found: {}", result.getString(1));
-						list.add(new ACElement(result.getString(1)+" "+result.getString(2),result.getLong(3), ElementType.ANIMAL));
+						list.add(new ACElement(result.getString(1),result.getString(2),result.getLong(3), ElementType.ANIMAL));
 					}
 					result.close();
 					
 				} catch (SQLException e) {
-					logger.debug(e);
+					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+			}
 		}
-		autoCompleteTextField.setDataProvider(new Provider());
+		autoCompleteTextField.setAPI(new Provider());
 		
 		try {
-			searchStm = Database.prepareSearchStm();
+			searchStm = Database.prepareMultiSearchStm();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.debug(e);
+			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 	}
 }

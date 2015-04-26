@@ -6,6 +6,11 @@ import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -14,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -23,7 +27,13 @@ import javax.swing.tree.TreePath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.utils.ACElement;
+import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.CustomTreeObj;
+import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
+import webdoc.lib.Database;
+import webdoc.lib.GUI;
 
 /**
  * Mainframe of the GUI
@@ -35,7 +45,7 @@ public class WHomescreen extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 4091113544481728677L;
-	private JTextField txtSuche;
+	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true);
 	private WNeuerPartner FPartner = new WNeuerPartner(false);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true);
@@ -43,6 +53,7 @@ public class WHomescreen extends JFrame {
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
+	private PreparedStatement searchStm = null;
 	private test test = new test();
 
 	/**
@@ -123,8 +134,9 @@ public class WHomescreen extends JFrame {
 		desktopPane.setBackground(Color.WHITE);
 		panel_1.add(desktopPane, BorderLayout.CENTER);
 		
-		txtSuche = new JTextField();
-		txtSuche.setText("Suche");
+		txtSuche = new JSearchTextField();
+		//TODO: add placeholder function
+		//txtSuche.setText("Suche"); WONT WORK ATM
 		txtSuche.setColumns(10);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
@@ -154,6 +166,47 @@ public class WHomescreen extends JFrame {
 		navigationsbaum.setModel(GUIMethoden.Navi());
 		navigation.add(navigationsbaum, BorderLayout.CENTER);
 		getContentPane().setLayout(groupLayout);
+		
+		/**
+		 * Default DataProvider for these kinds
+		 * @author "Aron Heinecke"
+		 */
+		class Provider implements searchFieldAPI{
+			@Override
+			public List<ACElement> getData(String text){
+				List<ACElement> list = new ArrayList<ACElement>();
+				try {
+					text = "%"+text+"%";
+					searchStm.setString(1, text);
+					searchStm.setString(2, text);
+					searchStm.setString(3, text);
+					searchStm.setString(4, text);
+					ResultSet result = searchStm.executeQuery();
+					
+					while(result.next()){
+						list.add(new ACElement(result.getString(1),result.getString(2),result.getLong(3), ElementType.ANIMAL));
+					}
+					result.close();
+					
+				} catch (SQLException e) {
+					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+				}
+				return list;
+			}
+
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+			}
+		}
+		
+		try {
+			searchStm = Database.prepareMultiSearchStm();
+		} catch (SQLException e) {
+			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+		}
+		
+		txtSuche.setAPI(new Provider());
 	}
 	
 	private void mouseClickAction(MouseEvent mevent){
@@ -196,6 +249,7 @@ public class WHomescreen extends JFrame {
 	private void reOpen(JInternalFrame jif){
 		if(jif.isClosed()){
 			logger.debug("JIF ist closed.");
+			desktopPane.remove(jif);
 			desktopPane.add(jif);
 			jif.setVisible(true);
 		}else if(!jif.isVisible()){

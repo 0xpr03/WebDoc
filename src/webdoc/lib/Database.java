@@ -10,6 +10,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLSyntaxErrorException;
+import java.sql.SQLTimeoutException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class Database{
 	 *
 	 */
 	public static enum DBError{
-		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6), NO_DB(7), WRONG_SYNTAX(8);
+		EXTERNAL_ERROR(-2),UNDEFINED_ERROR(-1),NOERROR(0),NOCONNECTION(1),INVALID_LOGIN(2),NO_DB_OR_NO_PERM(3),NO_DB_SELECTED(4),NO_PERMISSIONS(5),OPERATION_FAILED(6), NO_DB(7), WRONG_SYNTAX(8), SQL_TIMEOUT(9), WRONG_PARAMETER_BINDING(10);
 		private DBError(int dberror){
 			this.DBError = dberror;
 		}
@@ -179,10 +180,19 @@ public class Database{
 		return affectedLines;
 	}
 	
-	public static PreparedStatement prepareSearchStm() throws SQLException{
+	/**
+	 * Prepares a search statement for search inside the animal & partner tables
+	 * @return 'result' columns: name, optname, id, type, see ACElement, fully compatible
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static PreparedStatement prepareMultiSearchStm() throws SQLException{
 		String sql =
-		        "SELECT `Name`, `Callname`, `AnimalID` FROM animal " +
-		        "WHERE `Name` LIKE ?";
+				"SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
+				+"WHERE `Name` LIKE ? OR `Callname` LIKE ? "
+				+"UNION ALL "
+				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
+				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ?";
 		return connection.prepareStatement(sql);
 	}
 	
@@ -215,6 +225,7 @@ public class Database{
 	/**
 	 * Prints a complete ResultSet to the debug log
 	 * @param rs
+	 * @author "Aron Heinecke"
 	 */
 	@SuppressWarnings("unused")
 	private static void printResultSet(ResultSet rs){
@@ -261,10 +272,13 @@ public class Database{
 	 * Extended usage for functions where the MSG return matters
 	 * @param e
 	 * @return DBError enum
+	 * @author "Aron Heinecke"
 	 */
-	public static DBError DBExceptionConverter(SQLException e){
-		
-		logger.debug("Converter catched:\n{}",e);
+	public static DBError DBExceptionConverter(SQLException e, boolean printAsError){
+		if(printAsError)
+			logger.error("DBError: \n{}", e);
+		else
+			logger.debug("Converter catched:\n{}",e);
 		String message = e.getMessage();
 		if(message.contains("Access denied for user")){
 			if(message.contains("to database")){
@@ -284,11 +298,24 @@ public class Database{
 			}else{
 				return DBError.UNDEFINED_ERROR;
 			}
+		}else if(message.contains("Could not set parameter")){
+			return DBError.WRONG_PARAMETER_BINDING;
 		}else if(e instanceof SQLSyntaxErrorException ){
 			return DBError.WRONG_SYNTAX;
+		}else if(e instanceof SQLTimeoutException){
+			return DBError.SQL_TIMEOUT;
 		}else{
 			return DBError.UNDEFINED_ERROR;
 		}
+	}
+	
+	/**
+	 * Overloaded version, see the main declaration
+	 * @param e
+	 * @return
+	 */
+	public static DBError DBExceptionConverter(SQLException e){
+		return DBExceptionConverter(e, false);
 	}
 	
 	/**

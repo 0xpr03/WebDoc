@@ -4,8 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import webdoc.lib.Database.DBError;
 
 public class GUI {
 	
@@ -48,5 +47,14 @@ public class GUI {
 	 */
 	public static void showErrorDialog(Component parent, String message, String title){
 		JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * Predefined error dialog for DB errors
+	 * @param parent
+	 * @param dberr
+	 */
+	public static void showDBErrorDialog(Component parent, DBError dberr){
+		JOptionPane.showConfirmDialog(parent, "The following eroror occured: "+dberr, "DB Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 	}
 }
