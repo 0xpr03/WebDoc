@@ -20,5 +20,5 @@ BEGIN
 		SET var_rID = LAST_INSERT_ID();
 	END IF;
 
-	INSERT INTO `animal` (`Name`, `Callname`, `birthdate`, `gender`, `Picture`, `RaceID`, `comment`) VALUES (param_name, param_callname, param_birthdate, param_gender, param_pictureid, var_rID, param_comment);
+	INSERT INTO `animal` (`Name`, `Callname`, `birthdate`, `gender`, `PictureID`, `RaceID`, `comment`) VALUES (param_name, param_callname, param_birthdate, param_gender, param_pictureid, var_rID, param_comment);
 END$$
