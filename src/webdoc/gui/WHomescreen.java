@@ -184,7 +184,7 @@ public class WHomescreen extends JFrame {
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
-						list.add(new ACElement(result.getString(1),result.getString(2),result.getLong(3), ElementType.ANIMAL));
+						list.add(new ACElement(result.getString(1),result.getString(2),result.getLong(3), result.getInt(4) == 0 ? ElementType.ANIMAL : ElementType.PARTNER));
 					}
 					result.close();
 					
