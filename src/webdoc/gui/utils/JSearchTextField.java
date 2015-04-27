@@ -108,7 +108,7 @@ public class JSearchTextField extends JTextField {
 		popup.add(scrollPane);
 		popup.setFocusable(false);
 		popup.setBorder(new LineBorder(Color.BLACK, 1));
-
+		
 		getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				onTextChanged();
@@ -230,7 +230,11 @@ public class JSearchTextField extends JTextField {
 		chosenElement = list.getSelectedValue();
 	}
 
-	private void setTextWithoutNotification(String text) {
+	/**
+	 * Sets the text without event handling
+	 * @param text
+	 */
+	public void setTextWithoutNotification(String text) {
 		notificationDenied = true;
 		try {
 			setText(text);
