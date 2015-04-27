@@ -54,9 +54,10 @@ public class GUIMethoden {
 		menuBar.add(menu);
 		
 		JMenuItem hilfe = new JMenuItem("Hilfe");
-		JMenuItem close = new JMenuItem("Close");
+		JMenuItem close = new JMenuItem("Exit");
 		
 		menu.add(hilfe);
+		menu.addSeparator();
 		menu.add(close);
 		
 		return menu;
