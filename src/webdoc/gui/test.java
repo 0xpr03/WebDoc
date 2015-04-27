@@ -44,6 +44,10 @@ import webdoc.gui.utils.GenderEnumObj;
 import javax.swing.JSpinner;
 import javax.swing.BoxLayout;
 import javax.swing.JTextPane;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 
 /**
  * Test class for JUnit tests like JSearchTextField
@@ -88,6 +92,25 @@ public class test extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnTest = new JMenu("test");
+		menuBar.add(mnTest);
+		
+		JMenuItem menuItem = new JMenuItem("1");
+		mnTest.add(menuItem);
+		
+		JSeparator separator = new JSeparator();
+		mnTest.add(separator);
+		
+		JMenuItem menuItem_1 = new JMenuItem("2");
+		menuItem_1.setEnabled(false);
+		mnTest.add(menuItem_1);
+		
+		JMenuItem menuItem_2 = new JMenuItem("3");
+		mnTest.add(menuItem_2);
 		initialize();
 	}
 
