@@ -136,7 +136,7 @@ public class JSearchTextField extends JTextField {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					setTextWithoutNotification(list.getSelectedValue().toString());
+					setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 					popup.setVisible(false);
 					api.changedSelectionEvent(chosenElement);
 				}
@@ -225,7 +225,7 @@ public class JSearchTextField extends JTextField {
 		} else {
 			list.setSelectedIndex(newIndex);
 			list.ensureIndexIsVisible(newIndex);
-			setTextWithoutNotification(list.getSelectedValue().getName()+" "+list.getSelectedValue().getOptname());
+			setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 		}
 		chosenElement = list.getSelectedValue();
 	}
