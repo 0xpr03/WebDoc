@@ -8,7 +8,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+
 import java.awt.BorderLayout;
+import java.util.Calendar;
+
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -16,6 +20,7 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerDateModel;
 
 public class WNeueAnamnese extends JInternalFrame {
 
@@ -106,7 +111,14 @@ public class WNeueAnamnese extends JInternalFrame {
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
 		
-		JSpinner spinner = new JSpinner();
+		JSpinner spinBirthdate = new JSpinner();
+		SpinnerDateModel model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		spinBirthdate = new JSpinner();
+		spinBirthdate.setModel(model);
+		DateEditor dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		spinBirthdate.setEditor(dateEditor);
+		spinBirthdate.setEnabled(editable);
 		
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
@@ -132,7 +144,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(textField_7, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-						.addComponent(spinner)
+						.addComponent(spinBirthdate)
 						.addComponent(textField_8))
 					.addGap(167))
 				.addGroup(gl_panel_2.createSequentialGroup()
@@ -164,7 +176,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_4)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinBirthdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_5)
@@ -175,6 +187,9 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(13, Short.MAX_VALUE))
 		);
+		
+		JTextPane textPane = new JTextPane();
+		scrollPane_5.setViewportView(textPane);
 		panel_2.setLayout(gl_panel_2);
 		
 		JPanel panel_1 = new JPanel();
@@ -202,25 +217,26 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblAuslandsaufenthalte)
-							.addGap(18)
-							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-							.addGap(12))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblVerhaltensauflligkeiten)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-							.addGap(101))
-						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblVerletzungen)
 							.addGap(56)
-							.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-							.addGap(100))
+							.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblNarben)
 							.addGap(84)
-							.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-							.addGap(100))))
+							.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(lblVerhaltensauflligkeiten)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(lblAuslandsaufenthalte)
+									.addGap(18)
+									.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)))
+							.addGap(12))))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -231,24 +247,23 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
 					.addGap(17)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblVerhaltensauflligkeiten))
+						.addComponent(lblVerhaltensauflligkeiten)
+						.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(13)
+							.addGap(19)
 							.addComponent(lblVerletzungen))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(6)
 							.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-							.addComponent(lblNarben)
-							.addGap(58))
+							.addGap(33)
+							.addComponent(lblNarben))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+							.addGap(6)
+							.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		
 		JTextPane textPane_4 = new JTextPane();
@@ -301,6 +316,12 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addComponent(scrollPane_6, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(235, Short.MAX_VALUE))
 		);
+		
+		JTextPane textPane_6 = new JTextPane();
+		scrollPane_6.setViewportView(textPane_6);
+		
+		JTextPane textPane_5 = new JTextPane();
+		scrollPane.setViewportView(textPane_5);
 		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 	}

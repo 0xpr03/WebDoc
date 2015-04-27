@@ -65,7 +65,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private JPanel allgemeineDaten;
 	private JTextField strRufname;
 	private JSpinner spinBirthdate;
-	private String birthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
 	private JSearchTextField textPartnerSuche;
