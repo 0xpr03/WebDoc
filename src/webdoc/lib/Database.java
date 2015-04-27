@@ -133,16 +133,19 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPatient(String name, String callname, String birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
-		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?)}";
+	public static void insertPatient(String name, String callname, String identification, String coatcolor, double weight, String birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
+		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 		CallableStatement stm = connection.prepareCall(sql);
 		stm.setString(1, name);
 		stm.setString(2, callname);
-		stm.setString(3, birthdate);
-		stm.setBoolean(4, gender);
-		stm.setString(5, race);
-		stm.setString(6, comment);
-		stm.setLong(7, 0);
+		stm.setString(3, identification);
+		stm.setString(4, coatcolor);
+		stm.setDouble(5, weight);
+		stm.setString(6, birthdate);
+		stm.setBoolean(7, gender);
+		stm.setString(8, race);
+		stm.setString(9, comment);
+		stm.setLong(10, 0);
 		
 		if(picture != null)
 			logger.error("Picture currently not implemented!");
