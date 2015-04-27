@@ -70,6 +70,9 @@ CREATE TABLE IF NOT EXISTS `animal` (
  `AnimalID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `Name` varchar(50) NOT NULL,
  `Callname` varchar(20) NOT NULL,
+ `identification` varchar(30) NOT NULL,
+ `coatcolor` varchar(20) NOT NULL,
+ `weight` double NOT NULL,
  `birthdate` date NOT NULL,
  `gender` tinyint(1) NOT NULL,
  `PictureID` int(10) unsigned NOT NULL,
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `animal` (
  PRIMARY KEY (`AnimalID`),
  KEY `Callname` (`Callname`),
  KEY `Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.6';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.7';
 /* Table Anamnese / anamnesis */
 CREATE TABLE IF NOT EXISTS `anamnesis` (
  `AnamnesisID` int(10) unsigned NOT NULL AUTO_INCREMENT,
