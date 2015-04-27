@@ -472,7 +472,6 @@ public class WNeuerPatient extends JInternalFrame {
 		setEditable();
 		
 		this.pack();
-		this.setVisible(true);
 		loadData();
 	}
 	
@@ -491,7 +490,7 @@ public class WNeuerPatient extends JInternalFrame {
 				spinBirthdate.setValue(result.getDate(3));
 				enumGeschlecht.setSelectedItem(result.getBoolean(4) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
 				logger.debug("col: {}", result.getString(8));
-				textRasse.setText(result.getString(8));
+				textRasse.setTextWithoutNotification(result.getString(8));
 			} catch (SQLException e) {
 				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
