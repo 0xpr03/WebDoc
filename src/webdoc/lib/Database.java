@@ -13,6 +13,7 @@ import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -125,6 +126,9 @@ public class Database{
 	 * Insert patient, based on the procedure, -> recommended
 	 * @param name string(50)
 	 * @param callname string(50)
+	 * @param identification
+	 * @param coatcolor
+	 * @param weight
 	 * @param birthdate string(8)
 	 * @param gender boolean
 	 * @param race String(20)
@@ -133,7 +137,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPatient(String name, String callname, String identification, String coatcolor, double weight, String birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
+	public static void insertPatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
 		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 		CallableStatement stm = connection.prepareCall(sql);
 		stm.setString(1, name);
@@ -141,7 +145,7 @@ public class Database{
 		stm.setString(3, identification);
 		stm.setString(4, coatcolor);
 		stm.setDouble(5, weight);
-		stm.setString(6, birthdate);
+		stm.setDate(6, birthdate);
 		stm.setBoolean(7, gender);
 		stm.setString(8, race);
 		stm.setString(9, comment);
