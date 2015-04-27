@@ -170,7 +170,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getAnimal(long id) throws SQLException{
-		String sql = "SELECT `Name`, `Callname`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race "
+		String sql = "SELECT `Name`, `Callname`, `identification`, `coatcolor`, `weight`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race "
 			+"FROM animal "
 			+"INNER JOIN race "
 			+"ON animal.RaceID = race.RaceID "
