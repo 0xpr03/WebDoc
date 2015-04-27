@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -414,8 +414,11 @@ public class WNeuerPatient extends JInternalFrame {
 				result.next();
 				strName.setText(result.getString(1));
 				strRufname.setText(result.getString(2));
-				spinBirthdate.setValue(result.getDate(3));
-				enumGeschlecht.setSelectedItem(result.getBoolean(4) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
+				textIdentifizierung.setText(result.getString(3));
+				strFarbe.setText(result.getString(4));
+				spinGewicht.setValue(result.getDouble(5));
+				spinBirthdate.setValue(result.getDate(6));
+				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
 				logger.debug("col: {}", result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
 			} catch (SQLException e) {
@@ -456,7 +459,7 @@ public class WNeuerPatient extends JInternalFrame {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if(gender.getType() != GenderType.UNKNOWN){
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe.getText(),(double) spinGewicht.getValue(), (Date)spinBirthdate.getValue(), gender.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
+					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe.getText(),(double) spinGewicht.getValue(), new java.sql.Date(((Date)spinBirthdate.getValue()).getTime()), gender.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
