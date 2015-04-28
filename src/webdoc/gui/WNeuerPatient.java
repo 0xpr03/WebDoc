@@ -54,7 +54,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -4647611743598708383L;
-	private JTextField textSuche;
+	private JSearchTextField textAnimalSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;
 	private JSearchTextField textRasse;
@@ -77,6 +77,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JList listVerlauf;
 	private ACElement partner;
 	private PreparedStatement searchRaceStm;
+	private PreparedStatement searchAnimalStm;
 	/**
 	 * Launch the application.
 	 */
@@ -120,9 +121,8 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		JPanel suche = new JPanel();
 		
-		textSuche = new JTextField();
-		textSuche.setText("Suche");
-		textSuche.setColumns(10);
+		textAnimalSuche = new JSearchTextField();
+		textAnimalSuche.setColumns(10);
 		
 		JPanel daten = new JPanel();
 		
@@ -145,9 +145,9 @@ public class WNeuerPatient extends JInternalFrame {
 							.addComponent(suche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
 					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
@@ -156,17 +156,14 @@ public class WNeuerPatient extends JInternalFrame {
 					.addGap(10)
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-								.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
-							.addContainerGap())))
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+						.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+					.addGap(1))
 		);
 		
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
@@ -227,7 +224,7 @@ public class WNeuerPatient extends JInternalFrame {
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
-		suche.add(textSuche);
+		suche.add(textAnimalSuche);
 		panel.setLayout(new MigLayout("", "[29.00][42.00][][]", "[26.00]"));
 		
 		JButton btnOk = new JButton("Ok");
@@ -333,6 +330,41 @@ public class WNeuerPatient extends JInternalFrame {
 				return element.getName();
 			}
 		}
+		/**
+		 * Default DataProvider for these kinds
+		 * @author "Aron Heinecke"
+		 */
+		class AnimalProvider implements searchFieldAPI{
+			@Override
+			public List<ACElement> getData(String text){
+				List<ACElement> list = new ArrayList<ACElement>();
+				try {
+					searchAnimalStm.setString(1, "%"+text+"%");
+					searchAnimalStm.setString(2, "%"+text+"%");
+					ResultSet result = searchAnimalStm.executeQuery();
+					
+					while(result.next()){
+						list.add(new ACElement(result.getString(2),"", result.getLong(1), ElementType.RACE));
+					}
+					result.close();
+					
+				} catch (SQLException e) {
+					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+				}
+				return list;
+			}
+
+			@Override
+			public void changedSelectionEvent(ACElement element) {
+				logger.debug("Element chosen: {}",element);
+			}
+
+			@Override
+			public String listRenderer(ACElement element) {
+				return element.getName() + " " + element.getOptname();
+			}
+		}
+		textAnimalSuche.setAPI(new AnimalProvider());
 		
 		textRasse = new JSearchTextField();
 		textRasse.setColumns(10);
@@ -402,6 +434,11 @@ public class WNeuerPatient extends JInternalFrame {
 		setEditable();
 		
 		this.pack();
+		try {
+			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
+		} catch (SQLException e) {
+			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+		}
 		loadData();
 	}
 	
@@ -439,7 +476,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable(){
-		textSuche.setEditable(!editable);
+		textAnimalSuche.setEditable(!editable);
 		strName.setEditable(editable);
 		strFarbe.setEditable(editable);
 		textRasse.setEditable(editable);
