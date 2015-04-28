@@ -94,7 +94,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 * Initialize the contents of the 
 	 */
 	private void initialize() {
-		setTitle(editable ? "Neuer Patner" : "Patner");
+		setTitle(editable ? "Neuer Partner" : "Partner");
 		setBounds(100, 100, 909, 543);
 		
 		JPanel personenbezogeneDaten = new JPanel();
