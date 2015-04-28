@@ -5,29 +5,32 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Calendar;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerDateModel;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.utils.RoleEnumObj;
+import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 
 public class WNeuerPartner extends JInternalFrame {
@@ -40,6 +43,8 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textHausnummer;
+	private RoleEnumObj[] rolle_lokalisiert = {new RoleEnumObj("Bitte Auswählen", RoleType.UNKNOWN),new RoleEnumObj("Patientenbesitzer", RoleType.PETOWNER),new RoleEnumObj("Arzt", RoleType.MEDIC) };
+	private JComboBox<RoleEnumObj> enumRole;
 	private JTextField textStraße;
 	private JTextField textOrtsteil;
 	private JTextField textOrt;
@@ -51,11 +56,10 @@ public class WNeuerPartner extends JInternalFrame {
 	private boolean editable;
 	private JTextPane textPaneComment;
 	private JPanel rollendaten;
-	private JSpinner gebJahr;
-	private JSpinner gebMonat;
-	private JSpinner gebTag;
+	private JSpinner spinGebdatum;
 	private JTextField textVorname;
 	private JTextField textHandy;
+	private DateEditor dateEditor;
 
 	/**
 	 * Launch the application.
@@ -160,29 +164,15 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JTextPane textPaneVerlauf = new JTextPane();
 		textPaneVerlauf.setEditable(false);
-		textPaneVerlauf.setEditable(false);
 		textPaneVerlauf.setBackground(Color.WHITE);
 		sPaneVerlauf.setViewportView(textPaneVerlauf);
 		pVerlauf.setLayout(gl_pVerlauf);
 		
 		textPaneComment = new JTextPane();
-		textPaneComment.setEditable(editable);
+		
 		textPaneComment.setBackground(Color.WHITE);
 		scrollPane.setViewportView(textPaneComment);
 		rollendaten.setLayout(null);
-		
-		JMenuBar menuBar_1 = new JMenuBar();
-		menuBar_1.setBounds(0, 0, 97, 21);
-		rollendaten.add(menuBar_1);
-		
-		JMenu mnRolle = new JMenu("Rolle");
-		menuBar_1.add(mnRolle);
-		
-		JCheckBoxMenuItem chckbxmntmPatientenbesitzer = new JCheckBoxMenuItem("Patientenbesitzer");
-		mnRolle.add(chckbxmntmPatientenbesitzer);
-		
-		JCheckBoxMenuItem chckbxmntmArzt = new JCheckBoxMenuItem("Arzt");
-		mnRolle.add(chckbxmntmArzt);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 32, 292, 401);
@@ -240,19 +230,11 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		textFax = new JTextField();
 		textFax.setColumns(10);
-		textFax.setEditable(editable);
-		textHandy.setEditable(editable);
-		textTelefon.setEditable(editable);
-		textZusatz.setEditable(editable);
-		textHausnummer.setEditable(editable);
-		textPostleitzahl.setEditable(editable);
-		textOrt.setEditable(editable);
-		textOrtsteil.setEditable(editable);
-		textStraße.setEditable(editable);
+		
 		
 		textEmail = new JTextField();
 		textEmail.setColumns(10);
-		textEmail.setEditable(editable);
+		
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -383,6 +365,11 @@ public class WNeuerPartner extends JInternalFrame {
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		panel_1.setLayout(gl_panel_1);
+		
+		enumRole = new JComboBox<RoleEnumObj>();
+		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
+		enumRole.setBounds(10, 11, 175, 20);
+		rollendaten.add(enumRole);
 		bCancel.setVisible(editable);
 		
 		JLabel lblNewLabel = new JLabel("Name:");
@@ -393,34 +380,27 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		textName = new JTextField();
 		textName.setColumns(10);
-		textName.setEditable(editable);
+		
 		
 		textVorname = new JTextField();
 		textVorname.setColumns(10);
-		textVorname.setEditable(editable);
+		
 		
 		textTitel = new JTextField();
 		textTitel.setColumns(10);
-		textTitel.setEditable(editable);
+		
 		
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		
-		gebTag = new JSpinner();
-		gebTag.setModel(new SpinnerNumberModel(0, 0, 31, 1));
-		gebTag.setEnabled(editable);
+		spinGebdatum = new JSpinner();
 		
-		
-		gebMonat = new JSpinner();
-		gebMonat.setEnabled(editable);
-		
-		gebJahr = new JSpinner();
-		
-		gebJahr.setEnabled(editable);
-		
-		
-		gebMonat.setModel(new SpinnerNumberModel(1, 0, 12, 1));
-		gebJahr.setModel(new SpinnerNumberModel(1950,0,3000, 1));
-		
+		spinGebdatum.setEnabled(editable);
+		SpinnerDateModel model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		spinGebdatum = new JSpinner();
+		spinGebdatum.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
+		spinGebdatum.setEditor(dateEditor);
 		
 		GroupLayout gl_personenbezogeneDaten = new GroupLayout(personenbezogeneDaten);
 		gl_personenbezogeneDaten.setHorizontalGroup(
@@ -442,11 +422,7 @@ public class WNeuerPartner extends JInternalFrame {
 						.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
 							.addComponent(lblGeburtsdatum)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(gebTag, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(gebMonat, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-							.addGap(6)
-							.addComponent(gebJahr, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(spinGebdatum, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		gl_personenbezogeneDaten.setVerticalGroup(
@@ -467,16 +443,31 @@ public class WNeuerPartner extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblGeburtsdatum)
-						.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.BASELINE)
-								.addComponent(gebMonat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(gebTag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addComponent(gebJahr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(spinGebdatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		personenbezogeneDaten.setLayout(gl_personenbezogeneDaten);
 		getContentPane().setLayout(groupLayout);
 		
+		setEditable();
+	}
+	
+	private void setEditable(){
+		textPaneComment.setEditable(editable);
+		textFax.setEditable(editable);
+		textHandy.setEditable(editable);
+		textTelefon.setEditable(editable);
+		textZusatz.setEditable(editable);
+		textHausnummer.setEditable(editable);
+		textPostleitzahl.setEditable(editable);
+		textOrt.setEditable(editable);
+		textOrtsteil.setEditable(editable);
+		textStraße.setEditable(editable);
+		textEmail.setEditable(editable);
+		textName.setEditable(editable);
+		textVorname.setEditable(editable);
+		textTitel.setEditable(editable);
+		spinGebdatum.setEnabled(editable);
 	}
 
 
