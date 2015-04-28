@@ -91,7 +91,7 @@ public class JSearchTextField extends JTextField {
 	private String userText;
 
 	private boolean notificationDenied;
-
+	
 	public void setAPI(searchFieldAPI api) {
 		this.api = api;
 	}

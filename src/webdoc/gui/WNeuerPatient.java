@@ -344,7 +344,7 @@ public class WNeuerPatient extends JInternalFrame {
 					ResultSet result = searchAnimalStm.executeQuery();
 					
 					while(result.next()){
-						list.add(new ACElement(result.getString(2),"", result.getLong(1), ElementType.RACE));
+						list.add(new ACElement(result.getString(1),result.getString(2), result.getLong(3), ElementType.ANIMAL));
 					}
 					result.close();
 					
@@ -357,6 +357,7 @@ public class WNeuerPatient extends JInternalFrame {
 			@Override
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
+				loadData(element.getID());
 			}
 
 			@Override
@@ -465,6 +466,16 @@ public class WNeuerPatient extends JInternalFrame {
 				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
 		}
+	}
+	
+	/**
+	 * Load data with a new ID, wrapper for search event handler
+	 * @param id
+	 * @author "Aron Heinecke"
+	 */
+	private void loadData(long id){
+		this.id = id;
+		loadData();
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
