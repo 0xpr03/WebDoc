@@ -144,22 +144,22 @@ public class WNeuerPartner extends JInternalFrame {
 		JLabel label = new JLabel("Verlauf:");
 		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
 		gl_pVerlauf.setHorizontalGroup(
-			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_pVerlauf.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(259, Short.MAX_VALUE))
+			gl_pVerlauf.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_pVerlauf.createSequentialGroup()
-					.addComponent(sPaneVerlauf, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addGroup(gl_pVerlauf.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_pVerlauf.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+						.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+					.addGap(1))
 		);
 		gl_pVerlauf.setVerticalGroup(
 			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pVerlauf.createSequentialGroup()
 					.addComponent(label)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(2)
 					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
-					.addContainerGap())
+					.addGap(1))
 		);
 		
 		JTextPane textPaneVerlauf = new JTextPane();
@@ -175,7 +175,7 @@ public class WNeuerPartner extends JInternalFrame {
 		rollendaten.setLayout(null);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(10, 32, 292, 401);
+		panel_3.setBounds(10, 32, 292, 361);
 		rollendaten.add(panel_3);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
@@ -331,7 +331,7 @@ public class WNeuerPartner extends JInternalFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 447, 116, 20);
+		panel_1.setBounds(10, 444, 292, 37);
 		rollendaten.add(panel_1);
 		
 		JPanel panel = new JPanel();
@@ -356,13 +356,16 @@ public class WNeuerPartner extends JInternalFrame {
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addContainerGap(76, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(59))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(5)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -470,10 +473,8 @@ public class WNeuerPartner extends JInternalFrame {
 		spinGebdatum.setEnabled(editable);
 	}
 
-
 	protected void addPatner() {
 		Database.insertPatner();
-		
 	}
 
 	private void exit(){
