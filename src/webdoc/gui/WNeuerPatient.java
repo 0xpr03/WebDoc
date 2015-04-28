@@ -46,6 +46,8 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
+import java.awt.Dimension;
+import java.awt.Component;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -96,6 +98,9 @@ public class WNeuerPatient extends JInternalFrame {
 	 * Create the application.
 	 */
 	public WNeuerPatient(boolean editable, WHomescreen whs, long id) {
+		getContentPane().setMinimumSize(new Dimension(600, 400));
+		setPreferredSize(new Dimension(700, 400));
+		setMinimumSize(new Dimension(1, 1));
 		this.editable = editable;
 		this.whs = whs;
 		this.id = id;
@@ -112,7 +117,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 921, 583);
+		setBounds(100, 100, 963, 444);
 		
 		JPanel suche = new JPanel();
 		
@@ -136,34 +141,33 @@ public class WNeuerPatient extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(suche, GroupLayout.PREFERRED_SIZE, 295, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(daten, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-									.addGap(1)
-									.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
-							.addGap(11))))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(suche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
 					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-						.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+								.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+							.addContainerGap())))
 		);
 		
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
@@ -187,7 +191,7 @@ public class WNeuerPatient extends JInternalFrame {
 				.addGroup(gl_panelBemerkungen.createSequentialGroup()
 					.addComponent(lblBemerkungen)
 					.addGap(1)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 					.addGap(2))
 		);
 		
@@ -365,25 +369,25 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		textPartnerSuche = new JSearchTextField();
 		textPartnerSuche.setColumns(10);
-		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][4px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
+		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
 		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
-		allgemeineDaten.add(spinBirthdate, "cell 1 4 3 1,growx,aligny top");
+		allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
 		allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
 		allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
-		allgemeineDaten.add(textRasse, "cell 1 2 3 1,growx,aligny top");
-		allgemeineDaten.add(enumGeschlecht, "cell 1 3 3 1,grow");
+		allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
+		allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
 		allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
 		allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
-		allgemeineDaten.add(strRufname, "cell 1 1 3 1,growx,aligny top");
-		allgemeineDaten.add(strName, "cell 1 0 3 1,growx,aligny top");
+		allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
+		allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
 		allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
-		allgemeineDaten.add(strFarbe, "cell 1 5 3 1,growx,aligny top");
+		allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
 		allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
-		allgemeineDaten.add(textPartnerSuche, "cell 3 8,growx,aligny top");
+		allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
 		allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
 		allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
-		allgemeineDaten.add(spinGewicht, "cell 1 6 3 1,growx,aligny top");
-		allgemeineDaten.add(textIdentifizierung, "cell 1 7 3 1,growx,aligny top");
+		allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
+		allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
 		daten.setLayout(gl_daten);
 		getContentPane().setLayout(groupLayout);
 		
