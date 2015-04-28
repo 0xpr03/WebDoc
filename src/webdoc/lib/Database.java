@@ -158,8 +158,26 @@ public class Database{
 		stm.closeOnCompletion();
 	}
 	
-	public static void insertPatner(){
-		
+	/**
+	 * Inserts a new Partner into the DB
+	 * @param firstname
+	 * @param secondname
+	 * @param title
+	 * @param birthday
+	 * @param comment
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void insertPatner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
+		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
+				+"VALUES (?,?,?,?,?)";
+		PreparedStatement partnerStmt = connection.prepareStatement(sql);
+		partnerStmt.setString(1, firstname);
+		partnerStmt.setString(2, secondname);
+		partnerStmt.setString(3, title);
+		partnerStmt.setString(4, comment);
+		partnerStmt.setDate(5, birthday);
+		partnerStmt.executeUpdate();
 	}
 	
 	/**
