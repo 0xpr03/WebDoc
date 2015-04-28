@@ -7,7 +7,7 @@ package webdoc.gui.utils;
  */
 public class GenderEnumObj {
 	public static enum GenderType{
-		UNKNOWN(-1),MALE(1),FEMALE(1);
+		UNKNOWN(-1),MALE(1),FEMALE(2);
 		private GenderType(int EntryType){
 			this.EntryType = EntryType;
 		}
