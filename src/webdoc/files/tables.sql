@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `animal` (
  `Callname` varchar(20) NOT NULL,
  `identification` varchar(30) NOT NULL,
  `coatcolor` varchar(20) NOT NULL,
- `weight` double(5,2) NOT NULL,
+ `weight` double NOT NULL,
  `birthdate` date NOT NULL,
  `gender` tinyint(1) NOT NULL,
  `PictureID` int(10) unsigned NOT NULL,
