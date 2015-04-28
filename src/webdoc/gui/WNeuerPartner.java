@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -32,6 +34,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
+import webdoc.lib.GUI;
 
 public class WNeuerPartner extends JInternalFrame {
 
@@ -57,7 +60,6 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextPane textPaneComment;
 	private JPanel rollendaten;
 	private JSpinner spinGebdatum;
-	private JSpinner spinGebdatum_1;
 	private JTextField textVorname;
 	private JTextField textHandy;
 	private DateEditor dateEditor;
@@ -342,7 +344,7 @@ public class WNeuerPartner extends JInternalFrame {
 		JButton button = new JButton("Ok");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addPatner();
+				addPartner();
 			}
 
 		});
@@ -392,15 +394,12 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		
-		spinGebdatum = new JSpinner();
-		
-		spinGebdatum.setEnabled(editable);
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
-		spinGebdatum_1 = new JSpinner();
-		spinGebdatum_1.setModel(model);
-		dateEditor = new JSpinner.DateEditor(spinGebdatum_1, "dd-MM-yyyy");
-		spinGebdatum_1.setEditor(dateEditor);
+		spinGebdatum = new JSpinner();
+		spinGebdatum.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
+		spinGebdatum.setEditor(dateEditor);
 		
 		enumRole = new JComboBox<RoleEnumObj>();
 		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
@@ -412,7 +411,7 @@ public class WNeuerPartner extends JInternalFrame {
 		personenbezogeneDaten.add(textName, "cell 4 1 3 1,growx,aligny top");
 		personenbezogeneDaten.add(textVorname, "cell 4 2 3 1,growx,aligny top");
 		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
-		personenbezogeneDaten.add(spinGebdatum_1, "cell 6 4,growx,aligny top");
+		personenbezogeneDaten.add(spinGebdatum, "cell 6 4,growx,aligny top");
 		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
 		getContentPane().setLayout(groupLayout);
 		
@@ -434,11 +433,15 @@ public class WNeuerPartner extends JInternalFrame {
 		textName.setEditable(editable);
 		textVorname.setEditable(editable);
 		textTitel.setEditable(editable);
-		spinGebdatum_1.setEnabled(editable);
+		spinGebdatum.setEnabled(editable);
 	}
 
-	protected void addPatner() {
-		Database.insertPatner();
+	protected void addPartner() {
+		try {
+			Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
+		} catch (SQLException e) {
+			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+		}
 	}
 
 	private void exit(){
