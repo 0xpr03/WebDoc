@@ -463,7 +463,9 @@ public class WNeuerPatient extends JInternalFrame {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if(gender.getType() != GenderType.UNKNOWN){
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe.getText(),(double) spinGewicht.getValue(), new java.sql.Date(((Date)spinBirthdate.getValue()).getTime()), gender.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
+					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
+							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
+							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);

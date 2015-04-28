@@ -6,7 +6,7 @@ CREATE PROCEDURE `insertPatient`(
 	IN `param_identification` VARCHAR(30) CHARSET utf8,
 	IN `param_coatcolor` VARCHAR(20) CHARSET utf8,
 	IN `param_weight` DOUBLE,
-	IN `param_birthdate` VARCHAR(8) CHARSET utf8,
+	IN `param_birthdate` date,
 	IN `param_gender` BOOLEAN,
 	IN `param_race` VARCHAR(20) CHARSET utf8,
 	IN `param_comment` VARCHAR(100) CHARSET utf8,
