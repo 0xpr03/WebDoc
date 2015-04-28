@@ -287,7 +287,7 @@ public class WHomescreen extends JFrame {
 		}
 	}
 	
-	public void test(){
+	public void callWNewAnamnesis(){
 		reOpen(FNeueAnamnese);
 	}
 }

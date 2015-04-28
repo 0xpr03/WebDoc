@@ -1,15 +1,16 @@
 package webdoc.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -46,8 +47,6 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
-import java.awt.Dimension;
-import java.awt.Component;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -432,7 +431,7 @@ public class WNeuerPatient extends JInternalFrame {
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
-		whs.test();
+		whs.callWNewAnamnesis();
 	}
 	
 	/**
@@ -440,6 +439,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable(){
+		textSuche.setEditable(!editable);
 		strName.setEditable(editable);
 		strFarbe.setEditable(editable);
 		textRasse.setEditable(editable);
