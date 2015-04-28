@@ -57,6 +57,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextPane textPaneComment;
 	private JPanel rollendaten;
 	private JSpinner spinGebdatum;
+	private JSpinner spinGebdatum_1;
 	private JTextField textVorname;
 	private JTextField textHandy;
 	private DateEditor dateEditor;
@@ -95,7 +96,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private void initialize() {
 		setTitle(editable ? "Neuer Partner" : "Partner");
-		setBounds(100, 100, 909, 543);
+		setBounds(100, 100, 909, 484);
 		
 		JPanel personenbezogeneDaten = new JPanel();
 		
@@ -111,30 +112,31 @@ public class WNeuerPartner extends JInternalFrame {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
 						.addComponent(labelBemerkungen, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+					.addGap(2))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-						.addComponent(rollendaten, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 492, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(labelBemerkungen)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)))
-					.addGap(60))
+						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addComponent(rollendaten, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(labelBemerkungen)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))))
+					.addGap(3))
 		);
 		pVerlauf.setVisible(!editable);
 		
@@ -331,7 +333,7 @@ public class WNeuerPartner extends JInternalFrame {
 		panel_3.setLayout(gl_panel_3);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 444, 292, 37);
+		panel_1.setBounds(10, 404, 292, 37);
 		rollendaten.add(panel_1);
 		
 		JPanel panel = new JPanel();
@@ -368,11 +370,6 @@ public class WNeuerPartner extends JInternalFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
-		
-		enumRole = new JComboBox<RoleEnumObj>();
-		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
-		enumRole.setBounds(10, 11, 175, 20);
-		rollendaten.add(enumRole);
 		bCancel.setVisible(editable);
 		
 		JLabel lblNewLabel = new JLabel("Name:");
@@ -400,56 +397,23 @@ public class WNeuerPartner extends JInternalFrame {
 		spinGebdatum.setEnabled(editable);
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
-		spinGebdatum = new JSpinner();
-		spinGebdatum.setModel(model);
-		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
-		spinGebdatum.setEditor(dateEditor);
+		spinGebdatum_1 = new JSpinner();
+		spinGebdatum_1.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinGebdatum_1, "dd-MM-yyyy");
+		spinGebdatum_1.setEditor(dateEditor);
 		
-		GroupLayout gl_personenbezogeneDaten = new GroupLayout(personenbezogeneDaten);
-		gl_personenbezogeneDaten.setHorizontalGroup(
-			gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
-							.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblVorname, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel)
-								.addComponent(lblTitel))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-								.addComponent(textTitel, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(textName)
-									.addComponent(textVorname, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))))
-						.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
-							.addComponent(lblGeburtsdatum)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinGebdatum, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		gl_personenbezogeneDaten.setVerticalGroup(
-			gl_personenbezogeneDaten.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_personenbezogeneDaten.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(textName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblVorname)
-						.addComponent(textVorname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTitel)
-						.addComponent(textTitel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_personenbezogeneDaten.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblGeburtsdatum)
-						.addComponent(spinGebdatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(23, Short.MAX_VALUE))
-		);
-		personenbezogeneDaten.setLayout(gl_personenbezogeneDaten);
+		enumRole = new JComboBox<RoleEnumObj>();
+		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
+		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
+		personenbezogeneDaten.add(lblVorname, "cell 0 2 3 1,growx,aligny center");
+		personenbezogeneDaten.add(lblNewLabel, "cell 0 1 3 1,alignx left,aligny center");
+		personenbezogeneDaten.add(lblTitel, "cell 0 3,alignx left,aligny center");
+		personenbezogeneDaten.add(textTitel, "cell 4 3 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textName, "cell 4 1 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textVorname, "cell 4 2 3 1,growx,aligny top");
+		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
+		personenbezogeneDaten.add(spinGebdatum_1, "cell 6 4,growx,aligny top");
+		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
 		getContentPane().setLayout(groupLayout);
 		
 		setEditable();
@@ -470,7 +434,7 @@ public class WNeuerPartner extends JInternalFrame {
 		textName.setEditable(editable);
 		textVorname.setEditable(editable);
 		textTitel.setEditable(editable);
-		spinGebdatum.setEnabled(editable);
+		spinGebdatum_1.setEnabled(editable);
 	}
 
 	protected void addPatner() {
