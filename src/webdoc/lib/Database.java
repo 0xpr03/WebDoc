@@ -219,18 +219,16 @@ public class Database{
 	}
 	
 	/**
-	 * Prepares a search statement for search inside the animal & partner tables
+	 * Prepares an animal & partner search statement
 	 * @return 'result' columns: name, optname, id, type, see ACElement, fully compatible
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
 	public static PreparedStatement prepareMultiSearchStm() throws SQLException{
 		String sql =
-				"SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
-				+"WHERE `Name` LIKE ? OR `Callname` LIKE ? "
+				getAnimalSearchStm()
 				+"UNION ALL "
-				+"SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
-				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ?";
+				+getPartnerSearchStm();
 		return prepareStm(sql);
 	}
 	
@@ -244,6 +242,26 @@ public class Database{
 				"SELECT `RaceID`,`race` FROM race "
 				+"WHERE `race` LIKE ? ";
 		return prepareStm(sql);
+	}
+	
+	/**
+	 * Returns the animal search sql
+	 * @return
+	 * @author "Aron Heinecke"
+	 */
+	public static String getAnimalSearchStm(){
+		return "SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
+				+"WHERE `Name` LIKE ? OR `Callname` LIKE ? ";
+	}
+	
+	/**
+	 * Returns the partner search sql
+	 * @return
+	 * @author "Aron Heinecke"
+	 */
+	public static String getPartnerSearchStm(){
+		return "SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
+				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ? ";
 	}
 	
 	/**
