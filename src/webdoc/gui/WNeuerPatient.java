@@ -460,7 +460,8 @@ public class WNeuerPatient extends JInternalFrame {
 				spinGewicht.setValue(result.getDouble(5));
 				spinBirthdate.setValue(result.getDate(6));
 				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
-				logger.debug("col: {}", result.getString(8));
+				logger.debug("picID: {}", result.getString(9));
+				txtBemerkung.setText(result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
 			} catch (SQLException e) {
 				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
