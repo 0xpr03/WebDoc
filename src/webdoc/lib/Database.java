@@ -166,11 +166,12 @@ public class Database{
 	 * Retrives all columns of an animal for WPatient
 	 * @param id long id of animal, unique
 	 * @return ResultSet, needs to be closed!
+	 * Name, Callname, identification, coatcolor, weight, birthdate, gender,comment, PictureID, animal.RaceID, race.race
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getAnimal(long id) throws SQLException{
-		String sql = "SELECT `Name`, `Callname`, `identification`, `coatcolor`, `weight`, `birthdate`, `gender`,`Name`, `PictureID`, animal.`RaceID`, race.race "
+		String sql = "SELECT `Name`, `Callname`, `identification`, `coatcolor`, `weight`, `birthdate`, `gender`, `comment`, `PictureID`, animal.`RaceID`, race.race "
 			+"FROM animal "
 			+"INNER JOIN race "
 			+"ON animal.RaceID = race.RaceID "
