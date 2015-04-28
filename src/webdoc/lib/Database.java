@@ -168,7 +168,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPatner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
+	public static void insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 				+"VALUES (?,?,?,?,?)";
 		PreparedStatement partnerStmt = connection.prepareStatement(sql);
