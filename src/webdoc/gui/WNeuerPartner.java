@@ -438,12 +438,26 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 
 	protected void addPartner() {
-		try {
-			Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
-		} catch (SQLException e) {
-			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+		if(allSet()){
+			try {
+				Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
+			} catch (SQLException e) {
+				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			}
+		}else{
+			GUI.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
+	
+	private boolean allSet(){
+		if(textVorname.equals(""))
+			return false;
+		if(textName.equals(""))
+			return false;
+		
+		return true;
+	}
+	
 
 	private void exit(){
 		try {

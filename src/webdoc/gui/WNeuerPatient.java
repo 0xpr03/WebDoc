@@ -63,7 +63,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner spinGewicht;
 	private JTextField textIdentifizierung;
 	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("Männlich", GenderType.MALE) };
-	public  boolean editable = true;
+	private  boolean editable = true;
 	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 	private JTextField strRufname;
@@ -79,14 +79,15 @@ public class WNeuerPatient extends JInternalFrame {
 	private ACElement partner;
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
+	private int wid;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final boolean editable, final WHomescreen whs, final long id) {
+	public static void main(final boolean editable, final WHomescreen whs, final long id, final int wid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatient window = new WNeuerPatient(editable, whs, id);
+					WNeuerPatient window = new WNeuerPatient(editable, whs, id, wid);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -98,7 +99,8 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable, WHomescreen whs, long id) {
+	public WNeuerPatient(boolean editable, WHomescreen whs, long id, int wid) {
+		this.wid = wid;
 		getContentPane().setMinimumSize(new Dimension(600, 400));
 		setPreferredSize(new Dimension(700, 400));
 		setMinimumSize(new Dimension(1, 1));
@@ -229,12 +231,13 @@ public class WNeuerPatient extends JInternalFrame {
 		suche.add(textAnimalSuche);
 		panel.setLayout(new MigLayout("", "[29.00][42.00][][]", "[26.00]"));
 		
-		JButton btnOk = new JButton("Ok");
+		JButton btnOk = new JButton(editable ? "Speichern" : "Schließen");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(editable){
 					addPatient();
 				}else{
+					dispose();
 					return;
 				}
 			}
