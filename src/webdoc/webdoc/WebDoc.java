@@ -26,7 +26,7 @@ public class WebDoc {
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	
 	private  static final Logger logger = LogManager.getLogger();
-	private static final String VERSION = "0.3 alpha";
+	private static final String VERSION = "0.4 alpha";
 	private static WHomescreen WHomescreen;
 	
 	public static void main(String[] args){
@@ -94,6 +94,7 @@ public class WebDoc {
 		Config.setValue("proceduresql", "/webdoc/files/procedures.sql");
 		Config.setValue("configFileName", CONFIG_FILE_NAME);
 		Config.setValue("defaultConfigPath", DEFAULT_CONFIG_PATH);
+		Config.setValue("version", VERSION);
 	}
 	
 	private static void registerExitFunction() {
