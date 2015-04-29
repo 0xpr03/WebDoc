@@ -48,6 +48,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
 
 /**
  * Test class for JUnit tests like JSearchTextField
@@ -134,20 +135,18 @@ public class test extends JInternalFrame {
 					.addGap(1)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+							.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
 							.addGap(1))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(topFixed, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(606, Short.MAX_VALUE))
-						.addComponent(panelDown, GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)))
+						.addComponent(topFixed, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelDown, GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
+					.addGap(1)
 					.addComponent(topFixed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+					.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
 					.addGap(1)
 					.addComponent(panelDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
@@ -178,8 +177,11 @@ public class test extends JInternalFrame {
 		);
 		panelSideResizable.setLayout(new BoxLayout(panelSideResizable, BoxLayout.X_AXIS));
 		
+		JSplitPane splitPane = new JSplitPane();
+		panelSideResizable.add(splitPane);
+		
 		JPanel panelInnerResizing1 = new JPanel();
-		panelSideResizable.add(panelInnerResizing1);
+		splitPane.setLeftComponent(panelInnerResizing1);
 		
 		JLabel titleCenter1 = new JLabel("Mein Textfeld");
 		titleCenter1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,7 +210,7 @@ public class test extends JInternalFrame {
 		panelInnerResizing1.setLayout(gl_panelInnerResizing1);
 		
 		JPanel panelInnerResizing2 = new JPanel();
-		panelSideResizable.add(panelInnerResizing2);
+		splitPane.setRightComponent(panelInnerResizing2);
 		
 		JTextPane textPane = new JTextPane();
 		
