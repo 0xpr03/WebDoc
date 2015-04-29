@@ -37,6 +37,8 @@ import webdoc.lib.GUI;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JSplitPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Mainframe of the GUI
@@ -252,6 +254,11 @@ public class WHomescreen extends JFrame {
 		menuBar.add(mnHelp);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new WAbout();
+			}
+		});
 		mnHelp.add(mntmAbout);
 	}
 	
