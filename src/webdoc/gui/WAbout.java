@@ -1,32 +1,30 @@
 package webdoc.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
-import java.awt.Color;
-
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import webdoc.webdoc.Config;
 
-import java.awt.Component;
-import java.awt.Window.Type;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
+/**
+ * About window
+ * @author "Aron Heinecke"
+ */
 public class WAbout extends JDialog {
 
+	private static final long serialVersionUID = -777183505820473274L;
 	private final JPanel contentPanel = new JPanel();
 	private JTabbedPane tabbedPane;
 
