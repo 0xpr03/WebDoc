@@ -12,6 +12,7 @@ public class WPatient extends WNeuerPatient {
 
 	public WPatient(boolean editable, WHomescreen whs, long id) {
 		super(editable, whs, id);
+		this.setVisible(true);
 	}
 	
 }

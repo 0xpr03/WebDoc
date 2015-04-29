@@ -9,6 +9,7 @@ public class WPartner extends WNeuerPatient {
 
 	public WPartner(boolean editable) {
 		super(editable, null, -1);
+		this.setVisible(true);
 	}
 
 }

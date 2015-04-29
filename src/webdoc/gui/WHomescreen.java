@@ -3,6 +3,8 @@ package webdoc.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
@@ -17,10 +19,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTree;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -34,11 +38,6 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JSplitPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * Mainframe of the GUI
@@ -52,11 +51,8 @@ public class WHomescreen extends JFrame {
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true);
-	private WNeuerPartner FPartner = new WNeuerPartner(false);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, this, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
-	private WNeueAnamnese FAnamnese = new WNeueAnamnese(false, null);
-	private WPatient FPatient;
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -147,7 +143,6 @@ public class WHomescreen extends JFrame {
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
-		desktopPane.add(FPartner);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.add(test);
 		desktopPane.setBackground(Color.WHITE);
@@ -285,10 +280,10 @@ public class WHomescreen extends JFrame {
 					reOpen(FNeuerPartner);
 					break;
 				case PARTNER:
-					reOpen(FPartner);
+					desktopPane.add(new WPartner(false));
 					break;
 				case PATIENT:
-					reOpen(FPatient);
+					desktopPane.add(new WPatient(false, this, -1));
 					break;
 				case TEST:
 					reOpen(test);
