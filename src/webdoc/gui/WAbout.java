@@ -22,6 +22,8 @@ import webdoc.webdoc.Config;
 import java.awt.Component;
 import java.awt.Window.Type;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WAbout extends JDialog {
 
@@ -45,6 +47,7 @@ public class WAbout extends JDialog {
 	 * Create the dialog.
 	 */
 	public WAbout() {
+		setAlwaysOnTop(true);
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -61,8 +64,8 @@ public class WAbout extends JDialog {
 			tabbedPane.addTab("About", null, panelAbout, null);
 			panelAbout.setLayout(new BoxLayout(panelAbout, BoxLayout.X_AXIS));
 			{
-				JLabel lblwebdoc = new JLabel("<html><br>WebDoc<br><br>\r\nVersion %v<br></html>".replace("%v", Config.getStrValue("version")));
-				lblwebdoc.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				JLabel lblwebdoc = new JLabel("<html><div style=\"borderl-left: 5px\"><br>WebDoc<br><br>Version %v<br></div></html>".replace("%v", Config.getStrValue("version")));
+				lblwebdoc.setFont(new Font("Sans-serif", Font.PLAIN, 14));
 				lblwebdoc.setAlignmentY(0.0f);
 				lblwebdoc.setBackground(Color.WHITE);
 				lblwebdoc.setVerticalAlignment(SwingConstants.TOP);
@@ -77,8 +80,8 @@ public class WAbout extends JDialog {
 			tabbedPane.addTab("3rd Librarys", null, panelCopyright, null);
 			panelCopyright.setLayout(new BoxLayout(panelCopyright, BoxLayout.X_AXIS));
 			{
-				JLabel lblNewLabel = new JLabel("<html>\r\n<b>Used librarys:<b><br>\r\n<br>\r\n<li><b>eclipse mig layout<b><br>\r\n<br>\r\n<li><b>mariafoundation JDBC<b><br>\r\n<br>\r\n\r\n</html>");
-				lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				JLabel lblNewLabel = new JLabel("<html><b>Used librarys:</b><br><br><li>eclipse mig layout<br><br><li>mariafoundation JDBC<br><br></html>");
+				lblNewLabel.setFont(new Font("Sans-serif", Font.PLAIN, 14));
 				lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 				panelCopyright.add(lblNewLabel);
 			}
@@ -93,10 +96,16 @@ public class WAbout extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Schließen");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+		this.setVisible(true);
 	}
 
 }
