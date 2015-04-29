@@ -35,6 +35,7 @@ import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
+import java.awt.Font;
 
 public class WNeuerPartner extends JInternalFrame {
 
@@ -172,6 +173,7 @@ public class WNeuerPartner extends JInternalFrame {
 		pVerlauf.setLayout(gl_pVerlauf);
 		
 		textPaneComment = new JTextPane();
+		textPaneComment.setFont(new Font("SansSerif", textPaneComment.getFont().getStyle(), textPaneComment.getFont().getSize()));
 		
 		textPaneComment.setBackground(Color.WHITE);
 		scrollPane.setViewportView(textPaneComment);

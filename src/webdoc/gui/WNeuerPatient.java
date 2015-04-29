@@ -47,6 +47,7 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUI;
+import java.awt.Font;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -192,6 +193,7 @@ public class WNeuerPatient extends JInternalFrame {
 		);
 		
 		txtBemerkung = new JTextPane();
+		txtBemerkung.setFont(new Font("SansSerif", txtBemerkung.getFont().getStyle(), txtBemerkung.getFont().getSize()));
 		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
 		
