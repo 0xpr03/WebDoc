@@ -34,6 +34,9 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUI;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JSplitPane;
 
 /**
  * Mainframe of the GUI
@@ -86,46 +89,59 @@ public class WHomescreen extends JFrame {
 	 */
 	private void initialize() {
 		setTitle("WebDoc Home");
-		setBounds(100, 100, 1006, 692);
+		setBounds(100, 100, 1936, 980);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		menuBar.add(GUIMethoden.menus(menuBar));
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setBackground(Color.WHITE);
+		
 		JPanel navigation = new JPanel();
+		splitPane.setLeftComponent(navigation);
 		
-		JPanel panel_1 = new JPanel();
-		
-		JPanel panel_2 = new JPanel();
+		JPanel secPanel = new JPanel();
+		splitPane.setRightComponent(secPanel);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(navigation, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 799, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
-							.addGap(4)))
-					.addGap(9))
+					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 1919, Short.MAX_VALUE)
+					.addGap(0))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(navigation, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-							.addGap(11)))
+					.addGap(0)
+					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 909, Short.MAX_VALUE)
+					.addGap(0)
 					.addGap(0))
 		);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JPanel suchPanel = new JPanel();
+		
+		txtSuche = new JSearchTextField();
+		//TODO: add placeholder function
+		//txtSuche.setText("Suche"); WONT WORK ATM
+		txtSuche.setColumns(10);
+		GroupLayout gl_suchPanel = new GroupLayout(suchPanel);
+		gl_suchPanel.setHorizontalGroup(
+			gl_suchPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_suchPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(txtSuche, GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_suchPanel.setVerticalGroup(
+			gl_suchPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_suchPanel.createSequentialGroup()
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(txtSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		suchPanel.setLayout(gl_suchPanel);
+		
+		JPanel desktopPanel = new JPanel();
+		desktopPanel.setLayout(new BorderLayout(0, 0));
 		
 		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
@@ -133,28 +149,28 @@ public class WHomescreen extends JFrame {
 		desktopPane.add(FNeuerPatient);
 		desktopPane.add(test);
 		desktopPane.setBackground(Color.WHITE);
-		panel_1.add(desktopPane, BorderLayout.CENTER);
-		
-		txtSuche = new JSearchTextField();
-		//TODO: add placeholder function
-		//txtSuche.setText("Suche"); WONT WORK ATM
-		txtSuche.setColumns(10);
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(txtSuche, GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
-					.addContainerGap())
+		desktopPanel.add(desktopPane, BorderLayout.CENTER);
+		GroupLayout gl_secPanel = new GroupLayout(secPanel);
+		gl_secPanel.setHorizontalGroup(
+			gl_secPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_secPanel.createSequentialGroup()
+					.addGap(1)
+					.addComponent(suchPanel, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(Alignment.LEADING, gl_secPanel.createSequentialGroup()
+					.addGap(0)
+					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+					.addGap(0))
 		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(txtSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+		gl_secPanel.setVerticalGroup(
+			gl_secPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_secPanel.createSequentialGroup()
+					.addComponent(suchPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addGap(0)
+					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+					.addGap(0))
 		);
-		panel_2.setLayout(gl_panel_2);
+		secPanel.setLayout(gl_secPanel);
 		navigation.setLayout(new BorderLayout(0, 0));
 		
 		navigationsbaum = new JTree();
@@ -215,13 +231,28 @@ public class WHomescreen extends JFrame {
 			}
 		}
 		
+		txtSuche.setAPI(new Provider());
+		
 		try {
 			searchStm = Database.prepareMultiSearchStm();
 		} catch (SQLException e) {
 			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 		
-		txtSuche.setAPI(new Provider());
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnMenu = new JMenu("Menu");
+		menuBar.add(mnMenu);
+		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mnMenu.add(mntmExit);
+		
+		JMenu mnHelp = new JMenu("Help");
+		menuBar.add(mnHelp);
+		
+		JMenuItem mntmAbout = new JMenuItem("About");
+		mnHelp.add(mntmAbout);
 	}
 	
 	protected WHomescreen getWindow(){
