@@ -220,11 +220,11 @@ public final class WHomescreen extends JFrame {
 			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				if(element.getType() == ElementType.ANIMAL){
-					//TODO GUIManager.addIFrame(GUIManager.getFramepos()+1, new WPatient(false, element.getID(), GUIManager.getFramepos()+1));
+					addWNeuerPatient(false, element.getID());
 				}else{
 					logger.debug("atm unsupported");
 				}
-				txtSuche.setText("");
+//				txtSuche.setText("");
 				return true;
 			}
 
@@ -314,7 +314,7 @@ public final class WHomescreen extends JFrame {
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
-					addWindow(new WNeuerPatient(false, -1));
+					addWNeuerPartner(false, -1);
 					break;
 				case TEST:
 					reOpen(test);
