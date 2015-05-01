@@ -164,6 +164,29 @@ public class Database{
 		stm.closeOnCompletion();
 	}
 	
+	public static int updatePatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException {
+		String sql = "UPDATE animal "
+				+"SET ";
+		CallableStatement stm = connection.prepareCall(sql);
+		stm.setString(2, name);
+		stm.setString(3, callname);
+		stm.setString(4, identification);
+		stm.setString(5, coatcolor);
+		stm.setDouble(6, weight);
+		stm.setDate(7, birthdate);
+		stm.setBoolean(8, gender);
+		stm.setString(9, race);
+		stm.setString(10, comment);
+		stm.setLong(11, 0);
+		
+		if(picture != null)
+			logger.error("Picture currently not implemented!");
+		
+		int affected = stm.executeUpdate();
+		stm.close();
+		return affected;
+	}
+	
 	/**
 	 * Inserts a new Partner into the DB
 	 * @param firstname
