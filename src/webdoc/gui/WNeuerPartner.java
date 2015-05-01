@@ -20,6 +20,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +32,8 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.SpinnerDateModel;
 
 import net.miginfocom.swing.MigLayout;
@@ -72,41 +75,35 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textHandy;
 	private DateEditor dateEditor;
 	private long id;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args, final long id, final int wid) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WNeuerPartner window = new WNeuerPartner(true, id, wid);
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	private JButton btnOk;
+	private JButton btnCancelEdit;
 
 	/**
 	 * Create the application.
 	 */
 	public WNeuerPartner(boolean editable, long id) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosing(InternalFrameEvent arg0) {
+				dispose();
+			}
+		});
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;
 		initialize();
-		setFrameIcon(null);
-		setIconifiable(true);
-		setResizable(true);
-		setClosable(true);
-		setMaximizable(true);
 	}
 
 	/**
 	 * Initialize the contents of the 
 	 */
 	private void initialize() {
+		setFrameIcon(null);
+		setIconifiable(true);
+		setResizable(true);
+		setClosable(true);
+		setMaximizable(true);
+		
 		setTitle(editable ? "Neuer Partner" : "Partner");
 		setBounds(100, 100, 909, 484);
 		
@@ -351,22 +348,22 @@ public class WNeuerPartner extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
 		
-		JButton button = new JButton("Ok");
-		button.addActionListener(new ActionListener() {
+		btnOk = new JButton();
+		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addPartner();
 			}
 
 		});
-		panel.add(button, "cell 0 0");
+		panel.add(btnOk, "cell 0 0");
 		
-		JButton bCancel = new JButton("Cancel");
-		bCancel.addActionListener(new ActionListener() {
+		btnCancelEdit = new JButton();
+		btnCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exit();
 			}
 		});
-		panel.add(bCancel, "cell 2 0");
+		panel.add(btnCancelEdit, "cell 2 0");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -382,7 +379,7 @@ public class WNeuerPartner extends JInternalFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
-		bCancel.setVisible(editable);
+		btnCancelEdit.setVisible(editable);
 		
 		JLabel lblNewLabel = new JLabel("Name:");
 		
@@ -428,6 +425,10 @@ public class WNeuerPartner extends JInternalFrame {
 		setEditable();
 	}
 	
+	/**
+	 * ReSet editable for all input elements
+	 * @author "Aron Heinecke"
+	 */
 	private void setEditable(){
 		textPaneComment.setEditable(editable);
 		textFax.setEditable(editable);
@@ -444,6 +445,16 @@ public class WNeuerPartner extends JInternalFrame {
 		textVorname.setEditable(editable);
 		textTitel.setEditable(editable);
 		spinGebdatum.setEnabled(editable);
+		updateEditBtns();
+	}
+	
+	/**
+	 * updates buttons that change on selected element change also
+	 */
+	private void updateEditBtns(){
+		btnOk.setText(editable ? "Speichern" : "Schließen");
+		btnCancelEdit.setVisible(id > -1 || editable);
+		btnCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
 	
 	protected void addPartner() {
@@ -461,6 +472,10 @@ public class WNeuerPartner extends JInternalFrame {
 	@Override
 	public void dispose()
 	{
+		if(editable){
+			if(GUIFunctions.showIgnoreChangesDialog(this)==1)
+				return;
+		}
 		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
