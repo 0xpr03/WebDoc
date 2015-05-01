@@ -1,3 +1,4 @@
+WebDoc license:
 Copyright © 2015 WebDoc group Aron Heinecke & Jonathan Peper
 
 Even when parts of this license become invalid the remaining parts are still taking effect.
