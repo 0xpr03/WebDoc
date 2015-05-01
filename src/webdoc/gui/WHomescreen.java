@@ -40,6 +40,7 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import javax.swing.JSeparator;
 
 /**
  * Mainframe of the GUI
@@ -255,6 +256,17 @@ public final class WHomescreen extends JFrame {
 				new WAbout();
 			}
 		});
+		
+		JMenuItem mntmPerformanceTest = new JMenuItem("Performance test");
+		mntmPerformanceTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GUIManager.closeMemoryTest();
+			}
+		});
+		mnHelp.add(mntmPerformanceTest);
+		
+		JSeparator separator = new JSeparator();
+		mnHelp.add(separator);
 		mnHelp.add(mntmAbout);
 	}
 	
