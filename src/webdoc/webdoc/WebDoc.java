@@ -56,14 +56,6 @@ public class WebDoc {
 		//###
 		
 		registerExitFunction();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		GUIManager.closeMemoryTest();
 		
 		while (true) {
 			try {
@@ -72,7 +64,6 @@ public class WebDoc {
 			} catch (Exception e) {/* ignore */
 			}
 		}
-		//logger.debug("EOL!");
 	}
 	
 	private static void loadMainwindow() {
