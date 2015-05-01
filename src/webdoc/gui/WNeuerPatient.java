@@ -82,6 +82,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private ACElement partner;
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
+	private JButton btnOk;
 	/**
 	 * Launch the application.
 	 */
@@ -105,7 +106,7 @@ public class WNeuerPatient extends JInternalFrame {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameClosing(InternalFrameEvent arg0) {
-				exit();
+				dispose();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -240,7 +241,7 @@ public class WNeuerPatient extends JInternalFrame {
 		suche.add(textAnimalSuche);
 		panel.setLayout(new MigLayout("", "[29.00][42.00][][]", "[26.00]"));
 		
-		JButton btnOk = new JButton(editable ? "Speichern" : "Schließen");
+		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(editable){
@@ -256,7 +257,7 @@ public class WNeuerPatient extends JInternalFrame {
 		JButton buttonCancel = new JButton("Cancel");
 		buttonCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				exit();
+				dispose();
 			}
 		});
 		
@@ -271,7 +272,6 @@ public class WNeuerPatient extends JInternalFrame {
 		});
 		panel.add(btnNeueAnamnese, "cell 3 0");
 		btnNeueAnamnese.setVisible(!editable);
-		
 		
 		
 		buttonCancel.setVisible(editable);
@@ -515,23 +515,20 @@ public class WNeuerPatient extends JInternalFrame {
 		spinGewicht.setEnabled(editable);
 		textIdentifizierung.setEditable(editable);
 		textPartnerSuche.setEditable(editable);
-	}
-	
-	private void exit(){
-		this.dispose();
+		btnOk.setText(editable ? "Speichern" : "Schließen");
+		btnNeueAnamnese.setEnabled(editable);
 	}
 	
 	@Override
 	public void dispose()
 	{
-		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
-		super.dispose();
-		logger.debug("removing..");
-		GUIManager.dropJID(this);
-//		if(this.getParent() != null){
-//			this.getParent().remove(this);
-//		}
-//		super.dispose();
+		if(editable){
+			if(GUIManager.showYesNoDialog(this, "Wollen Sie speichern ohne zu schließen ?", JOptionPane.WARNING_MESSAGE, "Schließen")==0){
+				((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+				super.dispose();
+				GUIManager.dropJID(this);
+			}
+		}
 	}
 	
 	private void addPatient() {
@@ -543,7 +540,8 @@ public class WNeuerPatient extends JInternalFrame {
 					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
 							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
 							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
-					this.dispose();
+					editable = false;
+					setEditable();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
 					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
