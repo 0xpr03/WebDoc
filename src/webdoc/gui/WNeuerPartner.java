@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
-import webdoc.lib.GUI;
+import webdoc.lib.GUIManager;
 import java.awt.Font;
 
 public class WNeuerPartner extends JInternalFrame {
@@ -64,15 +64,17 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textVorname;
 	private JTextField textHandy;
 	private DateEditor dateEditor;
+	private int wid;
+	private long id;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args, final long id, final int wid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPartner window = new WNeuerPartner(true);
+					WNeuerPartner window = new WNeuerPartner(true, id, wid);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,8 +86,10 @@ public class WNeuerPartner extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPartner(boolean editable) {
+	public WNeuerPartner(boolean editable, long id, int wid) {
 		this.editable = editable;
+		this.id = id;
+		this.wid = wid;
 		initialize();
 		setFrameIcon(null);
 		setIconifiable(true);
@@ -442,10 +446,10 @@ public class WNeuerPartner extends JInternalFrame {
 			try {
 				Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
 			} catch (SQLException e) {
-				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
 		}else{
-			GUI.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
+			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
 	
@@ -460,10 +464,8 @@ public class WNeuerPartner extends JInternalFrame {
 	
 
 	private void exit(){
-		try {
-			this.setClosed(true);
-		} catch (PropertyVetoException e) {
-			logger.info(e);
-		}
+		this.dispose();
+		if(wid != -1)
+			GUIManager.removeIFrame(wid);
 	}
 }

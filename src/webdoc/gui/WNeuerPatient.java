@@ -46,7 +46,7 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
-import webdoc.lib.GUI;
+import webdoc.lib.GUIManager;
 import java.awt.Font;
 
 public class WNeuerPatient extends JInternalFrame {
@@ -71,7 +71,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
 	private JSearchTextField textPartnerSuche;
-	private WHomescreen whs;
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
@@ -83,11 +82,11 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final boolean editable, final WHomescreen whs, final long id, final int wid) {
+	public static void main(final boolean editable, final long id, final int wid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WNeuerPatient window = new WNeuerPatient(editable, whs, id, wid);
+					WNeuerPatient window = new WNeuerPatient(editable, id, wid);
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,13 +98,12 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable, WHomescreen whs, long id, int wid) {
+	public WNeuerPatient(boolean editable,long id, int wid) {
 		this.wid = wid;
 		getContentPane().setMinimumSize(new Dimension(600, 400));
 		setPreferredSize(new Dimension(700, 400));
 		setMinimumSize(new Dimension(1, 1));
 		this.editable = editable;
-		this.whs = whs;
 		this.id = id;
 		initialize();
 		setFrameIcon(null);
@@ -319,7 +317,7 @@ public class WNeuerPatient extends JInternalFrame {
 					result.close();
 					
 				} catch (SQLException e) {
-					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
@@ -354,7 +352,7 @@ public class WNeuerPatient extends JInternalFrame {
 					result.close();
 					
 				} catch (SQLException e) {
-					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
@@ -434,7 +432,7 @@ public class WNeuerPatient extends JInternalFrame {
 		try {
 			searchRaceStm = Database.prepareRaceSearchStm();
 		} catch (SQLException e) {
-			GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 		}
 		
 		setEditable();
@@ -443,7 +441,7 @@ public class WNeuerPatient extends JInternalFrame {
 		try {
 			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
 		} catch (SQLException e) {
-			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 		loadData();
 	}
@@ -469,7 +467,7 @@ public class WNeuerPatient extends JInternalFrame {
 				txtBemerkung.setText(result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
 			} catch (SQLException e) {
-				GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
 		}
 	}
@@ -485,7 +483,7 @@ public class WNeuerPatient extends JInternalFrame {
 	}
 	
 	protected void neueAnamnese(JTextField strName2) {
-		whs.callWNewAnamnesis();
+		GUIManager.callWNewAnamnesis();
 	}
 	
 	/**
@@ -510,6 +508,8 @@ public class WNeuerPatient extends JInternalFrame {
 
 	private void exit(){
 		this.dispose();
+		if(wid != -1)
+			GUIManager.removeIFrame(wid);
 	}
 	private void addPatient() {
 		//TODO: add picture support
@@ -523,7 +523,7 @@ public class WNeuerPatient extends JInternalFrame {
 					this.dispose();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
-					GUI.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
 				}
 			}else{
 				JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");

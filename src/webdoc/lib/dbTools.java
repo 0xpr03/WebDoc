@@ -178,7 +178,7 @@ public class dbTools {
 				}catch(SQLException e){
 					// catch only the "user already exists" error, throw all other
 					if(e.getMessage().contains("Operation CREATE USER failed")){
-						GUI.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
+						GUIManager.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
 						String query = String.format("UPDATE mysql.user SET Password=PASSWORD('%s') WHERE User='%s';", Config.getStrValue("password"), Config.getStrValue("user"));
 						Database.execUpdateQuery(query);
 						Database.execUpdateQuery("FLUSH PRIVILEGES;");
@@ -203,7 +203,7 @@ public class dbTools {
 				DBError error = Database.connect(true, false);
 				if(error != DBError.NOERROR){
 					//TODO: add better erorr handler
-					GUI.showErrorDialog(wpg, "Failed during the setup\nreconnct: "+error+"\n\nSee the log for more infos.", "Setup error");
+					GUIManager.showErrorDialog(wpg, "Failed during the setup\nreconnct: "+error+"\n\nSee the log for more infos.", "Setup error");
 				}
 				wpg.addProgress();
 			}

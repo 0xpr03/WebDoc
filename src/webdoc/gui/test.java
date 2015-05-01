@@ -40,7 +40,7 @@ import webdoc.gui.utils.GenderEnumObj;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
-import webdoc.lib.GUI;
+import webdoc.lib.GUIManager;
 
 /**
  * Test class for JUnit tests like JSearchTextField
@@ -436,7 +436,7 @@ public class test extends JInternalFrame {
 					result.close();
 					
 				} catch (SQLException e) {
-					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
@@ -455,7 +455,7 @@ public class test extends JInternalFrame {
 		try {
 			searchStm = Database.prepareMultiSearchStm();
 		} catch (SQLException e) {
-			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 	}
 }

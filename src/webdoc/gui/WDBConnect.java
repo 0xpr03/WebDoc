@@ -37,7 +37,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.DisabledGlassPane;
 import webdoc.lib.Database;
-import webdoc.lib.GUI;
+import webdoc.lib.GUIManager;
 import webdoc.lib.Database.DBError;
 import webdoc.webdoc.Config;
 
@@ -410,7 +410,7 @@ public class WDBConnect extends JDialog {
 	}
 	
 	private void exit(){
-		if(GUI.showErrorYesNoDialog("Wollen Sie das Programm beenden ?", "Beenden")==0){
+		if(GUIManager.showErrorYesNoDialog("Wollen Sie das Programm beenden ?", "Beenden")==0){
 			logger.debug("Exiting..");
 			System.exit(0);
 		}
@@ -462,21 +462,21 @@ public class WDBConnect extends JDialog {
 						setDisabledLayer(false);
 						switch (success) {
 						case INVALID_LOGIN:
-							GUI.showErrorDialog(parent, "Die Logindaten stimmen nicht!", "Fehler beim Verbinden");
+							GUIManager.showErrorDialog(parent, "Die Logindaten stimmen nicht!", "Fehler beim Verbinden");
 							break;
 						case NOCONNECTION:
-							GUI.showErrorDialog(parent, "Die IP und/oder der Port stimmen nicht!", "Fehler beim Verbinden");
+							GUIManager.showErrorDialog(parent, "Die IP und/oder der Port stimmen nicht!", "Fehler beim Verbinden");
 							break;
 						case NOERROR:
 							if(Config.getBoolValue("overwriteDB")){
-								if(GUI.showErrorYesNoDialog(parent, "Wollen Sie wirklich alle Datensätze überschreiben ?\nDies führt zum Verlust aller bestehenden Daten!", "Tabellen überschreiben..") == 1){
+								if(GUIManager.showErrorYesNoDialog(parent, "Wollen Sie wirklich alle Datensätze überschreiben ?\nDies führt zum Verlust aller bestehenden Daten!", "Tabellen überschreiben..") == 1){
 									break;
 								}
 							}
 							close();
 							break;
 						case NO_DB_OR_NO_PERM:
-							GUI.showErrorDialog(parent, "Die angegebene Datendank existiert nicht\noder dem Benutzer fehlen die Zugriffsrechte!", "Fehler beim Verbinden");
+							GUIManager.showErrorDialog(parent, "Die angegebene Datendank existiert nicht\noder dem Benutzer fehlen die Zugriffsrechte!", "Fehler beim Verbinden");
 							break;
 						default:
 							break;

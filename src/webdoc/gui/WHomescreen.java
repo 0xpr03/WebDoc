@@ -37,7 +37,7 @@ import webdoc.gui.utils.CustomTreeObj;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
-import webdoc.lib.GUI;
+import webdoc.lib.GUIManager;
 
 /**
  * Mainframe of the GUI
@@ -50,8 +50,8 @@ public class WHomescreen extends JFrame {
 	 */
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JSearchTextField txtSuche;
-	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true);
-	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, this, -1);
+	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1, -1);
+	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
@@ -177,7 +177,7 @@ public class WHomescreen extends JFrame {
 				mouseClickAction(arg0);
 			}
 		});
-		navigationsbaum.setModel(GUIMethoden.Navi());
+		navigationsbaum.setModel(GUIFunctions.Navi());
 		navigation.add(navigationsbaum, BorderLayout.CENTER);
 		getContentPane().setLayout(groupLayout);
 		
@@ -203,7 +203,7 @@ public class WHomescreen extends JFrame {
 					result.close();
 					
 				} catch (SQLException e) {
-					GUI.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
 				}
 				return list;
 			}
@@ -212,9 +212,7 @@ public class WHomescreen extends JFrame {
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				if(element.getType() == ElementType.ANIMAL){
-					WPatient windowpointer = new WPatient(false, getWindow(), element.getID());
-					desktopPane.add(windowpointer);
-					windowpointer.setVisible(true);
+					GUIManager.addIFrame(GUIManager.getFramepos()+1, new WPatient(false, element.getID(), GUIManager.getFramepos()+1));
 				}else{
 					logger.debug("atm unsupported");
 				}
@@ -233,7 +231,7 @@ public class WHomescreen extends JFrame {
 		try {
 			searchStm = Database.prepareMultiSearchStm();
 		} catch (SQLException e) {
-			GUI.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -257,10 +255,6 @@ public class WHomescreen extends JFrame {
 		mnHelp.add(mntmAbout);
 	}
 	
-	protected WHomescreen getWindow(){
-		return this;
-	}
-	
 	private void mouseClickAction(MouseEvent mevent){
 		int row = navigationsbaum.getRowForLocation(mevent.getX(), mevent.getY());
 		TreePath selPath = navigationsbaum.getPathForLocation(mevent.getX(), mevent.getY());
@@ -280,10 +274,10 @@ public class WHomescreen extends JFrame {
 					reOpen(FNeuerPartner);
 					break;
 				case PARTNER:
-					desktopPane.add(new WPartner(false));
+					GUIManager.addIFrame(GUIManager.getNewFrameId(), new WPartner(false, -1, GUIManager.getNewFrameId()));
 					break;
 				case PATIENT:
-					desktopPane.add(new WPatient(false, this, -1));
+					GUIManager.addIFrame(GUIManager.getNewFrameId(), new WPatient(false, -1, GUIManager.getNewFrameId()));
 					break;
 				case TEST:
 					reOpen(test);
@@ -318,6 +312,22 @@ public class WHomescreen extends JFrame {
 		}else{
 			jif.toFront();
 		}
+	}
+	
+	/**
+	 * removes the JInternalFrame from the desktopPane
+	 * @param jif
+	 */
+	public void removeJIF(JInternalFrame jif){
+		desktopPane.remove(jif);
+	}
+	
+	/**
+	 * adds a JInternalFrame to the desktopPane
+	 * @param jif
+	 */
+	public void addJIF(JInternalFrame jif){
+		desktopPane.add(jif);
 	}
 	
 	public void callWNewAnamnesis(){
