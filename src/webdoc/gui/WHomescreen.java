@@ -27,6 +27,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
@@ -40,6 +41,7 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+
 import javax.swing.JSeparator;
 
 /**
@@ -260,7 +262,16 @@ public final class WHomescreen extends JFrame {
 		JMenuItem mntmPerformanceTest = new JMenuItem("Performance test");
 		mntmPerformanceTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GUIManager.closeMemoryTest();
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						Thread t = new Thread(new Runnable() {
+							public void run() {
+								GUIManager.closeMemoryTest();
+							}
+						});
+						t.start();
+					}
+				});
 			}
 		});
 		mnHelp.add(mntmPerformanceTest);
