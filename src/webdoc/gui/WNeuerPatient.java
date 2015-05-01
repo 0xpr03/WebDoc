@@ -513,6 +513,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable(){
+		logger.debug("ID internal {}", id);
 		textAnimalSuche.setEditable(!editable);
 		strName.setEditable(editable);
 		strFarbe.setEditable(editable);
@@ -557,7 +558,7 @@ public class WNeuerPatient extends JInternalFrame {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if(gender.getType() != GenderType.UNKNOWN){
 				try {
-					Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
+					id = Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
 							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
 							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
 					editable = false;
