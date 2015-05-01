@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WHomescreen;
+import webdoc.gui.WNeuerPatient;
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 
@@ -42,13 +43,13 @@ public final class GUIManager {
 	 * adds an iframe
 	 */
 	public static void addWNeuerPatient(boolean editable, long id){
-		whomescreen.addWNeuerPatient(editable, id);
+		whomescreen.addJIF(new WNeuerPatient(editable, id));
 	}
 	
 	public static void closeMemoryTest(){
 		WProgress wpg = new WProgress();
-		wpg.setTitle("creating..");
-		wpg.setMax(1);
+		wpg.setTitle("Running memory performance test..");
+		wpg.setMax(2);
 		int max = 10000;
 		wpg.setSubMax(10000);
 		wpg.setVisible(true);
@@ -56,12 +57,13 @@ public final class GUIManager {
 		for(int i=0; i <= max; i++){
 			wpg.addSubProgress();
 			GUIManager.addWNeuerPatient(false, -1);
-			for(Component jif : whomescreen.desktopPane.getComponents()){
-				((JInternalFrame) jif).dispose();
-			}
+		}
+		
+		wpg.setSubMax(10000);
+		for(Component jif : whomescreen.getJIFs()){
+			((JInternalFrame) jif).dispose();
 		}
 		wpg.dispose();
-		whomescreen.desktopPane.removeAll();
 	}
 	
 	/**

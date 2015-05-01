@@ -2,6 +2,7 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,10 +55,9 @@ public final class WHomescreen extends JFrame {
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
-	//public Vector<JInternalFrame> frames = new Vector<JInternalFrame>();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
-	public JDesktopPane desktopPane;
+	private JDesktopPane desktopPane;
 	private PreparedStatement searchStm = null;
 	private test test = new test();
 
@@ -280,7 +280,7 @@ public final class WHomescreen extends JFrame {
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
-					GUIManager.addWNeuerPatient(false, -1);
+					addWindow(new WNeuerPatient(false, -1));
 					break;
 				case TEST:
 					reOpen(test);
@@ -317,13 +317,35 @@ public final class WHomescreen extends JFrame {
 		}
 	}
 	
+	/**
+	 * Creates a WNeuerPatient window
+	 * @param editable
+	 * @param id
+	 */
 	public void addWNeuerPatient(boolean editable, long id){
-		logger.debug("creating patient jif");
 		WNeuerPatient wnp = new WNeuerPatient(editable, id);
 		desktopPane.add(wnp);
 		wnp.setVisible(true);
-		//frames.add(wnp);
-		logger.debug(wnp);
+	}
+	
+	/**
+	 * Creates a WNeuerPartner window
+	 * @param editable
+	 * @param id
+	 */
+	public void addWNeuerPartner(boolean editable, long id){
+		WNeuerPartner wnp = new WNeuerPartner(editable, id);
+		desktopPane.add(wnp);
+		wnp.setVisible(true);
+	}
+	
+	public void addWindow(JInternalFrame jif){
+		desktopPane.add(jif);
+		jif.setVisible(true);
+	}
+	
+	public Component[] getJIFs(){
+		return desktopPane.getComponents();
 	}
 	
 	/**
@@ -331,13 +353,7 @@ public final class WHomescreen extends JFrame {
 	 * @param jif
 	 */
 	public void removeJIF(JInternalFrame jif){
-		logger.debug("Frames: "+desktopPane.getSize());
 		desktopPane.remove(jif);
-		logger.debug("Frames: "+desktopPane.getSize());
-//		for(JInternalFrame frames: frames){
-//			if(!frames.isDisplayable())
-//				frames.getDesktopPane().remove(frames);
-//		}
 	}
 	
 	/**
