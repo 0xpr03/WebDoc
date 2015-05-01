@@ -367,7 +367,6 @@ public class WNeuerPatient extends JInternalFrame {
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				logger.debug("Element chosen: {}",element);
 				if(editable){
 					if(GUIManager.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..")==0)
 						return false;
@@ -527,8 +526,6 @@ public class WNeuerPatient extends JInternalFrame {
 		spinGewicht.setEnabled(editable);
 		textIdentifizierung.setEditable(editable);
 		textPartnerSuche.setEditable(editable);
-		btnOk.setText(editable ? "Speichern" : "Schließen");
-		buttonCancelEdit.setText(id == -1 ? "Editieren" : "Cancel");
 		updateEditBtns();
 	}
 	
@@ -537,7 +534,9 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void updateEditBtns(){
 		btnNeueAnamnese.setEnabled(id > -1);
+		btnOk.setText(editable ? "Speichern" : "Schließen");
 		buttonCancelEdit.setVisible(id > -1 || editable);
+		buttonCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
 	
 	@Override
