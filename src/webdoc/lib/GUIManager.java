@@ -13,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WHomescreen;
-import webdoc.gui.WNeuerPatient;
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 
@@ -55,6 +54,7 @@ public final class GUIManager {
 	public static void closeMemoryTest(){
 		if(GUIManager.showErrorYesNoDialog(whomescreen, "Do you really want to run this test ?\nYou won't be able to use the PC for the time of this test!", "MP Test") == 0){
 			final WProgress wpg = new WProgress();
+			wpg.setAlwaysOnTop(true);
 			wpg.setTitle("MP Test");
 			wpg.setText("Running memory-performance test with InternalFrames.\nThis DOES cause high cpu & memory load.");
 			wpg.setMax(2);
@@ -63,7 +63,7 @@ public final class GUIManager {
 			wpg.setVisible(true);
 			
 			final int processors = Runtime.getRuntime().availableProcessors();
-			wpg.setSubText("Allocating..");
+			wpg.setSubText(String.format("Allocating using %s threads..", processors));
 			ExecutorService taskExecutor = Executors.newFixedThreadPool(processors);
 			taskExecutor.execute(new Runnable() {
 				public void run() {
