@@ -1,5 +1,6 @@
 ﻿package webdoc.webdoc;
 
+import java.awt.EventQueue;
 import java.sql.SQLException;
 
 import javax.swing.UIManager;
@@ -8,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WDBConnect;
+import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
@@ -54,10 +56,23 @@ public class WebDoc {
 		//###
 		
 		registerExitFunction();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-//		for(int i=0; i <= 100; i++){
-//			GUIManager.addWNeuerPatient(false, -1);
-//		}
+		GUIManager.closeMemoryTest();
+		
+		while (true) {
+			try {
+				// Make sure that the Java VM don't quit this program.
+				Thread.sleep(100);
+			} catch (Exception e) {/* ignore */
+			}
+		}
+		//logger.debug("EOL!");
 	}
 	
 	private static void loadMainwindow() {

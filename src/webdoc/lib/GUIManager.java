@@ -1,6 +1,7 @@
 package webdoc.lib;
 
 import java.awt.Component;
+import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WHomescreen;
+import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 
 /**
@@ -25,8 +27,15 @@ public final class GUIManager {
 	 * initiates and shows the homescreen window
 	 */
 	public static void crateHomescreen(){
-		whomescreen = new WHomescreen();
-		whomescreen.run();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					whomescreen = new WHomescreen();
+				} catch (Exception e) {
+					logger.error("Homescreen thread error \n{}", e);
+				}
+			}
+		});
 	}
 	
 	/**
@@ -34,6 +43,25 @@ public final class GUIManager {
 	 */
 	public static void addWNeuerPatient(boolean editable, long id){
 		whomescreen.addWNeuerPatient(editable, id);
+	}
+	
+	public static void closeMemoryTest(){
+		WProgress wpg = new WProgress();
+		wpg.setTitle("creating..");
+		wpg.setMax(1);
+		int max = 10000;
+		wpg.setSubMax(10000);
+		wpg.setVisible(true);
+		
+		for(int i=0; i <= max; i++){
+			wpg.addSubProgress();
+			GUIManager.addWNeuerPatient(false, -1);
+			for(Component jif : whomescreen.desktopPane.getComponents()){
+				((JInternalFrame) jif).dispose();
+			}
+		}
+		wpg.dispose();
+		whomescreen.desktopPane.removeAll();
 	}
 	
 	/**

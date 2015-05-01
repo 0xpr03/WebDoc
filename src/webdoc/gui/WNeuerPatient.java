@@ -519,15 +519,17 @@ public class WNeuerPatient extends JInternalFrame {
 	
 	private void exit(){
 		this.dispose();
-		//GUIManager.dropJID(this);
+		
+		GUIManager.dropJID(this);
 	}
 	
+	@Override
 	public void dispose()
 	{
 		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		logger.debug("removing..");
-		this.getDesktopPane().remove(this);
+		GUIManager.dropJID(this);
 	}
 	
 	private void addPatient() {

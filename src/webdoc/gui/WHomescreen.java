@@ -54,34 +54,35 @@ public final class WHomescreen extends JFrame {
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
-	private Vector<JInternalFrame> frames = new Vector<JInternalFrame>();
+	//public Vector<JInternalFrame> frames = new Vector<JInternalFrame>();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
-	private JDesktopPane desktopPane;
+	public JDesktopPane desktopPane;
 	private PreparedStatement searchStm = null;
 	private test test = new test();
 
 	/**
 	 * Launch the application.
 	 */
-	public void run() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WHomescreen window = new WHomescreen();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public void main() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					WHomescreen window = new WHomescreen();
+//					window.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public WHomescreen() {
 		initialize();
+		this.setVisible(true);
 	}
 
 	/**
@@ -321,8 +322,8 @@ public final class WHomescreen extends JFrame {
 		WNeuerPatient wnp = new WNeuerPatient(editable, id);
 		desktopPane.add(wnp);
 		wnp.setVisible(true);
-		frames.add(wnp);
-		logger.debug(wnp.toString());
+		//frames.add(wnp);
+		logger.debug(wnp);
 	}
 	
 	/**
@@ -333,10 +334,10 @@ public final class WHomescreen extends JFrame {
 		logger.debug("Frames: "+desktopPane.getSize());
 		desktopPane.remove(jif);
 		logger.debug("Frames: "+desktopPane.getSize());
-		for(JInternalFrame frames: frames){
-			if(!frames.isDisplayable())
-				frames.getDesktopPane().remove(frames);
-		}
+//		for(JInternalFrame frames: frames){
+//			if(!frames.isDisplayable())
+//				frames.getDesktopPane().remove(frames);
+//		}
 	}
 	
 	/**
