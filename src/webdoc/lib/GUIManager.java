@@ -2,6 +2,9 @@ package webdoc.lib;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -46,20 +49,35 @@ public final class GUIManager {
 		whomescreen.addWNeuerPartner(editable, id);
 	}
 	
+	/**
+	 * Provides a multithreaded memory leak & performance test
+	 */
 	public static void closeMemoryTest(){
 		if(GUIManager.showErrorYesNoDialog(whomescreen, "Do you really want to run this test ?\nYou won't be able to use the PC for the time of this test!", "MP Test") == 0){
-			WProgress wpg = new WProgress();
+			final WProgress wpg = new WProgress();
 			wpg.setTitle("MP Test");
 			wpg.setText("Running memory-performance test with InternalFrames.\nThis DOES cause high cpu & memory load.");
 			wpg.setMax(2);
-			int max = 5000;
+			final int max = 5000;
 			wpg.setSubMax(max);
 			wpg.setVisible(true);
 			
+			final int processors = Runtime.getRuntime().availableProcessors();
 			wpg.setSubText("Allocating..");
-			for(int i=0; i <= max; i++){
-				wpg.addSubProgress();
-				GUIManager.addWNeuerPatient(false, -1);
+			ExecutorService taskExecutor = Executors.newFixedThreadPool(processors);
+			taskExecutor.execute(new Runnable() {
+				public void run() {
+					for(int i=0; i <= max/processors; i++){
+						wpg.addSubProgress();
+						GUIManager.addWNeuerPatient(false, -1);
+					}
+				}
+			});
+			taskExecutor.shutdown();
+			try {
+				taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			} catch (InterruptedException e) {
+				logger.debug(e);
 			}
 			
 			wpg.setSubMax(max);
