@@ -53,12 +53,12 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
+@SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4647611743598708383L;
+	//private static final long serialVersionUID = -4647611743598708383L;
 	private JSearchTextField textAnimalSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;
@@ -528,10 +528,10 @@ public class WNeuerPatient extends JInternalFrame {
 		super.dispose();
 		logger.debug("removing..");
 		GUIManager.dropJID(this);
-		if(this.getParent() != null){
-			this.getParent().remove(this);
-		}
-		super.dispose();
+//		if(this.getParent() != null){
+//			this.getParent().remove(this);
+//		}
+//		super.dispose();
 	}
 	
 	private void addPatient() {

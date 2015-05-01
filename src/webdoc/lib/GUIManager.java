@@ -2,9 +2,6 @@ package webdoc.lib;
 
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -46,7 +43,7 @@ public final class GUIManager {
 	 * adds an iframe
 	 */
 	public static synchronized void addWNeuerPatient(boolean editable, long id){
-		whomescreen.addWNeuerPartner(editable, id);
+		whomescreen.addWNeuerPatient(editable, id);
 	}
 	
 	/**
@@ -59,18 +56,18 @@ public final class GUIManager {
 			wpg.setTitle("MP Test");
 			wpg.setText("Running memory-performance test with InternalFrames.\nThis DOES cause high cpu & memory load.");
 			wpg.setMax(2);
-			final int max = 500;
+			final int max = 50;
 			wpg.setSubMax(max);
 			wpg.setVisible(true);
 			
-			final int processors = Runtime.getRuntime().availableProcessors();
+//			final int processors = Runtime.getRuntime().availableProcessors();
 //			wpg.setSubText(String.format("Allocating using %s threads..", processors));
 //			ExecutorService taskExecutor = Executors.newFixedThreadPool(processors);
 //			taskExecutor.execute(new Runnable() {
 //				public void run() {
 			wpg.setSubText(String.format("Allocating %s times..", max));
 					for(int i=0; i <= max; i++){
-						GUIManager.addWNeuerPatient(false, -1);
+						addWNeuerPatient(false, -1);
 						wpg.addSubProgress();
 					}
 //				}
@@ -83,16 +80,22 @@ public final class GUIManager {
 //			}
 			
 			wpg.setSubMax(max);
-			wpg.setSubText(String.format("Freeing %s found entrys..", whomescreen.getJIFs().length));
+			int jifs_amount = whomescreen.getJIFs().length;
+			wpg.setSubText(String.format("Freeing %s found entrys..", jifs_amount));
+			int removed = 0;
 			for(JInternalFrame jif : whomescreen.getJIFs()){
 				if(jif instanceof WNeuerPatient){
+					removed++;
 					((WNeuerPatient)jif).dispose();
+				}else{
+					logger.debug(jif);
 				}
 				wpg.addSubProgress();
 			}
+			wpg.setSubText(String.format("Freed %s/%s",removed, jifs_amount));
+			System.gc();
 			
 			try {
-				// Make sure that the Java VM don't quit this program.
 				Thread.sleep(5000);
 			} catch (Exception e) {/* ignore */
 			}

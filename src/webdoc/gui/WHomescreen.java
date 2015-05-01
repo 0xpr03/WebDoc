@@ -362,8 +362,8 @@ public final class WHomescreen extends JFrame {
 	 */
 	public void addWNeuerPatient(boolean editable, long id){
 		WNeuerPatient wnp = new WNeuerPatient(editable, id);
+		wnp.setVisible(true); // !creating,visible & add order IS important!
 		desktopPane.add(wnp);
-		wnp.setVisible(true);
 	}
 	
 	/**
