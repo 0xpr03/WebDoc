@@ -406,4 +406,3 @@ public final class WHomescreen extends JFrame {
 		reOpen(FNeueAnamnese);
 	}
 }
-
