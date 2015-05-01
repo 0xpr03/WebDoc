@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WHomescreen;
+import webdoc.gui.WNeuerPatient;
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
 
@@ -58,7 +59,7 @@ public final class GUIManager {
 			wpg.setTitle("MP Test");
 			wpg.setText("Running memory-performance test with InternalFrames.\nThis DOES cause high cpu & memory load.");
 			wpg.setMax(2);
-			final int max = 5000;
+			final int max = 500;
 			wpg.setSubMax(max);
 			wpg.setVisible(true);
 			
@@ -83,8 +84,10 @@ public final class GUIManager {
 			
 			wpg.setSubMax(max);
 			wpg.setSubText(String.format("Freeing %s found entrys..", whomescreen.getJIFs().length));
-			for(Component jif : whomescreen.getJIFs()){
-				((JInternalFrame) jif).dispose();
+			for(JInternalFrame jif : whomescreen.getJIFs()){
+				if(jif instanceof WNeuerPatient){
+					((WNeuerPatient)jif).dispose();
+				}
 				wpg.addSubProgress();
 			}
 			
