@@ -6,9 +6,12 @@
  *******************************************************************************/
 package webdoc.gui;
 
+import java.awt.Component;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
@@ -16,6 +19,7 @@ import javax.swing.tree.TreeNode;
 
 import webdoc.gui.utils.CustomTreeObj;
 import webdoc.gui.utils.CustomTreeObj.EntryType;
+import webdoc.lib.GUIManager;
 
 public class GUIFunctions {
 	
@@ -68,6 +72,15 @@ public class GUIFunctions {
 		menu.add(close);
 		
 		return menu;
+	}
+	
+	/**
+	 * Shows a default "ignore changes" dialog
+	 * @param parent
+	 * @return 1 for okay, 0 for abort
+	 */
+	public static int showIgnoreChangesDialog(Component parent){
+		return GUIManager.showYesNoDialog(parent, "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Ungespeicherte Änderungen");
 	}
 
 }
