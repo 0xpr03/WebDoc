@@ -248,8 +248,14 @@ public class WNeuerPatient extends JInternalFrame {
 		buttonCancelEdit = new JButton("Cancel");
 		buttonCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(id == -1 || editable){
+				if(id == -1){
 					dispose();
+				}else if(editable){
+					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+						editable = false;
+						setEditable();
+						loadData();
+					}
 				}else{
 					editable = true;
 					setEditable();
@@ -543,7 +549,7 @@ public class WNeuerPatient extends JInternalFrame {
 	public void dispose()
 	{
 		if(editable){
-			if(GUIManager.showYesNoDialog(this, "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Schließen")==1)
+			if(GUIFunctions.showIgnoreChangesDialog(this)==1)
 				return;
 		}
 		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
