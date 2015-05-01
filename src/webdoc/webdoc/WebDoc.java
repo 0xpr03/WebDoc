@@ -1,6 +1,5 @@
 ﻿package webdoc.webdoc;
 
-import java.awt.EventQueue;
 import java.sql.SQLException;
 
 import javax.swing.UIManager;
@@ -9,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WDBConnect;
-import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
