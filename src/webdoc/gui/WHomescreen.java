@@ -314,7 +314,7 @@ public final class WHomescreen extends JFrame {
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
-					addWNeuerPartner(false, -1);
+					addWNeuerPatient(false, -1);
 					break;
 				case TEST:
 					reOpen(test);
