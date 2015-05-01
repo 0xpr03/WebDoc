@@ -242,7 +242,12 @@ public class WNeuerPatient extends JInternalFrame {
 		buttonCancelEdit = new JButton("Cancel");
 		buttonCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				if(id == -1 || editable){
+					dispose();
+				}else{
+					editable = true;
+					setEditable();
+				}
 			}
 		});
 		
