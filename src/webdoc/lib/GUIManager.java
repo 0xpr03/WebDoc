@@ -26,6 +26,7 @@ public final class GUIManager {
 	
 	/**
 	 * initiates and shows the homescreen window
+	 * @author "Aron Heinecke"
 	 */
 	public static void crateHomescreen(){
 		EventQueue.invokeLater(new Runnable() {
@@ -48,6 +49,7 @@ public final class GUIManager {
 	
 	/**
 	 * Provides a memory leak & performance test
+	 * @author "Aron Heinecke"
 	 */
 	public static void closeMemoryTest(){
 		if(GUIManager.showErrorYesNoDialog(whomescreen, "Do you really want to run this test ?\nYou won't be able to use the PC for the time of this test!", "MP Test") == 0){
@@ -138,8 +140,19 @@ public final class GUIManager {
 	 * @return returns 0 for okay, 1 for no / window close
 	 */
 	public static int showErrorYesNoDialog(String message, String title){
-		int i = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-		return i;
+		return JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * Shows an YesNo dialog of definable type
+	 * @param parent parent of the dialog
+	 * @param message message to display
+	 * @param title title for the dialog
+	 * @param type JOptionPane constant for type
+	 * @return returns 0 for okay, 1 for no / window close
+	 */
+	public static int showYesNoDialog(Component parent, String message,int type, String title){
+		return JOptionPane.showConfirmDialog(parent, message, title, JOptionPane.YES_NO_OPTION, type);
 	}
 	
 	/**
