@@ -344,6 +344,10 @@ public final class WHomescreen extends JFrame {
 		jif.setVisible(true);
 	}
 	
+	/**
+	 * returns the stored internalframes of the desktop pane
+	 * @return
+	 */
 	public Component[] getJIFs(){
 		return desktopPane.getComponents();
 	}
