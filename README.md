@@ -2,6 +2,9 @@
 For the docs please look into the wiki
 Protocoll is also there
 
+Copyright © 2015 WebDoc group Aron Heinecke & Jonathan Peper
+License: http://webdoc.proctet.net/license.txt
+
 ## Structure
 * src/webdoc quellcode
   * gui GUI Klassen
