@@ -224,7 +224,7 @@ public final class WHomescreen extends JFrame {
 				}else{
 					logger.debug("atm unsupported");
 				}
-//				txtSuche.setText("");
+				txtSuche.setTextWithoutNotification("");
 				return true;
 			}
 
