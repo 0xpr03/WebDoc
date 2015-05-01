@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -43,16 +44,17 @@ import webdoc.lib.GUIManager;
  * Mainframe of the GUI
  * @author "Aron Heinecke"
  */
-public class WHomescreen extends JFrame {
+public final class WHomescreen extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JSearchTextField txtSuche;
-	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1, -1);
-	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1, -1);
+	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
+	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
+	private Vector<JInternalFrame> frames = new Vector<JInternalFrame>();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -212,7 +214,7 @@ public class WHomescreen extends JFrame {
 			public void changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				if(element.getType() == ElementType.ANIMAL){
-					GUIManager.addIFrame(GUIManager.getFramepos()+1, new WPatient(false, element.getID(), GUIManager.getFramepos()+1));
+					//TODO GUIManager.addIFrame(GUIManager.getFramepos()+1, new WPatient(false, element.getID(), GUIManager.getFramepos()+1));
 				}else{
 					logger.debug("atm unsupported");
 				}
@@ -274,10 +276,10 @@ public class WHomescreen extends JFrame {
 					reOpen(FNeuerPartner);
 					break;
 				case PARTNER:
-					GUIManager.addIFrame(GUIManager.getNewFrameId(), new WPartner(false, -1, GUIManager.getNewFrameId()));
+					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
-					GUIManager.addIFrame(GUIManager.getNewFrameId(), new WPatient(false, -1, GUIManager.getNewFrameId()));
+					GUIManager.addWNeuerPatient(false, -1);
 					break;
 				case TEST:
 					reOpen(test);
@@ -314,12 +316,27 @@ public class WHomescreen extends JFrame {
 		}
 	}
 	
+	public void addWNeuerPatient(boolean editable, long id){
+		logger.debug("creating patient jif");
+		WNeuerPatient wnp = new WNeuerPatient(editable, id);
+		desktopPane.add(wnp);
+		wnp.setVisible(true);
+		frames.add(wnp);
+		logger.debug(wnp.toString());
+	}
+	
 	/**
 	 * removes the JInternalFrame from the desktopPane
 	 * @param jif
 	 */
 	public void removeJIF(JInternalFrame jif){
+		logger.debug("Frames: "+desktopPane.getSize());
 		desktopPane.remove(jif);
+		logger.debug("Frames: "+desktopPane.getSize());
+		for(JInternalFrame frames: frames){
+			if(!frames.isDisplayable())
+				frames.getDesktopPane().remove(frames);
+		}
 	}
 	
 	/**

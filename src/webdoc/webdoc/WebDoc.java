@@ -7,15 +7,13 @@ import javax.swing.UIManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import webdoc.gui.GUIFunctions;
 import webdoc.gui.WDBConnect;
-import webdoc.gui.WHomescreen;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
 import webdoc.lib.Database;
-import webdoc.lib.GUIManager;
 import webdoc.lib.Database.DBError;
+import webdoc.lib.GUIManager;
 import webdoc.lib.dbTools;
 
 /**
@@ -57,6 +55,9 @@ public class WebDoc {
 		
 		registerExitFunction();
 		
+//		for(int i=0; i <= 100; i++){
+//			GUIManager.addWNeuerPatient(false, -1);
+//		}
 	}
 	
 	private static void loadMainwindow() {

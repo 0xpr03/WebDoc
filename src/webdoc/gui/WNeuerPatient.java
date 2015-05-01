@@ -1,7 +1,7 @@
 package webdoc.gui;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +13,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ActionMap;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -31,7 +33,10 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -47,7 +52,6 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
-import java.awt.Font;
 
 public class WNeuerPatient extends JInternalFrame {
 
@@ -78,11 +82,10 @@ public class WNeuerPatient extends JInternalFrame {
 	private ACElement partner;
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
-	private int wid;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(final boolean editable, final long id, final int wid) {
+	/*public static void main(final boolean editable, final long id, final int wid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -93,30 +96,38 @@ public class WNeuerPatient extends JInternalFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable,long id, int wid) {
-		this.wid = wid;
-		getContentPane().setMinimumSize(new Dimension(600, 400));
-		setPreferredSize(new Dimension(700, 400));
-		setMinimumSize(new Dimension(1, 1));
+	public WNeuerPatient(boolean editable,long id) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosing(InternalFrameEvent arg0) {
+				exit();
+			}
+		});
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;
 		initialize();
-		setFrameIcon(null);
-		setResizable(true);
-		setMaximizable(true);
-		setIconifiable(true);
-		setClosable(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setFrameIcon(null);
+		setResizable(true);
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
+		
+		getContentPane().setMinimumSize(new Dimension(600, 400));
+		setPreferredSize(new Dimension(700, 400));
+		setMinimumSize(new Dimension(1, 1));
+		
 		setTitle(editable ? "Neuer Patient" : "Patient");
 		setBounds(100, 100, 963, 444);
 		
@@ -505,12 +516,20 @@ public class WNeuerPatient extends JInternalFrame {
 		textIdentifizierung.setEditable(editable);
 		textPartnerSuche.setEditable(editable);
 	}
-
+	
 	private void exit(){
 		this.dispose();
-		if(wid != -1)
-			GUIManager.removeIFrame(wid);
+		//GUIManager.dropJID(this);
 	}
+	
+	public void dispose()
+	{
+		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		super.dispose();
+		logger.debug("removing..");
+		this.getDesktopPane().remove(this);
+	}
+	
 	private void addPatient() {
 		//TODO: add picture support
 		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {

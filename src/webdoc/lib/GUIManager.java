@@ -1,7 +1,6 @@
 package webdoc.lib;
 
 import java.awt.Component;
-import java.util.HashMap;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -17,10 +16,8 @@ import webdoc.lib.Database.DBError;
  * @author "Aron Heinecke"
  *
  */
-public class GUIManager {
+public final class GUIManager {
 	
-	private static int framepos = -1;
-	private static HashMap<Integer, JInternalFrame> framemap = new HashMap<Integer, JInternalFrame>();
 	private static WHomescreen whomescreen = null;
 	private static Logger logger = LogManager.getLogger();
 	
@@ -33,42 +30,26 @@ public class GUIManager {
 	}
 	
 	/**
-	 * returns the current framepos which is used as an iterator
-	 * @return
-	 */
-	public static int getFramepos(){
-		return framepos;
-	}
-	
-	/**
 	 * adds an iframe
-	 * @param jif
 	 */
-	public static int addIFrame(int itpos, JInternalFrame jif){
-		logger.debug("Adding: "+itpos);
-		jif.setVisible(true);
-		whomescreen.addJIF(jif);
-		jif.setVisible(true);
-		framemap.put(itpos, jif);
-		framepos++;
-		return itpos;
+	public static void addWNeuerPatient(boolean editable, long id){
+		whomescreen.addWNeuerPatient(editable, id);
 	}
 	
 	/**
 	 * calls the destructor for an internalframe, preventing #22
 	 * @param itpos
 	 */
-	public static void removeIFrame(int itpos){
-		whomescreen.removeJIF(framemap.get(itpos));
-		framemap.remove(itpos);
+	public static void dropJID(JInternalFrame jif){
+		whomescreen.removeJIF(jif);
+		System.gc();
 	}
 	
+	/**
+	 * Calls WNeueAnamnesis
+	 */
 	public static void callWNewAnamnesis(){
 		whomescreen.callWNewAnamnesis();
-	}
-	
-	public static int getNewFrameId(){
-		return getFramepos()+1;
 	}
 	
 	/**

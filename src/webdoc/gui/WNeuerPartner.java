@@ -64,13 +64,12 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textVorname;
 	private JTextField textHandy;
 	private DateEditor dateEditor;
-	private int wid;
 	private long id;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args, final long id, final int wid) {
+	/*public static void main(String[] args, final long id, final int wid) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -81,15 +80,14 @@ public class WNeuerPartner extends JInternalFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPartner(boolean editable, long id, int wid) {
+	public WNeuerPartner(boolean editable, long id) {
 		this.editable = editable;
 		this.id = id;
-		this.wid = wid;
 		initialize();
 		setFrameIcon(null);
 		setIconifiable(true);
@@ -440,7 +438,7 @@ public class WNeuerPartner extends JInternalFrame {
 		textTitel.setEditable(editable);
 		spinGebdatum.setEnabled(editable);
 	}
-
+	
 	protected void addPartner() {
 		if(allSet()){
 			try {
@@ -465,7 +463,7 @@ public class WNeuerPartner extends JInternalFrame {
 
 	private void exit(){
 		this.dispose();
-		if(wid != -1)
-			GUIManager.removeIFrame(wid);
+		if(id != -1)
+			GUIManager.dropJID(this);
 	}
 }
