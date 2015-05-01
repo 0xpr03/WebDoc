@@ -274,6 +274,14 @@ public final class WHomescreen extends JFrame {
 				});
 			}
 		});
+		
+		JMenuItem mntmFreeMemory = new JMenuItem("Free memory");
+		mntmFreeMemory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				remAllDebug();
+			}
+		});
+		mnHelp.add(mntmFreeMemory);
 		mnHelp.add(mntmPerformanceTest);
 		
 		JSeparator separator = new JSeparator();
@@ -340,6 +348,13 @@ public final class WHomescreen extends JFrame {
 		}
 	}
 	
+	private void remAllDebug(){
+		for(JInternalFrame cmp: desktopPane.getAllFrames()){
+			cmp.dispose();
+		}
+		
+	}
+	
 	/**
 	 * Creates a WNeuerPatient window
 	 * @param editable
@@ -371,8 +386,8 @@ public final class WHomescreen extends JFrame {
 	 * returns the stored internalframes of the desktop pane
 	 * @return
 	 */
-	public Component[] getJIFs(){
-		return desktopPane.getComponents();
+	public JInternalFrame[] getJIFs(){
+		return desktopPane.getAllFrames();
 	}
 	
 	/**
