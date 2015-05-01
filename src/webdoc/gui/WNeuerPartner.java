@@ -35,14 +35,16 @@ import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2791732649836492001L;
+	//private static final long serialVersionUID = -2791732649836492001L; DON'T #22
 	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
