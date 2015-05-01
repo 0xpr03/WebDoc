@@ -51,8 +51,9 @@ public class JSearchTextField extends JTextField {
 		 * Fired event when an element from the list is chosen.
 		 * 
 		 * @param element
+		 * @return boolean accept false for event abort
 		 */
-		public void changedSelectionEvent(ACElement element);
+		public boolean changedSelectionEvent(ACElement element);
 		/**
 		 * Custom renderer, what should be displayed.
 		 * Returns a String used as display text for an element
@@ -136,9 +137,10 @@ public class JSearchTextField extends JTextField {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
-					popup.setVisible(false);
-					api.changedSelectionEvent(chosenElement);
+					if(api.changedSelectionEvent(chosenElement)){
+						setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
+						popup.setVisible(false);
+					}
 				}
 			}
 		});
