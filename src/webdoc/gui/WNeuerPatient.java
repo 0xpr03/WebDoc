@@ -519,8 +519,6 @@ public class WNeuerPatient extends JInternalFrame {
 	
 	private void exit(){
 		this.dispose();
-		
-		GUIManager.dropJID(this);
 	}
 	
 	@Override
@@ -530,6 +528,10 @@ public class WNeuerPatient extends JInternalFrame {
 		super.dispose();
 		logger.debug("removing..");
 		GUIManager.dropJID(this);
+		if(this.getParent() != null){
+			this.getParent().remove(this);
+		}
+		super.dispose();
 	}
 	
 	private void addPatient() {
