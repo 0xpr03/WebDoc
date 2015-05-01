@@ -54,15 +54,19 @@ public class JSearchTextField extends JTextField {
 		public List<ACElement> getData(String text);
 
 		/**
-		 * Fired event when an element from the list is chosen.
+		 * Fired event when an element from the list is chosen. You have to
+		 * declare by your own what should be displayed inside the Field, if you
+		 * want so.
 		 * 
 		 * @param element
 		 * @return boolean accept false for event abort
 		 */
 		public boolean changedSelectionEvent(ACElement element);
+
 		/**
-		 * Custom renderer, what should be displayed.
-		 * Returns a String used as display text for an element
+		 * Custom renderer, what should be displayed. Returns a String used as
+		 * display text for an element
+		 * 
 		 * @param element
 		 */
 		public String listRenderer(ACElement element);
@@ -97,8 +101,10 @@ public class JSearchTextField extends JTextField {
 
 	private String userText;
 
+	private boolean chosen;
+
 	private boolean notificationDenied;
-	
+
 	public void setAPI(searchFieldAPI api) {
 		this.api = api;
 	}
@@ -115,7 +121,7 @@ public class JSearchTextField extends JTextField {
 		popup.add(scrollPane);
 		popup.setFocusable(false);
 		popup.setBorder(new LineBorder(Color.BLACK, 1));
-		
+
 		getDocument().addDocumentListener(new DocumentListener() {
 			public void insertUpdate(DocumentEvent e) {
 				onTextChanged();
@@ -143,8 +149,7 @@ public class JSearchTextField extends JTextField {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)) {
-					if(api.changedSelectionEvent(chosenElement)){
-						setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
+					if (api.changedSelectionEvent(chosenElement)) {
 						popup.setVisible(false);
 					}
 				}
@@ -189,11 +194,14 @@ public class JSearchTextField extends JTextField {
 
 					case KeyEvent.VK_ENTER:
 						api.changedSelectionEvent(chosenElement);
+						chosen = true;
 					case KeyEvent.VK_LEFT:
 					case KeyEvent.VK_RIGHT: {
 						popup.setVisible(false);
 						break;
 					}
+					default:
+						chosen=false;
 					}
 				} else {
 					if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_UP
@@ -240,6 +248,7 @@ public class JSearchTextField extends JTextField {
 
 	/**
 	 * Sets the text without event handling
+	 * 
 	 * @param text
 	 */
 	public void setTextWithoutNotification(String text) {
