@@ -83,6 +83,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
 	private JButton btnOk;
+	private JButton buttonCancelEdit;
 	/**
 	 * Create the application.
 	 */
@@ -238,14 +239,14 @@ public class WNeuerPatient extends JInternalFrame {
 		});
 		panel.add(btnOk, "cell 1 0,alignx center");
 		
-		JButton buttonCancel = new JButton("Cancel");
-		buttonCancel.addActionListener(new ActionListener() {
+		buttonCancelEdit = new JButton("Cancel");
+		buttonCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
 		
-		panel.add(buttonCancel, "cell 2 0");
+		panel.add(buttonCancelEdit, "cell 2 0");
 		
 		btnNeueAnamnese = new JButton("Neue Anamnese");
 		btnNeueAnamnese.addActionListener(new ActionListener() {
@@ -258,7 +259,7 @@ public class WNeuerPatient extends JInternalFrame {
 		btnNeueAnamnese.setVisible(!editable);
 		
 		
-		buttonCancel.setVisible(editable);
+		buttonCancelEdit.setVisible(editable);
 		
 		allgemeineDaten = new JPanel();
 		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -361,7 +362,7 @@ public class WNeuerPatient extends JInternalFrame {
 						return false;
 				}
 				loadData(element.getID());
-				setNeueAnamnese();
+				updateEditBtns();
 				return true;
 			}
 
@@ -515,11 +516,16 @@ public class WNeuerPatient extends JInternalFrame {
 		textIdentifizierung.setEditable(editable);
 		textPartnerSuche.setEditable(editable);
 		btnOk.setText(editable ? "Speichern" : "Schließen");
-		setNeueAnamnese();
+		buttonCancelEdit.setText(id == -1 ? "Editieren" : "Cancel");
+		updateEditBtns();
 	}
 	
-	private void setNeueAnamnese(){
+	/**
+	 * updates buttons that change on selected element change also
+	 */
+	private void updateEditBtns(){
 		btnNeueAnamnese.setEnabled(id > -1);
+		buttonCancelEdit.setVisible(id > -1 || editable);
 	}
 	
 	@Override
