@@ -58,7 +58,7 @@ public class WNeuerPatient extends JInternalFrame {
 	/**
 	 * 
 	 */
-	//private static final long serialVersionUID = -4647611743598708383L;
+	//private static final long serialVersionUID = -4647611743598708383L; DON'T #22
 	private JSearchTextField textAnimalSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;
@@ -83,22 +83,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
 	private JButton btnOk;
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(final boolean editable, final long id, final int wid) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WNeuerPatient window = new WNeuerPatient(editable, id, wid);
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
 	/**
 	 * Create the application.
 	 */
@@ -334,9 +318,10 @@ public class WNeuerPatient extends JInternalFrame {
 			}
 
 			@Override
-			public void changedSelectionEvent(ACElement element) {
+			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				//doing nothing, we only want to provide a search for the existing types
+				return true;
 			}
 
 			@Override
@@ -369,9 +354,15 @@ public class WNeuerPatient extends JInternalFrame {
 			}
 
 			@Override
-			public void changedSelectionEvent(ACElement element) {
+			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
+				if(editable){
+					if(GUIManager.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..")==0)
+						return false;
+				}
 				loadData(element.getID());
+				setNeueAnamnese();
+				return true;
 			}
 
 			@Override
@@ -484,6 +475,14 @@ public class WNeuerPatient extends JInternalFrame {
 	}
 	
 	/**
+	 * simple instance provider for events
+	 * @return 
+	 */
+	private WNeuerPatient getFrame(){
+		return this;
+	}
+	
+	/**
 	 * Load data with a new ID, wrapper for search event handler
 	 * @param id
 	 * @author "Aron Heinecke"
@@ -516,19 +515,23 @@ public class WNeuerPatient extends JInternalFrame {
 		textIdentifizierung.setEditable(editable);
 		textPartnerSuche.setEditable(editable);
 		btnOk.setText(editable ? "Speichern" : "Schließen");
-		btnNeueAnamnese.setEnabled(editable);
+		setNeueAnamnese();
+	}
+	
+	private void setNeueAnamnese(){
+		btnNeueAnamnese.setEnabled(id > -1);
 	}
 	
 	@Override
 	public void dispose()
 	{
 		if(editable){
-			if(GUIManager.showYesNoDialog(this, "Wollen Sie speichern ohne zu schließen ?", JOptionPane.WARNING_MESSAGE, "Schließen")==0){
-				((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
-				super.dispose();
-				GUIManager.dropJID(this);
-			}
+			if(GUIManager.showYesNoDialog(this, "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Schließen")==1)
+				return;
 		}
+		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		super.dispose();
+		GUIManager.dropJID(this);
 	}
 	
 	private void addPatient() {
