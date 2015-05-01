@@ -77,6 +77,8 @@ public class WNeuerPartner extends JInternalFrame {
 	private long id;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
+	private JTextPane textPaneVerlauf;
+	private JPanel panel_2;
 
 	/**
 	 * Create the application.
@@ -172,7 +174,7 @@ public class WNeuerPartner extends JInternalFrame {
 					.addGap(1))
 		);
 		
-		JTextPane textPaneVerlauf = new JTextPane();
+		textPaneVerlauf = new JTextPane();
 		textPaneVerlauf.setEditable(false);
 		textPaneVerlauf.setBackground(Color.WHITE);
 		sPaneVerlauf.setViewportView(textPaneVerlauf);
@@ -185,9 +187,9 @@ public class WNeuerPartner extends JInternalFrame {
 		scrollPane.setViewportView(textPaneComment);
 		rollendaten.setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(10, 32, 292, 361);
-		rollendaten.add(panel_3);
+		panel_2 = new JPanel();
+		panel_2.setBounds(10, 32, 292, 361);
+		rollendaten.add(panel_2);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		
@@ -246,18 +248,18 @@ public class WNeuerPartner extends JInternalFrame {
 		textEmail = new JTextField();
 		textEmail.setColumns(10);
 		
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_3.createSequentialGroup()
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_2.createSequentialGroup()
 								.addGap(112)
 								.addComponent(lblAdresse))
 							.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_panel_3.createSequentialGroup()
-								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_2.createSequentialGroup()
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 									.addComponent(lblHausnummer)
 									.addComponent(lblPostleitzahl)
 									.addComponent(lblOrt)
@@ -265,56 +267,56 @@ public class WNeuerPartner extends JInternalFrame {
 									.addComponent(lblStrae)
 									.addComponent(lblZusatz))
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 									.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 									.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 									.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 									.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 									.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 									.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_panel_3.createSequentialGroup()
+						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(90)
 							.addComponent(lblKomunikation))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblTelefon)
 								.addComponent(lblHandy)
 								.addComponent(lblFax)
 								.addComponent(lblEmail))
 							.addGap(34)
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 								.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textFax, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(lblAdresse)
 					.addGap(9)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPostleitzahl)
 						.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblOrt)
 						.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblOrtsteil)
 						.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStrae)
 						.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHausnummer)
 						.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblZusatz)
 						.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(14)
@@ -322,24 +324,24 @@ public class WNeuerPartner extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblKomunikation)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTelefon)
 						.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHandy)
 						.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFax)
 						.addComponent(textFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
 						.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(58))
 		);
-		panel_3.setLayout(gl_panel_3);
+		panel_2.setLayout(gl_panel_2);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 404, 292, 37);
