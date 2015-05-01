@@ -44,12 +44,12 @@ public final class GUIManager {
 	/**
 	 * adds an iframe
 	 */
-	public static void addWNeuerPatient(boolean editable, long id){
+	public static synchronized void addWNeuerPatient(boolean editable, long id){
 		whomescreen.addWNeuerPartner(editable, id);
 	}
 	
 	/**
-	 * Provides a multithreaded memory leak & performance test
+	 * Provides a memory leak & performance test
 	 */
 	public static void closeMemoryTest(){
 		if(GUIManager.showErrorYesNoDialog(whomescreen, "Do you really want to run this test ?\nYou won't be able to use the PC for the time of this test!", "MP Test") == 0){
@@ -63,29 +63,37 @@ public final class GUIManager {
 			wpg.setVisible(true);
 			
 			final int processors = Runtime.getRuntime().availableProcessors();
-			wpg.setSubText(String.format("Allocating using %s threads..", processors));
-			ExecutorService taskExecutor = Executors.newFixedThreadPool(processors);
-			taskExecutor.execute(new Runnable() {
-				public void run() {
-					for(int i=0; i <= max/processors; i++){
-						wpg.addSubProgress();
+//			wpg.setSubText(String.format("Allocating using %s threads..", processors));
+//			ExecutorService taskExecutor = Executors.newFixedThreadPool(processors);
+//			taskExecutor.execute(new Runnable() {
+//				public void run() {
+			wpg.setSubText(String.format("Allocating %s times..", max));
+					for(int i=0; i <= max; i++){
 						GUIManager.addWNeuerPatient(false, -1);
+						wpg.addSubProgress();
 					}
-				}
-			});
-			taskExecutor.shutdown();
-			try {
-				taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-			} catch (InterruptedException e) {
-				logger.debug(e);
-			}
+//				}
+//			});
+//			taskExecutor.shutdown();
+//			try {
+//				taskExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//			} catch (InterruptedException e) {
+//				logger.debug(e);
+//			}
 			
 			wpg.setSubMax(max);
-			wpg.setSubText("Freeing..");
+			wpg.setSubText(String.format("Freeing %s found entrys..", whomescreen.getJIFs().length));
 			for(Component jif : whomescreen.getJIFs()){
-				wpg.addSubProgress();
 				((JInternalFrame) jif).dispose();
+				wpg.addSubProgress();
 			}
+			
+			try {
+				// Make sure that the Java VM don't quit this program.
+				Thread.sleep(5000);
+			} catch (Exception e) {/* ignore */
+			}
+			
 			wpg.dispose();
 		}
 	}
