@@ -441,8 +441,9 @@ public class test extends JInternalFrame {
 				return list;
 			}
 			@Override
-			public void changedSelectionEvent(ACElement element) {
+			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
+				return true;
 			}
 			@Override
 			public String listRenderer(ACElement element) {

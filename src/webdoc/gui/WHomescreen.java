@@ -211,7 +211,7 @@ public final class WHomescreen extends JFrame {
 			}
 
 			@Override
-			public void changedSelectionEvent(ACElement element) {
+			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
 				if(element.getType() == ElementType.ANIMAL){
 					//TODO GUIManager.addIFrame(GUIManager.getFramepos()+1, new WPatient(false, element.getID(), GUIManager.getFramepos()+1));
@@ -219,6 +219,7 @@ public final class WHomescreen extends JFrame {
 					logger.debug("atm unsupported");
 				}
 				txtSuche.setText("");
+				return true;
 			}
 
 			@Override
