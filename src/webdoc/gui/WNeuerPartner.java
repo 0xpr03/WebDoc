@@ -1,10 +1,9 @@
 package webdoc.gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,8 +34,6 @@ import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
-
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
