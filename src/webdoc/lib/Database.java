@@ -164,6 +164,21 @@ public class Database{
 		stm.closeOnCompletion();
 	}
 	
+	/**
+	 * Update a patient
+	 * @param name
+	 * @param callname
+	 * @param identification
+	 * @param coatcolor
+	 * @param weight
+	 * @param birthdate
+	 * @param gender
+	 * @param race
+	 * @param comment
+	 * @param picture
+	 * @return affected rows
+	 * @throws SQLException
+	 */
 	public static int updatePatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException {
 		String sql = "UPDATE animal "
 				+"SET ";
