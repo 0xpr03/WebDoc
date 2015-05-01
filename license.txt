@@ -1,9 +1,8 @@
 WebDoc license:
 Copyright © 2015 WebDoc group Aron Heinecke & Jonathan Peper
-
-Even when parts of this license become invalid the remaining parts are still taking effect.
-
 The Trademark WebDoc is owned by the WebDoc group and cannot be claimed.
+
+You are not allowed to share, modify or sell the code including pieces of it.
 
 Disclaimer of Warranty
 
@@ -17,6 +16,9 @@ All distribution rights remain with the author. A non-authorized distribution of
 
 It is not permitted to create and distribute libraries or software components for development using our developer components.
 
-All components including the code are copyright © 2015 by the WebDoc group.
+Even when parts of this license become invalid the remaining parts are still taking effect.
 
 Contact: aron.heinecke@t-online.de
+
+3rd libraries:
+All 3rd libraries are used respective their own license.
