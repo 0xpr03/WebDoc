@@ -43,27 +43,33 @@ public final class GUIManager {
 	 * adds an iframe
 	 */
 	public static void addWNeuerPatient(boolean editable, long id){
-		whomescreen.addJIF(new WNeuerPatient(editable, id));
+		whomescreen.addWNeuerPartner(editable, id);
 	}
 	
 	public static void closeMemoryTest(){
-		WProgress wpg = new WProgress();
-		wpg.setTitle("Running memory performance test..");
-		wpg.setMax(2);
-		int max = 10000;
-		wpg.setSubMax(10000);
-		wpg.setVisible(true);
-		
-		for(int i=0; i <= max; i++){
-			wpg.addSubProgress();
-			GUIManager.addWNeuerPatient(false, -1);
+		if(GUIManager.showErrorYesNoDialog(whomescreen, "Do you really want to run this test ?\nYou won't be able to use the PC for the time of this test!", "MP Test") == 0){
+			WProgress wpg = new WProgress();
+			wpg.setTitle("MP Test");
+			wpg.setText("Running memory-performance test with InternalFrames.\nThis DOES cause high cpu & memory load.");
+			wpg.setMax(2);
+			int max = 5000;
+			wpg.setSubMax(max);
+			wpg.setVisible(true);
+			
+			wpg.setSubText("Allocating..");
+			for(int i=0; i <= max; i++){
+				wpg.addSubProgress();
+				GUIManager.addWNeuerPatient(false, -1);
+			}
+			
+			wpg.setSubMax(max);
+			wpg.setSubText("Freeing..");
+			for(Component jif : whomescreen.getJIFs()){
+				wpg.addSubProgress();
+				((JInternalFrame) jif).dispose();
+			}
+			wpg.dispose();
 		}
-		
-		wpg.setSubMax(10000);
-		for(Component jif : whomescreen.getJIFs()){
-			((JInternalFrame) jif).dispose();
-		}
-		wpg.dispose();
 	}
 	
 	/**
