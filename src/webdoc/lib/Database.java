@@ -143,8 +143,8 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
-		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+	public static long insertPatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException{
+		String sql = "{call insertPatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 		CallableStatement stm = connection.prepareCall(sql);
 		stm.setString(1, name);
 		stm.setString(2, callname);
@@ -156,12 +156,16 @@ public class Database{
 		stm.setString(8, race);
 		stm.setString(9, comment);
 		stm.setLong(10, 0);
+		stm.registerOutParameter(11, java.sql.Types.INTEGER);
 		
 		if(picture != null)
 			logger.error("Picture currently not implemented!");
 		
 		stm.execute();
+		long id = stm.getLong(11);
+		logger.debug("ID: {}",id);
 		stm.closeOnCompletion();
+		return id;
 	}
 	
 	/**
@@ -183,23 +187,23 @@ public class Database{
 		String sql = "UPDATE animal "
 				+"SET ";
 		CallableStatement stm = connection.prepareCall(sql);
-		stm.setString(2, name);
-		stm.setString(3, callname);
-		stm.setString(4, identification);
-		stm.setString(5, coatcolor);
-		stm.setDouble(6, weight);
-		stm.setDate(7, birthdate);
-		stm.setBoolean(8, gender);
-		stm.setString(9, race);
-		stm.setString(10, comment);
-		stm.setLong(11, 0);
+		stm.setString(1, name);
+		stm.setString(2, callname);
+		stm.setString(3, identification);
+		stm.setString(4, coatcolor);
+		stm.setDouble(5, weight);
+		stm.setDate(6, birthdate);
+		stm.setBoolean(7, gender);
+		stm.setString(8, race);
+		stm.setString(9, comment);
+		stm.setLong(10, 0);
 		
 		if(picture != null)
 			logger.error("Picture currently not implemented!");
 		
-		int affected = stm.executeUpdate();
+		int affectedlines = stm.executeUpdate();
 		stm.close();
-		return affected;
+		return affectedlines;
 	}
 	
 	/**
