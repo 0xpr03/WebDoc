@@ -213,19 +213,24 @@ public class Database{
 	 * @param title
 	 * @param birthday
 	 * @param comment
+	 * @return long id
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 				+"VALUES (?,?,?,?,?)";
-		PreparedStatement partnerStmt = connection.prepareStatement(sql);
-		partnerStmt.setString(1, firstname);
-		partnerStmt.setString(2, secondname);
-		partnerStmt.setString(3, title);
-		partnerStmt.setString(4, comment);
-		partnerStmt.setDate(5, birthday);
-		partnerStmt.executeUpdate();
+		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stm.setString(1, firstname);
+		stm.setString(2, secondname);
+		stm.setString(3, title);
+		stm.setString(4, comment);
+		stm.setDate(5, birthday);
+		stm.executeUpdate();
+		stm.getGeneratedKeys().next();
+		long id = stm.getGeneratedKeys().getLong(1);
+		stm.close();
+		return id;
 	}
 	
 	/**
