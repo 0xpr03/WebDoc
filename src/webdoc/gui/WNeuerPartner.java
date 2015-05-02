@@ -506,6 +506,10 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
 	
+	private void updateTitle(String name, String nachname){
+		this.setTitle("Partner - "+name+" "+nachname);
+	}
+	
 	/**
 	 * adds a partner
 	 */
