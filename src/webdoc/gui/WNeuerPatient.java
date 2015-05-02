@@ -467,6 +467,10 @@ public class WNeuerPatient extends JInternalFrame {
 		loadData();
 	}
 	
+	private void updateTitle(String name, String rufname){
+		this.setTitle("Patient - "+name+" "+rufname);
+	}
+	
 	/**
 	 * Loads the animal data if id not -1
 	 * (while id 0 is also never given out)
@@ -487,6 +491,8 @@ public class WNeuerPatient extends JInternalFrame {
 				logger.debug("picID: {}", result.getString(9));
 				txtBemerkung.setText(result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
+				updateTitle(result.getString(1), result.getString(2));
+				result.close();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
