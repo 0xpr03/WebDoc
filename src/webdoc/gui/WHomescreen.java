@@ -64,7 +64,7 @@ public final class WHomescreen extends JFrame {
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
 	private PreparedStatement searchStm = null;
-	private test test = new test();
+	private test FTest = new test();
 
 	/**
 	 * Launch the application.
@@ -152,7 +152,7 @@ public final class WHomescreen extends JFrame {
 		desktopPane = new JDesktopPane();
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FNeuerPatient);
-		desktopPane.add(test);
+		desktopPane.add(FTest);
 		desktopPane.setBackground(Color.WHITE);
 		desktopPanel.add(desktopPane, BorderLayout.CENTER);
 		GroupLayout gl_secPanel = new GroupLayout(secPanel);
@@ -305,10 +305,18 @@ public final class WHomescreen extends JFrame {
 					//TODO: show main menu					
 					break;
 				case N_PATIENT:
-					reOpen(FNeuerPatient);
+					if(!jifToFront(FNeuerPatient)){
+						FNeuerPatient = new WNeuerPatient(true, -1);
+						FNeuerPatient.setVisible(true);
+						desktopPane.add(FNeuerPatient);
+					}
 					break;
 				case N_PARTNER:
-					reOpen(FNeuerPartner);
+					if(!jifToFront(FNeuerPartner)){
+						FNeuerPartner = new WNeuerPartner(true, -1);
+						FNeuerPartner.setVisible(true);
+						desktopPane.add(FNeuerPartner);
+					}
 					break;
 				case PARTNER:
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
@@ -317,7 +325,11 @@ public final class WHomescreen extends JFrame {
 					addWNeuerPatient(false, -1);
 					break;
 				case TEST:
-					reOpen(test);
+					if(!jifToFront(FTest)){
+						FTest = new test();
+						FTest.setVisible(true);
+						desktopPane.add(FTest);
+					}
 					break;
 				case N_BEHANDLUNG:
 					//TODO: show new behandlung
@@ -328,26 +340,24 @@ public final class WHomescreen extends JFrame {
 			}
 		}
 	}
-	
-	private void reOpen(JInternalFrame jif){
-		if(jif == null){
-			return;
-		}
-		if(jif.isClosed()){
-			logger.debug("JIF = closed");
-			desktopPane.remove(jif);
-			desktopPane.add(jif);
-			jif.setVisible(true);
-		}else if(!jif.isVisible()){
-			jif.setVisible(true);
-		}else if(jif.isIcon()){
+
+	/**
+	 * Brings a JInternalFrame to front, else return false
+	 * @param jif
+	 * @return
+	 */
+	private boolean jifToFront(JInternalFrame jif){
+		if(jif.isDisplayable()){
 			try {
 				jif.setIcon(false);
 			} catch (PropertyVetoException e) {
 				logger.debug(e);
-			};
-		}else{
+			}
+			jif.setVisible(true);
 			jif.toFront();
+			return true;
+		}else{
+			return false;
 		}
 	}
 	
@@ -410,6 +420,10 @@ public final class WHomescreen extends JFrame {
 	}
 	
 	public void callWNewAnamnesis(){
-		reOpen(FNeueAnamnese);
+		if(!jifToFront(FNeueAnamnese)){
+			FNeueAnamnese = new WNeueAnamnese(false, null);
+			FNeueAnamnese.setVisible(true);
+			desktopPane.add(FNeueAnamnese);
+		}
 	}
 }
