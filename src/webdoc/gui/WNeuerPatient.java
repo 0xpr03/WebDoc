@@ -483,7 +483,7 @@ public class WNeuerPatient extends JInternalFrame {
 				strFarbe.setText(result.getString(4));
 				spinGewicht.setValue(result.getDouble(5));
 				spinBirthdate.setValue(result.getDate(6));
-				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[0] : geschlecht_lokalisiert[1]);
+				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[1] : geschlecht_lokalisiert[2]);
 				logger.debug("picID: {}", result.getString(9));
 				txtBemerkung.setText(result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
@@ -596,6 +596,8 @@ public class WNeuerPatient extends JInternalFrame {
 					Database.updatePatient(id,strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
 							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
 							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
+					editable = false;
+					setEditable();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
 					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
