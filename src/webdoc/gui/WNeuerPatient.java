@@ -571,7 +571,7 @@ public class WNeuerPatient extends JInternalFrame {
 				try {
 					id = Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
 							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
-							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
+							.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung.getText(), null);
 					editable = false;
 					setEditable();
 				} catch (SQLException e) {
@@ -595,7 +595,7 @@ public class WNeuerPatient extends JInternalFrame {
 				try {
 					Database.updatePatient(id,strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
 							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
-							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
+							.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung.getText(), null);
 					editable = false;
 					setEditable();
 				} catch (SQLException e) {
