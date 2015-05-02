@@ -183,20 +183,20 @@ public class Database{
 	 * @return affected rows
 	 * @throws SQLException
 	 */
-	public static int updatePatient(String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException {
-		String sql = "UPDATE animal "
-				+"SET ";
+	public static int updatePatient(long id,String name, String callname, String identification, String coatcolor, double weight, Date birthdate, boolean gender, String race, String comment, Path picture) throws SQLException {
+		String sql = "{call updatePatient(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 		CallableStatement stm = connection.prepareCall(sql);
-		stm.setString(1, name);
-		stm.setString(2, callname);
-		stm.setString(3, identification);
-		stm.setString(4, coatcolor);
-		stm.setDouble(5, weight);
-		stm.setDate(6, birthdate);
-		stm.setBoolean(7, gender);
-		stm.setString(8, race);
-		stm.setString(9, comment);
-		stm.setLong(10, 0);
+		stm.setLong(1, id);
+		stm.setString(2, name);
+		stm.setString(3, callname);
+		stm.setString(4, identification);
+		stm.setString(5, coatcolor);
+		stm.setDouble(6, weight);
+		stm.setDate(7, birthdate);
+		stm.setBoolean(8, gender);
+		stm.setString(9, race);
+		stm.setString(10, comment);
+		stm.setLong(11, 0);
 		
 		if(picture != null)
 			logger.error("Picture currently not implemented!");
