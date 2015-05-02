@@ -353,7 +353,14 @@ public class WNeuerPartner extends JInternalFrame {
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addPartner();
+				if(id == -1){
+					addPartner();
+				}else if(editable){
+					updatePartner();
+				}else{
+					dispose();
+					return;
+				}
 			}
 
 		});
@@ -362,7 +369,18 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit = new JButton();
 		btnCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				exit();
+				if(id == -1){
+					dispose();
+				}else if(editable){
+					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				}else{
+					editable = true;
+					setEditable();
+				}
 			}
 		});
 		panel.add(btnCancelEdit, "cell 2 0");
@@ -428,6 +446,35 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 	
 	/**
+	 * simple instance provider for events
+	 * @return 
+	 */
+	private WNeuerPartner getFrame(){
+		return this;
+	}
+	
+	/**
+	 * Load data with a new ID, wrapper for search event handler
+	 * @param id
+	 * @author "Aron Heinecke"
+	 */
+	private void loadData(long id){
+		this.id = id;
+		loadData();
+	}
+	
+	/**
+	 * Loads the animal data if id not -1
+	 * (while id 0 is also never given out)
+	 * @author "Aron Heinecke"
+	 */
+	private void loadData(){
+		if(id != -1){
+			logger.debug("currently not implemented");
+		}
+	}
+	
+	/**
 	 * ReSet editable for all input elements
 	 * @author "Aron Heinecke"
 	 */
@@ -459,16 +506,30 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
 	
+	/**
+	 * adds a partner
+	 */
 	protected void addPartner() {
 		if(allSet()){
 			try {
-				Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
+				id = Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
+				editable = false;
+				setEditable();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 			}
 		}else{
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
+	}
+	
+	/**
+	 * updates a partner
+	 */
+	private void updatePartner() {
+		logger.debug("no updating implemented!");
+		editable = false;
+		setEditable();
 	}
 	
 	@Override
