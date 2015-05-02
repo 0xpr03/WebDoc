@@ -235,8 +235,10 @@ public class WNeuerPatient extends JInternalFrame {
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(editable){
+				if(id == -1){
 					addPatient();
+				}else if(editable){
+					updatePatient();
 				}else{
 					dispose();
 					return;
@@ -557,6 +559,10 @@ public class WNeuerPatient extends JInternalFrame {
 		GUIManager.dropJID(this);
 	}
 	
+	/**
+	 * add a patient
+	 * @author "Aron Heinecke"
+	 */
 	private void addPatient() {
 		//TODO: add picture support
 		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
@@ -568,6 +574,28 @@ public class WNeuerPatient extends JInternalFrame {
 							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
 					editable = false;
 					setEditable();
+				} catch (SQLException e) {
+					DBError error = Database.DBExceptionConverter(e);
+					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+				}
+			}else{
+				JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");
+				logger.info("No Gender selected!");
+			}
+		}
+	}
+	/**
+	 * updates the patient
+	 * @author "Aron Heinecke"
+	 */
+	private void updatePatient() {
+		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
+			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
+			if(gender.getType() != GenderType.UNKNOWN){
+				try {
+					Database.updatePatient(id,strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
+							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
+							.getType() == GenderType.MALE, textRasse.getText(), txtBemerkung.getText(), null);
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
 					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
