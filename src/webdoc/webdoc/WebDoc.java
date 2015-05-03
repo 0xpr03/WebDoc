@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.WDBConnect;
+import webdoc.gui.WLicense;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
@@ -29,7 +30,7 @@ import webdoc.lib.dbTools;
 public class WebDoc {
 	private static final String CONFIG_FILE_NAME = "config.yml";
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
-	private static final String LICENSE_FILE_PATH = "license.txt";
+	private static final String LICENSE_FILE_PATH = "/license.txt";
 	
 	private  static final Logger logger = LogManager.getLogger();
 	private static final String VERSION = "0.4 alpha";
@@ -121,6 +122,7 @@ public class WebDoc {
 	private static void startup(){
 		logger.entry();
 		if(Config.getBoolValue("firstrun")){
+			new WLicense(true);
 			setup();
 		}else{
 			DBError dberr = Database.connect(true,false);
