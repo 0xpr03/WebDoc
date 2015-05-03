@@ -25,6 +25,8 @@ import javax.swing.JSeparator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 
+import org.apache.logging.log4j.LogManager;
+
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
 
@@ -169,7 +171,8 @@ public class WLicense extends JDialog {
 				sb.append(line+"\n");
 			}
 			return sb.toString();
-		}catch(IOException e){
+		}catch(IOException | NullPointerException e){
+			LogManager.getLogger().fatal("Error loading license!\n{}",e);
 			GUIManager.showErrorDialog(this, "Unable to load license!\nAborting..", "Error: License Loading");
 			System.exit(404);
 			return null;
