@@ -37,6 +37,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * License Agreement window
@@ -63,10 +65,18 @@ public class WLicense extends JDialog {
 	 * Create the dialog.
 	 */
 	public WLicense() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				System.exit(1);
+			}
+		});
+		setModal(true);
 		setTitle("WebDoc License Agreement");
 		setAlwaysOnTop(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
+		setLocationRelativeTo(null); // center it
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		licensePanel.setBorder(null);
 		getContentPane().add(licensePanel, BorderLayout.CENTER);
@@ -132,6 +142,13 @@ public class WLicense extends JDialog {
 			getContentPane().add(downPane, BorderLayout.PAGE_END);
 			{
 				okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(rdbtnIAgree.isSelected() && !rdbtnIDoNot.isSelected()){
+							dispose();
+						}
+					}
+				});
 				okButton.setEnabled(false);
 				okButton.setActionCommand("OK");
 				downPane.add(okButton);
@@ -139,6 +156,11 @@ public class WLicense extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(1);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				downPane.add(cancelButton);
 			}
@@ -155,7 +177,7 @@ public class WLicense extends JDialog {
 			
 			JLabel lblLicenseAgreement = new JLabel("<html><b>License Agreement</b><br><div style=\"margin-left:10px;\">Please read the following important information before continuing.</div></html>");
 			panelTop.add(lblLicenseAgreement);
-			panelTop.add(separator, BoxLayout.LINE_AXIS);
+			panelTop.add(separator, BoxLayout.Y_AXIS);
 		}
 	}
 
