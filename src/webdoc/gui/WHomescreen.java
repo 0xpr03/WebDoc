@@ -97,7 +97,7 @@ public final class WHomescreen extends JFrame {
 		setTitle("WebDoc Home");
 		setBounds(100, 100, 1936, 980);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setBackground(Color.WHITE);
@@ -250,6 +250,11 @@ public final class WHomescreen extends JFrame {
 		menuBar.add(mnMenu);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		mnMenu.add(mntmExit);
 		
 		JMenu mnHelp = new JMenu("Help");
@@ -358,6 +363,20 @@ public final class WHomescreen extends JFrame {
 			return true;
 		}else{
 			return false;
+		}
+	}
+	
+	@Override
+	public void dispose(){
+		logger.debug("disposing main..");
+		if(FNeuerPatient.isVisible()) FNeuerPatient.dispose();
+		if(FNeuerPartner.isVisible()) FNeuerPartner.dispose();
+		if(FNeueAnamnese.isVisible()) FNeueAnamnese.dispose();
+		
+		if(!FNeuerPatient.isVisible() && !FNeuerPartner.isVisible() && !FNeueAnamnese.isVisible()){
+			logger.debug("all closed..");
+			super.dispose();
+			System.exit(1);
 		}
 	}
 	
