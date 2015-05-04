@@ -183,7 +183,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	 */
 	public WNeueAnamnese(boolean editable,String strName) {
 		this.editabel = editable;
-		setEditable(editable);
+		//setEditable(editable);
 		initialize(editable, strName);
 		setFrameIcon(null);
 		setResizable(true);
