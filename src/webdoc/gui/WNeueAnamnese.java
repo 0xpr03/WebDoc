@@ -35,6 +35,8 @@ import javax.swing.JEditorPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WNeueAnamnese extends JInternalFrame {
 
@@ -45,10 +47,10 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextField textField_8;
 	private JSpinner spinBirthdate_1;
 	private DateEditor dateEditor;
-	private JTextPane textPane_10;
-	private JTextPane textPane_11;
-	private JTextPane textPane_12;
-	private JTextPane textPane_13;
+	private JTextPane tpEndokrinium;
+	private JTextPane tPSchilddruese;
+	private JTextPane tPBauchspeicheldruese;
+	private JTextPane tPZNS;
 	private JTextPane textPane_17;
 	private JTextPane textPane_16;
 	private JTextPane textPane_15;
@@ -93,7 +95,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JScrollPane scrollPane_20;
 	private JComboBox CBSchmerzempfindlichkeit;
 	private JComboBox cBDenkenSchmerzen;
-	private JScrollPane scrollPane_21;
+	private JScrollPane sPSchmerzmittel;
 	private JScrollPane sPVerusachenSchmerzen;
 	private JScrollPane sPFunktionenMotorik;
 	private JComboBox cBKöperteilBewegen;
@@ -114,10 +116,10 @@ public class WNeueAnamnese extends JInternalFrame {
 		  textField_7.setEditable(editable);
 		  textField_8.setEditable(editable);
 		  spinBirthdate_1.setEnabled(editable);
-		  textPane_10.setEditable(editable);
-		  textPane_11.setEditable(editable);
-		  textPane_12.setEditable(editable);
-		  textPane_13.setEditable(editable);
+		  tpEndokrinium.setEditable(editable);
+		  tPSchilddruese.setEditable(editable);
+		  tPBauchspeicheldruese.setEditable(editable);
+		  tPZNS.setEditable(editable);
 		  textPane_17.setEditable(editable);
 		  textPane_16.setEditable(editable);
 		  textPane_15.setEditable(editable);
@@ -152,7 +154,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_20.setEnabled(editable);
 		  CBSchmerzempfindlichkeit.setEditable(editable);
 		  cBDenkenSchmerzen.setEditable(editable);
-		  scrollPane_21.setEnabled(editable);
+		  sPSchmerzmittel.setEnabled(editable);
 		  sPVerusachenSchmerzen.setEnabled(editable);
 		  sPFunktionenMotorik.setEnabled(editable);
 		  cBKöperteilBewegen.setEditable(editable);
@@ -183,7 +185,6 @@ public class WNeueAnamnese extends JInternalFrame {
 	 */
 	public WNeueAnamnese(boolean editable,String strName) {
 		this.editabel = editable;
-		//setEditable(editable);
 		initialize(editable, strName);
 		setFrameIcon(null);
 		setResizable(true);
@@ -196,7 +197,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(new MigLayout("", "[][]", "[]"));
 		
-		JButton btnOk = new JButton("Ok");
+		JButton btnOk = new JButton("Speichern");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		panel_3.add(btnOk, "cell 0 0");
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -435,14 +440,14 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		scrollPane_8 = new JScrollPane();
 		
-		JTextPane textPane_7 = new JTextPane();
-		scrollPane_7.setViewportView(textPane_7);
+		JTextPane tPHerzKreislauf = new JTextPane();
+		scrollPane_7.setViewportView(tPHerzKreislauf);
 		
-		JTextPane textPane_6 = new JTextPane();
-		scrollPane_6.setViewportView(textPane_6);
+		JTextPane tPImpfungen = new JTextPane();
+		scrollPane_6.setViewportView(tPImpfungen);
 		
-		JTextPane textPane_5 = new JTextPane();
-		scrollPane.setViewportView(textPane_5);
+		JTextPane tPInfektionen = new JTextPane();
+		scrollPane.setViewportView(tPInfektionen);
 		GroupLayout gl_pContent = new GroupLayout(pContent);
 		gl_pContent.setHorizontalGroup(
 			gl_pContent.createParallelGroup(Alignment.LEADING)
@@ -468,8 +473,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel.add(lblAtmung, "cell 0 3,alignx left,aligny top");
 		panel.add(scrollPane_8, "cell 1 3,grow");
 		
-		JTextPane textPane_8 = new JTextPane();
-		scrollPane_8.setViewportView(textPane_8);
+		JTextPane tPAtmung = new JTextPane();
+		scrollPane_8.setViewportView(tPAtmung);
 		panel.add(lblInfektionserkrankungen, "cell 0 0,alignx left,aligny top");
 		panel.add(lblRegelmigeImpfungen, "cell 0 1,growx,aligny top");
 		panel.add(lblHerzkreislauf, "cell 0 2,alignx left,aligny top");
@@ -483,8 +488,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		scrollPane_9 = new JScrollPane();
 		panel.add(scrollPane_9, "cell 1 4,grow");
 		
-		JTextPane textPane_9 = new JTextPane();
-		scrollPane_9.setViewportView(textPane_9);
+		JTextPane tPVerdauung = new JTextPane();
+		scrollPane_9.setViewportView(tPVerdauung);
 		pContent.setLayout(gl_pContent);
 		
 		JPanel panel_4 = new JPanel();
@@ -515,28 +520,28 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_5.add(lblEndokrinium, "cell 0 0,alignx left,aligny top");
 		panel_5.add(scrollPane_10, "cell 1 0,grow");
 		
-		textPane_10 = new JTextPane();
-		scrollPane_10.setViewportView(textPane_10);
+		tpEndokrinium = new JTextPane();
+		scrollPane_10.setViewportView(tpEndokrinium);
 		panel_5.add(lblSchilddrse, "cell 0 1,alignx left,aligny top");
 		panel_5.add(scrollPane_11, "cell 1 1,grow");
 		
-		textPane_11 = new JTextPane();
-		scrollPane_11.setViewportView(textPane_11);
+		tPSchilddruese = new JTextPane();
+		scrollPane_11.setViewportView(tPSchilddruese);
 		panel_5.add(lblBauchspeicheldrse, "cell 0 2,alignx left,aligny top");
 		panel_5.add(scrollPane_12, "cell 1 2,grow");
 		
-		textPane_12 = new JTextPane();
-		scrollPane_12.setViewportView(textPane_12);
+		tPBauchspeicheldruese = new JTextPane();
+		scrollPane_12.setViewportView(tPBauchspeicheldruese);
 		panel_5.add(lblZns, "cell 0 3,alignx left,aligny top");
 		panel_5.add(scrollPane_13, "cell 1 3,grow");
 		
-		textPane_13 = new JTextPane();
-		scrollPane_13.setViewportView(textPane_13);
+		tPZNS = new JTextPane();
+		scrollPane_13.setViewportView(tPZNS);
 		panel_5.add(lblEpilemtiformeAnflle, "cell 0 4,alignx trailing,aligny center");
 		
-		JComboBox comboBox_7 = new JComboBox();
-		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"Keine", "Gleichgewichtsstörungen", "Vorübergehendes Schwanken"}));
-		panel_5.add(comboBox_7, "cell 1 4,growx");
+		JComboBox cBEpiAnfaelle = new JComboBox();
+		cBEpiAnfaelle.setModel(new DefaultComboBoxModel(new String[] {"Keine", "Gleichgewichtsstörungen", "Vorübergehendes Schwanken"}));
+		panel_5.add(cBEpiAnfaelle, "cell 1 4,growx");
 		
 		JPanel panel_6 = new JPanel();
 		panel_4.add(panel_6);
@@ -648,11 +653,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		JLabel label_12 = new JLabel("Welche Bewegungen verursachen den Schmerz?");
 		panel_10.setLayout(new MigLayout("", "[232px][452px,grow]", "[70px,grow][70px,grow]"));
 		
-		scrollPane_21 = new JScrollPane();
-		panel_10.add(scrollPane_21, "cell 1 0,grow");
+		sPSchmerzmittel = new JScrollPane();
+		panel_10.add(sPSchmerzmittel, "cell 1 0,grow");
 		
 		JEditorPane ePSchmerzmittel = new JEditorPane();
-		scrollPane_21.setViewportView(ePSchmerzmittel);
+		sPSchmerzmittel.setViewportView(ePSchmerzmittel);
 		panel_10.add(label_12, "cell 0 1,alignx left,aligny top");
 		panel_10.add(label_11, "cell 0 0,alignx center,aligny top");
 		
@@ -739,6 +744,13 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		
 		getContentPane().setLayout(groupLayout);
+		
+		
+		
+		
+		//////////////////////////////////////////
+		btnOk.setText(editable ? "Speichern" : "Schließen");
+		setEditable(editable);
 	}
 
 	/**
