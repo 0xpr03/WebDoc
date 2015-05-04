@@ -31,17 +31,48 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import javax.swing.DefaultComboBoxModel;
 
 public class WNeueAnamnese extends JInternalFrame {
 
 	private JFrame frame;
 	private boolean editabel;
-	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JSpinner spinBirthdate_1;
 	private DateEditor dateEditor;
+	private JTextPane textPane_10;
+	private JTextPane textPane_11;
+	private JTextPane textPane_12;
+	private JTextPane textPane_13;
+	private JTextPane textPane_17;
+	private JTextPane textPane_16;
+	private JTextPane textPane_15;
+	private JTextPane textPane_14;
+	private JEditorPane editorPane;
+	private JEditorPane editorPane_1;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JTextField textField;
+	private JSeparator separator;
+	private JLabel label_3;
+	private JLabel label_4;
+	private JLabel label_5;
+	private JScrollPane scrollPane_5;
+	private JTextPane textPane;
+	private JLabel lblVerletzungen;
+	private JScrollPane scrollPane_3;
+	private JTextPane textPane_3;
+	private JLabel lblNarben;
+	private JScrollPane scrollPane_4;
+	private JTextPane textPane_2;
+	private JLabel lblVerhaltensauflligkeiten;
+	private JScrollPane scrollPane_2;
+	private JTextPane textPane_4;
 
 	/**
 	 * Launch the application.
@@ -115,25 +146,25 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel label = new JLabel("Änderungen im Familiengefüge:");
 		
-		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5 = new JScrollPane();
 		
-		JLabel label_1 = new JLabel("Name:");
+		label_1 = new JLabel("Name:");
 		
-		JLabel label_2 = new JLabel("Rufname:");
+		label_2 = new JLabel("Rufname:");
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		textField = new JTextField();
+		textField.setColumns(10);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
 		
-		JSeparator separator_1 = new JSeparator();
+		separator = new JSeparator();
 		
-		JLabel label_3 = new JLabel("Verwendungszweck:");
+		label_3 = new JLabel("Verwendungszweck:");
 		
-		JLabel label_4 = new JLabel("Im Besitz seit:");
+		label_4 = new JLabel("Im Besitz seit:");
 		
-		JLabel label_5 = new JLabel("Tier stammt von:");
+		label_5 = new JLabel("Tier stammt von:");
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
@@ -153,10 +184,10 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addComponent(label_2))
 					.addGap(2)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(textField_5)
+						.addComponent(textField)
 						.addComponent(textField_6, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
 					.addContainerGap(163, Short.MAX_VALUE))
-				.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 421, Short.MAX_VALUE)
+				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 421, Short.MAX_VALUE)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addComponent(label_3)
@@ -186,9 +217,9 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_2)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_3)
@@ -207,7 +238,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE))
 		);
 		
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
 		scrollPane_5.setViewportView(textPane);
 		panel_2.setLayout(gl_panel_2);
 		
@@ -217,17 +248,17 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		
-		JLabel lblVerhaltensauflligkeiten = new JLabel("Verhaltensaufälligkeiten:");
+		lblVerhaltensauflligkeiten = new JLabel("Verhaltensaufälligkeiten:");
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2 = new JScrollPane();
 		
-		JLabel lblVerletzungen = new JLabel("Verletzungen:");
+		lblVerletzungen = new JLabel("Verletzungen:");
 		
-		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3 = new JScrollPane();
 		
-		JLabel lblNarben = new JLabel("Narben:");
+		lblNarben = new JLabel("Narben:");
 		
-		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4 = new JScrollPane();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -284,13 +315,13 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addContainerGap())
 		);
 		
-		JTextPane textPane_4 = new JTextPane();
+		textPane_4 = new JTextPane();
 		scrollPane_2.setViewportView(textPane_4);
 		
-		JTextPane textPane_3 = new JTextPane();
+		textPane_3 = new JTextPane();
 		scrollPane_3.setViewportView(textPane_3);
 		
-		JTextPane textPane_2 = new JTextPane();
+		textPane_2 = new JTextPane();
 		scrollPane_4.setViewportView(textPane_2);
 		
 		JTextPane textPane_1 = new JTextPane();
@@ -391,31 +422,32 @@ public class WNeueAnamnese extends JInternalFrame {
 		JScrollPane scrollPane_13 = new JScrollPane();
 		
 		JLabel lblEpilemtiformeAnflle = new JLabel("Epilemtiforme Anfälle:");
-		
-		JSpinner spinner = new JSpinner();
-		panel_5.setLayout(new MigLayout("", "[104px][335px]", "[104px][105px][104px][104px][20px]"));
+		panel_5.setLayout(new MigLayout("", "[104px][335px,grow]", "[104px][105px][104px][104px][20px]"));
 		panel_5.add(lblEndokrinium, "cell 0 0,alignx left,aligny top");
 		panel_5.add(scrollPane_10, "cell 1 0,grow");
 		
-		JTextPane textPane_10 = new JTextPane();
+		textPane_10 = new JTextPane();
 		scrollPane_10.setViewportView(textPane_10);
 		panel_5.add(lblSchilddrse, "cell 0 1,alignx left,aligny top");
 		panel_5.add(scrollPane_11, "cell 1 1,grow");
 		
-		JTextPane textPane_11 = new JTextPane();
+		textPane_11 = new JTextPane();
 		scrollPane_11.setViewportView(textPane_11);
 		panel_5.add(lblBauchspeicheldrse, "cell 0 2,alignx left,aligny top");
 		panel_5.add(scrollPane_12, "cell 1 2,grow");
 		
-		JTextPane textPane_12 = new JTextPane();
+		textPane_12 = new JTextPane();
 		scrollPane_12.setViewportView(textPane_12);
 		panel_5.add(lblZns, "cell 0 3,alignx left,aligny top");
 		panel_5.add(scrollPane_13, "cell 1 3,grow");
 		
-		JTextPane textPane_13 = new JTextPane();
+		textPane_13 = new JTextPane();
 		scrollPane_13.setViewportView(textPane_13);
-		panel_5.add(lblEpilemtiformeAnflle, "cell 0 4,alignx left,aligny center");
-		panel_5.add(spinner, "cell 1 4,growx,aligny top");
+		panel_5.add(lblEpilemtiformeAnflle, "cell 0 4,alignx trailing,aligny center");
+		
+		JComboBox comboBox_7 = new JComboBox();
+		comboBox_7.setModel(new DefaultComboBoxModel(new String[] {"Keine", "Gleichgewichtsstörungen", "Vorübergehendes Schwanken"}));
+		panel_5.add(comboBox_7, "cell 1 4,growx");
 		
 		JPanel panel_6 = new JPanel();
 		panel_4.add(panel_6);
@@ -437,24 +469,24 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_6.add(lblMedikamente, "cell 0 0,alignx left,aligny top");
 		panel_6.add(scrollPane_14, "cell 1 0,grow");
 		
-		JTextPane textPane_17 = new JTextPane();
+		textPane_17 = new JTextPane();
 		scrollPane_14.setViewportView(textPane_17);
 		panel_6.add(lblRntgen, "cell 0 1,alignx left,aligny top");
 		panel_6.add(scrollPane_15, "cell 1 1,grow");
 		
-		JTextPane textPane_16 = new JTextPane();
+		textPane_16 = new JTextPane();
 		scrollPane_15.setViewportView(textPane_16);
 		panel_6.add(lblCtmrt, "cell 0 2,alignx left,aligny top");
 		panel_6.add(scrollPane_16, "cell 1 2,grow");
 		
-		JTextPane textPane_15 = new JTextPane();
+		textPane_15 = new JTextPane();
 		scrollPane_16.setViewportView(textPane_15);
 		panel_6.add(lblSonstiges, "cell 0 3,alignx left,aligny top");
 		
 		JScrollPane scrollPane_17 = new JScrollPane();
 		panel_6.add(scrollPane_17, "cell 1 3,grow");
 		
-		JTextPane textPane_14 = new JTextPane();
+		textPane_14 = new JTextPane();
 		scrollPane_17.setViewportView(textPane_14);
 		
 		JPanel panel_7 = new JPanel();
@@ -472,148 +504,149 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JPanel panel_8 = new JPanel();
 		tabber.addTab("spezielle symptombezogene Anamnese", null, panel_8, null);
-		panel_8.setLayout(new MigLayout("", "[519px][442px][348px]", "[557px]"));
+		panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.X_AXIS));
 		
 		JPanel panel_9 = new JPanel();
-		panel_8.add(panel_9, "cell 0 0,alignx center,aligny center");
+		panel_8.add(panel_9);
 		
-		JLabel lblHauptproblem = new JLabel("Hauptproblem:");
+		JLabel label_6 = new JLabel("Hauptproblem:");
 		
 		JScrollPane scrollPane_18 = new JScrollPane();
 		
-		JLabel lblSchilderungDesPatientenbesitzers = new JLabel("Schilderung des Patientenbesitzers:");
+		JLabel label_7 = new JLabel("Schilderung des Patientenbesitzers:");
 		
 		JScrollPane scrollPane_19 = new JScrollPane();
 		
-		JLabel lblWasWurdeUnternommen = new JLabel("Was wurde unternommen?:");
+		JLabel label_8 = new JLabel("Was wurde unternommen?:");
 		
 		JScrollPane scrollPane_20 = new JScrollPane();
 		
-		JLabel lblSchmerzempfindlichkeit = new JLabel("Schmerzempfindlichkeit:");
+		JLabel label_9 = new JLabel("Schmerzempfindlichkeit:");
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
 		
-		JLabel lblDenkenSieIhr = new JLabel("Denken sie ihr Kind hat Schmerzen?:");
+		JLabel lblDenkenSieIhr = new JLabel("Denken sie ihr Tier hat Schmerzen?:");
 		
 		JComboBox comboBox_1 = new JComboBox();
-		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
-		gl_panel_9.setHorizontalGroup(
-			gl_panel_9.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblHauptproblem)
-							.addGap(106)
-							.addComponent(scrollPane_18, GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblSchilderungDesPatientenbesitzers)
-							.addGap(6)
-							.addComponent(scrollPane_19, GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblWasWurdeUnternommen)
-							.addGap(45)
-							.addComponent(scrollPane_20, GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblSchmerzempfindlichkeit)
-							.addGap(63)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblDenkenSieIhr)
-							.addGap(4)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 335, GroupLayout.PREFERRED_SIZE))))
-		);
-		gl_panel_9.setVerticalGroup(
-			gl_panel_9.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHauptproblem)
-						.addComponent(scrollPane_18, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSchilderungDesPatientenbesitzers)
-						.addComponent(scrollPane_19, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblWasWurdeUnternommen)
-						.addComponent(scrollPane_20, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(11)
-							.addComponent(lblSchmerzempfindlichkeit))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(4)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblDenkenSieIhr))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-		);
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Bitte Äuswählen", "Ja,immer", "Gelegentlich", "Nein"}));
+		panel_9.setLayout(new MigLayout("", "[173px][452px]", "[128px][127px][127px][21px][20px]"));
+		panel_9.add(label_6, "cell 0 0,alignx left,aligny top");
+		panel_9.add(scrollPane_18, "cell 1 0,grow");
 		
-		JTextPane textPane_20 = new JTextPane();
-		scrollPane_20.setViewportView(textPane_20);
+		editorPane = new JEditorPane();
+		scrollPane_18.setViewportView(editorPane);
+		panel_9.add(label_7, "cell 0 1,alignx left,aligny top");
+		panel_9.add(scrollPane_19, "cell 1 1,grow");
 		
-		JTextPane textPane_19 = new JTextPane();
-		scrollPane_19.setViewportView(textPane_19);
+		editorPane_1 = new JEditorPane();
+		scrollPane_19.setViewportView(editorPane_1);
+		panel_9.add(label_8, "cell 0 2,alignx left,aligny top");
+		panel_9.add(scrollPane_20, "cell 1 2,grow");
 		
-		JTextPane textPane_18 = new JTextPane();
-		scrollPane_18.setViewportView(textPane_18);
-		panel_9.setLayout(gl_panel_9);
+		JEditorPane editorPane_2 = new JEditorPane();
+		scrollPane_20.setViewportView(editorPane_2);
+		panel_9.add(label_9, "cell 0 3,alignx left,aligny bottom");
+		panel_9.add(comboBox, "cell 1 3,alignx left,aligny top");
+		panel_9.add(lblDenkenSieIhr, "cell 0 4,alignx left,aligny center");
+		panel_9.add(comboBox_1, "cell 1 4,growx,aligny top");
 		
 		JPanel panel_10 = new JPanel();
-		panel_8.add(panel_10, "cell 1 0,alignx center,aligny center");
+		panel_8.add(panel_10);
+		
+		JLabel label_11 = new JLabel("Wie reagiert das Tier auf Schmerzmittel?");
+		
+		JLabel label_12 = new JLabel("Welche Bewegungen verursachen den Schmerz?");
+		panel_10.setLayout(new MigLayout("", "[232px][452px,grow]", "[70px,grow][70px,grow]"));
 		
 		JScrollPane scrollPane_21 = new JScrollPane();
+		panel_10.add(scrollPane_21, "cell 1 0,grow");
 		
-		JLabel lblWelcheBewegungenVerursachen = new JLabel("Welche Bewegungen verursachen den Schmerz?");
+		JEditorPane editorPane_3 = new JEditorPane();
+		scrollPane_21.setViewportView(editorPane_3);
+		panel_10.add(label_12, "cell 0 1,alignx left,aligny top");
+		panel_10.add(label_11, "cell 0 0,alignx center,aligny top");
 		
 		JScrollPane scrollPane_22 = new JScrollPane();
+		panel_10.add(scrollPane_22, "cell 1 1,grow");
 		
-		JTextPane textPane_21 = new JTextPane();
-		scrollPane_21.setViewportView(textPane_21);
-		
-		JTextPane textPane_22 = new JTextPane();
-		scrollPane_22.setViewportView(textPane_22);
-		
-		JLabel lblWieReagiertDas = new JLabel("Wie reagiert das Tier auf Schmerzmittel?");
-		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
-		gl_panel_10.setHorizontalGroup(
-			gl_panel_10.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_10.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_10.createSequentialGroup()
-							.addGap(14)
-							.addComponent(lblWieReagiertDas)
-							.addGap(29)
-							.addComponent(scrollPane_21, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_10.createSequentialGroup()
-							.addComponent(lblWelcheBewegungenVerursachen)
-							.addGap(4)
-							.addComponent(scrollPane_22, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))))
-		);
-		gl_panel_10.setVerticalGroup(
-			gl_panel_10.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup()
-					.addGroup(gl_panel_10.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_10.createSequentialGroup()
-							.addGap(7)
-							.addComponent(scrollPane_21, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_10.createSequentialGroup()
-							.addGap(55)
-							.addComponent(lblWieReagiertDas)))
-					.addGap(4)
-					.addGroup(gl_panel_10.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblWelcheBewegungenVerursachen)
-						.addComponent(scrollPane_22, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
-		);
-		panel_10.setLayout(gl_panel_10);
+		JEditorPane editorPane_4 = new JEditorPane();
+		scrollPane_22.setViewportView(editorPane_4);
 		
 		JPanel panel_14 = new JPanel();
 		tabber.addTab("Funktionsanamnese", null, panel_14, null);
+		panel_14.setLayout(new BoxLayout(panel_14, BoxLayout.X_AXIS));
+		
+		JPanel panel_11 = new JPanel();
+		panel_14.add(panel_11);
+		
+		JLabel lblWelcheFunktionenMotorischer = new JLabel("Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?");
+		
+		JLabel lblIstDerPatient = new JLabel("Ist der Patient in der Lage, den betreffenden Körperteil zu benutzen?");
+		panel_11.setLayout(new MigLayout("", "[338px][28px][220px]", "[128px][20px][20px][20px][20px][20px][20px][20px]"));
+		
+		JScrollPane scrollPane_24 = new JScrollPane();
+		panel_11.add(scrollPane_24, "cell 2 0,grow");
+		
+		JTextPane textPane_19 = new JTextPane();
+		scrollPane_24.setViewportView(textPane_19);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		panel_11.add(comboBox_2, "cell 2 1,alignx left,aligny top");
+		
+		JLabel label_10 = new JLabel("Mögliche Gehstrecke:");
+		panel_11.add(label_10, "cell 0 2,alignx left,aligny center");
+		
+		JSpinner spinner_1 = new JSpinner();
+		panel_11.add(spinner_1, "cell 2 2,growx,aligny top");
+		
+		JLabel label_13 = new JLabel("Mögliche Gehzeit:");
+		panel_11.add(label_13, "cell 0 3,alignx left,aligny center");
+		
+		JSpinner spinner_2 = new JSpinner();
+		panel_11.add(spinner_2, "cell 2 3,growx,aligny top");
+		
+		JLabel label_14 = new JLabel("Witterungsabhängikeit");
+		panel_11.add(label_14, "cell 0 4,alignx left,aligny center");
+		
+		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		panel_11.add(comboBox_3, "cell 2 4,growx,aligny top");
+		
+		JLabel label_15 = new JLabel("Zykluskorrelation");
+		panel_11.add(label_15, "cell 0 5,alignx left,aligny center");
+		
+		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		panel_11.add(comboBox_4, "cell 2 5,growx,aligny top");
+		
+		JLabel label_16 = new JLabel("Auslauf:");
+		panel_11.add(label_16, "cell 0 6,alignx left,aligny center");
+		
+		JComboBox comboBox_5 = new JComboBox();
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		panel_11.add(comboBox_5, "cell 2 6,growx,aligny top");
+		panel_11.add(lblWelcheFunktionenMotorischer, "cell 0 0,alignx left,aligny top");
+		panel_11.add(lblIstDerPatient, "cell 0 1,alignx center,aligny center");
+		
+		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
+		panel_11.add(lblWieVielZeit, "cell 0 7");
+		
+		JComboBox comboBox_6 = new JComboBox();
+		comboBox_6.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		panel_11.add(comboBox_6, "cell 2 7,growx,aligny top");
+		
+		JPanel panel_12 = new JPanel();
+		panel_12.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Sonstige Bemerkungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_14.add(panel_12);
+		panel_12.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_23 = new JScrollPane();
+		panel_12.add(scrollPane_23, BorderLayout.CENTER);
+		
+		JTextPane textPane_18 = new JTextPane();
+		scrollPane_23.setViewportView(textPane_18);
 		
 		
 		getContentPane().setLayout(groupLayout);
