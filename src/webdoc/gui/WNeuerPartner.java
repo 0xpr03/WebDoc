@@ -130,7 +130,7 @@ public class WNeuerPartner extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
 					.addGap(1)
-					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
 					.addGap(0))
 		);
 		groupLayout.setVerticalGroup(
@@ -138,14 +138,14 @@ public class WNeuerPartner extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(3)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-						.addComponent(rollendaten, 0, 0, Short.MAX_VALUE)
+						.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+						.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 451, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(labelBemerkungen)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
 					.addGap(0))
 		);
 		pVerlauf.setVisible(!editable);

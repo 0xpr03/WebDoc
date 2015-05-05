@@ -111,16 +111,14 @@ public final class WHomescreen extends JFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 1919, Short.MAX_VALUE)
+					.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 1362, Short.MAX_VALUE)
 					.addGap(0))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(0)
-					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 909, Short.MAX_VALUE)
-					.addGap(0)
-					.addGap(0))
+					.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+					.addGap(1))
 		);
 		
 		JPanel suchPanel = new JPanel();
@@ -147,24 +145,23 @@ public final class WHomescreen extends JFrame {
 		suchPanel.setLayout(gl_suchPanel);
 		
 		JPanel desktopPanel = new JPanel();
-		desktopPanel.setLayout(new BorderLayout(0, 0));
 		
 		desktopPane = new JDesktopPane();
+		FNeuerPartner.setLocation(86, 85);
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.add(FTest);
 		desktopPane.setBackground(Color.WHITE);
-		desktopPanel.add(desktopPane, BorderLayout.CENTER);
 		GroupLayout gl_secPanel = new GroupLayout(secPanel);
 		gl_secPanel.setHorizontalGroup(
-			gl_secPanel.createParallelGroup(Alignment.TRAILING)
+			gl_secPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_secPanel.createSequentialGroup()
 					.addGap(1)
-					.addComponent(suchPanel, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+					.addComponent(suchPanel, GroupLayout.DEFAULT_SIZE, 1205, Short.MAX_VALUE)
 					.addGap(1))
-				.addGroup(Alignment.LEADING, gl_secPanel.createSequentialGroup()
+				.addGroup(gl_secPanel.createSequentialGroup()
 					.addGap(0)
-					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
 					.addGap(0))
 		);
 		gl_secPanel.setVerticalGroup(
@@ -172,9 +169,19 @@ public final class WHomescreen extends JFrame {
 				.addGroup(gl_secPanel.createSequentialGroup()
 					.addComponent(suchPanel, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 					.addGap(0)
-					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-					.addGap(0))
+					.addComponent(desktopPanel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+					.addGap(1))
 		);
+		GroupLayout gl_desktopPanel = new GroupLayout(desktopPanel);
+		gl_desktopPanel.setHorizontalGroup(
+			gl_desktopPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(desktopPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1207, Short.MAX_VALUE)
+		);
+		gl_desktopPanel.setVerticalGroup(
+			gl_desktopPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(desktopPane, GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+		);
+		desktopPanel.setLayout(gl_desktopPanel);
 		secPanel.setLayout(gl_secPanel);
 		navigation.setLayout(new BorderLayout(0, 0));
 		
