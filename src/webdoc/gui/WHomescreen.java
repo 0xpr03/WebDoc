@@ -60,6 +60,7 @@ public final class WHomescreen extends JFrame {
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
 	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
+	private WNeueBehandlungsart FNeueBEhandlungsart =new WNeueBehandlungsart();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -151,6 +152,7 @@ public final class WHomescreen extends JFrame {
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FNeuerPatient);
 		desktopPane.add(FTest);
+		desktopPanel.add(FNeueBEhandlungsart);
 		desktopPane.setBackground(Color.WHITE);
 		GroupLayout gl_secPanel = new GroupLayout(secPanel);
 		gl_secPanel.setHorizontalGroup(
@@ -335,6 +337,13 @@ public final class WHomescreen extends JFrame {
 					break;
 				case PATIENT:
 					addWNeuerPatient(false, -1);
+					break;
+				case N_BEHANDLUNGSART:
+					if(!jifToFront(FNeueBEhandlungsart)){
+						FNeueBEhandlungsart = new WNeueBehandlungsart();
+						FNeueBEhandlungsart.setVisible(true);
+						FNeueBEhandlungsart.add(FNeueBEhandlungsart);
+					}
 					break;
 				case TEST:
 					if(!jifToFront(FTest)){

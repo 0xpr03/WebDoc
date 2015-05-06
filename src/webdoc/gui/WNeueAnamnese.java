@@ -58,7 +58,6 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane textPane_17;
 	private JTextPane textPane_16;
 	private JTextPane textPane_15;
-	private JTextPane textPane_14;
 	private JEditorPane ePHauptproblem;
 	private JEditorPane ePSchilderung;
 	private JLabel label_1;
@@ -93,7 +92,6 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JScrollPane scrollPane_14;
 	private JScrollPane scrollPane_15;
 	private JScrollPane scrollPane_16;
-	private JScrollPane scrollPane_17;
 	private JScrollPane scrollPane_18;
 	private JScrollPane scrollPane_19;
 	private JScrollPane scrollPane_20;
@@ -127,7 +125,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		  textPane_17.setEditable(editable);
 		  textPane_16.setEditable(editable);
 		  textPane_15.setEditable(editable);
-		  textPane_14.setEditable(editable);
 		  ePHauptproblem.setEditable(editable);
 		  ePSchilderung.setEditable(editable);
 		  textField.setEditable(editable);
@@ -152,7 +149,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_14.setEnabled(editable);
 		  scrollPane_15.setEnabled(editable);
 		  scrollPane_16.setEnabled(editable);
-		  scrollPane_17.setEnabled(editable);
 		  scrollPane_18.setEnabled(editable);;
 		  scrollPane_19.setEnabled(editable);
 		  scrollPane_20.setEnabled(editable);
@@ -598,8 +594,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		scrollPane_16 = new JScrollPane();
 		
-		JLabel lblSonstiges = new JLabel("Sonstiges:");
-		
 		textPane_17 = new JTextPane();
 		scrollPane_14.setViewportView(textPane_17);
 		
@@ -608,58 +602,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		textPane_15 = new JTextPane();
 		scrollPane_16.setViewportView(textPane_15);
-		
-		scrollPane_17 = new JScrollPane();
-		
-		textPane_14 = new JTextPane();
-		scrollPane_17.setViewportView(textPane_14);
-		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
-		gl_panel_6.setHorizontalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(lblMedikamente)
-							.addGap(4)
-							.addComponent(scrollPane_14, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(lblRntgen, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(scrollPane_15, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(lblCtmrt)
-							.addGap(29)
-							.addComponent(scrollPane_16, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(lblSonstiges)
-							.addGap(21)
-							.addComponent(scrollPane_17, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))))
-		);
-		gl_panel_6.setVerticalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblMedikamente)
-						.addComponent(scrollPane_14, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-					.addGap(4)
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(scrollPane_15, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-							.addGap(4))
-						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(lblRntgen)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblCtmrt)
-						.addComponent(scrollPane_16, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
-					.addGap(4)
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSonstiges)
-						.addComponent(scrollPane_17, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)))
-		);
-		panel_6.setLayout(gl_panel_6);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -678,6 +620,13 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addComponent(panel_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))
 					.addGap(7))
 		);
+		panel_6.setLayout(new MigLayout("", "[67px][426px]", "[109px][109px][109px]"));
+		panel_6.add(lblMedikamente, "cell 0 0,alignx left,aligny top");
+		panel_6.add(scrollPane_14, "cell 1 0,grow");
+		panel_6.add(lblRntgen, "cell 0 1,alignx left,aligny top");
+		panel_6.add(scrollPane_15, "cell 1 1,grow");
+		panel_6.add(lblCtmrt, "cell 0 2,alignx left,aligny top");
+		panel_6.add(scrollPane_16, "cell 1 2,grow");
 		panel_5.setLayout(new MigLayout("", "[111px][408px,grow]", "[60.00px,grow][67.00px,grow][73.00px,grow][88.00px,grow][20px,grow,baseline]"));
 		panel_5.add(lblEpilemtiformeAnflle, "cell 0 4,alignx right,aligny center");
 		panel_5.add(cBEpiAnfaelle, "cell 1 4,growx,aligny top");
