@@ -20,9 +20,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
- `comment` varchar(100) DEFAULT NULL,
  PRIMARY KEY (`AddressID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
  `RoleID` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -37,13 +36,12 @@ CREATE TABLE IF NOT EXISTS `communicatontype` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table telecommunication / Telekommunikation */
 CREATE TABLE IF NOT EXISTS `telecommunication` (
- `CommunicationID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `CommunicationID` int(10) unsigned NOT NULL,
  `areacode` varchar(10) NOT NULL,
  `number` varchar(20) NOT NULL,
- `TeleID` int(10) unsigned NOT NULL,
- `comment` varchar(50) DEFAULT NULL,
- PRIMARY KEY (`CommunicationID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+ `TeleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ PRIMARY KEY (`TeleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
  `CommunicationID` int(11) NOT NULL,
