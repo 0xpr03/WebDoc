@@ -114,3 +114,15 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `comment` varchar(250) NOT NULL,
  PRIMARY KEY (`TreatmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table Kommunikationsverknüpfung / communicationlink */
+CREATE TABLE `communicationlink` (
+ `PartnerRoleID` int(10) unsigned NOT NULL,
+ `TeleID` int(10) unsigned NOT NULL,
+ PRIMARY KEY (`PartnerRoleID`,`TeleID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table addressreferenze / Adressverknüpfung */
+CREATE TABLE `addressreferenze` (
+ `PartnerRoleID` int(10) unsigned NOT NULL,
+ `AddressID` int(10) unsigned NOT NULL,
+ PRIMARY KEY (`PartnerRoleID`,`AddressID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
