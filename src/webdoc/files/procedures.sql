@@ -69,3 +69,18 @@ BEGIN
 		`comment`  = param_comment
 	WHERE `AnimalID` = param_id;
 END$$
+DROP PROCEDURE IF EXISTS `getComTypeId`$$
+CREATE PROCEDURE `getComTypeId`(
+	IN `param_name` VARCHAR(50) CHARSET utf8,
+	OUT `out_id` INTEGER UNSIGNED )
+    MODIFIES SQL DATA
+BEGIN
+
+	SELECT `RaceID` INTO out_id FROM `race` WHERE `race` = param_race;
+
+	IF FOUND_ROWS() = 0
+	THEN
+		INSERT INTO `race` (`race`) VALUES (param_race);
+		SET out_id = LAST_INSERT_ID();
+	END IF;
+END$$
