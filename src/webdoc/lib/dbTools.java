@@ -116,103 +116,103 @@ public class dbTools {
 		WProgress wpg = new WProgress();
 		try{
 		int max = 1;
-			max += Config.getBoolValue("createDB") ? 1 : 0;
-			max += Config.getBoolValue("createUser") ? 2 : 0;
-			max += Config.getBoolValue("overwriteDB") ? 2 : 0;
-			max += Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB") ? 1 : 0;
-			wpg.setMax(max);
-			wpg.setVisible(true);
+		max += Config.getBoolValue("createDB") ? 1 : 0;
+		max += Config.getBoolValue("createUser") ? 2 : 0;
+		max += Config.getBoolValue("overwriteDB") ? 2 : 0;
+		max += Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB") ? 1 : 0;
+		wpg.setMax(max);
+		wpg.setVisible(true);
+		
+		String tablefile = Config.getStrValue("tablesql");
+		String procfile = Config.getStrValue("proceduresql");
+		
+		if(Config.getBoolValue("createDB")){
+			wpg.setText("Creating DB");
+			wpg.setSubMax(Config.getBoolValue("overwriteDB") ? 2 : 1);
 			
-			String tablefile = Config.getStrValue("tablesql");
-			String procfile = Config.getStrValue("proceduresql");
-			
-			if(Config.getBoolValue("createDB")){
-				wpg.setText("Creating DB");
-				wpg.setSubMax(Config.getBoolValue("overwriteDB") ? 2 : 1);
-				
-				if(Config.getBoolValue("overwriteDB")){
-					wpg.setSubText("Dropping DB");
-					Database.execUpdateQuery(String.format("DROP DATABASE IF EXISTS `%s`", Config.getStrValue("db")));
-					wpg.addSubProgress();
-				}
-				
-				wpg.setSubText("Creating DB");
-				Database.execUpdateQuery(String.format("CREATE DATABASE IF NOT EXISTS `%s` ;",Config.getStrValue("db")));
+			if(Config.getBoolValue("overwriteDB")){
+				wpg.setSubText("Dropping DB");
+				Database.execUpdateQuery(String.format("DROP DATABASE IF EXISTS `%s`", Config.getStrValue("db")));
 				wpg.addSubProgress();
-				wpg.addProgress();
 			}
 			
-			wpg.setText("Using DB");
-			Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
+			wpg.setSubText("Creating DB");
+			Database.execUpdateQuery(String.format("CREATE DATABASE IF NOT EXISTS `%s` ;",Config.getStrValue("db")));
+			wpg.addSubProgress();
+			wpg.addProgress();
+		}
+		
+		wpg.setText("Using DB");
+		Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
+		wpg.addProgress();
+		
+		if (Config.getBoolValue("overwriteDB")) {
+			wpg.setText("Overwriting DBs..");
+			wpg.setSubText("Getting DBs");
+			
+			List<String> dbs = getTableNames(tablefile, wpg);
+			wpg.addProgress();
+			wpg.setSubText("Deleting DBs..");
+			wpg.setSubMax(dbs.size());
+			for(String table : dbs){
+				logger.debug("Dropping Tbl {}",table);
+				Database.execUpdateQuery(String.format("DROP TABLE IF EXISTS `%s`;", table));
+				wpg.addSubProgress();
+			}
+			wpg.addProgress();
+		}
+		
+		if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
+			wpg.setText("Creating DBs");
+			sqlTblCreator(tablefile, wpg);
+			wpg.addProgress();
+			wpg.setText("Creating Procedures");
+			sqlProcCreator(procfile, wpg);
+			wpg.addProgress();
+		}
+		
+		if (Config.getBoolValue("createUser")) {
+			wpg.setText("Creating User..");
+			wpg.setSubMax(2);
+			wpg.setSubText("Creating user webdoc");
+			PasswordGenerator pwdg = new PasswordGenerator();
+			Config.setValue("password", pwdg.generateGenericPassword(20));
+			Config.setValue("user", "webdoc");
+			try{
+				String query = String.format("CREATE USER '%s'@'%s' IDENTIFIED BY '%s' ;", Config.getStrValue("user"),Config.getStrValue("userIPs"), Config.getStrValue("password"));
+				Database.execUpdateQuery(query);
+			}catch(SQLException e){
+				// catch only the "user already exists" error, throw all other
+				if(e.getMessage().contains("Operation CREATE USER failed")){
+					GUIManager.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
+					String query = String.format("UPDATE mysql.user SET Password=PASSWORD('%s') WHERE User='%s';", Config.getStrValue("password"), Config.getStrValue("user"));
+					Database.execUpdateQuery(query);
+					Database.execUpdateQuery("FLUSH PRIVILEGES;");
+				}else{
+					throw e;
+				}
+			}
+			wpg.addSubProgress();
+			wpg.setSubText("Granting permissions on DB");
+			wpg.setSubMax(1);
+			String sql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX,"
+					+"CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT,"
+					+"TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON "
+					+"`%s`.* TO '%s'@'%s';";
+			sql = String.format(sql, Config.getStrValue("db"), Config.getStrValue("db"), Config.getStrValue("userIPs"));
+			Database.execUpdateQuery(sql);
+			wpg.addSubProgress();
 			wpg.addProgress();
 			
-			if (Config.getBoolValue("overwriteDB")) {
-				wpg.setText("Overwriting DBs..");
-				wpg.setSubText("Getting DBs");
-				
-				List<String> dbs = getTableNames(tablefile, wpg);
-				wpg.addProgress();
-				wpg.setSubText("Deleting DBs..");
-				wpg.setSubMax(dbs.size());
-				for(String table : dbs){
-					logger.debug("Dropping Tbl {}",table);
-					Database.execUpdateQuery(String.format("DROP TABLE IF EXISTS `%s`;", table));
-					wpg.addSubProgress();
-				}
-				wpg.addProgress();
+			wpg.setText("Reconnecting..");
+			Database.disconnect();
+			DBError error = Database.connect(true, false);
+			if(error != DBError.NOERROR){
+				//TODO: add better erorr handler
+				GUIManager.showErrorDialog(wpg, "Failed during the setup\nreconnct: "+error+"\n\nSee the log for more infos.", "Setup error");
 			}
-			
-			if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
-				wpg.setText("Creating DBs");
-				sqlTblCreator(tablefile, wpg);
-				wpg.addProgress();
-				wpg.setText("Creating Procedures");
-				sqlProcCreator(procfile, wpg);
-				wpg.addProgress();
-			}
-			
-			if (Config.getBoolValue("createUser")) {
-				wpg.setText("Creating User..");
-				wpg.setSubMax(2);
-				wpg.setSubText("Creating user webdoc");
-				PasswordGenerator pwdg = new PasswordGenerator();
-				Config.setValue("password", pwdg.generateGenericPassword(20));
-				Config.setValue("user", "webdoc");
-				try{
-					String query = String.format("CREATE USER '%s'@'%s' IDENTIFIED BY '%s' ;", Config.getStrValue("user"),Config.getStrValue("userIPs"), Config.getStrValue("password"));
-					Database.execUpdateQuery(query);
-				}catch(SQLException e){
-					// catch only the "user already exists" error, throw all other
-					if(e.getMessage().contains("Operation CREATE USER failed")){
-						GUIManager.showErrorDialog("Nutzer webdoc ist schon vorhanden!\nÜberschreibe das Passwort..", "Setup Fehler");
-						String query = String.format("UPDATE mysql.user SET Password=PASSWORD('%s') WHERE User='%s';", Config.getStrValue("password"), Config.getStrValue("user"));
-						Database.execUpdateQuery(query);
-						Database.execUpdateQuery("FLUSH PRIVILEGES;");
-					}else{
-						throw e;
-					}
-				}
-				wpg.addSubProgress();
-				wpg.setSubText("Granting permissions on DB");
-				wpg.setSubMax(1);
-				String sql = "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, REFERENCES, INDEX,"
-						+"CREATE TEMPORARY TABLES, LOCK TABLES, CREATE VIEW, EVENT,"
-						+"TRIGGER, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EXECUTE ON "
-						+"`%s`.* TO '%s'@'%s';";
-				sql = String.format(sql, Config.getStrValue("db"), Config.getStrValue("db"), Config.getStrValue("userIPs"));
-				Database.execUpdateQuery(sql);
-				wpg.addSubProgress();
-				wpg.addProgress();
-				
-				wpg.setText("Reconnecting..");
-				Database.disconnect();
-				DBError error = Database.connect(true, false);
-				if(error != DBError.NOERROR){
-					//TODO: add better erorr handler
-					GUIManager.showErrorDialog(wpg, "Failed during the setup\nreconnct: "+error+"\n\nSee the log for more infos.", "Setup error");
-				}
-				wpg.addProgress();
-			}
+			wpg.addProgress();
+		}
 			
 		}catch(SQLException e){
 			dberr = Database.DBEExceptionConverter(e);
@@ -265,7 +265,6 @@ public class dbTools {
 				matcher.reset(line);
 				window.addSubProgress();
 				if(matcher.find()){
-					//TODO: do sql command
 					logger.debug("Found {}",line);
 					tables.add(line.substring(line.indexOf("`")+1, line.lastIndexOf("`")));
 				}
