@@ -69,3 +69,33 @@ BEGIN
 		`comment`  = param_comment
 	WHERE `AnimalID` = param_id;
 END$$
+DROP PROCEDURE IF EXISTS `getComTypeId`$$
+CREATE PROCEDURE `getComTypeId`(
+	IN `param_comtype` VARCHAR(50) CHARSET utf8,
+	OUT `out_id` INTEGER UNSIGNED )
+    MODIFIES SQL DATA
+BEGIN
+
+	SELECT `CommunicationID` INTO out_id FROM `communicatontype` WHERE `name` = param_comtype;
+
+	IF FOUND_ROWS() = 0
+	THEN
+		INSERT INTO `communicatontype` (`name`) VALUES (param_comtype);
+		SET out_id = LAST_INSERT_ID();
+	END IF;
+END$$
+DROP PROCEDURE IF EXISTS `getCommID`$$
+CREATE PROCEDURE `getCommID`(
+	IN `param_comtype` VARCHAR(50) CHARSET utf8,
+	OUT `out_id` INTEGER UNSIGNED )
+    MODIFIES SQL DATA
+BEGIN
+
+	SELECT `CommunicationID` INTO out_id FROM `communicatontype` WHERE `name` = param_comtype;
+
+	IF FOUND_ROWS() = 0
+	THEN
+		INSERT INTO `communicatontype` (`name`) VALUES (param_comtype);
+		SET out_id = LAST_INSERT_ID();
+	END IF;
+END$$

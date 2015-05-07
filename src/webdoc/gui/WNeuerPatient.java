@@ -87,6 +87,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private PreparedStatement searchAnimalStm;
 	private JButton btnOk;
 	private JButton buttonCancelEdit;
+	private JButton btnNeueBehandlung;
 	/**
 	 * Create the application.
 	 */
@@ -118,7 +119,7 @@ public class WNeuerPatient extends JInternalFrame {
 		setMinimumSize(new Dimension(1, 1));
 		
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 963, 444);
+		setBounds(100, 100, 756, 400);
 		
 		JPanel suche = new JPanel();
 		
@@ -227,7 +228,7 @@ public class WNeuerPatient extends JInternalFrame {
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
 		suche.add(textAnimalSuche);
-		panel.setLayout(new MigLayout("", "[29.00][42.00][][]", "[26.00]"));
+		panel.setLayout(new MigLayout("", "[29.00][42.00][][][]", "[26.00]"));
 		
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
@@ -272,6 +273,9 @@ public class WNeuerPatient extends JInternalFrame {
 
 		});
 		panel.add(btnNeueAnamnese, "cell 3 0");
+		
+		btnNeueBehandlung = new JButton("Neue Behandlung");
+		panel.add(btnNeueBehandlung, "cell 4 0");
 		btnNeueAnamnese.setVisible(!editable);
 		
 		

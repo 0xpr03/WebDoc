@@ -68,8 +68,6 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textFax;
 	private JTextField textEmail;
 	private boolean editable;
-	private JTextPane textPaneComment;
-	private JPanel rollendaten;
 	private JSpinner spinGebdatum;
 	private JTextField textVorname;
 	private JTextField textHandy;
@@ -107,89 +105,13 @@ public class WNeuerPartner extends JInternalFrame {
 		setMaximizable(true);
 		
 		setTitle(editable ? "Neuer Partner" : "Partner");
-		setBounds(100, 100, 909, 484);
+		setBounds(100, 100, 909, 567);
 		
 		JPanel personenbezogeneDaten = new JPanel();
 		
-		JLabel labelBemerkungen = new JLabel("Bemerkungen:");
-		
-		JScrollPane scrollPane = new JScrollPane();
-		
-		rollendaten = new JPanel();
-		
 		JPanel pVerlauf = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(4)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-						.addComponent(labelBemerkungen, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-					.addGap(1)
-					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
-					.addGap(0))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(3)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-						.addComponent(rollendaten, GroupLayout.PREFERRED_SIZE, 451, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(labelBemerkungen)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)))
-					.addGap(0))
-		);
-		pVerlauf.setVisible(!editable);
-		
-		JScrollPane sPaneVerlauf = new JScrollPane();
-		
-		
-		JLabel label = new JLabel("Verlauf:");
-		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
-		gl_pVerlauf.setHorizontalGroup(
-			gl_pVerlauf.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_pVerlauf.createSequentialGroup()
-					.addGroup(gl_pVerlauf.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_pVerlauf.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-						.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
-					.addGap(1))
-		);
-		gl_pVerlauf.setVerticalGroup(
-			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pVerlauf.createSequentialGroup()
-					.addComponent(label)
-					.addGap(2)
-					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		
-		textPaneVerlauf = new JTextPane();
-		textPaneVerlauf.setEditable(false);
-		textPaneVerlauf.setBackground(Color.WHITE);
-		sPaneVerlauf.setViewportView(textPaneVerlauf);
-		pVerlauf.setLayout(gl_pVerlauf);
-		
-		textPaneComment = new JTextPane();
-		textPaneComment.setFont(new Font("SansSerif", textPaneComment.getFont().getStyle(), textPaneComment.getFont().getSize()));
-		
-		textPaneComment.setBackground(Color.WHITE);
-		scrollPane.setViewportView(textPaneComment);
-		rollendaten.setLayout(null);
 		
 		panel_2 = new JPanel();
-		panel_2.setBounds(10, 32, 292, 361);
-		rollendaten.add(panel_2);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		
@@ -344,8 +266,6 @@ public class WNeuerPartner extends JInternalFrame {
 		panel_2.setLayout(gl_panel_2);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 404, 292, 37);
-		rollendaten.add(panel_1);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
@@ -400,6 +320,77 @@ public class WNeuerPartner extends JInternalFrame {
 		);
 		panel_1.setLayout(gl_panel_1);
 		btnCancelEdit.setVisible(editable);
+		
+		JLabel label_1 = new JLabel("Bemerkungen:");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		
+		JLabel label = new JLabel("Verlauf:");
+		
+		textPaneVerlauf = new JTextPane();
+		textPaneVerlauf.setEditable(false);
+		textPaneVerlauf.setBackground(Color.WHITE);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
+						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(label)
+						.addComponent(textPaneVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+					.addGap(271)
+					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(label)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textPaneVerlauf, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+							.addGap(11))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(53)
+							.addComponent(label_1)
+							.addPreferredGap(ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+							.addGap(58))
+						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addGap(1)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+					.addGap(0))
+		);
+		pVerlauf.setVisible(!editable);
+		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
+		gl_pVerlauf.setHorizontalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 24, Short.MAX_VALUE)
+		);
+		gl_pVerlauf.setVerticalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 538, Short.MAX_VALUE)
+		);
+		pVerlauf.setLayout(gl_pVerlauf);
 		
 		JLabel lblNewLabel = new JLabel("Name:");
 		
@@ -479,7 +470,6 @@ public class WNeuerPartner extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable(){
-		textPaneComment.setEditable(editable);
 		textFax.setEditable(editable);
 		textHandy.setEditable(editable);
 		textTelefon.setEditable(editable);
