@@ -37,11 +37,10 @@ CREATE TABLE IF NOT EXISTS `communicatontype` (
 /* Table telecommunication / Telekommunikation */
 CREATE TABLE IF NOT EXISTS `telecommunication` (
  `CommunicationID` int(10) unsigned NOT NULL,
- `areacode` varchar(10) NOT NULL,
+ `PartnerID` int(10) unsigned NOT NULL,
  `number` varchar(20) NOT NULL,
- `TeleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
- PRIMARY KEY (`TeleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+ PRIMARY KEY (`CommunicationID`,`PartnerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
  `CommunicationID` int(11) NOT NULL,
@@ -113,12 +112,6 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
  PRIMARY KEY (`TreatmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
-/* Table Kommunikationsverknüpfung / communicationlink */
-CREATE TABLE `communicationlink` (
- `PartnerRoleID` int(10) unsigned NOT NULL,
- `TeleID` int(10) unsigned NOT NULL,
- PRIMARY KEY (`PartnerRoleID`,`TeleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table addressreferenze / Adressverknüpfung */
 CREATE TABLE `addressreferenze` (
