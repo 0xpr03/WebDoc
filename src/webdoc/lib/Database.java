@@ -264,15 +264,21 @@ public class Database{
 		PreparedStatement telecomm_stmt = prepareTelecommInsertStm();
 		telecomm_stmt.setString(1, phone);
 		telecomm_stmt.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
+		telecomm_stmt.setLong(3, id);
 		telecomm_stmt.executeUpdate();
+		telecomm_stmt.clearParameters();
 		
 		telecomm_stmt.setString(1, mobile);
 		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+		telecomm_stmt.setLong(3, id);
 		telecomm_stmt.executeUpdate();
+		telecomm_stmt.clearParameters();
 		
 		telecomm_stmt.setString(1, fax);
 		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+		telecomm_stmt.setLong(3, id);
 		telecomm_stmt.executeUpdate();
+		telecomm_stmt.clearParameters();
 		
 		return id;
 	}
@@ -331,8 +337,8 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
-		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`) "
-				+ "VALUES (?,?);";
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
+				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
 	}
 	
