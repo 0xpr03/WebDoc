@@ -247,7 +247,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax) throws SQLException{
 		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 				+"VALUES (?,?,?,?,?)";
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -260,6 +260,20 @@ public class Database{
 		stm.getGeneratedKeys().next();
 		long id = stm.getGeneratedKeys().getLong(1);
 		stm.close();
+		
+		PreparedStatement telecomm_stmt = prepareTelecommInsertStm();
+		telecomm_stmt.setString(1, phone);
+		telecomm_stmt.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
+		telecomm_stmt.executeUpdate();
+		
+		telecomm_stmt.setString(1, mobile);
+		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+		telecomm_stmt.executeUpdate();
+		
+		telecomm_stmt.setString(1, fax);
+		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+		telecomm_stmt.executeUpdate();
+		
 		return id;
 	}
 	
@@ -307,6 +321,19 @@ public class Database{
 		}
 		
 		return affectedLines;
+	}
+	
+	
+	
+	/**
+	 * Prepare telecommunication table insert
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`) "
+				+ "VALUES (?,?);";
+		return prepareStm(sql);
 	}
 	
 	/**
