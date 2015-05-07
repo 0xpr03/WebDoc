@@ -71,16 +71,16 @@ BEGIN
 END$$
 DROP PROCEDURE IF EXISTS `getComTypeId`$$
 CREATE PROCEDURE `getComTypeId`(
-	IN `param_name` VARCHAR(50) CHARSET utf8,
+	IN `param_comtype` VARCHAR(50) CHARSET utf8,
 	OUT `out_id` INTEGER UNSIGNED )
     MODIFIES SQL DATA
 BEGIN
 
-	SELECT `RaceID` INTO out_id FROM `race` WHERE `race` = param_race;
+	SELECT `CommunicationID` INTO out_id FROM `communicatontype` WHERE `name` = param_comtype;
 
 	IF FOUND_ROWS() = 0
 	THEN
-		INSERT INTO `race` (`race`) VALUES (param_race);
+		INSERT INTO `communicatontype` (`name`) VALUES (param_comtype);
 		SET out_id = LAST_INSERT_ID();
 	END IF;
 END$$
