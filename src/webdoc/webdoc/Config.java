@@ -36,6 +36,15 @@ public class Config {
 	}
 	
 	/**
+	 * Get long value
+	 * @param key string
+	 * @return value long
+	 */
+	public static long getLongValue(String key){
+		return (long) SETTINGS.get(key);
+	}
+	
+	/**
 	 * Get value, undefined type
 	 * @param key string
 	 * @return value string
