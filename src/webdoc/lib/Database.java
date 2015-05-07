@@ -89,6 +89,36 @@ public class Database{
 		return dberr;
 	}
 	
+	public static DBError initDBVars(){
+		DBError dbe = DBError.NOERROR;
+		try {
+			Config.setValue("COMM_PHONE_ID", getCommTypeID("phone"));
+			Config.setValue("COMM_MOBILE_ID", getCommTypeID("mobile"));
+			Config.setValue("COMM_FAX_ID", getCommTypeID("fax"));
+		} catch (SQLException e) {
+			dbe = DBExceptionConverter(e,true);
+		}
+		return dbe;
+	}
+	
+	/**
+	 * Retrieve the ID of a communication type
+	 * @param name communication type name
+	 * @return long id
+	 * @throws SQLException 
+	 */
+	public static long getCommTypeID(String name) throws SQLException{
+		String sql = "{call getComTypeId(?)}";
+		CallableStatement stm = connection.prepareCall(sql);
+		stm.setString(1, name);
+		stm.registerOutParameter(2, java.sql.Types.INTEGER);
+		stm.execute();
+		long id = stm.getLong(11);
+		logger.debug("ID: {}",id);
+		stm.closeOnCompletion();
+		return id;
+	}
+	
 	/**
 	 * Closes the SQL connection
 	 */
