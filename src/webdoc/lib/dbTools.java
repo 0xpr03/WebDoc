@@ -33,7 +33,7 @@ public class dbTools {
 	
 	private static Logger logger = LogManager.getLogger();
 	
-	public DBError sqlTblCreator(String file, WProgress window){
+	public DBEError sqlTblCreator(String file, WProgress window){
 		try{
 			InputStream is = getClass().getResourceAsStream(file);
 		    InputStreamReader isr = new InputStreamReader(is);
@@ -61,16 +61,16 @@ public class dbTools {
 			br.close();
 			isr.close();
 			is.close();
-			return DBError.NOERROR;
+			return new DBEError(DBError.NOERROR,"");
 		}catch(SQLException e){
-			return Database.DBExceptionConverter(e);
+			return Database.DBEExceptionConverter(e);
 		}catch(IOException | NullPointerException e){
 			logger.fatal("Unable to create tables from file!", e);
-			return DBError.EXTERNAL_ERROR;
+			return new DBEError(DBError.EXTERNAL_ERROR,"");
 		}
 	}
 	
-	public DBError sqlProcCreator(String file, WProgress window){
+	public DBEError sqlProcCreator(String file, WProgress window){
 		try{
 			InputStream is = getClass().getResourceAsStream(file);
 		    InputStreamReader isr = new InputStreamReader(is);
@@ -98,12 +98,12 @@ public class dbTools {
 			br.close();
 			isr.close();
 			is.close();
-			return DBError.NOERROR;
+			return new DBEError(DBError.NOERROR,"");
 		}catch(SQLException e){
-			return Database.DBExceptionConverter(e);
+			return Database.DBEExceptionConverter(e);
 		}catch(IOException | NullPointerException e){
 			logger.fatal("Unable to create tables from file!", e);
-			return DBError.EXTERNAL_ERROR;
+			return new DBEError(DBError.EXTERNAL_ERROR,"");
 		}
 	}
 	
@@ -164,10 +164,20 @@ public class dbTools {
 		
 		if(Config.getBoolValue("overwriteDB") || Config.getBoolValue("createDB")){
 			wpg.setText("Creating DBs");
-			sqlTblCreator(tablefile, wpg);
+			{
+				DBEError dberror = sqlTblCreator(tablefile, wpg);
+				if(dberror.getError() != DBError.NOERROR){
+					return dberror;
+				}
+			}
 			wpg.addProgress();
 			wpg.setText("Creating Procedures");
-			sqlProcCreator(procfile, wpg);
+			{
+				DBEError dberror = sqlProcCreator(procfile, wpg);
+				if(dberror.getError() != DBError.NOERROR){
+					return dberror;
+				}
+			}
 			wpg.addProgress();
 		}
 		
