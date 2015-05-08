@@ -88,6 +88,8 @@ public class WNeuerPatient extends JInternalFrame {
 	private JButton btnOk;
 	private JButton buttonCancelEdit;
 	private JButton btnNeueBehandlung;
+	private JPanel contentPanel;
+	private JPanel sidePanel;
 	/**
 	 * Create the application.
 	 */
@@ -121,20 +123,12 @@ public class WNeuerPatient extends JInternalFrame {
 		setTitle(editable ? "Neuer Patient" : "Patient");
 		setBounds(100, 100, 756, 400);
 		
-		JPanel suche = new JPanel();
+		JPanel downPanel = new JPanel();
+		downPanel.setBounds(new Rectangle(1, 1, 1, 1));
 		
-		textAnimalSuche = new JSearchTextField();
-		textAnimalSuche.setColumns(10);
+		contentPanel = new JPanel();
 		
-		JPanel daten = new JPanel();
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(1, 1, 1, 1));
-		
-		panelVerlauf = new JPanel();
-		
-		
-		JPanel panelBemerkungen = new JPanel();
+		sidePanel = new JPanel();
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -142,61 +136,57 @@ public class WNeuerPatient extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(suche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-					.addGap(11))
+						.addComponent(downPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 305, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(sidePanel, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(119, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(suche, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-						.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE))
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 323, Short.MAX_VALUE)
+						.addComponent(sidePanel, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(downPanel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
 					.addGap(1))
 		);
+		
+		
+		JPanel panelBemerkungen = new JPanel();
 		
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
 		
 		JScrollPane sPaneBemerkungen = new JScrollPane();
 		GroupLayout gl_panelBemerkungen = new GroupLayout(panelBemerkungen);
 		gl_panelBemerkungen.setHorizontalGroup(
-			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
+			gl_panelBemerkungen.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelBemerkungen.createSequentialGroup()
 					.addGap(1)
-					.addGroup(gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelBemerkungen.createSequentialGroup()
-							.addComponent(lblBemerkungen)
-							.addContainerGap())
-						.addGroup(gl_panelBemerkungen.createSequentialGroup()
-							.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-							.addGap(1))))
+					.addComponent(lblBemerkungen)
+					.addContainerGap())
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addGap(2)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
 		);
 		gl_panelBemerkungen.setVerticalGroup(
 			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelBemerkungen.createSequentialGroup()
 					.addComponent(lblBemerkungen)
-					.addGap(1)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-					.addGap(2))
+					.addGap(2)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
 		);
 		
 		txtBemerkung = new JTextPane();
 		txtBemerkung.setFont(new Font("SansSerif", txtBemerkung.getFont().getStyle(), txtBemerkung.getFont().getSize()));
 		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
+		
+		panelVerlauf = new JPanel();
 		
 		JLabel Verlauf = new JLabel("Verlauf:");
 		
@@ -226,60 +216,14 @@ public class WNeuerPatient extends JInternalFrame {
 		listVerlauf = new JList();
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
-		suche.setLayout(new BoxLayout(suche, BoxLayout.X_AXIS));
-		suche.add(textAnimalSuche);
-		panel.setLayout(new MigLayout("", "[29.00][42.00][][][]", "[26.00]"));
 		
-		btnOk = new JButton();
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(id == -1){
-					addPatient();
-				}else if(editable){
-					updatePatient();
-				}else{
-					dispose();
-					return;
-				}
-			}
-		});
-		panel.add(btnOk, "cell 1 0,alignx center");
+		//panelBemerkungen.setVisible(!editable);
+		panelVerlauf.setVisible(!editable);
+		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.X_AXIS));
+		sidePanel.add(panelVerlauf);
+		sidePanel.add(panelBemerkungen);
 		
-		buttonCancelEdit = new JButton("Cancel");
-		buttonCancelEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(id == -1){
-					dispose();
-				}else if(editable){
-					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
-						editable = false;
-						setEditable();
-						loadData();
-					}
-				}else{
-					editable = true;
-					setEditable();
-				}
-			}
-		});
-		
-		panel.add(buttonCancelEdit, "cell 2 0");
-		
-		btnNeueAnamnese = new JButton("Neue Anamnese");
-		btnNeueAnamnese.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				neueAnamnese(strName);
-			}
-
-		});
-		panel.add(btnNeueAnamnese, "cell 3 0");
-		
-		btnNeueBehandlung = new JButton("Neue Behandlung");
-		panel.add(btnNeueBehandlung, "cell 4 0");
-		btnNeueAnamnese.setVisible(!editable);
-		
-		
-		buttonCancelEdit.setVisible(editable);
+		JPanel daten = new JPanel();
 		
 		allgemeineDaten = new JPanel();
 		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -314,6 +258,134 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		strName = new JTextField();
 		strName.setColumns(10);
+		
+		textRasse = new JSearchTextField();
+		textRasse.setColumns(10);
+		textRasse.setAPI(new RaceProvider());
+		
+		strFarbe = new JTextField();
+		strFarbe.setColumns(10);
+		
+		spinGewicht = new JSpinner();
+		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		
+		textIdentifizierung = new JTextField();
+		textIdentifizierung.setColumns(10);
+		
+		enumGeschlecht = new JComboBox<GenderEnumObj>();
+		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
+		spinBirthdate = new JSpinner();
+		spinBirthdate.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		spinBirthdate.setEditor(dateEditor);
+		spinBirthdate.setEnabled(editable);
+		
+		strRufname = new JTextField();
+		strRufname.setColumns(10);
+		
+			
+			JLabel lblRufname = new JLabel("Rufname:");
+			
+			JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
+			
+			textPartnerSuche = new JSearchTextField();
+			textPartnerSuche.setColumns(10);
+			allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
+			allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
+			allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
+			allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
+			allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
+			allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
+			allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
+			allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
+			allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
+			allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
+			allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
+			allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
+			allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
+			allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
+			allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
+			allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
+			allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
+			allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
+			allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
+			daten.setLayout(gl_daten);
+		
+		textAnimalSuche = new JSearchTextField();
+		textAnimalSuche.setColumns(10);
+		textAnimalSuche.setAPI(new AnimalProvider());
+		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(147, Short.MAX_VALUE))
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		contentPanel.setLayout(gl_contentPanel);
+		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][][]", "[26.00]"));
+		
+		btnOk = new JButton();
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(id == -1){
+					addPatient();
+				}else if(editable){
+					updatePatient();
+				}else{
+					dispose();
+					return;
+				}
+			}
+		});
+		downPanel.add(btnOk, "cell 1 0,alignx center");
+		
+		buttonCancelEdit = new JButton("Cancel");
+		buttonCancelEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(id == -1){
+					dispose();
+				}else if(editable){
+					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				}else{
+					editable = true;
+					setEditable();
+				}
+			}
+		});
+		
+		downPanel.add(buttonCancelEdit, "cell 2 0");
+		
+		btnNeueAnamnese = new JButton("Neue Anamnese");
+		btnNeueAnamnese.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				neueAnamnese(strName);
+			}
+
+		});
+		downPanel.add(btnNeueAnamnese, "cell 3 0");
+		
+		btnNeueBehandlung = new JButton("Neue Behandlung");
+		downPanel.add(btnNeueBehandlung, "cell 4 0");
+		btnNeueAnamnese.setVisible(!editable);
+		
+		
+		buttonCancelEdit.setVisible(editable);
 		
 		/**
 		 * Default DataProvider for these kinds
@@ -390,66 +462,10 @@ public class WNeuerPatient extends JInternalFrame {
 				return element.getName() + " " + element.getOptname();
 			}
 		}
-		textAnimalSuche.setAPI(new AnimalProvider());
-		
-		textRasse = new JSearchTextField();
-		textRasse.setColumns(10);
-		textRasse.setAPI(new RaceProvider());
-		
-		strFarbe = new JTextField();
-		strFarbe.setColumns(10);
-		
-		spinGewicht = new JSpinner();
-		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-		
-		textIdentifizierung = new JTextField();
-		textIdentifizierung.setColumns(10);
-		
-		enumGeschlecht = new JComboBox<GenderEnumObj>();
-		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
-		spinBirthdate = new JSpinner();
-		spinBirthdate.setModel(model);
-		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
-		spinBirthdate.setEditor(dateEditor);
-		spinBirthdate.setEnabled(editable);
-		
-		strRufname = new JTextField();
-		strRufname.setColumns(10);
-	
-		
-		JLabel lblRufname = new JLabel("Rufname:");
-		
-		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
-		
-		textPartnerSuche = new JSearchTextField();
-		textPartnerSuche.setColumns(10);
-		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
-		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
-		allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
-		allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
-		allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
-		allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
-		allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
-		allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
-		allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
-		allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
-		allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
-		allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
-		allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
-		allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
-		allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
-		allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
-		allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
-		allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
-		allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
-		daten.setLayout(gl_daten);
 		getContentPane().setLayout(groupLayout);
-		
-		//panelBemerkungen.setVisible(!editable);
-		panelVerlauf.setVisible(!editable);
 		
 		try {
 			searchRaceStm = Database.prepareRaceSearchStm();
