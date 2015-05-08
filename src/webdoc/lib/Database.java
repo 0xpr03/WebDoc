@@ -269,9 +269,9 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long roleid) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email) throws SQLException{
 		long id;
-		long role_id;
+		long partnerroleid;
 		{
 			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 					+"VALUES (?,?,?,?,?)";
@@ -292,33 +292,40 @@ public class Database{
 			String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
 			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stm.setLong(1, id);
-			stm.setLong(2, roleid);
+			stm.setLong(2, partnertypeid);
 			stm.executeUpdate();
 			
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
-			roleid = rs.getLong(1);
+			partnerroleid = rs.getLong(1);
 			stm.close();
 		}
 		{
 			PreparedStatement stm = prepareTelecommInsertStm();
 			stm.setString(1, phone);
 			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
-			stm.setLong(3, roleid);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			stm.clearParameters();
 			
 			stm.setString(1, mobile);
 			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
-			stm.setLong(3, roleid);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			stm.clearParameters();
 			
 			stm.setString(1, fax);
 			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
-			stm.setLong(3, roleid);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			stm.clearParameters();
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareEmailInsertStm();
+			stm.setString(1, email);
+			stm.setLong(2, partnerroleid);
+			stm.executeUpdate();
 			stm.close();
 		}
 		
@@ -371,7 +378,16 @@ public class Database{
 		return affectedLines;
 	}
 	
-	
+	/**
+	 * Prepare email table insert
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareEmailInsertStm() throws SQLException {
+		String sql = "INSERT INTO `email` (`mail`,`PartnerRoleID`) "
+				+ "VALUES (?,?);";
+		return prepareStm(sql);
+	}
 	
 	/**
 	 * Prepare telecommunication table insert
