@@ -62,7 +62,8 @@ import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
-	//private static final long serialVersionUID = -4647611743598708383L; DON'T #22
+	// private static final long serialVersionUID = -4647611743598708383L; DON'T
+	// #22
 	private JSearchTextField textAnimalSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;
@@ -70,8 +71,9 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField strFarbe;
 	private JSpinner spinGewicht;
 	private JTextField textIdentifizierung;
-	private GenderEnumObj[] geschlecht_lokalisiert = {new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),new GenderEnumObj("Weiblich", GenderType.FEMALE),new GenderEnumObj("Männlich", GenderType.MALE) };
-	private  boolean editable = true;
+	private GenderEnumObj[] geschlecht_lokalisiert = { new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),
+			new GenderEnumObj("Weiblich", GenderType.FEMALE), new GenderEnumObj("Männlich", GenderType.MALE) };
+	private boolean editable = true;
 	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
 	private JTextField strRufname;
@@ -90,10 +92,11 @@ public class WNeuerPatient extends JInternalFrame {
 	private JButton buttonCancelEdit;
 	private JButton btnNeueBehandlung;
 	private JPanel contentPanel;
+
 	/**
 	 * Create the application.
 	 */
-	public WNeuerPatient(boolean editable,long id) {
+	public WNeuerPatient(boolean editable, long id) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameClosing(InternalFrameEvent arg0) {
@@ -115,236 +118,233 @@ public class WNeuerPatient extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		
+
 		getContentPane().setMinimumSize(new Dimension(600, 400));
 		setPreferredSize(new Dimension(700, 400));
 		setMinimumSize(new Dimension(1, 1));
-		
+
 		setTitle(editable ? "Neuer Patient" : "Patient");
 		setBounds(100, 100, 756, 400);
-		
+
 		JPanel downPanel = new JPanel();
 		downPanel.setBounds(new Rectangle(1, 1, 1, 1));
-		
+
 		contentPanel = new JPanel();
-		
+
 		JPanel daten = new JPanel();
-		
+
 		allgemeineDaten = new JPanel();
-		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten", TitledBorder.CENTER, TitledBorder.TOP,
+				null, null));
 		allgemeineDaten.setAutoscrolls(true);
 		GroupLayout gl_daten = new GroupLayout(daten);
-		gl_daten.setHorizontalGroup(
-			gl_daten.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_daten.createSequentialGroup()
-					.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, 282, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_daten.setVerticalGroup(
-			gl_daten.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_daten.createSequentialGroup()
-					.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(56, Short.MAX_VALUE))
-		);
-		
+		gl_daten.setHorizontalGroup(gl_daten.createParallelGroup(Alignment.LEADING).addGroup(gl_daten
+				.createSequentialGroup()
+				.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, 282, Short.MAX_VALUE).addGap(1)));
+		gl_daten.setVerticalGroup(gl_daten
+				.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_daten
+						.createSequentialGroup()
+						.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(56, Short.MAX_VALUE)));
+
 		JLabel lblName = new JLabel("Name des Tieres:");
-		
+
 		JLabel lblRasse = new JLabel("Rasse:");
-		
+
 		JLabel lblGeschlecht = new JLabel("Geschlecht:");
-		
+
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
-		
+
 		JLabel lblHaarkleidfarbe = new JLabel("Haarkleid/Farbe:");
-		
+
 		JLabel lblGewicht = new JLabel("Gewicht:");
-		
+
 		JLabel lblIdentifizierung = new JLabel("Identifizierung:");
-		
+
 		strName = new JTextField();
 		strName.setColumns(10);
-		
+
 		textRasse = new JSearchTextField();
 		textRasse.setColumns(10);
-		
+
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
-		
+
 		spinGewicht = new JSpinner();
-		
-		
+
 		textIdentifizierung = new JTextField();
 		textIdentifizierung.setColumns(10);
-		
+
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		spinBirthdate = new JSpinner();
-		
+
 		spinBirthdate.setEditor(dateEditor);
 		spinBirthdate.setEnabled(editable);
-		
+
 		strRufname = new JTextField();
 		strRufname.setColumns(10);
-		
-			
-			JLabel lblRufname = new JLabel("Rufname:");
-			
-			JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
-			
-			textPartnerSuche = new JSearchTextField();
-			textPartnerSuche.setColumns(10);
-			allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
-			allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
-			allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
-			allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
-			allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
-			allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
-			allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
-			allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
-			allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
-			allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
-			allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
-			allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
-			allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
-			allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
-			allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
-			allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
-			allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
-			allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
-			allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
-			daten.setLayout(gl_daten);
-		
+
+		JLabel lblRufname = new JLabel("Rufname:");
+
+		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
+
+		textPartnerSuche = new JSearchTextField();
+		textPartnerSuche.setColumns(10);
+		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]",
+				"[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
+		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
+		allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
+		allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
+		allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
+		allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
+		allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
+		allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
+		allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
+		allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
+		allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
+		allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
+		allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
+		allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
+		allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
+		allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
+		allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
+		allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
+		allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
+		daten.setLayout(gl_daten);
+
 		textAnimalSuche = new JSearchTextField();
 		textAnimalSuche.setColumns(10);
-		
+
 		panelVerlauf = new JPanel();
-		
+
 		JLabel Verlauf = new JLabel("Verlauf:");
-		
+
 		JScrollPane sPaneVerlauf = new JScrollPane();
 		GroupLayout gl_PanelVerlauf = new GroupLayout(panelVerlauf);
-		gl_PanelVerlauf.setHorizontalGroup(
-			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelVerlauf.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelVerlauf.createSequentialGroup()
-							.addComponent(Verlauf)
-							.addContainerGap())
-						.addGroup(gl_PanelVerlauf.createSequentialGroup()
-							.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-							.addGap(1))))
-		);
-		gl_PanelVerlauf.setVerticalGroup(
-			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelVerlauf.createSequentialGroup()
-					.addComponent(Verlauf)
-					.addGap(1)
-					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
-					.addGap(2))
-		);
-		
+		gl_PanelVerlauf.setHorizontalGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelVerlauf
+						.createSequentialGroup()
+						.addGap(1)
+						.addGroup(gl_PanelVerlauf
+								.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_PanelVerlauf.createSequentialGroup().addComponent(Verlauf)
+										.addContainerGap())
+								.addGroup(gl_PanelVerlauf.createSequentialGroup()
+										.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+										.addGap(1)))));
+		gl_PanelVerlauf.setVerticalGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelVerlauf.createSequentialGroup().addComponent(Verlauf).addGap(1)
+						.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE).addGap(2)));
+
 		listVerlauf = new JList();
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
-		
-		//panelBemerkungen.setVisible(!editable);
+
+		// panelBemerkungen.setVisible(!editable);
 		panelVerlauf.setVisible(!editable);
-		
-		
+
 		JPanel panelBemerkungen = new JPanel();
-		
+
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
-		
+
 		JScrollPane sPaneBemerkungen = new JScrollPane();
 		GroupLayout gl_panelBemerkungen = new GroupLayout(panelBemerkungen);
-		gl_panelBemerkungen.setHorizontalGroup(
-			gl_panelBemerkungen.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addGap(2)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addGap(1)
-					.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_panelBemerkungen.setVerticalGroup(
-			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(2)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-		);
-		
+		gl_panelBemerkungen
+				.setHorizontalGroup(gl_panelBemerkungen
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelBemerkungen.createSequentialGroup().addGap(2)
+								.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+						.addGroup(gl_panelBemerkungen
+								.createSequentialGroup()
+								.addGap(1)
+								.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGap(1)));
+		gl_panelBemerkungen
+				.setVerticalGroup(gl_panelBemerkungen
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelBemerkungen
+								.createSequentialGroup()
+								.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGap(2)
+								.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)));
+
 		txtBemerkung = new JTextPane();
-		txtBemerkung.setFont(new Font("SansSerif", txtBemerkung.getFont().getStyle(), txtBemerkung.getFont().getSize()));
+		txtBemerkung
+				.setFont(new Font("SansSerif", txtBemerkung.getFont().getStyle(), txtBemerkung.getFont().getSize()));
 		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(1)
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
+		gl_contentPanel
+				.setHorizontalGroup(gl_contentPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(gl_contentPanel
+										.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+								.addGap(1)));
+		gl_contentPanel
+				.setVerticalGroup(gl_contentPanel
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel
+								.createSequentialGroup()
+								.addGroup(gl_contentPanel
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPanel
+												.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGap(1)
+												.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
+										.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][][]", "[26.00]"));
-		
+
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(id == -1){
+				if (id == -1) {
 					addPatient();
-				}else if(editable){
+				} else if (editable) {
 					updatePatient();
-				}else{
+				} else {
 					dispose();
 					return;
 				}
 			}
 		});
 		downPanel.add(btnOk, "cell 1 0,alignx center");
-		
+
 		buttonCancelEdit = new JButton("Cancel");
 		buttonCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(id == -1){
+				if (id == -1) {
 					dispose();
-				}else if(editable){
-					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+				} else if (editable) {
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						editable = false;
 						setEditable();
 						loadData();
 					}
-				}else{
+				} else {
 					editable = true;
 					setEditable();
 				}
 			}
 		});
-		
+
 		downPanel.add(buttonCancelEdit, "cell 2 0");
-		
+
 		btnNeueAnamnese = new JButton("Neue Anamnese");
 		btnNeueAnamnese.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -353,41 +353,42 @@ public class WNeuerPatient extends JInternalFrame {
 
 		});
 		downPanel.add(btnNeueAnamnese, "cell 3 0");
-		
+
 		btnNeueBehandlung = new JButton("Neue Behandlung");
 		downPanel.add(btnNeueBehandlung, "cell 4 0");
 		btnNeueAnamnese.setVisible(!editable);
-		
-		
+
 		buttonCancelEdit.setVisible(editable);
-		
+
 		/**
 		 * Default DataProvider for these kinds
+		 * 
 		 * @author "Aron Heinecke"
 		 */
-		class RaceProvider implements searchFieldAPI{
+		class RaceProvider implements searchFieldAPI {
 			@Override
-			public List<ACElement> getData(String text){
+			public List<ACElement> getData(String text) {
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
-					searchRaceStm.setString(1, "%"+text+"%");
+					searchRaceStm.setString(1, "%" + text + "%");
 					ResultSet result = searchRaceStm.executeQuery();
-					
-					while(result.next()){
-						list.add(new ACElement(result.getString(2),"", result.getLong(1), ElementType.RACE));
+
+					while (result.next()) {
+						list.add(new ACElement(result.getString(2), "", result.getLong(1), ElementType.RACE));
 					}
 					result.close();
-					
+
 				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 				}
 				return list;
 			}
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				logger.debug("Element chosen: {}",element);
-				//doing nothing, we only want to provide a search for the existing types
+				logger.debug("Element chosen: {}", element);
+				// doing nothing, we only want to provide a search for the
+				// existing types
 				return true;
 			}
 
@@ -399,32 +400,35 @@ public class WNeuerPatient extends JInternalFrame {
 		textRasse.setAPI(new RaceProvider());
 		/**
 		 * Default DataProvider for these kinds
+		 * 
 		 * @author "Aron Heinecke"
 		 */
-		class AnimalProvider implements searchFieldAPI{
+		class AnimalProvider implements searchFieldAPI {
 			@Override
-			public List<ACElement> getData(String text){
+			public List<ACElement> getData(String text) {
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
-					searchAnimalStm.setString(1, "%"+text+"%");
-					searchAnimalStm.setString(2, "%"+text+"%");
+					searchAnimalStm.setString(1, "%" + text + "%");
+					searchAnimalStm.setString(2, "%" + text + "%");
 					ResultSet result = searchAnimalStm.executeQuery();
-					
-					while(result.next()){
-						list.add(new ACElement(result.getString(1),result.getString(2), result.getLong(3), ElementType.ANIMAL));
+
+					while (result.next()) {
+						list.add(new ACElement(result.getString(1), result.getString(2), result.getLong(3),
+								ElementType.ANIMAL));
 					}
 					result.close();
-					
+
 				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 				}
 				return list;
 			}
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				if(editable){
-					if(GUIManager.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..")==0)
+				if (editable) {
+					if (GUIManager
+							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
 						return false;
 				}
 				loadData(element.getID());
@@ -438,7 +442,7 @@ public class WNeuerPatient extends JInternalFrame {
 			}
 		}
 		textAnimalSuche.setAPI(new AnimalProvider());
-		
+
 		SpinnerDateModel model = new SpinnerDateModel();
 		spinBirthdate.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
@@ -447,36 +451,36 @@ public class WNeuerPatient extends JInternalFrame {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+
 		try {
 			searchRaceStm = Database.prepareRaceSearchStm();
 		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 		}
-		
+
 		setEditable();
-		
+
 		this.pack();
 		try {
 			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
 		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 		}
-		
+
 		loadData();
 	}
-	
-	private void updateTitle(String name, String rufname){
-		this.setTitle("Patient - "+name+" "+rufname);
+
+	private void updateTitle(String name, String rufname) {
+		this.setTitle("Patient - " + name + " " + rufname);
 	}
-	
+
 	/**
-	 * Loads the animal data if id not -1
-	 * (while id 0 is also never given out)
+	 * Loads the animal data if id not -1 (while id 0 is also never given out)
+	 * 
 	 * @author "Aron Heinecke"
 	 */
-	private void loadData(){
-		if(id != -1){
+	private void loadData() {
+		if (id != -1) {
 			try {
 				ResultSet result = Database.getAnimal(id);
 				result.next();
@@ -486,45 +490,49 @@ public class WNeuerPatient extends JInternalFrame {
 				strFarbe.setText(result.getString(4));
 				spinGewicht.setValue(result.getDouble(5));
 				spinBirthdate.setValue(result.getDate(6));
-				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[1] : geschlecht_lokalisiert[2]);
+				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[1]
+						: geschlecht_lokalisiert[2]);
 				logger.debug("picID: {}", result.getString(9));
 				txtBemerkung.setText(result.getString(8));
 				textRasse.setTextWithoutNotification(result.getString(8));
 				updateTitle(result.getString(1), result.getString(2));
 				result.close();
 			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
 		}
 	}
-	
+
 	/**
 	 * simple instance provider for events
-	 * @return 
+	 * 
+	 * @return
 	 */
-	private WNeuerPatient getFrame(){
+	private WNeuerPatient getFrame() {
 		return this;
 	}
-	
+
 	/**
 	 * Load data with a new ID, wrapper for search event handler
+	 * 
 	 * @param id
 	 * @author "Aron Heinecke"
 	 */
-	private void loadData(long id){
+	private void loadData(long id) {
 		this.id = id;
 		loadData();
 	}
-	
+
 	protected void neueAnamnese(JTextField strName2) {
 		GUIManager.callWNewAnamnesis();
 	}
-	
+
 	/**
 	 * ReSet editable for all input elements
+	 * 
 	 * @author "Aron Heinecke"
 	 */
-	private void setEditable(){
+	private void setEditable() {
 		logger.debug("ID internal {}", id);
 		textAnimalSuche.setEditable(!editable);
 		strName.setEditable(editable);
@@ -541,73 +549,78 @@ public class WNeuerPatient extends JInternalFrame {
 		textPartnerSuche.setEditable(editable);
 		updateEditBtns();
 	}
-	
+
 	/**
 	 * updates buttons that change on selected element change also
 	 */
-	private void updateEditBtns(){
+	private void updateEditBtns() {
 		btnNeueAnamnese.setEnabled(id > -1);
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		buttonCancelEdit.setVisible(id > -1 || editable);
 		buttonCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
-	
+
 	@Override
-	public void dispose()
-	{
-		if(editable){
-			if(GUIFunctions.showIgnoreChangesDialog(this)==1)
+	public void dispose() {
+		if (editable) {
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
 				return;
 		}
-		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-	
+
 	/**
 	 * add a patient
+	 * 
 	 * @author "Aron Heinecke"
 	 */
 	private void addPatient() {
-		//TODO: add picture support
-		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
+		// TODO: add picture support
+		if ((GenderEnumObj) enumGeschlecht.getSelectedItem() != null) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
-			if(gender.getType() != GenderType.UNKNOWN){
+			if (gender.getType() != GenderType.UNKNOWN) {
 				try {
-					id = Database.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
-							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
-							.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung.getText(), null);
+					id = Database
+							.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
+									.getText(), (double) spinGewicht.getValue(), new java.sql.Date(
+									((Date) spinBirthdate.getValue()).getTime()), gender.getType() == GenderType.FEMALE, textRasse
+									.getText(), txtBemerkung.getText(), null);
 					editable = false;
 					setEditable();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
-					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+					GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
 				}
-			}else{
+			} else {
 				JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");
 				logger.info("No Gender selected!");
 			}
 		}
 	}
+
 	/**
 	 * updates the patient
+	 * 
 	 * @author "Aron Heinecke"
 	 */
 	private void updatePatient() {
-		if((GenderEnumObj)enumGeschlecht.getSelectedItem() != null) {
+		if ((GenderEnumObj) enumGeschlecht.getSelectedItem() != null) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
-			if(gender.getType() != GenderType.UNKNOWN){
+			if (gender.getType() != GenderType.UNKNOWN) {
 				try {
-					Database.updatePatient(id,strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
-							.getText(), (double)spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()), gender
-							.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung.getText(), null);
+					Database.updatePatient(id, strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
+							.getText(), (double) spinGewicht.getValue(), new java.sql.Date(((Date) spinBirthdate
+							.getValue()).getTime()), gender.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung
+							.getText(), null);
 					editable = false;
 					setEditable();
 				} catch (SQLException e) {
 					DBError error = Database.DBExceptionConverter(e);
-					GUIManager.showErrorDialog(this, "Error during insertion: "+error, "Insertion error");
+					GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
 				}
-			}else{
+			} else {
 				JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");
 				logger.info("No Gender selected!");
 			}

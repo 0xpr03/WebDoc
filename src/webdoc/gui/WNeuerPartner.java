@@ -61,12 +61,14 @@ public class WNeuerPartner extends JInternalFrame {
 	/**
 	 * 
 	 */
-	//private static final long serialVersionUID = -2791732649836492001L; DON'T #22
+	// private static final long serialVersionUID = -2791732649836492001L; DON'T
+	// #22
 	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textHausnummer;
-	private RoleEnumObj[] rolle_lokalisiert = {new RoleEnumObj("Bitte Auswählen", RoleType.UNKNOWN),new RoleEnumObj("Patientenbesitzer", RoleType.PETOWNER),new RoleEnumObj("Arzt", RoleType.MEDIC) };
+	private RoleEnumObj[] rolle_lokalisiert = { new RoleEnumObj("Bitte Auswählen", RoleType.UNKNOWN),
+			new RoleEnumObj("Patientenbesitzer", RoleType.PETOWNER), new RoleEnumObj("Arzt", RoleType.MEDIC) };
 	private JComboBox<RoleEnumObj> enumRole;
 	private JTextField textStraße;
 	private JTextField textOrtsteil;
@@ -106,7 +108,7 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 
 	/**
-	 * Initialize the contents of the 
+	 * Initialize the contents of the
 	 */
 	private void initialize() {
 		setFrameIcon(null);
@@ -114,23 +116,23 @@ public class WNeuerPartner extends JInternalFrame {
 		setResizable(true);
 		setClosable(true);
 		setMaximizable(true);
-		
+
 		setTitle(editable ? "Neuer Partner" : "Partner");
 		setBounds(100, 100, 909, 551);
-		
+
 		JPanel contentPanel = new JPanel();
-		
+
 		JPanel downPanel = new JPanel();
 		downPanel.setLayout(new MigLayout("", "[][][][][]", "[]"));
-		
+
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(id == -1){
+				if (id == -1) {
 					addPartner();
-				}else if(editable){
+				} else if (editable) {
 					updatePartner();
-				}else{
+				} else {
 					dispose();
 					return;
 				}
@@ -138,26 +140,26 @@ public class WNeuerPartner extends JInternalFrame {
 
 		});
 		downPanel.add(btnOk, "cell 0 0");
-		
+
 		btnCancelEdit = new JButton();
 		btnCancelEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(id == -1){
+				if (id == -1) {
 					dispose();
-				}else if(editable){
-					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+				} else if (editable) {
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						editable = false;
 						setEditable();
 						loadData();
 					}
-				}else{
+				} else {
 					editable = true;
 					setEditable();
 				}
 			}
 		});
 		downPanel.add(btnCancelEdit, "cell 2 0");
-		
+
 		JCheckBox chckbxKommentarAnzeigen = new JCheckBox("Kommentar anzeigen");
 		chckbxKommentarAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -167,37 +169,36 @@ public class WNeuerPartner extends JInternalFrame {
 		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
-		
+
 		JListVerlauf = new JList();
-		JListVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		JListVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf",
+				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListVerlauf.setBackground(Color.WHITE);
-		
+
 		JPanel personenbezogeneDaten = new JPanel();
-		
+
 		JLabel lblNewLabel = new JLabel("Name:");
-		
+
 		JLabel lblVorname = new JLabel("Vorname:");
-		
+
 		JLabel lblTitel = new JLabel("Titel:");
-		
+
 		textName = new JTextField();
 		textName.setColumns(10);
-		
-		
+
 		textVorname = new JTextField();
 		textVorname.setColumns(10);
-		
-		
+
 		textTitel = new JTextField();
 		textTitel.setColumns(10);
-		
-		
+
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		spinGebdatum = new JSpinner();
-		
+
 		enumRole = new JComboBox<RoleEnumObj>();
 		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
-		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
+		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]",
+				"[20px][20px][20px][20px][20px]"));
 		personenbezogeneDaten.add(lblVorname, "cell 0 2 3 1,growx,aligny center");
 		personenbezogeneDaten.add(lblNewLabel, "cell 0 1 3 1,alignx left,aligny center");
 		personenbezogeneDaten.add(lblTitel, "cell 0 3,alignx left,aligny center");
@@ -207,195 +208,212 @@ public class WNeuerPartner extends JInternalFrame {
 		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
 		personenbezogeneDaten.add(spinGebdatum, "cell 6 4,growx,aligny top");
 		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
-		
+
 		panel_2 = new JPanel();
-		
+
 		JLabel lblAdresse = new JLabel("Adresse");
-		
+
 		JLabel lblPostleitzahl = new JLabel("Postleitzahl:");
-		
+
 		JLabel lblOrt = new JLabel("Ort:");
-		
+
 		JLabel lblOrtsteil = new JLabel("Ortsteil:");
-		
+
 		JLabel lblStrae = new JLabel("Straße:");
-		
+
 		JLabel lblHausnummer = new JLabel("Hausnummer:");
-		
+
 		JLabel lblZusatz = new JLabel("Zusatz:");
-		
+
 		JSeparator separator = new JSeparator();
-		
+
 		JLabel lblKomunikation = new JLabel("Komunikation");
-		
+
 		JLabel lblTelefon = new JLabel("Telefon");
-		
+
 		JLabel lblHandy = new JLabel("Handy");
-		
+
 		JLabel lblFax = new JLabel("Fax");
-		
+
 		JLabel lblEmail = new JLabel("E-Mail");
-		
+
 		textHausnummer = new JTextField();
 		textHausnummer.setColumns(10);
-		
+
 		textStraße = new JTextField();
 		textStraße.setColumns(10);
-		
+
 		textOrtsteil = new JTextField();
 		textOrtsteil.setColumns(10);
-		
+
 		textOrt = new JTextField();
 		textOrt.setColumns(10);
-		
+
 		textPostleitzahl = new JTextField();
 		textPostleitzahl.setColumns(10);
-		
+
 		textZusatz = new JTextField();
 		textZusatz.setColumns(10);
-		
+
 		textTelefon = new JTextField();
 		textTelefon.setColumns(10);
-		
+
 		textHandy = new JTextField();
 		textHandy.setColumns(10);
-		
+
 		textFax = new JTextField();
 		textFax.setColumns(10);
-		
-		
+
 		textEmail = new JTextField();
 		textEmail.setColumns(10);
-		
+
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_2.createSequentialGroup()
-								.addGap(112)
-								.addComponent(lblAdresse))
-							.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_panel_2.createSequentialGroup()
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblHausnummer)
-									.addComponent(lblPostleitzahl)
-									.addComponent(lblOrt)
-									.addComponent(lblOrtsteil)
-									.addComponent(lblStrae)
-									.addComponent(lblZusatz))
+		gl_panel_2
+				.setHorizontalGroup(gl_panel_2
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2
+								.createSequentialGroup()
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2
+												.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_2.createSequentialGroup().addGap(112)
+														.addComponent(lblAdresse))
+												.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_panel_2
+														.createSequentialGroup()
+														.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+																.addComponent(lblHausnummer)
+																.addComponent(lblPostleitzahl).addComponent(lblOrt)
+																.addComponent(lblOrtsteil).addComponent(lblStrae)
+																.addComponent(lblZusatz))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(gl_panel_2
+																.createParallelGroup(Alignment.LEADING)
+																.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(90)
+												.addComponent(lblKomunikation))
+										.addGroup(gl_panel_2
+												.createSequentialGroup()
+												.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblTelefon).addComponent(lblHandy)
+														.addComponent(lblFax).addComponent(lblEmail))
+												.addGap(34)
+												.addGroup(gl_panel_2
+														.createParallelGroup(Alignment.LEADING)
+														.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+														.addComponent(textFax, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+														.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+														.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_panel_2
+				.setVerticalGroup(gl_panel_2
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2
+								.createSequentialGroup()
+								.addComponent(lblAdresse)
+								.addGap(9)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblPostleitzahl)
+										.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(12)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblOrt)
+										.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(12)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblOrtsteil)
+										.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(12)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblStrae)
+										.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(12)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblHausnummer)
+										.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(12)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblZusatz)
+										.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-									.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(90)
-							.addComponent(lblKomunikation))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTelefon)
-								.addComponent(lblHandy)
-								.addComponent(lblFax)
-								.addComponent(lblEmail))
-							.addGap(34)
-							.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-								.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFax, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(lblAdresse)
-					.addGap(9)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPostleitzahl)
-						.addComponent(textPostleitzahl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblOrt)
-						.addComponent(textOrt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblOrtsteil)
-						.addComponent(textOrtsteil, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblStrae)
-						.addComponent(textStraße, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHausnummer)
-						.addComponent(textHausnummer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblZusatz)
-						.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblKomunikation)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTelefon)
-						.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHandy)
-						.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblFax)
-						.addComponent(textFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblEmail)
-						.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(58))
-		);
+								.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblKomunikation)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblTelefon)
+										.addComponent(textTelefon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblHandy)
+										.addComponent(textHandy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblFax)
+										.addComponent(textFax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblEmail)
+										.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(58)));
 		panel_2.setLayout(gl_panel_2);
-		
+
 		scrollPaneComment = new JScrollPane();
 		scrollPaneComment.setBackground(Color.WHITE);
-		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung",
+				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(3)
-					.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(JListVerlauf, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
-							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
-					.addGap(4))
-		);
-		
+		gl_contentPane
+				.setHorizontalGroup(gl_contentPane
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(gl_contentPane
+										.createParallelGroup(Alignment.LEADING)
+										.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(3)
+								.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)));
+		gl_contentPane
+				.setVerticalGroup(gl_contentPane
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane
+								.createSequentialGroup()
+								.addGroup(gl_contentPane
+										.createParallelGroup(Alignment.LEADING)
+										.addComponent(JListVerlauf, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+										.addGroup(gl_contentPane
+												.createSequentialGroup()
+												.addGap(1)
+												.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
+										.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
+								.addGap(4)));
+
 		textPaneComment = new JTextPane();
 		scrollPaneComment.setViewportView(textPaneComment);
 		contentPanel.setLayout(gl_contentPane);
-		
+
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -407,41 +425,44 @@ public class WNeuerPartner extends JInternalFrame {
 		pack();
 		setEditable();
 	}
-	
+
 	/**
 	 * simple instance provider for events
-	 * @return 
+	 * 
+	 * @return
 	 */
-	private WNeuerPartner getFrame(){
+	private WNeuerPartner getFrame() {
 		return this;
 	}
-	
+
 	/**
 	 * Load data with a new ID, wrapper for search event handler
+	 * 
 	 * @param id
 	 * @author "Aron Heinecke"
 	 */
-	private void loadData(long id){
+	private void loadData(long id) {
 		this.id = id;
 		loadData();
 	}
-	
+
 	/**
-	 * Loads the animal data if id not -1
-	 * (while id 0 is also never given out)
+	 * Loads the animal data if id not -1 (while id 0 is also never given out)
+	 * 
 	 * @author "Aron Heinecke"
 	 */
-	private void loadData(){
-		if(id != -1){
+	private void loadData() {
+		if (id != -1) {
 			logger.debug("currently not implemented");
 		}
 	}
-	
+
 	/**
 	 * ReSet editable for all input elements
+	 * 
 	 * @author "Aron Heinecke"
 	 */
-	private void setEditable(){
+	private void setEditable() {
 		textFax.setEditable(editable);
 		textHandy.setEditable(editable);
 		textTelefon.setEditable(editable);
@@ -459,40 +480,40 @@ public class WNeuerPartner extends JInternalFrame {
 		textPaneComment.setEditable(editable);
 		updateEditBtns();
 	}
-	
+
 	/**
 	 * updates buttons that change on selected element change also
 	 */
-	private void updateEditBtns(){
+	private void updateEditBtns() {
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		btnCancelEdit.setVisible(id > -1 || editable);
 		btnCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
 	}
-	
-	private void updateTitle(String name, String nachname){
-		this.setTitle("Partner - "+name+" "+nachname);
+
+	private void updateTitle(String name, String nachname) {
+		this.setTitle("Partner - " + name + " " + nachname);
 	}
-	
+
 	/**
 	 * adds a partner
 	 */
 	protected void addPartner() {
-		if(allSet()){
+		if (allSet()) {
 			try {
 				id = Database
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 								((Date) spinGebdatum.getValue()).getTime()), textPaneComment.getText(), textTelefon
 								.getText(), textHandy.getText(), textFax.getText());
-		editable = false;
+				editable = false;
 				setEditable();
 			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
-		}else{
+		} else {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
-	
+
 	/**
 	 * updates a partner
 	 */
@@ -501,32 +522,30 @@ public class WNeuerPartner extends JInternalFrame {
 		editable = false;
 		setEditable();
 	}
-	
+
 	@Override
-	public void dispose()
-	{
-		if(editable){
-			if(GUIFunctions.showIgnoreChangesDialog(this)==1)
+	public void dispose() {
+		if (editable) {
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
 				return;
 		}
-		((ActionMap)UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-	
-	private boolean allSet(){
-		if(textVorname.equals(""))
+
+	private boolean allSet() {
+		if (textVorname.equals(""))
 			return false;
-		if(textName.equals(""))
+		if (textName.equals(""))
 			return false;
-		
+
 		return true;
 	}
-	
 
-	private void exit(){
+	private void exit() {
 		this.dispose();
-		if(id != -1)
+		if (id != -1)
 			GUIManager.dropJID(this);
 	}
 }
