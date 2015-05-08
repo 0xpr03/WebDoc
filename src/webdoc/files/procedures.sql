@@ -76,11 +76,11 @@ CREATE PROCEDURE `getComTypeId`(
     MODIFIES SQL DATA
 BEGIN
 
-	SELECT `CommunicationID` INTO out_id FROM `communicatontype` WHERE `name` = param_comtype;
+	SELECT `CommunicationID` INTO out_id FROM `communicationtype` WHERE `name` = param_comtype;
 
 	IF FOUND_ROWS() = 0
 	THEN
-		INSERT INTO `communicatontype` (`name`) VALUES (param_comtype);
+		INSERT INTO `communicationtype` (`name`) VALUES (param_comtype);
 		SET out_id = LAST_INSERT_ID();
 	END IF;
 END$$
