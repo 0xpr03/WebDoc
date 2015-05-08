@@ -106,7 +106,6 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `CT_MRT` text NOT NULL,
  `mainproblem` text NOT NULL,
  `descrPatientOwner` text NOT NULL,
- `mainproblem` text NOT NULL,
  `wasUndertaken` text NOT NULL,
  `painSensitivity` tinyint(4) NOT NULL,
  `patientHasPain` tinyint(4) NOT NULL,
@@ -142,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  PRIMARY KEY (`TreatmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table addressreferenze / Adressverknüpfung */
-CREATE TABLE `addressreferenze` (
+CREATE TABLE IF NOT EXISTS `addressreferenze` (
  `PartnerRoleID` int(10) unsigned NOT NULL,
  `AddressID` int(10) unsigned NOT NULL,
  PRIMARY KEY (`PartnerRoleID`,`AddressID`)
