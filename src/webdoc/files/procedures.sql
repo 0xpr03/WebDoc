@@ -84,7 +84,7 @@ BEGIN
 		SET out_id = LAST_INSERT_ID();
 	END IF;
 END$$
-DROP PROCEDURE IF EXISTS `getCommID`$$
+/*DROP PROCEDURE IF EXISTS `getCommID`$$
 /*CREATE PROCEDURE `getCommID`(
 /*	IN `param_comtype` VARCHAR(50) CHARSET utf8,
 /*	OUT `out_id` INTEGER UNSIGNED )
