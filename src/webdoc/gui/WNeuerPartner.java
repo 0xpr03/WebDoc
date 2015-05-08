@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -45,10 +46,13 @@ import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+
 import java.awt.List;
+
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 import javax.swing.JCheckBox;
+
 import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
@@ -82,6 +86,8 @@ public class WNeuerPartner extends JInternalFrame {
 	private JButton btnCancelEdit;
 	private JList JListVerlauf;
 	private JPanel panel_2;
+	private JTextPane textPaneComment;
+	private JScrollPane scrollPaneComment;
 
 	/**
 	 * Create the application.
@@ -153,6 +159,12 @@ public class WNeuerPartner extends JInternalFrame {
 		downPanel.add(btnCancelEdit, "cell 2 0");
 		
 		JCheckBox chckbxKommentarAnzeigen = new JCheckBox("Kommentar anzeigen");
+		chckbxKommentarAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				scrollPaneComment.setVisible(((AbstractButton) arg0.getSource()).isSelected());
+				pack();
+			}
+		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
 		
@@ -264,7 +276,7 @@ public class WNeuerPartner extends JInternalFrame {
 							.addGroup(gl_panel_2.createSequentialGroup()
 								.addGap(112)
 								.addComponent(lblAdresse))
-							.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
+							.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_panel_2.createSequentialGroup()
 								.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 									.addComponent(lblHausnummer)
@@ -350,8 +362,9 @@ public class WNeuerPartner extends JInternalFrame {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		scrollPaneComment = new JScrollPane();
+		scrollPaneComment.setBackground(Color.WHITE);
+		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -360,27 +373,27 @@ public class WNeuerPartner extends JInternalFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(3)
 					.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE))
+					.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(scrollPane, Alignment.LEADING)
-						.addComponent(JListVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(JListVerlauf, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(5, Short.MAX_VALUE))
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
+					.addGap(4))
 		);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
+		textPaneComment = new JTextPane();
+		scrollPaneComment.setViewportView(textPaneComment);
 		contentPanel.setLayout(gl_contentPane);
 		
 		SpinnerDateModel model = new SpinnerDateModel();
@@ -391,7 +404,7 @@ public class WNeuerPartner extends JInternalFrame {
 		spinGebdatum.setEditor(dateEditor);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
-		
+		pack();
 		setEditable();
 	}
 	
@@ -443,6 +456,7 @@ public class WNeuerPartner extends JInternalFrame {
 		textVorname.setEditable(editable);
 		textTitel.setEditable(editable);
 		spinGebdatum.setEnabled(editable);
+		textPaneComment.setEditable(editable);
 		updateEditBtns();
 	}
 	
