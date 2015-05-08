@@ -528,6 +528,6 @@ public class Database{
 	 * @return DBEError containing the DBError enum and the ErrorMSG
 	 */
 	public static DBEError DBEExceptionConverter(SQLException e){
-		return new DBEError(DBExceptionConverter(e), e.getMessage());
+		return new DBEError(DBExceptionConverter(e,true), e.getMessage());
 	}
 }
