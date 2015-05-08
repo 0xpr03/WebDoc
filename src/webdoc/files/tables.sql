@@ -44,11 +44,11 @@ CREATE TABLE IF NOT EXISTS `telecommunication` (
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
  `PartnerRoleID` int(10) unsigned NOT NULL,
- `MailID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+/* `MailID` int(10) unsigned NOT NULL AUTO_INCREMENT,*/
  `mail` varchar(40) NOT NULL,
- PRIMARY KEY (`MailID`),
- KEY `PartnerRoleID` (`PartnerRoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+ PRIMARY KEY (`PartnerRoleID`),
+/* KEY `PartnerRoleID` (`PartnerRoleID`)*/
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table partnerroles / Rollen */
 CREATE TABLE IF NOT EXISTS `partnerroles` (
  `PartnerRoleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
