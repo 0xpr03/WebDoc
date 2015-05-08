@@ -289,27 +289,6 @@ public class Database{
 			stm.close();
 		}
 		{
-			PreparedStatement stm = prepareTelecommInsertStm();
-			stm.setString(1, phone);
-			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
-			stm.setLong(3, id);
-			stm.executeUpdate();
-			stm.clearParameters();
-			
-			stm.setString(1, mobile);
-			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
-			stm.setLong(3, id);
-			stm.executeUpdate();
-			stm.clearParameters();
-			
-			stm.setString(1, fax);
-			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
-			stm.setLong(3, id);
-			stm.executeUpdate();
-			stm.clearParameters();
-			stm.close();
-		}
-		{
 			String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
 			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stm.setLong(1, id);
@@ -319,6 +298,27 @@ public class Database{
 			ResultSet rs = stm.getGeneratedKeys();
 			rs.next();
 			roleid = rs.getLong(1);
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareTelecommInsertStm();
+			stm.setString(1, phone);
+			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
+			stm.setLong(3, roleid);
+			stm.executeUpdate();
+			stm.clearParameters();
+			
+			stm.setString(1, mobile);
+			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+			stm.setLong(3, roleid);
+			stm.executeUpdate();
+			stm.clearParameters();
+			
+			stm.setString(1, fax);
+			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
+			stm.setLong(3, roleid);
+			stm.executeUpdate();
+			stm.clearParameters();
 			stm.close();
 		}
 		
@@ -379,7 +379,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
-		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
 				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
 	}
