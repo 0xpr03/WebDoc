@@ -45,6 +45,10 @@ import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import java.awt.List;
+import javax.swing.JList;
+import javax.swing.border.TitledBorder;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -75,7 +79,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private long id;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
-	private JTextPane textPaneVerlauf;
+	private JList JListVerlauf;
 	private JPanel panel_2;
 
 	/**
@@ -107,9 +111,125 @@ public class WNeuerPartner extends JInternalFrame {
 		setTitle(editable ? "Neuer Partner" : "Partner");
 		setBounds(100, 100, 909, 567);
 		
+		JPanel panel_1 = new JPanel();
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new MigLayout("", "[][][][][]", "[]"));
+		
+		btnOk = new JButton();
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(id == -1){
+					addPartner();
+				}else if(editable){
+					updatePartner();
+				}else{
+					dispose();
+					return;
+				}
+			}
+
+		});
+		panel.add(btnOk, "cell 0 0");
+		
+		btnCancelEdit = new JButton();
+		btnCancelEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(id == -1){
+					dispose();
+				}else if(editable){
+					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				}else{
+					editable = true;
+					setEditable();
+				}
+			}
+		});
+		panel.add(btnCancelEdit, "cell 2 0");
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+					.addGap(1)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		
+		JCheckBox chckbxKommentarAnzeigen = new JCheckBox("Kommentar anzeigen");
+		panel.add(chckbxKommentarAnzeigen, "cell 4 0");
+		panel_1.setLayout(gl_panel_1);
+		btnCancelEdit.setVisible(editable);
+		
+		JPanel contentPane = new JPanel();
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 359, GroupLayout.PREFERRED_SIZE)
+						.addComponent(contentPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(14, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addComponent(contentPane, GroupLayout.PREFERRED_SIZE, 493, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		
+		JListVerlauf = new JList();
+		JListVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		JListVerlauf.setBackground(Color.WHITE);
+		
 		JPanel personenbezogeneDaten = new JPanel();
 		
-		JPanel pVerlauf = new JPanel();
+		JLabel lblNewLabel = new JLabel("Name:");
+		
+		JLabel lblVorname = new JLabel("Vorname:");
+		
+		JLabel lblTitel = new JLabel("Titel:");
+		
+		textName = new JTextField();
+		textName.setColumns(10);
+		
+		
+		textVorname = new JTextField();
+		textVorname.setColumns(10);
+		
+		
+		textTitel = new JTextField();
+		textTitel.setColumns(10);
+		
+		
+		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
+		spinGebdatum = new JSpinner();
+		
+		enumRole = new JComboBox<RoleEnumObj>();
+		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
+		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
+		personenbezogeneDaten.add(lblVorname, "cell 0 2 3 1,growx,aligny center");
+		personenbezogeneDaten.add(lblNewLabel, "cell 0 1 3 1,alignx left,aligny center");
+		personenbezogeneDaten.add(lblTitel, "cell 0 3,alignx left,aligny center");
+		personenbezogeneDaten.add(textTitel, "cell 4 3 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textName, "cell 4 1 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textVorname, "cell 4 2 3 1,growx,aligny top");
+		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
+		personenbezogeneDaten.add(spinGebdatum, "cell 6 4,growx,aligny top");
+		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
 		
 		panel_2 = new JPanel();
 		
@@ -241,7 +361,7 @@ public class WNeuerPartner extends JInternalFrame {
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblZusatz)
 						.addComponent(textZusatz, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(14)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblKomunikation)
@@ -265,172 +385,48 @@ public class WNeuerPartner extends JInternalFrame {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		JPanel panel_1 = new JPanel();
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(new MigLayout("", "[][][]", "[]"));
-		
-		btnOk = new JButton();
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(id == -1){
-					addPartner();
-				}else if(editable){
-					updatePartner();
-				}else{
-					dispose();
-					return;
-				}
-			}
-
-		});
-		panel.add(btnOk, "cell 0 0");
-		
-		btnCancelEdit = new JButton();
-		btnCancelEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(id == -1){
-					dispose();
-				}else if(editable){
-					if(GUIFunctions.showIgnoreChangesDialog(getFrame())==0){
-						editable = false;
-						setEditable();
-						loadData();
-					}
-				}else{
-					editable = true;
-					setEditable();
-				}
-			}
-		});
-		panel.add(btnCancelEdit, "cell 2 0");
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addContainerGap(76, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(59))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		panel_1.setLayout(gl_panel_1);
-		btnCancelEdit.setVisible(editable);
-		
-		JLabel label_1 = new JLabel("Bemerkungen:");
-		
 		JScrollPane scrollPane = new JScrollPane();
-		
-		
-		JLabel label = new JLabel("Verlauf:");
-		
-		textPaneVerlauf = new JTextPane();
-		textPaneVerlauf.setEditable(false);
-		textPaneVerlauf.setBackground(Color.WHITE);
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
-						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(31)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(label)
-						.addComponent(textPaneVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
-					.addGap(271)
-					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+		scrollPane.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(label)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textPaneVerlauf, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-							.addGap(11))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(53)
-							.addComponent(label_1)
-							.addPreferredGap(ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
-							.addGap(58))
-						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
-					.addGap(0))
+							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE))
+						.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 489, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(189, Short.MAX_VALUE))
 		);
-		pVerlauf.setVisible(!editable);
-		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
-		gl_pVerlauf.setHorizontalGroup(
-			gl_pVerlauf.createParallelGroup(Alignment.TRAILING)
-				.addGap(0, 24, Short.MAX_VALUE)
-		);
-		gl_pVerlauf.setVerticalGroup(
-			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 538, Short.MAX_VALUE)
-		);
-		pVerlauf.setLayout(gl_pVerlauf);
 		
-		JLabel lblNewLabel = new JLabel("Name:");
-		
-		JLabel lblVorname = new JLabel("Vorname:");
-		
-		JLabel lblTitel = new JLabel("Titel:");
-		
-		textName = new JTextField();
-		textName.setColumns(10);
-		
-		
-		textVorname = new JTextField();
-		textVorname.setColumns(10);
-		
-		
-		textTitel = new JTextField();
-		textTitel.setColumns(10);
-		
-		
-		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
+		JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
+		contentPane.setLayout(gl_contentPane);
 		
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
-		spinGebdatum = new JSpinner();
 		spinGebdatum.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
 		spinGebdatum.setEditor(dateEditor);
-		
-		enumRole = new JComboBox<RoleEnumObj>();
-		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
-		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
-		personenbezogeneDaten.add(lblVorname, "cell 0 2 3 1,growx,aligny center");
-		personenbezogeneDaten.add(lblNewLabel, "cell 0 1 3 1,alignx left,aligny center");
-		personenbezogeneDaten.add(lblTitel, "cell 0 3,alignx left,aligny center");
-		personenbezogeneDaten.add(textTitel, "cell 4 3 3 1,growx,aligny top");
-		personenbezogeneDaten.add(textName, "cell 4 1 3 1,growx,aligny top");
-		personenbezogeneDaten.add(textVorname, "cell 4 2 3 1,growx,aligny top");
-		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
-		personenbezogeneDaten.add(spinGebdatum, "cell 6 4,growx,aligny top");
-		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
 		getContentPane().setLayout(groupLayout);
 		
 		setEditable();
@@ -504,7 +500,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 * adds a partner
 	 */
 	protected void addPartner() {
-		if(allSet()){
+		/*if(allSet()){
 			try {
 				id = Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
 				editable = false;
@@ -514,7 +510,7 @@ public class WNeuerPartner extends JInternalFrame {
 			}
 		}else{
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
-		}
+		}*/
 	}
 	
 	/**
