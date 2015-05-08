@@ -36,6 +36,7 @@ import javax.swing.event.DocumentListener;
  * 
  * @author "Aron Heinecke"
  */
+@SuppressWarnings("serial")
 public class JSearchTextField extends JTextField {
 
 	/**
@@ -75,7 +76,7 @@ public class JSearchTextField extends JTextField {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1317632194630187821L;
+	//private static final long serialVersionUID = 1317632194630187821L;
 
 	private static final int MAX_VISIBLE_ROWS = 8;
 	private static final int MIN_CHARS = 3;
@@ -86,7 +87,7 @@ public class JSearchTextField extends JTextField {
 		/**
 		 * 
 		 */
-		private static final long serialVersionUID = 563474143628228526L;
+		//private static final long serialVersionUID = 563474143628228526L;
 
 		public Dimension getPreferredSize() {
 			Dimension dimension = super.getPreferredSize();
@@ -303,7 +304,7 @@ public class JSearchTextField extends JTextField {
 	 * @author "Aron Heinecke"
 	 */
 	class SearchCellRenderer extends JLabel implements ListCellRenderer<ACElement> {
-		private static final long serialVersionUID = 6562532559604303553L;
+		//private static final long serialVersionUID = 6562532559604303553L;
 		private Color HIGHLIGHT_COLOR = new Color(51, 153, 255);
 
 		public SearchCellRenderer() {

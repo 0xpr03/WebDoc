@@ -147,11 +147,11 @@ public class WebDoc {
 				GUIManager.showErrorDialog("Ein unerwarteter Fehler ist aufgetreten: "+dberr.getError(), "Login Fehler");
 				break;
 			}
-			DBError dbe = Database.initDBVars();
-			if(dbe != DBError.NOERROR){
-				GUIManager.showErrorDialog("Fehler beim auslesen der DB Variablen!\n"+dbe.getError(), "DB init Fehler");
-				showsetup = true;
-			}
+//			DBError dbe = Database.initDBVars();
+//			if(dbe != DBError.NOERROR){
+//				GUIManager.showErrorDialog("Fehler beim auslesen der DB Variablen!\n"+dbe.getError(), "DB init Fehler");
+//				showsetup = true;
+//			}
 			if(showsetup)
 				setup();
 		}
