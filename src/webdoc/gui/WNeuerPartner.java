@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.AbstractButton;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -47,13 +46,6 @@ import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
-import javax.swing.border.TitledBorder;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
-import javax.swing.BoxLayout;
-import javax.swing.JTextArea;
-import java.awt.BorderLayout;
-
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
 
@@ -85,9 +77,6 @@ public class WNeuerPartner extends JInternalFrame {
 	private JButton btnCancelEdit;
 	private JTextPane textPaneVerlauf;
 	private JPanel panel_2;
-	private JPanel pBemerkungen;
-	private JScrollPane scrollPane_1;
-	private JTextPane textPane;
 
 	/**
 	 * Create the application.
@@ -103,7 +92,6 @@ public class WNeuerPartner extends JInternalFrame {
 		this.editable = editable;
 		this.id = id;
 		initialize();
-		pack();
 	}
 
 	/**
@@ -117,39 +105,11 @@ public class WNeuerPartner extends JInternalFrame {
 		setMaximizable(true);
 		
 		setTitle(editable ? "Neuer Partner" : "Partner");
-		setBounds(100, 100, 790, 734);
-		JPanel contentPanel = new JPanel();
+		setBounds(100, 100, 909, 567);
+		
 		JPanel personenbezogeneDaten = new JPanel();
-		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
 		
-		JLabel lblVorname = new JLabel("Vorname:");
-		
-		JLabel lblNewLabel = new JLabel("Name:");
-		
-		JLabel lblTitel = new JLabel("Titel:");
-		
-		
-		textTitel = new JTextField();
-		textTitel.setColumns(10);
-		
-		textName = new JTextField();
-		textName.setColumns(10);
-		
-		
-		textVorname = new JTextField();
-		textVorname.setColumns(10);
-		
-		
-		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
-		spinGebdatum = new JSpinner();
-		
-		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
-		spinGebdatum.setEditor(dateEditor);
-		
-		enumRole = new JComboBox<RoleEnumObj>();
-		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
-		
-		JCheckBox chckbxBemerkungen = new JCheckBox("Bemerkungen");
+		JPanel pVerlauf = new JPanel();
 		
 		panel_2 = new JPanel();
 		
@@ -305,36 +265,7 @@ public class WNeuerPartner extends JInternalFrame {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		JScrollPane scrollPaneVerlauf = new JScrollPane();
-		scrollPaneVerlauf.setViewportBorder(new TitledBorder(null, "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
-		
-		textPaneVerlauf = new JTextPane();
-		scrollPaneVerlauf.setViewportView(textPaneVerlauf);
-		textPaneVerlauf.setEditable(false);
-		textPaneVerlauf.setBackground(Color.WHITE);
-		
-		pBemerkungen = new JPanel();
-		pBemerkungen.setLayout(new BoxLayout(pBemerkungen, BoxLayout.X_AXIS));
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Bemerkungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		pBemerkungen.add(scrollPane_1);
-		
-		
-		textPane = new JTextPane();
-		scrollPane_1.setViewportView(textPane);
-		
-		pBemerkungen.setVisible(false);
-		chckbxBemerkungen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				pBemerkungen.setVisible(((AbstractButton) arg0.getSource()).isSelected());
-				pack();
-			}
-		});
-		
 		JPanel panel_1 = new JPanel();
-		
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
@@ -375,11 +306,11 @@ public class WNeuerPartner extends JInternalFrame {
 		panel.add(btnCancelEdit, "cell 2 0");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(26)
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addContainerGap(76, Short.MAX_VALUE)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(99, Short.MAX_VALUE))
+					.addGap(59))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -390,100 +321,119 @@ public class WNeuerPartner extends JInternalFrame {
 		panel_1.setLayout(gl_panel_1);
 		btnCancelEdit.setVisible(editable);
 		
-		SpinnerDateModel model = new SpinnerDateModel();
-		model.setCalendarField(Calendar.MINUTE);
-		spinGebdatum.setModel(model);
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(7)
-					.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(123)
-					.addComponent(lblVorname))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(131)
-					.addComponent(lblNewLabel))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(134)
-					.addComponent(lblTitel))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(103)
-					.addComponent(textTitel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(103)
-					.addComponent(textName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(103)
-					.addComponent(textVorname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(110)
-					.addComponent(lblGeburtsdatum))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(85)
-					.addComponent(spinGebdatum, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(92)
-					.addComponent(enumRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(101)
-					.addComponent(chckbxBemerkungen))
-				.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(136)
-					.addComponent(scrollPaneVerlauf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(136)
-					.addComponent(pBemerkungen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(5)
-					.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(lblVorname)
-					.addGap(5)
-					.addComponent(lblNewLabel)
-					.addGap(5)
-					.addComponent(lblTitel)
-					.addGap(5)
-					.addComponent(textTitel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(textName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(textVorname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(lblGeburtsdatum)
-					.addGap(5)
-					.addComponent(spinGebdatum, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(enumRole, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(chckbxBemerkungen)
-					.addGap(5)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(scrollPaneVerlauf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(pBemerkungen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		JLabel label_1 = new JLabel("Bemerkungen:");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		
+		JLabel label = new JLabel("Verlauf:");
+		
+		textPaneVerlauf = new JTextPane();
+		textPaneVerlauf.setEditable(false);
+		textPaneVerlauf.setBackground(Color.WHITE);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-				.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 299, GroupLayout.PREFERRED_SIZE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
+						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(label)
+						.addComponent(textPaneVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+					.addGap(271)
+					.addComponent(pVerlauf, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 259, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 700, GroupLayout.PREFERRED_SIZE)
-				.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(label)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textPaneVerlauf, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+							.addGap(11))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(53)
+							.addComponent(label_1)
+							.addPreferredGap(ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 293, GroupLayout.PREFERRED_SIZE)
+							.addGap(58))
+						.addComponent(pVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addGap(1)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+					.addGap(0))
 		);
+		pVerlauf.setVisible(!editable);
+		GroupLayout gl_pVerlauf = new GroupLayout(pVerlauf);
+		gl_pVerlauf.setHorizontalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 24, Short.MAX_VALUE)
+		);
+		gl_pVerlauf.setVerticalGroup(
+			gl_pVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 538, Short.MAX_VALUE)
+		);
+		pVerlauf.setLayout(gl_pVerlauf);
+		
+		JLabel lblNewLabel = new JLabel("Name:");
+		
+		JLabel lblVorname = new JLabel("Vorname:");
+		
+		JLabel lblTitel = new JLabel("Titel:");
+		
+		textName = new JTextField();
+		textName.setColumns(10);
+		
+		
+		textVorname = new JTextField();
+		textVorname.setColumns(10);
+		
+		
+		textTitel = new JTextField();
+		textTitel.setColumns(10);
+		
+		
+		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
+		
+		SpinnerDateModel model = new SpinnerDateModel();
+		model.setCalendarField(Calendar.MINUTE);
+		spinGebdatum = new JSpinner();
+		spinGebdatum.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
+		spinGebdatum.setEditor(dateEditor);
+		
+		enumRole = new JComboBox<RoleEnumObj>();
+		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
+		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]", "[20px][20px][20px][20px][20px]"));
+		personenbezogeneDaten.add(lblVorname, "cell 0 2 3 1,growx,aligny center");
+		personenbezogeneDaten.add(lblNewLabel, "cell 0 1 3 1,alignx left,aligny center");
+		personenbezogeneDaten.add(lblTitel, "cell 0 3,alignx left,aligny center");
+		personenbezogeneDaten.add(textTitel, "cell 4 3 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textName, "cell 4 1 3 1,growx,aligny top");
+		personenbezogeneDaten.add(textVorname, "cell 4 2 3 1,growx,aligny top");
+		personenbezogeneDaten.add(lblGeburtsdatum, "cell 0 4 5 1,alignx left,aligny bottom");
+		personenbezogeneDaten.add(spinGebdatum, "cell 6 4,growx,aligny top");
+		personenbezogeneDaten.add(enumRole, "cell 2 0 5 1,growx,aligny top");
 		getContentPane().setLayout(groupLayout);
+		
 		setEditable();
-		pack();
 	}
 	
 	/**
@@ -555,13 +505,13 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	protected void addPartner() {
 		if(allSet()){
-			/*try {
+			try {
 				id = Database.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(((Date) spinGebdatum.getValue()).getTime()),textPaneComment.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
-			}*/
+			}
 		}else{
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
