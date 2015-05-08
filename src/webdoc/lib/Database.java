@@ -108,12 +108,12 @@ public class Database{
 	 * @throws SQLException 
 	 */
 	public static long getCommTypeID(String name) throws SQLException{
-		String sql = "{call getComTypeId(?)}";
+		String sql = "{call getComTypeId(?,?)}";
 		CallableStatement stm = connection.prepareCall(sql);
 		stm.setString(1, name);
 		stm.registerOutParameter(2, java.sql.Types.INTEGER);
 		stm.execute();
-		long id = stm.getLong(11);
+		long id = stm.getLong(2);
 		logger.debug("ID: {}",id);
 		stm.closeOnCompletion();
 		return id;
@@ -259,8 +259,11 @@ public class Database{
 		stm.setString(4, comment);
 		stm.setDate(5, birthday);
 		stm.executeUpdate();
-		stm.getGeneratedKeys().next();
-		long id = stm.getGeneratedKeys().getLong(1);
+		
+		ResultSet rs = stm.getGeneratedKeys();
+		rs.next();
+		long id = rs.getLong(1);
+		printResultSet(stm.getGeneratedKeys());
 		stm.close();
 		
 		PreparedStatement telecomm_stmt = prepareTelecommInsertStm();
@@ -277,10 +280,11 @@ public class Database{
 		telecomm_stmt.clearParameters();
 		
 		telecomm_stmt.setString(1, fax);
-		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+		telecomm_stmt.setLong(2, Config.getLongValue("COMM_FAX_ID"));
 		telecomm_stmt.setLong(3, id);
 		telecomm_stmt.executeUpdate();
 		telecomm_stmt.clearParameters();
+		telecomm_stmt.close();
 		
 		return id;
 	}
