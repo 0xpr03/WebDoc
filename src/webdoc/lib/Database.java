@@ -243,9 +243,11 @@ public class Database{
 	 * @param title
 	 * @param birthday
 	 * @param comment
-	 * @return long id
+	 * @param phone
+	 * @param mobile
+	 * @param fax
+	 * @return
 	 * @throws SQLException
-	 * @author "Aron Heinecke"
 	 */
 	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax) throws SQLException{
 		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
