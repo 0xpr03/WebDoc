@@ -95,6 +95,8 @@ public class Database{
 			Config.setValue("COMM_PHONE_ID", getCommTypeID("phone"));
 			Config.setValue("COMM_MOBILE_ID", getCommTypeID("mobile"));
 			Config.setValue("COMM_FAX_ID", getCommTypeID("fax"));
+			Config.setValue("PARTNER_EMPLOYEE_ID", getPartnerTypeID("employee"));
+			Config.setValue("PARTNER_CLIENT_ID", getPartnerTypeID("client"));
 		} catch (SQLException e) {
 			dbe = DBExceptionConverter(e,true);
 		}
@@ -114,7 +116,25 @@ public class Database{
 		stm.registerOutParameter(2, java.sql.Types.INTEGER);
 		stm.execute();
 		long id = stm.getLong(2);
-		logger.debug("ID: {}",id);
+		logger.debug("CommTypeID: {}",id);
+		stm.closeOnCompletion();
+		return id;
+	}
+	
+	/**
+	 * Retrieve the ID of a partner type
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
+	public static long getPartnerTypeID(String name) throws SQLException{
+		String sql = "{call getRoleID(?,?)}";
+		CallableStatement stm = connection.prepareCall(sql);
+		stm.setString(1, name);
+		stm.registerOutParameter(2, java.sql.Types.INTEGER);
+		stm.execute();
+		long id = stm.getLong(2);
+		logger.debug("RoleTypeID: {}",id);
 		stm.closeOnCompletion();
 		return id;
 	}
