@@ -55,8 +55,8 @@ CREATE TABLE IF NOT EXISTS `partnerroles` (
  `PartnerID` int(10) unsigned NOT NULL,
  `RoleID` int(10) unsigned NOT NULL,
  PRIMARY KEY (`PartnerRoleID`),
- KEY `PartnerID` (`PartnerID`),
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+ KEY `PartnerID` (`PartnerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Table race / Rasse */
 CREATE TABLE IF NOT EXISTS `race` (
  `RaceID` int(11) NOT NULL AUTO_INCREMENT,
