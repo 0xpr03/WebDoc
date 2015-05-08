@@ -42,10 +42,13 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sun.xml.internal.ws.message.EmptyMessageImpl;
+
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import webdoc.webdoc.Config;
 
 import java.awt.List;
 
@@ -164,7 +167,7 @@ public class WNeuerPartner extends JInternalFrame {
 		chckbxKommentarAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				scrollPaneComment.setVisible(((AbstractButton) arg0.getSource()).isSelected());
-				pack();
+				//pack();
 			}
 		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
@@ -500,10 +503,11 @@ public class WNeuerPartner extends JInternalFrame {
 	protected void addPartner() {
 		if (allSet()) {
 			try {
+				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
 				id = Database
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 								((Date) spinGebdatum.getValue()).getTime()), textPaneComment.getText(), textTelefon
-								.getText(), textHandy.getText(), textFax.getText());
+								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
