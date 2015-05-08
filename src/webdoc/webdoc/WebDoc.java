@@ -165,6 +165,8 @@ public class WebDoc {
 			logger.debug("going to run the setup..");
 			
 			DBEError dbee = new dbTools().runDBSetup();
+			if(dbee.getError() == DBError.NOERROR)
+				dbee = new DBEError(Database.initDBVars(),"");
 			switch(dbee.getError()){
 			case NOERROR:
 				Config.setValue("firstrun", false);
