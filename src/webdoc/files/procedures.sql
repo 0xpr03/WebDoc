@@ -98,7 +98,7 @@ END$$
 /*		INSERT INTO `communicatontype` (`name`) VALUES (param_comtype);
 /*		SET out_id = LAST_INSERT_ID();
 /*	END IF;
-/*END$$
+/*END$$ */
 DROP PROCEDURE IF EXISTS `getRoleID`$$
 CREATE PROCEDURE `getRoleID`(
 	IN `param_role` VARCHAR(50) CHARSET utf8,
@@ -106,11 +106,11 @@ CREATE PROCEDURE `getRoleID`(
     MODIFIES SQL DATA
 BEGIN
 
-	SELECT `RoleID` INTO out_id FROM `roles` WHERE `name` = param_comtype;
+	SELECT `RoleID` INTO out_id FROM `roles` WHERE `role` = param_role;
 
 	IF FOUND_ROWS() = 0
 	THEN
-		INSERT INTO `roles` (`RoleID`) VALUES (param_role);
+		INSERT INTO `roles` (`role`) VALUES (param_role);
 		SET out_id = LAST_INSERT_ID();
 	END IF;
 END$$
