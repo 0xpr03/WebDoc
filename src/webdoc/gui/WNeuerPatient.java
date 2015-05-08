@@ -261,13 +261,12 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		textRasse = new JSearchTextField();
 		textRasse.setColumns(10);
-		textRasse.setAPI(new RaceProvider());
 		
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
 		
 		spinGewicht = new JSpinner();
-		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		
 		
 		textIdentifizierung = new JTextField();
 		textIdentifizierung.setColumns(10);
@@ -275,8 +274,7 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		spinBirthdate = new JSpinner();
-		spinBirthdate.setModel(model);
-		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		
 		spinBirthdate.setEditor(dateEditor);
 		spinBirthdate.setEnabled(editable);
 		
@@ -313,7 +311,6 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		textAnimalSuche = new JSearchTextField();
 		textAnimalSuche.setColumns(10);
-		textAnimalSuche.setAPI(new AnimalProvider());
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -422,6 +419,7 @@ public class WNeuerPatient extends JInternalFrame {
 				return element.getName();
 			}
 		}
+		textRasse.setAPI(new RaceProvider());
 		/**
 		 * Default DataProvider for these kinds
 		 * @author "Aron Heinecke"
@@ -462,8 +460,12 @@ public class WNeuerPatient extends JInternalFrame {
 				return element.getName() + " " + element.getOptname();
 			}
 		}
+		textAnimalSuche.setAPI(new AnimalProvider());
 		
 		SpinnerDateModel model = new SpinnerDateModel();
+		spinBirthdate.setModel(model);
+		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		model.setCalendarField(Calendar.MINUTE);
 		getContentPane().setLayout(groupLayout);
 		
@@ -481,6 +483,7 @@ public class WNeuerPatient extends JInternalFrame {
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
+		
 		loadData();
 	}
 	
