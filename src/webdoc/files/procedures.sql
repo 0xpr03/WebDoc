@@ -99,3 +99,18 @@ BEGIN
 		SET out_id = LAST_INSERT_ID();
 	END IF;
 END$$
+DROP PROCEDURE IF EXISTS `getRoleID`$$
+CREATE PROCEDURE `getRoleID`(
+	IN `param_role` VARCHAR(50) CHARSET utf8,
+	OUT `out_id` INTEGER UNSIGNED )
+    MODIFIES SQL DATA
+BEGIN
+
+	SELECT `RoleID` INTO out_id FROM `roles` WHERE `name` = param_comtype;
+
+	IF FOUND_ROWS() = 0
+	THEN
+		INSERT INTO `roles` (`RoleID`) VALUES (param_role);
+		SET out_id = LAST_INSERT_ID();
+	END IF;
+END$$
