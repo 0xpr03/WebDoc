@@ -49,6 +49,7 @@ import java.awt.List;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
 import javax.swing.JCheckBox;
+import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -111,10 +112,10 @@ public class WNeuerPartner extends JInternalFrame {
 		setTitle(editable ? "Neuer Partner" : "Partner");
 		setBounds(100, 100, 909, 551);
 		
-		JPanel contentPane = new JPanel();
+		JPanel contentPanel = new JPanel();
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(new MigLayout("", "[][][][][]", "[]"));
+		JPanel downPanel = new JPanel();
+		downPanel.setLayout(new MigLayout("", "[][][][][]", "[]"));
 		
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
@@ -130,7 +131,7 @@ public class WNeuerPartner extends JInternalFrame {
 			}
 
 		});
-		panel.add(btnOk, "cell 0 0");
+		downPanel.add(btnOk, "cell 0 0");
 		
 		btnCancelEdit = new JButton();
 		btnCancelEdit.addActionListener(new ActionListener() {
@@ -149,27 +150,11 @@ public class WNeuerPartner extends JInternalFrame {
 				}
 			}
 		});
-		panel.add(btnCancelEdit, "cell 2 0");
+		downPanel.add(btnCancelEdit, "cell 2 0");
 		
 		JCheckBox chckbxKommentarAnzeigen = new JCheckBox("Kommentar anzeigen");
-		panel.add(chckbxKommentarAnzeigen, "cell 4 0");
+		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(contentPane, GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(contentPane, GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(0))
-		);
 		
 		JListVerlauf = new JList();
 		JListVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -367,7 +352,7 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -396,14 +381,16 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		JTextPane textPane = new JTextPane();
 		scrollPane.setViewportView(textPane);
-		contentPane.setLayout(gl_contentPane);
+		contentPanel.setLayout(gl_contentPane);
 		
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		spinGebdatum.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
 		spinGebdatum.setEditor(dateEditor);
-		getContentPane().setLayout(groupLayout);
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
 		setEditable();
 	}
