@@ -51,9 +51,11 @@ CREATE TABLE IF NOT EXISTS `email` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table partnerroles / Rollen */
 CREATE TABLE IF NOT EXISTS `partnerroles` (
+ `PartnerRoleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `PartnerID` int(10) unsigned NOT NULL,
  `RoleID` int(10) unsigned NOT NULL,
- PRIMARY KEY (`PartnerID`)
+ PRIMARY KEY (`PartnerRoleID`),
+ KEY `PartnerID` (`PartnerID`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table race / Rasse */
 CREATE TABLE IF NOT EXISTS `race` (
