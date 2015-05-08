@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `partner` (
  `birthday` date NOT NULL,
  `firstname` varchar(20) NOT NULL,
  `secondname` varchar(20) NOT NULL,
- `title` int(11) NOT NULL,
+ `title` varchar(11) NOT NULL,
  `comment` varchar(100) DEFAULT NULL,
  PRIMARY KEY (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
