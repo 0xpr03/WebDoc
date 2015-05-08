@@ -269,42 +269,58 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax) throws SQLException{
-		String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
-				+"VALUES (?,?,?,?,?)";
-		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		stm.setString(1, firstname);
-		stm.setString(2, secondname);
-		stm.setString(3, title);
-		stm.setString(4, comment);
-		stm.setDate(5, birthday);
-		stm.executeUpdate();
-		
-		ResultSet rs = stm.getGeneratedKeys();
-		rs.next();
-		long id = rs.getLong(1);
-		printResultSet(stm.getGeneratedKeys());
-		stm.close();
-		
-		PreparedStatement telecomm_stmt = prepareTelecommInsertStm();
-		telecomm_stmt.setString(1, phone);
-		telecomm_stmt.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
-		telecomm_stmt.setLong(3, id);
-		telecomm_stmt.executeUpdate();
-		telecomm_stmt.clearParameters();
-		
-		telecomm_stmt.setString(1, mobile);
-		telecomm_stmt.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
-		telecomm_stmt.setLong(3, id);
-		telecomm_stmt.executeUpdate();
-		telecomm_stmt.clearParameters();
-		
-		telecomm_stmt.setString(1, fax);
-		telecomm_stmt.setLong(2, Config.getLongValue("COMM_FAX_ID"));
-		telecomm_stmt.setLong(3, id);
-		telecomm_stmt.executeUpdate();
-		telecomm_stmt.clearParameters();
-		telecomm_stmt.close();
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long roleid) throws SQLException{
+		long id;
+		long role_id;
+		{
+			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
+					+"VALUES (?,?,?,?,?)";
+			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stm.setString(1, firstname);
+			stm.setString(2, secondname);
+			stm.setString(3, title);
+			stm.setString(4, comment);
+			stm.setDate(5, birthday);
+			stm.executeUpdate();
+			
+			ResultSet rs = stm.getGeneratedKeys();
+			rs.next();
+			id = rs.getLong(1);
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareTelecommInsertStm();
+			stm.setString(1, phone);
+			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			stm.clearParameters();
+			
+			stm.setString(1, mobile);
+			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			stm.clearParameters();
+			
+			stm.setString(1, fax);
+			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			stm.clearParameters();
+			stm.close();
+		}
+		{
+			String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
+			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stm.setLong(1, id);
+			stm.setLong(2, roleid);
+			stm.executeUpdate();
+			
+			ResultSet rs = stm.getGeneratedKeys();
+			rs.next();
+			roleid = rs.getLong(1);
+			stm.close();
+		}
 		
 		return id;
 	}
