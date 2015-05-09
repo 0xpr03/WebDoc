@@ -531,8 +531,8 @@ public class WNeuerPartner extends JInternalFrame {
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
 								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer
-								.valueOf(textPostleitzahl.getText()), textOrtsteil.getText(), Short
-								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText());
+								.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
+								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
