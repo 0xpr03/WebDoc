@@ -6,6 +6,7 @@
  *******************************************************************************/
 package webdoc.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -20,7 +21,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.ActionMap;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -58,7 +58,7 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
-import java.awt.BorderLayout;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
@@ -92,6 +92,8 @@ public class WNeuerPatient extends JInternalFrame {
 	private JButton buttonCancelEdit;
 	private JButton btnNeueBehandlung;
 	private JPanel contentPanel;
+	private JCheckBox chckbxBemerkungAnzeigen;
+	private JPanel panelBemerkungen;
 
 	/**
 	 * Create the application.
@@ -179,8 +181,7 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
 		spinBirthdate = new JSpinner();
-
-		spinBirthdate.setEditor(dateEditor);
+		
 		spinBirthdate.setEnabled(editable);
 
 		strRufname = new JTextField();
@@ -245,7 +246,7 @@ public class WNeuerPatient extends JInternalFrame {
 		// panelBemerkungen.setVisible(!editable);
 		panelVerlauf.setVisible(!editable);
 
-		JPanel panelBemerkungen = new JPanel();
+		panelBemerkungen = new JPanel();
 
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
 
@@ -308,7 +309,7 @@ public class WNeuerPatient extends JInternalFrame {
 										.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		contentPanel.setLayout(gl_contentPanel);
-		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][][]", "[26.00]"));
+		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
 
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
@@ -446,10 +447,20 @@ public class WNeuerPatient extends JInternalFrame {
 		SpinnerDateModel model = new SpinnerDateModel();
 		spinBirthdate.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
+		spinBirthdate.setEditor(dateEditor);
 		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		model.setCalendarField(Calendar.MINUTE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
+		
+		chckbxBemerkungAnzeigen = new JCheckBox("Bemerkung anzeigen");
+		chckbxBemerkungAnzeigen.setSelected(true);
+		chckbxBemerkungAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelBemerkungen.setVisible(chckbxBemerkungAnzeigen.isSelected());
+			}
+		});
+		downPanel.add(chckbxBemerkungAnzeigen, "cell 5 0");
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
 		try {
@@ -529,7 +540,6 @@ public class WNeuerPatient extends JInternalFrame {
 
 	/**
 	 * ReSet editable for all input elements
-	 * 
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable() {
@@ -570,7 +580,7 @@ public class WNeuerPatient extends JInternalFrame {
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-
+	
 	/**
 	 * add a patient
 	 * 
