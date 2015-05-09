@@ -231,7 +231,7 @@ public final class WHomescreen extends JFrame {
 				if(element.getType() == ElementType.ANIMAL){
 					addWNeuerPatient(false, element.getID());
 				}else{
-					logger.debug("atm unsupported");
+					addWNeuerPartner(false, element.getID());
 				}
 				txtSuche.setTextWithoutNotification("");
 				return true;
@@ -333,6 +333,7 @@ public final class WHomescreen extends JFrame {
 					}
 					break;
 				case PARTNER:
+					
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
