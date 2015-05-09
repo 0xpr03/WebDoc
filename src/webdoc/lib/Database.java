@@ -350,6 +350,27 @@ public class Database{
 	}
 	
 	/**
+	 * Returns the basic information about a partner
+	 * @param id
+	 * @return secondname, firstname, birthday,title, `comment`, plc,toponym,housenr,street,addition,mail
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static ResultSet getPartner(long id) throws SQLException{
+		String sql = "SELECT secondname, firstname, birthday,title, `comment`, plc,toponym,housenr,street,addition,mail "
+				+"FROM partner "
+				+"INNER JOIN addresses "
+				+"ON partner.PartnerID = addresses.PartnerID "
+				+"INNER JOIN mail "
+				+"ON partner.PartnerID = email.PartnerID "
+				+"WHERE partner.PartnerID = ? ";	
+		
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setLong(1, id);
+		return stmt.executeQuery();
+	}
+	
+	/**
 	 * Retrives the autoID from the first column, will crash otherwise
 	 * @param rs
 	 * @return long last created autoid
