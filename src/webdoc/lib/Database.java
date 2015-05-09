@@ -18,6 +18,7 @@ import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -286,7 +287,10 @@ public class Database{
 			stm.setString(1, firstname);
 			stm.setString(2, secondname);
 			stm.setString(3, title);
-			stm.setString(4, comment);
+			if(comment.equals(""))
+				stm.setNull(4, Types.VARCHAR);
+			else
+				stm.setString(4, comment);
 			stm.setDate(5, birthday);
 			stm.executeUpdate();
 			
