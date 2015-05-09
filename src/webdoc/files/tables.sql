@@ -43,10 +43,10 @@ CREATE TABLE IF NOT EXISTS `telecommunication` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
- `PartnerRoleID` int(10) unsigned NOT NULL,
+ `PartnerID` int(10) unsigned NOT NULL,
 /* `MailID` int(10) unsigned NOT NULL AUTO_INCREMENT,*/
  `mail` varchar(40) NOT NULL,
- PRIMARY KEY (`PartnerRoleID`)
+ PRIMARY KEY (`PartnerID`)
 /* KEY `PartnerRoleID` (`PartnerRoleID`)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table partnerroles / Rollen */
