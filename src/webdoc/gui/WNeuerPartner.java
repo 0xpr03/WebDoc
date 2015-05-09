@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -475,9 +476,37 @@ public class WNeuerPartner extends JInternalFrame {
 					textEmail.setText(rs.getString(11));
 					rs.close();
 				}
+				{
+					PreparedStatement stm = Database.prepareTelecommSelectStm();
+					{
+						stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
+						stm.setLong(2, id);
+						ResultSet rs = stm.executeQuery();
+						rs.next();
+						textTelefon.setText(rs.getString(1));
+						rs.close();
+					}
+					{
+						stm.clearParameters();
+						stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
+						stm.setLong(2, id);
+						ResultSet rs = stm.executeQuery();
+						rs.next();
+						textHandy.setText(rs.getString(1));
+						rs.close();
+					}
+					{
+						stm.clearParameters();
+						stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
+						stm.setLong(2, id);
+						ResultSet rs = stm.executeQuery();
+						rs.next();
+						textFax.setText(rs.getString(1));
+						rs.close();
+					}
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e));
 			}
 		}
 	}
