@@ -279,7 +279,6 @@ public class Database{
 	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street ) throws SQLException{
 		long id;
 		long partnerroleid;
-		long addressid;
 		{
 			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 					+"VALUES (?,?,?,?,?)";
@@ -340,7 +339,6 @@ public class Database{
 			stm.setString(5, street);
 			stm.setString(6, comment);
 			stm.executeUpdate();
-			addressid = getAutoID(stm.getResultSet());
 			stm.close();
 		}
 		
