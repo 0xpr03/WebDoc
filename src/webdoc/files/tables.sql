@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS `partner` (
 CREATE TABLE IF NOT EXISTS `addresses` (
  `PartnerID` int(10) unsigned NOT NULL,
  `plc` int(11) NOT NULL,
- `toponym` varchar(20) NOT NULL,
+ `city` varchar(20) NOT NULL,
+ `district` varchar(20) NOT NULL,
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
