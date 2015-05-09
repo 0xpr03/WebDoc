@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS `communicationtype` (
 /* Table telecommunication / Telekommunikation */
 CREATE TABLE IF NOT EXISTS `telecommunication` (
  `CommunicationID` int(10) unsigned NOT NULL,
- `PartnerRoleID` int(10) unsigned NOT NULL,
+ `PartnerID` int(10) unsigned NOT NULL,
  `number` varchar(20) NOT NULL,
- PRIMARY KEY (`CommunicationID`,`PartnerRoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
+ PRIMARY KEY (`CommunicationID`,`PartnerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
  `PartnerRoleID` int(10) unsigned NOT NULL,
