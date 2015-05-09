@@ -465,15 +465,16 @@ public class WNeuerPartner extends JInternalFrame {
 					rs.next();
 					textName.setText(rs.getString(1));
 					textVorname.setText(rs.getString(2));
-
+					spinGebdatum.setValue(rs.getDate(3));
 					textTitel.setText(rs.getString(4));
 					textComment.setText(rs.getString(5));
 					textPostleitzahl.setText(String.valueOf(rs.getInt(6)));
-					textOrtsteil.setText(rs.getString(7));
-					textHausnummer.setText(String.valueOf(rs.getShort(8)));
-					textStraße.setText(rs.getString(9));
-					textZusatz.setText(rs.getString(10));
-					textEmail.setText(rs.getString(11));
+					textOrt.setText(rs.getString(7));
+					textOrtsteil.setText(rs.getString(8));
+					textHausnummer.setText(String.valueOf(rs.getShort(9)));
+					textStraße.setText(rs.getString(10));
+					textZusatz.setText(rs.getString(11));
+					textEmail.setText(rs.getString(12));
 					rs.close();
 				}
 				{
