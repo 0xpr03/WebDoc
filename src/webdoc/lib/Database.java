@@ -354,7 +354,7 @@ public class Database{
 	/**
 	 * Returns the basic information about a partner
 	 * @param id
-	 * @return secondname, firstname, birthday,title, `comment`, plc,toponym,housenr,street,addition,mail
+	 * @return secondname, firstname, birthday,title, `comment`, plc,city,district,housenr,street,addition,mail
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
