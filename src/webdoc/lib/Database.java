@@ -266,12 +266,15 @@ public class Database{
 	 * @param phone
 	 * @param mobile
 	 * @param fax
-	 * @param plz 
-	 * @param toponym 
-	 * @param houenr 
-	 * @param street 
+	 * @param partnertypeid
+	 * @param email
+	 * @param plz
+	 * @param toponym
+	 * @param houenr
+	 * @param street
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street ) throws SQLException{
 		long id;
@@ -330,10 +333,11 @@ public class Database{
 		}
 		{
 			PreparedStatement stm = prepareAddressInsertStm();
-			stm.setInt(1, plz);
-			stm.setString(2, toponym);
-			stm.setShort(3, houenr);
-			stm.setString(4, street);
+			stm.setLong(1, id);
+			stm.setInt(2, plz);
+			stm.setString(3, toponym);
+			stm.setShort(4, houenr);
+			stm.setString(5, street);
 			stm.setString(6, comment);
 			stm.executeUpdate();
 			addressid = getAutoID(stm.getResultSet());
