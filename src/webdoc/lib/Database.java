@@ -270,14 +270,15 @@ public class Database{
 	 * @param partnertypeid
 	 * @param email
 	 * @param plz
-	 * @param toponym
+	 * @param city
 	 * @param houenr
 	 * @param street
 	 * @return
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
+	 * @param district 
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street, String zusatz ) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district ) throws SQLException{
 		long id;
 		long partnerroleid;
 		{
@@ -338,10 +339,11 @@ public class Database{
 			PreparedStatement stm = prepareAddressInsertStm();
 			stm.setLong(1, id);
 			stm.setInt(2, plz);
-			stm.setString(3, toponym);
-			stm.setShort(4, houenr);
-			stm.setString(5, street);
-			stm.setString(6, zusatz);
+			stm.setString(3, city);
+			stm.setString(4, district);
+			stm.setShort(5, houenr);
+			stm.setString(6, street);
+			stm.setString(7, zusatz);
 			stm.executeUpdate();
 			stm.close();
 		}
@@ -357,7 +359,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getPartner(long id) throws SQLException{
-		String sql = "SELECT secondname, firstname, birthday,title, `comment`, plc,toponym,housenr,street,addition,mail "
+		String sql = "SELECT secondname, firstname, birthday,title, `comment`, plc,city,district,housenr,street,addition,mail "
 				+"FROM partner "
 				+"INNER JOIN addresses "
 				+"ON partner.PartnerID = addresses.PartnerID "
