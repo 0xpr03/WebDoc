@@ -551,6 +551,7 @@ public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * adds a partner
+	 * @author "Aron Heinecke"
 	 */
 	protected void addPartner() {
 		if (allSet()) {
@@ -572,14 +573,30 @@ public class WNeuerPartner extends JInternalFrame {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
-
+	
 	/**
 	 * updates a partner
+	 * @author "Aron Heinecke"
 	 */
-	private void updatePartner() {
-		logger.debug("no updating implemented!");
-		editable = false;
-		setEditable();
+	protected void updatePartner() {
+		if (allSet()) {
+			try {
+				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config
+						.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
+				Database
+						.updatePartner(id,textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
+								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer
+								.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
+								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
+				editable = false;
+				setEditable();
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			}
+		} else {
+			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
+		}
 	}
 
 	@Override
