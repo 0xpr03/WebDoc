@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS `partner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table addresses / Adresse */
 CREATE TABLE IF NOT EXISTS `addresses` (
- `AddressID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `PartnerID` int(10) unsigned NOT NULL,
  `plc` int(11) NOT NULL,
  `toponym` varchar(20) NOT NULL,
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
  PRIMARY KEY (`AddressID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
  `RoleID` int(6) unsigned NOT NULL AUTO_INCREMENT,
@@ -141,10 +141,4 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
  PRIMARY KEY (`TreatmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
-/* Table addressreferenze / Adressverknüpfung */
-CREATE TABLE IF NOT EXISTS `addressreferenze` (
- `PartnerRoleID` int(10) unsigned NOT NULL,
- `AddressID` int(10) unsigned NOT NULL,
- PRIMARY KEY (`PartnerRoleID`,`AddressID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';

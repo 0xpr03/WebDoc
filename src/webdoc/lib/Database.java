@@ -319,7 +319,6 @@ public class Database{
 			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
 			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
-			stm.clearParameters();
 			stm.close();
 		}
 		{
@@ -429,7 +428,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareAddressInsertStm() throws SQLException {
-		String sql = "INSERT INTO `addresses` (`AddressID`,`plc`,`toponym`,`housenr`,`street`,`addition`) "
+		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`toponym`,`housenr`,`street`,`addition`) "
 				+ "VALUES (?,?,?,?,?,?);";
 		return prepareStm(sql);
 	}
