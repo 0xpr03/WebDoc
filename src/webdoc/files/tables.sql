@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
- PRIMARY KEY (`AddressID`)
+ PRIMARY KEY (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
