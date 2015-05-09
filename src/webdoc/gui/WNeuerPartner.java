@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -91,7 +92,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JButton btnCancelEdit;
 	private JList JListVerlauf;
 	private JPanel panel_2;
-	private JTextPane textPaneComment;
+	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
 
 	/**
@@ -413,8 +414,8 @@ public class WNeuerPartner extends JInternalFrame {
 										.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
 								.addGap(4)));
 
-		textPaneComment = new JTextPane();
-		scrollPaneComment.setViewportView(textPaneComment);
+		textComment = new JTextPane();
+		scrollPaneComment.setViewportView(textComment);
 		contentPanel.setLayout(gl_contentPane);
 
 		SpinnerDateModel model = new SpinnerDateModel();
@@ -456,7 +457,27 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private void loadData() {
 		if (id != -1) {
-			logger.debug("currently not implemented");
+			try {
+				{
+					ResultSet rs;
+					rs = Database.getPartner(id);
+					textName.setText(rs.getString(1));
+					textVorname.setText(rs.getString(2));
+					
+					textTitel.setText(rs.getString(4));
+					textComment.setText(rs.getString(5));
+					textPostleitzahl.setText(String.valueOf(rs.getInt(6)));
+					textOrtsteil.setText(rs.getString(7));
+					textHausnummer.setText(String.valueOf(rs.getShort(8)));
+					textStraße.setText(rs.getString(9));
+					textZusatz.setText(rs.getString(10));
+					textEmail.setText(rs.getString(11));
+					rs.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -480,7 +501,7 @@ public class WNeuerPartner extends JInternalFrame {
 		textVorname.setEditable(editable);
 		textTitel.setEditable(editable);
 		spinGebdatum.setEnabled(editable);
-		textPaneComment.setEditable(editable);
+		textComment.setEditable(editable);
 		updateEditBtns();
 	}
 
@@ -506,7 +527,7 @@ public class WNeuerPartner extends JInternalFrame {
 				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
 				id = Database
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
-								((Date) spinGebdatum.getValue()).getTime()), textPaneComment.getText(), textTelefon
+								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
 								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrtsteil.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText());
 				editable = false;
 				setEditable();
