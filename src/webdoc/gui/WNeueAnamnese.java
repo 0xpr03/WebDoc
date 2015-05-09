@@ -6,42 +6,36 @@
  *******************************************************************************/
 package webdoc.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
-
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 
-import javax.swing.JSpinner.DateEditor;
-import javax.swing.JSplitPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JSpinner;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.SpinnerDateModel;
-
-import net.miginfocom.swing.MigLayout;
-
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JTabbedPane;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
-import javax.swing.border.TitledBorder;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.TitledBorder;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.ScrollPaneConstants;
+import net.miginfocom.swing.MigLayout;
 
 public class WNeueAnamnese extends JInternalFrame {
 
