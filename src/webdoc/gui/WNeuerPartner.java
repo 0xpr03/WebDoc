@@ -109,6 +109,7 @@ public class WNeuerPartner extends JInternalFrame {
 		this.editable = editable;
 		this.id = id;
 		initialize();
+		loadData();
 	}
 
 	/**
@@ -459,11 +460,11 @@ public class WNeuerPartner extends JInternalFrame {
 		if (id != -1) {
 			try {
 				{
-					ResultSet rs;
-					rs = Database.getPartner(id);
+					ResultSet rs = Database.getPartner(id);
+					rs.next();
 					textName.setText(rs.getString(1));
 					textVorname.setText(rs.getString(2));
-					
+
 					textTitel.setText(rs.getString(4));
 					textComment.setText(rs.getString(5));
 					textPostleitzahl.setText(String.valueOf(rs.getInt(6)));
@@ -524,11 +525,14 @@ public class WNeuerPartner extends JInternalFrame {
 	protected void addPartner() {
 		if (allSet()) {
 			try {
-				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
+				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config
+						.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
 				id = Database
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
-								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrtsteil.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText());
+								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer
+								.valueOf(textPostleitzahl.getText()), textOrtsteil.getText(), Short
+								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
