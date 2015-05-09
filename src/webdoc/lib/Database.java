@@ -433,7 +433,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareEmailInsertStm() throws SQLException {
-		String sql = "INSERT INTO `email` (`mail`,`PartnerRoleID`) "
+		String sql = "INSERT INTO `email` (`mail`,`PartnerID`) "
 				+ "VALUES (?,?);";
 		return prepareStm(sql);
 	}
@@ -444,7 +444,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
-		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
 				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
 	}
