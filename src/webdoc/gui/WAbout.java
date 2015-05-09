@@ -69,7 +69,7 @@ public class WAbout extends JDialog {
 			panelAbout.setLayout(new BoxLayout(panelAbout, BoxLayout.X_AXIS));
 			{
 				JLabel lblwebdoc = new JLabel("<html><div style=\"borderl-left: 5px\"><br>WebDoc<br><br>Version %v<br></div></html>".replace("%v", Config.getStrValue("version")));
-				lblwebdoc.setFont(new Font("Sans-serif", Font.PLAIN, 14));
+				lblwebdoc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 				lblwebdoc.setAlignmentY(0.0f);
 				lblwebdoc.setBackground(Color.WHITE);
 				lblwebdoc.setVerticalAlignment(SwingConstants.TOP);
@@ -85,7 +85,7 @@ public class WAbout extends JDialog {
 			panelCopyright.setLayout(new BoxLayout(panelCopyright, BoxLayout.X_AXIS));
 			{
 				JLabel lblNewLabel = new JLabel("<html><b>Used librarys:</b><br><br><li>eclipse mig layout<br><br><li>mariafoundation JDBC<br><br></html>");
-				lblNewLabel.setFont(new Font("Sans-serif", Font.PLAIN, 14));
+				lblNewLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,14));
 				lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 				panelCopyright.add(lblNewLabel);
 			}
