@@ -167,7 +167,7 @@ public class WNeuerPartner extends JInternalFrame {
 		chckbxKommentarAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				scrollPaneComment.setVisible(((AbstractButton) arg0.getSource()).isSelected());
-				//pack();
+				pack();
 			}
 		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
@@ -507,7 +507,7 @@ public class WNeuerPartner extends JInternalFrame {
 				id = Database
 						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 								((Date) spinGebdatum.getValue()).getTime()), textPaneComment.getText(), textTelefon
-								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText());
+								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrtsteil.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
