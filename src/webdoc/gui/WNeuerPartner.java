@@ -7,6 +7,7 @@
 package webdoc.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,6 +60,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JCheckBox;
 
 import java.awt.BorderLayout;
+import java.beans.PropertyVetoException;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -167,10 +169,10 @@ public class WNeuerPartner extends JInternalFrame {
 		downPanel.add(btnCancelEdit, "cell 2 0");
 
 		JCheckBox chckbxKommentarAnzeigen = new JCheckBox("Kommentar anzeigen");
+		chckbxKommentarAnzeigen.setSelected(true);
 		chckbxKommentarAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				scrollPaneComment.setVisible(((AbstractButton) arg0.getSource()).isSelected());
-				pack();
+				commentViewAction(((AbstractButton) arg0.getSource()).isSelected());
 			}
 		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
@@ -597,6 +599,16 @@ public class WNeuerPartner extends JInternalFrame {
 		} else {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
+	}
+	
+	private void commentViewAction(boolean show){
+		boolean ismaximized = this.isMaximum();
+		Dimension size = this.getSize();
+		scrollPaneComment.setVisible(show);
+		pack();
+		try{this.setMaximum(ismaximized);}catch(Exception e){}
+		if(!ismaximized)
+			this.setSize(size);
 	}
 
 	@Override
