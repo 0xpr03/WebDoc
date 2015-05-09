@@ -332,7 +332,7 @@ public class Database{
 		{
 			PreparedStatement stm = prepareEmailInsertStm();
 			stm.setString(1, email);
-			stm.setLong(2, partnerroleid);
+			stm.setLong(2, id);
 			stm.executeUpdate();
 			stm.close();
 		}
@@ -481,13 +481,18 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static PreparedStatement prepareEmailInsertStm() throws SQLException {
+	private static PreparedStatement prepareEmailInsertStm() throws SQLException {
 		String sql = "INSERT INTO `email` (`mail`,`PartnerID`) "
 				+ "VALUES (?,?);";
 		return prepareStm(sql);
 	}
 	
-	public static PreparedStatement prepareEmailUpdateStm() throws SQLException {
+	/**
+	 * Prepare email table update
+	 * @return
+	 * @throws SQLException
+	 */
+	private static PreparedStatement prepareEmailUpdateStm() throws SQLException {
 		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerID` = ?";
 		return prepareStm(sql);
 	}
@@ -497,7 +502,7 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
+	private static PreparedStatement prepareTelecommInsertStm() throws SQLException {
 		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
 				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
@@ -508,7 +513,7 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
+	private static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
 		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerID` = ?";
 		return prepareStm(sql);
 	}
@@ -528,7 +533,7 @@ public class Database{
 	 * @return AddressID,plc,toponym,housenr,street,addition
 	 * @throws SQLException
 	 */
-	public static PreparedStatement prepareAddressInsertStm() throws SQLException {
+	private static PreparedStatement prepareAddressInsertStm() throws SQLException {
 		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
 				+ "VALUES (?,?,?,?,?,?,?);";
 		return prepareStm(sql);
