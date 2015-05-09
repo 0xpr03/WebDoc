@@ -8,6 +8,7 @@ package webdoc.lib;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +30,7 @@ public final class GUIManager {
 	
 	private static WHomescreen whomescreen = null;
 	private static Logger logger = LogManager.getLogger();
+	private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN,14);
 	
 	/**
 	 * initiates and shows the homescreen window
@@ -110,6 +112,10 @@ public final class GUIManager {
 			
 			wpg.dispose();
 		}
+	}
+	
+	public static Font getCommentFont(){
+		return font;
 	}
 	
 	/**

@@ -6,9 +6,9 @@
  *******************************************************************************/
 package webdoc.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -18,49 +18,41 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.AbstractButton;
+import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ActionMap;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
-import javax.swing.UIManager;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerDateModel;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-import javax.swing.SpinnerDateModel;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.sun.xml.internal.ws.message.EmptyMessageImpl;
-
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
-
-import java.awt.List;
-
-import javax.swing.JList;
-import javax.swing.border.TitledBorder;
-import javax.swing.JCheckBox;
-
-import java.awt.BorderLayout;
-import java.beans.PropertyVetoException;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -419,6 +411,7 @@ public class WNeuerPartner extends JInternalFrame {
 								.addGap(4)));
 
 		textComment = new JTextPane();
+		textComment.setFont(GUIManager.getCommentFont());
 		scrollPaneComment.setViewportView(textComment);
 		contentPanel.setLayout(gl_contentPane);
 

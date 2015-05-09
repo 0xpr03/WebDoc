@@ -333,7 +333,7 @@ public final class WHomescreen extends JFrame {
 					}
 					break;
 				case PARTNER:
-					
+					addWNeuerPartner(false, -1);
 					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
