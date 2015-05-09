@@ -452,13 +452,23 @@ public class Database{
 	}
 	
 	/**
+	 * Prepare telecommunication table select
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareTelecommSelectStm() throws SQLException {
+		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerID = ?;";
+		return prepareStm(sql);
+	}
+	
+	/**
 	 * Prepare address table insert
 	 * @return AddressID,plc,toponym,housenr,street,addition
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareAddressInsertStm() throws SQLException {
-		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`toponym`,`housenr`,`street`,`addition`) "
-				+ "VALUES (?,?,?,?,?,?);";
+		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
+				+ "VALUES (?,?,?,?,?,?,?);";
 		return prepareStm(sql);
 	}
 	
