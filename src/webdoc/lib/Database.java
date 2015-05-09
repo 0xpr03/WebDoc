@@ -273,10 +273,11 @@ public class Database{
 	 * @param city
 	 * @param houenr
 	 * @param street
+	 * @param zusatz
+	 * @param district
 	 * @return
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
-	 * @param district 
 	 */
 	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district ) throws SQLException{
 		long id;
@@ -349,6 +350,54 @@ public class Database{
 		}
 		
 		return id;
+	}
+	
+	public static void updatePartner(long id,String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
+		{
+			String sql = "UPDATE partner SET `firstname` = ?, `secondname` = ?,`title` = ?,`comment` = ?,`birthday` = ? "
+					+"WHERE PartnerID = ?";
+			PreparedStatement stm = connection.prepareStatement(sql);
+			stm.setString(1, firstname);
+			stm.setString(2, secondname);
+			stm.setString(3, title);
+			if(comment.equals(""))
+				stm.setNull(4, Types.VARCHAR);
+			else
+				stm.setString(4, comment);
+			stm.setDate(5, birthday);
+			stm.setLong(6, id);
+			stm.executeUpdate();
+			
+			id = getAutoID(stm.getGeneratedKeys());
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareTelecommUpdateStm();
+			stm.setString(1, phone);
+			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			
+			stm.clearParameters();
+			stm.setString(1, mobile);
+			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			
+			stm.clearParameters();
+			stm.setString(1, fax);
+			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
+			stm.setLong(3, id);
+			stm.executeUpdate();
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareEmailUpdateStm();
+			stm.setString(1, mail);
+			stm.setLong(2, id);
+			stm.executeUpdate();
+			stm.close();
+		}
 	}
 	
 	/**
@@ -440,6 +489,11 @@ public class Database{
 		return prepareStm(sql);
 	}
 	
+	public static PreparedStatement prepareEmailUpdateStm() throws SQLException {
+		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerID` = ?";
+		return prepareStm(sql);
+	}
+	
 	/**
 	 * Prepare telecommunication table insert
 	 * @return
@@ -448,6 +502,16 @@ public class Database{
 	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
 		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
 				+ "VALUES (?,?,?);";
+		return prepareStm(sql);
+	}
+	
+	/**
+	 * Prepare telecommunication table update
+	 * @return
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
+		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerID` = ?";
 		return prepareStm(sql);
 	}
 	
