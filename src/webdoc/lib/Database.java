@@ -266,12 +266,17 @@ public class Database{
 	 * @param phone
 	 * @param mobile
 	 * @param fax
+	 * @param plz 
+	 * @param toponym 
+	 * @param houenr 
+	 * @param street 
 	 * @return
 	 * @throws SQLException
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street ) throws SQLException{
 		long id;
 		long partnerroleid;
+		long addressid;
 		{
 			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 					+"VALUES (?,?,?,?,?)";
@@ -283,9 +288,7 @@ public class Database{
 			stm.setDate(5, birthday);
 			stm.executeUpdate();
 			
-			ResultSet rs = stm.getGeneratedKeys();
-			rs.next();
-			id = rs.getLong(1);
+			id = getAutoID(stm.getGeneratedKeys());
 			stm.close();
 		}
 		{
@@ -295,9 +298,7 @@ public class Database{
 			stm.setLong(2, partnertypeid);
 			stm.executeUpdate();
 			
-			ResultSet rs = stm.getGeneratedKeys();
-			rs.next();
-			partnerroleid = rs.getLong(1);
+			partnerroleid = getAutoID(stm.getGeneratedKeys());
 			stm.close();
 		}
 		{
@@ -328,8 +329,30 @@ public class Database{
 			stm.executeUpdate();
 			stm.close();
 		}
+		{
+			PreparedStatement stm = prepareAddressInsertStm();
+			stm.setInt(1, plz);
+			stm.setString(2, toponym);
+			stm.setShort(3, houenr);
+			stm.setString(4, street);
+			stm.setString(6, comment);
+			stm.executeUpdate();
+			addressid = getAutoID(stm.getResultSet());
+			stm.close();
+		}
 		
 		return id;
+	}
+	
+	/**
+	 * Retrives the autoID from the first column, will crash otherwise
+	 * @param rs
+	 * @return long last created autoid
+	 * @throws SQLException
+	 */
+	private static long getAutoID(ResultSet rs) throws SQLException{
+		rs.next();
+		return rs.getLong(1);
 	}
 	
 	/**
@@ -397,6 +420,17 @@ public class Database{
 	public static PreparedStatement prepareTelecommInsertStm() throws SQLException {
 		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
 				+ "VALUES (?,?,?);";
+		return prepareStm(sql);
+	}
+	
+	/**
+	 * Prepare address table insert
+	 * @return AddressID,plc,toponym,housenr,street,addition
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareAddressInsertStm() throws SQLException {
+		String sql = "INSERT INTO `addresses` (`AddressID`,`plc`,`toponym`,`housenr`,`street`,`addition`) "
+				+ "VALUES (?,?,?,?,?,?);";
 		return prepareStm(sql);
 	}
 	
