@@ -277,7 +277,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street ) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String toponym, short houenr, String street, String zusatz ) throws SQLException{
 		long id;
 		long partnerroleid;
 		{
@@ -341,7 +341,7 @@ public class Database{
 			stm.setString(3, toponym);
 			stm.setShort(4, houenr);
 			stm.setString(5, street);
-			stm.setString(6, comment);
+			stm.setString(6, zusatz);
 			stm.executeUpdate();
 			stm.close();
 		}
@@ -361,7 +361,7 @@ public class Database{
 				+"FROM partner "
 				+"INNER JOIN addresses "
 				+"ON partner.PartnerID = addresses.PartnerID "
-				+"INNER JOIN mail "
+				+"INNER JOIN email "
 				+"ON partner.PartnerID = email.PartnerID "
 				+"WHERE partner.PartnerID = ? ";	
 		
