@@ -367,8 +367,6 @@ public class Database{
 			stm.setDate(5, birthday);
 			stm.setLong(6, id);
 			stm.executeUpdate();
-			
-			id = getAutoID(stm.getGeneratedKeys());
 			stm.close();
 		}
 		{
@@ -393,7 +391,7 @@ public class Database{
 		}
 		{
 			PreparedStatement stm = prepareEmailUpdateStm();
-			stm.setString(1, mail);
+			stm.setString(1, email);
 			stm.setLong(2, id);
 			stm.executeUpdate();
 			stm.close();
