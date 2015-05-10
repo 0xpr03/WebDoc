@@ -68,22 +68,6 @@ public final class WHomescreen extends JFrame {
 	private test FTest = new test();
 
 	/**
-	 * Launch the application.
-	 */
-//	public void main() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					WHomescreen window = new WHomescreen();
-//					window.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
 	 * Create the application.
 	 */
 	public WHomescreen() {

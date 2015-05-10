@@ -159,19 +159,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		  comboBox_6.setEditable(editable);
 		  sP_Bemerkungen.setEnabled(editable);
 	}
-//	public static void main(final boolean editable, final long id) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					WNeueAnamnese window = new WNeueAnamnese(editable, id);
-//					window.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create the application.
 	 */
