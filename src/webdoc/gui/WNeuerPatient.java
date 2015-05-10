@@ -357,7 +357,6 @@ public class WNeuerPatient extends JInternalFrame {
 
 		btnNeueBehandlung = new JButton("Neue Behandlung");
 		downPanel.add(btnNeueBehandlung, "cell 4 0");
-		btnNeueAnamnese.setVisible(!editable);
 
 		buttonCancelEdit.setVisible(editable);
 
@@ -564,7 +563,8 @@ public class WNeuerPatient extends JInternalFrame {
 	 * updates buttons that change on selected element change also
 	 */
 	private void updateEditBtns() {
-		btnNeueAnamnese.setEnabled(id > -1);
+		btnNeueAnamnese.setEnabled(id != -1);
+		btnNeueBehandlung.setEnabled(id != -1);
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		buttonCancelEdit.setVisible(id > -1 || editable);
 		buttonCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
