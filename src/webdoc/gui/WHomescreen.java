@@ -59,7 +59,7 @@ public final class WHomescreen extends JFrame {
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
-	private WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(true,null);
+	private WNeueAnamnese FNeueAnamnese = null; //TODO: change
 	private WNeueBehandlungsart FNeueBEhandlungsart =new WNeueBehandlungsart();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
@@ -455,9 +455,9 @@ public final class WHomescreen extends JFrame {
 		desktopPane.add(jif);
 	}
 	
-	public void callWNewAnamnesis(){
+	public void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
 		if(!jifToFront(FNeueAnamnese)){
-			FNeueAnamnese = new WNeueAnamnese(false, null);
+			FNeueAnamnese = new WNeueAnamnese(editable, animal_id, anamnesis_id, name);
 			FNeueAnamnese.setVisible(true);
 			desktopPane.add(FNeueAnamnese);
 		}

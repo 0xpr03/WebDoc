@@ -349,9 +349,8 @@ public class WNeuerPatient extends JInternalFrame {
 		btnNeueAnamnese = new JButton("Neue Anamnese");
 		btnNeueAnamnese.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				neueAnamnese(strName);
+				GUIManager.callWNewAnamnesis(true,id, -1,strName.getText());
 			}
-
 		});
 		downPanel.add(btnNeueAnamnese, "cell 3 0");
 
@@ -531,10 +530,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private void loadData(long id) {
 		this.id = id;
 		loadData();
-	}
-
-	protected void neueAnamnese(JTextField strName2) {
-		GUIManager.callWNewAnamnesis();
 	}
 
 	/**

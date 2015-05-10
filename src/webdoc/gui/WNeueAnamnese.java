@@ -99,12 +99,13 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JComboBox comboBoxAuslauf;
 	private JComboBox comboBox_6;
 	private JScrollPane sP_Bemerkungen;
+	private long PATIENT_ID;
+	private long anamnesis_id;
 
 	/**
 	 * Launch the application.
 	 */
 	private void setEditable(boolean editable ){
-
 		  textField_6.setEditable(editable);
 		  textField_7.setEditable(editable);
 		  textField_8.setEditable(editable);
@@ -156,27 +157,28 @@ public class WNeueAnamnese extends JInternalFrame {
 		  comboBoxAuslauf.setEditable(editable);
 		  comboBox_6.setEditable(editable);
 		  sP_Bemerkungen.setEnabled(editable);
-		
 	}
-	public static void main(final boolean editable) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WNeueAnamnese window = new WNeueAnamnese(editable, null);
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(final boolean editable, final long id) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					WNeueAnamnese window = new WNeueAnamnese(editable, id);
+//					window.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public WNeueAnamnese(boolean editable,String strName) {
+	public WNeueAnamnese(final boolean editable, final long animal_id, final long anamnesis_id, final String patient_name) {
 		this.editabel = editable;
-		initialize(editable, strName);
+		initialize(patient_name);
+		this.PATIENT_ID = animal_id;
+		this.anamnesis_id = anamnesis_id;
 		setFrameIcon(null);
 		setResizable(true);
 		setMaximizable(true);
@@ -847,7 +849,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(boolean editable, String strName) {
+	private void initialize(String strName) {
 		frame = new JFrame();
 		setTitle("Anamnese von " + strName);
 		setBounds(100, 100, 1015, 507);
