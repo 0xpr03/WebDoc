@@ -85,7 +85,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private long id;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
-	private JList JListVerlauf;
+	private JList JListTiere;
 	private JPanel panel_2;
 	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
@@ -128,7 +128,7 @@ public class WNeuerPartner extends JInternalFrame {
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (id == -1) {
+				if (id == -1 && editable) {
 					addPartner();
 				} else if (editable) {
 					updatePartner();
@@ -170,10 +170,10 @@ public class WNeuerPartner extends JInternalFrame {
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
 
-		JListVerlauf = new JList();
-		JListVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf",
+		JListTiere = new JList();
+		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		JListVerlauf.setBackground(Color.WHITE);
+		JListTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();
 
@@ -390,7 +390,7 @@ public class WNeuerPartner extends JInternalFrame {
 										.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
 										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addGap(3)
-								.addComponent(JListVerlauf, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
+								.addComponent(JListTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)));
 		gl_contentPane
@@ -400,7 +400,7 @@ public class WNeuerPartner extends JInternalFrame {
 								.createSequentialGroup()
 								.addGroup(gl_contentPane
 										.createParallelGroup(Alignment.LEADING)
-										.addComponent(JListVerlauf, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+										.addComponent(JListTiere, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
 										.addGroup(gl_contentPane
 												.createSequentialGroup()
 												.addGap(1)

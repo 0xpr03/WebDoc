@@ -243,10 +243,10 @@ public class WNeuerPatient extends JInternalFrame {
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 
-		// panelBemerkungen.setVisible(!editable);
 		panelVerlauf.setVisible(!editable);
 
 		panelBemerkungen = new JPanel();
+		panelBemerkungen.setFont(GUIManager.getCommentFont());
 
 		JLabel lblBemerkungen = new JLabel("Bemerkungen:");
 
@@ -314,7 +314,7 @@ public class WNeuerPatient extends JInternalFrame {
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (id == -1) {
+				if (id == -1 && editable) {
 					addPatient();
 				} else if (editable) {
 					updatePatient();
