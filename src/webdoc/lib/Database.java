@@ -177,7 +177,28 @@ public class Database{
 		return procedures;
 	}
 	
-	//------------- USER SPACE
+	//------------- USER SPACE-----------------------//
+	
+	public static long insertAnamnesis() throws SQLException{
+		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`) "
+				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		stm.executeUpdate();
+		long id = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return id;
+	}
+	
+	public static int updateAnamnesis() throws SQLException{
+		String sql = "UPDATE anamnesis SET `AnimalID` = ?,`purpose` = ?,`keeping` = ?,`possesionsince` = ?,`origin` = ?,`familystrchanges` = ?,`abroadstays` = ?,`attitudeconspicuity` = ?,`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?"
+				+"WHERE AnamnesisID = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		
+		int changed = stm.executeUpdate();
+		stm.close();
+		return changed;
+	}
 	
 	/**
 	 * Insert patient, based on the procedure, -> recommended
