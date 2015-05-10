@@ -37,6 +37,7 @@ import javax.swing.border.TitledBorder;
 
 import net.miginfocom.swing.MigLayout;
 
+@SuppressWarnings("serial")
 public class WNeueAnamnese extends JInternalFrame {
 
 	private JFrame frame;
@@ -844,6 +845,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		//////////////////////////////////////////
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		setEditable(editable);
+		this.setVisible(true);
 	}
 
 	/**

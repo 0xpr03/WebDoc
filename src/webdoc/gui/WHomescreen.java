@@ -369,6 +369,9 @@ public final class WHomescreen extends JFrame {
 	 * @return
 	 */
 	private boolean jifToFront(JInternalFrame jif){
+		if(jif == null){
+			return false;
+		}
 		if(jif.isDisplayable()){
 			try {
 				jif.setIcon(false);
