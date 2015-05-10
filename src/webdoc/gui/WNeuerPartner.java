@@ -171,8 +171,7 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setVisible(editable);
 
 		JListTiere = new JList();
-		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf",
-				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();

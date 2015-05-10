@@ -276,8 +276,6 @@ public class Database{
 		platz ++;
 		stm.setString(platz, comment.equals("") ? null : comment);
 		
-		
-		
 		stm.executeUpdate();
 		long id = getAutoID(stm.getGeneratedKeys());
 		stm.close();

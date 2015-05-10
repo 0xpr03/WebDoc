@@ -80,7 +80,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner spinBirthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
-	private JSearchTextField textPartnerSuche;
+	private JComboBox textPartnerSuche;
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
@@ -191,8 +191,7 @@ public class WNeuerPatient extends JInternalFrame {
 
 		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
 
-		textPartnerSuche = new JSearchTextField();
-		textPartnerSuche.setColumns(10);
+		textPartnerSuche = new JComboBox();
 		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]",
 				"[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
 		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
@@ -220,24 +219,22 @@ public class WNeuerPatient extends JInternalFrame {
 
 		panelVerlauf = new JPanel();
 
-		JLabel Verlauf = new JLabel("Verlauf:");
-
 		JScrollPane sPaneVerlauf = new JScrollPane();
+		sPaneVerlauf.setViewportBorder(new TitledBorder(null, "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		GroupLayout gl_PanelVerlauf = new GroupLayout(panelVerlauf);
-		gl_PanelVerlauf.setHorizontalGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelVerlauf
-						.createSequentialGroup()
-						.addGap(1)
-						.addGroup(gl_PanelVerlauf
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_PanelVerlauf.createSequentialGroup().addComponent(Verlauf)
-										.addContainerGap())
-								.addGroup(gl_PanelVerlauf.createSequentialGroup()
-										.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-										.addGap(1)))));
-		gl_PanelVerlauf.setVerticalGroup(gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelVerlauf.createSequentialGroup().addComponent(Verlauf).addGap(1)
-						.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE).addGap(2)));
+		gl_PanelVerlauf.setHorizontalGroup(
+			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelVerlauf.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_PanelVerlauf.setVerticalGroup(
+			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_PanelVerlauf.createSequentialGroup()
+					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+					.addGap(2))
+		);
 
 		listVerlauf = new JList();
 		sPaneVerlauf.setViewportView(listVerlauf);
