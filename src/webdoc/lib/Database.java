@@ -97,8 +97,8 @@ public class Database{
 			Config.setValue("COMM_PHONE_ID", getCommTypeID("phone"));
 			Config.setValue("COMM_MOBILE_ID", getCommTypeID("mobile"));
 			Config.setValue("COMM_FAX_ID", getCommTypeID("fax"));
-			Config.setValue("PARTNER_EMPLOYEE_ID", getPartnerTypeID("employee"));
-			Config.setValue("PARTNER_CLIENT_ID", getPartnerTypeID("client"));
+			Config.setValue("PARTNER_COMMERCIAL_ID", getPartnerTypeID("commercial"));
+			Config.setValue("PARTNER_PRIVATE_ID", getPartnerTypeID("private"));
 		} catch (SQLException e) {
 			dbe = DBExceptionConverter(e,true);
 		}
@@ -464,6 +464,27 @@ public class Database{
 	}
 	
 	/**
+	 * Retrives the partnerroleid if it exists, otherwise it will return -1
+	 * @param partnerid
+	 * @param roleid
+	 * @return prID or -1
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long getPartnerRole(long partnerid,long roleid) throws SQLException{
+		String sql = "SELECT PartnerRoleID FROM `partnerroles` WHERE `PartnerID` = ? AND RoleID = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerid);
+		stm.setLong(2, roleid);
+		ResultSet rs = stm.executeQuery();
+		if(rs.next()){
+			return rs.getLong(1);
+		}else{
+			return -1;
+		}
+	}
+	
+	/**
 	 * Inserts a new Partner into the DB
 	 * @param firstname
 	 * @param secondname
@@ -485,9 +506,8 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district ) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		long id;
-		long partnerroleid;
 		{
 			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 					+"VALUES (?,?,?,?,?)";
@@ -505,16 +525,46 @@ public class Database{
 			id = getAutoID(stm.getGeneratedKeys());
 			stm.close();
 		}
-		{
-			String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
-			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stm.setLong(1, id);
-			stm.setLong(2, partnertypeid);
-			stm.executeUpdate();
-			
-			partnerroleid = getAutoID(stm.getGeneratedKeys());
-			stm.close();
-		}
+		return id;
+	}
+	
+	/**
+	 * Inserts a new PartnerRoleID based on the partnerid and the roletypeid
+	 * @param partnerid
+	 * @param roletypeid
+	 * @return new id
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long insertPatnerRoleID(long partnerid, long roletypeid) throws SQLException{
+		String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
+		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stm.setLong(1, partnerid);
+		stm.setLong(2, roletypeid);
+		stm.executeUpdate();
+		
+		long partnerroleid = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return partnerroleid;
+	}
+	
+	/**
+	 * Inserts the communication details of a partner via the partnerroleid
+	 * @param partnerroleid
+	 * @param phone
+	 * @param mobile
+	 * @param fax
+	 * @param email
+	 * @param plz
+	 * @param city
+	 * @param houenr
+	 * @param street
+	 * @param zusatz
+	 * @param district
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void insertPartnerRoleDetails(long partnerroleid,String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException {
 		{
 			PreparedStatement stm = prepareTelecommInsertStm();
 			stm.setString(1, phone);
@@ -554,11 +604,9 @@ public class Database{
 			stm.executeUpdate();
 			stm.close();
 		}
-		
-		return id;
 	}
 	
-	public static void updatePartner(long id,String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
+	public static void updatePartner(long id,String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		{
 			String sql = "UPDATE partner SET `firstname` = ?, `secondname` = ?,`title` = ?,`comment` = ?,`birthday` = ? "
 					+"WHERE PartnerID = ?";
@@ -575,30 +623,61 @@ public class Database{
 			stm.executeUpdate();
 			stm.close();
 		}
+	}
+	
+	/**
+	 * Updates the communication details of a partner via the partnerroleid
+	 * @param partnerroleid
+	 * @param phone
+	 * @param mobile
+	 * @param fax
+	 * @param email
+	 * @param plz
+	 * @param city
+	 * @param houenr
+	 * @param street
+	 * @param zusatz
+	 * @param district
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void updatePartnerRoleDetails(long partnerroleid, String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
 		{
 			PreparedStatement stm = prepareTelecommUpdateStm();
 			stm.setString(1, phone);
 			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			
 			stm.clearParameters();
 			stm.setString(1, mobile);
 			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			
 			stm.clearParameters();
 			stm.setString(1, fax);
 			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
 		{
 			PreparedStatement stm = prepareEmailUpdateStm();
 			stm.setString(1, email);
-			stm.setLong(2, id);
+			stm.setLong(2, partnerroleid);
+			stm.executeUpdate();
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareAddressUpdateStm();
+			stm.setInt(1, plz);
+			stm.setString(2, city);
+			stm.setString(3, district);
+			stm.setShort(4, houenr);
+			stm.setString(5, street);
+			stm.setString(6, zusatz);
+			stm.setLong(7, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
@@ -686,6 +765,7 @@ public class Database{
 	 * Prepare email table insert
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareEmailInsertStm() throws SQLException {
 		String sql = "INSERT INTO `email` (`mail`,`PartnerRoleID`) "
@@ -697,6 +777,7 @@ public class Database{
 	 * Prepare email table update
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareEmailUpdateStm() throws SQLException {
 		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerRoleID` = ?";
@@ -707,6 +788,7 @@ public class Database{
 	 * Prepare telecommunication table insert
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareTelecommInsertStm() throws SQLException {
 		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
@@ -718,6 +800,7 @@ public class Database{
 	 * Prepare telecommunication table update
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
 		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerRoleID` = ?";
@@ -728,6 +811,7 @@ public class Database{
 	 * Prepare telecommunication table select
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	public static PreparedStatement prepareTelecommSelectStm() throws SQLException {
 		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerRoleID = ?;";
@@ -738,10 +822,22 @@ public class Database{
 	 * Prepare address table insert
 	 * @return AddressID,plc,toponym,housenr,street,addition
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareAddressInsertStm() throws SQLException {
 		String sql = "INSERT INTO `addresses` (`PartnerRoleID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
 				+ "VALUES (?,?,?,?,?,?,?);";
+		return prepareStm(sql);
+	}
+	
+	/**
+	 * Prepared address table update
+	 * @return
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	private static PreparedStatement prepareAddressUpdateStm() throws SQLException {
+		String sql = "UPDATE `addresses` SET `plc`  = ?,`city`, `district`  = ?,`housenr`  = ?,`street`  = ?,`addition` = ? WHERE `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
