@@ -59,7 +59,6 @@ public final class WHomescreen extends JFrame {
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
-	private WNeueAnamnese FNeueAnamnese = null; //TODO: change
 	private WNeueBehandlungsart FNeueBEhandlungsart =new WNeueBehandlungsart();
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
@@ -375,9 +374,8 @@ public final class WHomescreen extends JFrame {
 		logger.debug("disposing main..");
 		if(FNeuerPatient.isVisible()) FNeuerPatient.dispose();
 		if(FNeuerPartner.isVisible()) FNeuerPartner.dispose();
-		if(FNeueAnamnese.isVisible()) FNeueAnamnese.dispose();
 		
-		if(!FNeuerPatient.isVisible() && !FNeuerPartner.isVisible() && !FNeueAnamnese.isVisible()){
+		if(!FNeuerPatient.isVisible() && !FNeuerPartner.isVisible() ){
 			logger.debug("all closed..");
 			super.dispose();
 			System.exit(1);
@@ -443,10 +441,8 @@ public final class WHomescreen extends JFrame {
 	}
 	
 	public void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
-		if(!jifToFront(FNeueAnamnese)){
-			FNeueAnamnese = new WNeueAnamnese(editable, animal_id, anamnesis_id, name);
-			FNeueAnamnese.setVisible(true);
-			desktopPane.add(FNeueAnamnese);
-		}
+		WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(editable, animal_id, anamnesis_id, name);
+		FNeueAnamnese.setVisible(true);
+		desktopPane.add(FNeueAnamnese);
 	}
 }
