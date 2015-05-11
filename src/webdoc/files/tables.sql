@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS `partner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table addresses / Adresse */
 CREATE TABLE IF NOT EXISTS `addresses` (
- `PartnerID` int(10) unsigned NOT NULL,
+ `PartnerRoleID` int(10) unsigned NOT NULL,
  `plc` int(11) NOT NULL,
  `city` varchar(20) NOT NULL,
  `district` varchar(20) NOT NULL,
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
- PRIMARY KEY (`PartnerID`)
+ PRIMARY KEY (`PartnerRoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS `communicationtype` (
 /* Table telecommunication / Telekommunikation */
 CREATE TABLE IF NOT EXISTS `telecommunication` (
  `CommunicationID` int(10) unsigned NOT NULL,
- `PartnerID` int(10) unsigned NOT NULL,
+ `PartnerRoleID` int(10) unsigned NOT NULL,
  `number` varchar(20) NOT NULL,
- PRIMARY KEY (`CommunicationID`,`PartnerID`)
+ PRIMARY KEY (`CommunicationID`,`PartnerRoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table email / Email */
 CREATE TABLE IF NOT EXISTS `email` (
- `PartnerID` int(10) unsigned NOT NULL,
+ `PartnerRoleID` int(10) unsigned NOT NULL,
 /* `MailID` int(10) unsigned NOT NULL AUTO_INCREMENT,*/
  `mail` varchar(40) NOT NULL,
- PRIMARY KEY (`PartnerID`)
+ PRIMARY KEY (`PartnerRoleID`)
 /* KEY `PartnerRoleID` (`PartnerRoleID`)*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Table partnerroles / Rollen */
