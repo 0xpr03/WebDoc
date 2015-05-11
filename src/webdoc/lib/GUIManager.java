@@ -192,6 +192,6 @@ public final class GUIManager {
 	 * @param dberr
 	 */
 	public static void showDBErrorDialog(Component parent, DBError dberr){
-		JOptionPane.showConfirmDialog(parent, "The following eroror occured: "+dberr, "DB Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showConfirmDialog(parent, "The following error occured: "+dberr, "DB Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 	}
 }
