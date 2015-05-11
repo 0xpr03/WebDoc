@@ -471,17 +471,18 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long getPartnerRole(long partnerid,long roleid) throws SQLException{
-		String sql = "SELECT PartnerRoleID FROM `partnerroles` WHERE `PartnerID` = ? AND RoleID = ?";
+	public static long getPartnerRoleID(long partnerid,long roleid) throws SQLException{
+		String sql = "SELECT PartnerRoleID FROM `partnerroles` WHERE `PartnerID` = ? AND `RoleID` = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, partnerid);
 		stm.setLong(2, roleid);
 		ResultSet rs = stm.executeQuery();
-		if(rs.next()){
-			return rs.getLong(1);
-		}else{
-			return -1;
-		}
+			if(rs.next()){
+				long id = rs.getLong(1);
+				if(id != 0)
+					return id;
+			}
+		return -1;
 	}
 	
 	/**
@@ -704,7 +705,8 @@ public class Database{
 		String sql = "SELECT plc,city,district,housenr,street,addition,mail "
 				+"FROM addresses "
 				+"INNER JOIN email "
-				+"ON addresses.PartnerRoleID = email.PartnerRoleID ";
+				+"ON addresses.PartnerRoleID = email.PartnerRoleID "
+				+"WHERE addresses.`PartnerRoleID` = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, partnerroleid);
 		return stm.executeQuery();
