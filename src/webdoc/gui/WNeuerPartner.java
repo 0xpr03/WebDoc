@@ -198,7 +198,11 @@ public class WNeuerPartner extends JInternalFrame {
 		enumRole = new JComboBox<RoleEnumObj>();
 		enumRole.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				getPRID();
+				try {
+					getPRID();
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+				}
 				if(partnerroleid != -1)
 					loadData();
 				updateEditable();
@@ -471,44 +475,53 @@ public class WNeuerPartner extends JInternalFrame {
 					spinGebdatum.setValue(rs.getDate(3));
 					textTitel.setText(rs.getString(4));
 					textComment.setText(rs.getString(5));
-					textPostleitzahl.setText(String.valueOf(rs.getInt(6)));
-					textOrt.setText(rs.getString(7));
-					textOrtsteil.setText(rs.getString(8));
-					textHausnummer.setText(String.valueOf(rs.getShort(9)));
-					textStraße.setText(rs.getString(10));
-					textZusatz.setText(rs.getString(11));
-					textEmail.setText(rs.getString(12));
 					rs.close();
 				}
-				{
-					PreparedStatement stm = Database.prepareTelecommSelectStm();
+				getPRID();
+				if(partnerroleid != -1) {
 					{
-						stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
-						stm.setLong(2, partnerroleid);
-						ResultSet rs = stm.executeQuery();
+						ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
 						rs.next();
-						textTelefon.setText(rs.getString(1));
+						textPostleitzahl.setText(String.valueOf(rs.getInt(1)));
+						textOrt.setText(rs.getString(2));
+						textOrtsteil.setText(rs.getString(3));
+						textHausnummer.setText(String.valueOf(rs.getShort(4)));
+						textStraße.setText(rs.getString(5));
+						textZusatz.setText(rs.getString(6));
+						textEmail.setText(rs.getString(7));
 						rs.close();
-					}
+					}					
 					{
-						stm.clearParameters();
-						stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
-						stm.setLong(2, partnerroleid);
-						ResultSet rs = stm.executeQuery();
-						rs.next();
-						textHandy.setText(rs.getString(1));
-						rs.close();
-					}
-					{
-						stm.clearParameters();
-						stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
-						stm.setLong(2, partnerroleid);
-						ResultSet rs = stm.executeQuery();
-						rs.next();
-						textFax.setText(rs.getString(1));
-						rs.close();
+						PreparedStatement stm = Database.prepareTelecommSelectStm();
+						{
+							stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textTelefon.setText(rs.getString(1));
+							rs.close();
+						}
+						{
+							stm.clearParameters();
+							stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textHandy.setText(rs.getString(1));
+							rs.close();
+						}
+						{
+							stm.clearParameters();
+							stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textFax.setText(rs.getString(1));
+							rs.close();
+						}
 					}
 				}
+				
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e));
 			}
@@ -614,12 +627,8 @@ public class WNeuerPartner extends JInternalFrame {
 			this.setSize(size);
 	}
 
-	private void getPRID() {
-		try {
-			partnerroleid = Database.getPartnerRole(id, getRoleTypeID());
-		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
-		}
+	private void getPRID() throws SQLException {
+		partnerroleid = Database.getPartnerRole(id, getRoleTypeID());
 	}
 
 	/**
