@@ -837,7 +837,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareAddressUpdateStm() throws SQLException {
-		String sql = "UPDATE `addresses` SET `plc`  = ?,`city`, `district`  = ?,`housenr`  = ?,`street`  = ?,`addition` = ? WHERE `PartnerRoleID` = ?";
+		String sql = "UPDATE `addresses` SET `plc` = ?,`city` = ?, `district` = ?,`housenr` = ?,`street` = ?,`addition` = ? WHERE `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
