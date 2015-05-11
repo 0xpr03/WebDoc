@@ -691,17 +691,23 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getPartner(long id) throws SQLException{
-		String sql = "SELECT secondname, firstname, birthday,title, `comment`, plc,city,district,housenr,street,addition,mail "
+		String sql = "SELECT secondname, firstname, birthday,title, `comment` "
 				+"FROM partner "
-				+"INNER JOIN addresses "
-				+"ON partner.PartnerID = addresses.PartnerID "
-				+"INNER JOIN email "
-				+"ON partner.PartnerID = email.PartnerID "
 				+"WHERE partner.PartnerID = ? ";	
 		
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setLong(1, id);
 		return stmt.executeQuery();
+	}
+	
+	public static ResultSet getPartnerRoleDetails(long partnerroleid) throws SQLException{
+		String sql = "SELECT plc,city,district,housenr,street,addition,mail "
+				+"FROM addresses "
+				+"INNER JOIN email "
+				+"ON addresses.PartnerRoleID = email.PartnerRoleID ";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerroleid);
+		return stm.executeQuery();
 	}
 	
 	/**
