@@ -64,6 +64,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	// private static final long serialVersionUID = -2791732649836492001L; DON'T
 	// #22
+	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textHausnummer;
@@ -84,7 +85,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textHandy;
 	private DateEditor dateEditor;
 	private long id;
-	private long partnerroleid;
+	private long partnerroleid = -1;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
 	private JList JListTiere;
@@ -203,9 +204,10 @@ public class WNeuerPartner extends JInternalFrame {
 				} catch (SQLException e) {
 					GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 				}
+				logger.debug("PartnerRoleID: {}",partnerroleid);
+				updateEditable();
 				if(partnerroleid != -1)
 					loadData();
-				updateEditable();
 			}
 		});
 		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
@@ -478,6 +480,7 @@ public class WNeuerPartner extends JInternalFrame {
 					rs.close();
 				}
 				getPRID();
+				
 				if(partnerroleid != -1) {
 					{
 						ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
@@ -584,6 +587,7 @@ public class WNeuerPartner extends JInternalFrame {
 	protected void entryPartner() {
 		if (allSet()) {
 			try {
+				getPRID();
 				if (id == -1) {
 					id = Database
 							.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
@@ -628,7 +632,8 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 
 	private void getPRID() throws SQLException {
-		partnerroleid = Database.getPartnerRole(id, getRoleTypeID());
+		partnerroleid = Database.getPartnerRoleID(id, getRoleTypeID());
+		logger.debug("PartnerRoleID: {}", partnerroleid);
 	}
 
 	/**
