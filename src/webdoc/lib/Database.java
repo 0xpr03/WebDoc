@@ -186,94 +186,94 @@ public class Database{
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		int platz = 1;
 		stm.setLong(platz, tierid);
-		platz += 1;
+		platz++;
 		if(purpose.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, purpose);
-		platz += 1;
+		platz++;
 		if(keeping.equals(""))
 			stm.setNull(3, Types.VARCHAR);
 		else
 			stm.setString(3, keeping);
-		platz += 1;
+		platz++;
 		stm.setDate(4, possesionsince);
-		platz += 1;
+		platz++;
 		if (origin.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, origin);
-		platz += 1;
+		platz++;
 		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
-		platz += 1;
+		platz++;
 		if (abroadstays.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, abroadstays);
-		platz +=1;
+		platz++;
 		if(attitudeconspicuity.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else 
 			stm.setString(platz, attitudeconspicuity);
-		platz ++;
+		platz++;
 		stm.setString(platz, injurys.equals("") ? null : injurys);
-		platz ++;
+		platz++;
 		stm.setString(platz, scars.equals("") ? null : scars);
-		platz ++;
+		platz++;
 		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
-		platz ++;
+		platz++;
 		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
-		platz ++;
+		platz++;
 		stm.setString(platz, breathing.equals("") ? null : breathing);
-		platz ++;
+		platz++;
 		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
-		platz ++;
+		platz++;
 		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
-		platz ++;
+		platz++;
 		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
-		platz ++;
+		platz++;
 		stm.setString(platz, pancreas.equals("") ? null : pancreas);
-		platz ++;
+		platz++;
 		stm.setString(platz, ZNS.equals("") ? null : ZNS);
-		platz ++;
+		platz++;
 		stm.setInt(platz, epileptiformAttacks);
-		platz ++;
+		platz++;
 		stm.setString(platz, medication.equals("") ? null : medication );
-		platz ++;
+		platz++;
 		stm.setString(platz, xray.equals("") ? null : xray);
-		platz ++;
+		platz++;
 		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
-		platz ++;
+		platz++;
 		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
-		platz ++;
+		platz++;
 		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
-		platz ++;
+		platz++;
 		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
-		platz ++;
+		platz++;
 		stm.setInt(platz, painSensitivity);
-		platz ++;
+		platz++;
 		stm.setInt(platz, patientHasPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
-		platz ++;
+		platz++;
 		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
-		platz ++;
+		platz++;
 		stm.setString(platz, bodyPartUsagePossible.equals("") ? null : bodyPartUsagePossible);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, possibleWalkDistance);
-		platz ++;
+		platz++;
 		stm.setTime(platz, possibleWalkDuration);
-		platz ++;
+		platz++;
 		stm.setInt(platz, weatherDependent);
-		platz ++;
+		platz++;
 		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, outlet);
-		platz ++;
+		platz++;
 		stm.setTime(platz, availableTimeCons);
-		platz ++;
+		platz++;
 		stm.setString(platz, comment.equals("") ? null : comment);
 		
 		stm.executeUpdate();
@@ -288,97 +288,96 @@ public class Database{
 		PreparedStatement stm = connection.prepareStatement(sql);
 		int platz = 1;
 		stm.setLong(platz, tierid);
-		platz += 1;
+		platz++;
 		if(purpose.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, purpose);
-		platz += 1;
+		platz++;
 		if(keeping.equals(""))
 			stm.setNull(3, Types.VARCHAR);
 		else
 			stm.setString(3, keeping);
-		platz += 1;
+		platz++;
 		stm.setDate(4, possesionsince);
-		platz += 1;
+		platz++;
 		if (origin.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, origin);
-		platz += 1;
+		platz++;
 		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
-		platz += 1;
+		platz++;
 		if (abroadstays.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, abroadstays);
-		platz +=1;
+		platz++;
 		if(attitudeconspicuity.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else 
 			stm.setString(platz, attitudeconspicuity);
-		platz ++;
+		platz++;
 		stm.setString(platz, injurys.equals("") ? null : injurys);
-		platz ++;
+		platz++;
 		stm.setString(platz, scars.equals("") ? null : scars);
-		platz ++;
+		platz++;
 		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
-		platz ++;
+		platz++;
 		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
-		platz ++;
+		platz++;
 		stm.setString(platz, breathing.equals("") ? null : breathing);
-		platz ++;
+		platz++;
 		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
-		platz ++;
+		platz++;
 		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
-		platz ++;
+		platz++;
 		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
-		platz ++;
+		platz++;
 		stm.setString(platz, pancreas.equals("") ? null : pancreas);
-		platz ++;
+		platz++;
 		stm.setString(platz, ZNS.equals("") ? null : ZNS);
-		platz ++;
+		platz++;
 		stm.setInt(platz, epileptiformAttacks);
-		platz ++;
+		platz++;
 		stm.setString(platz, medication.equals("") ? null : medication );
-		platz ++;
+		platz++;
 		stm.setString(platz, xray.equals("") ? null : xray);
-		platz ++;
+		platz++;
 		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
-		platz ++;
+		platz++;
 		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
-		platz ++;
+		platz++;
 		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
-		platz ++;
+		platz++;
 		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
-		platz ++;
+		platz++;
 		stm.setInt(platz, painSensitivity);
-		platz ++;
+		platz++;
 		stm.setInt(platz, patientHasPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
-		platz ++;
+		platz++;
 		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
-		platz ++;
+		platz++;
 		stm.setString(platz, bodyPartUsagePossible.equals("") ? null : bodyPartUsagePossible);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, possibleWalkDistance);
-		platz ++;
+		platz++;
 		stm.setTime(platz, possibleWalkDuration);
-		platz ++;
+		platz++;
 		stm.setInt(platz, weatherDependent);
-		platz ++;
+		platz++;
 		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, outlet);
-		platz ++;
+		platz++;
 		stm.setTime(platz, availableTimeCons);
-		platz ++;
+		platz++;
 		stm.setString(platz, comment.equals("") ? null : comment);
 		int changed = stm.executeUpdate();
-		platz ++;
 		
 		
 		stm.setLong(platz, AnamnesisID);
@@ -539,13 +538,13 @@ public class Database{
 		{
 			PreparedStatement stm = prepareEmailInsertStm();
 			stm.setString(1, email);
-			stm.setLong(2, id);
+			stm.setLong(2, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
 		{
 			PreparedStatement stm = prepareAddressInsertStm();
-			stm.setLong(1, id);
+			stm.setLong(1, partnerroleid);
 			stm.setInt(2, plz);
 			stm.setString(3, city);
 			stm.setString(4, district);
@@ -689,7 +688,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	private static PreparedStatement prepareEmailInsertStm() throws SQLException {
-		String sql = "INSERT INTO `email` (`mail`,`PartnerID`) "
+		String sql = "INSERT INTO `email` (`mail`,`PartnerRoleID`) "
 				+ "VALUES (?,?);";
 		return prepareStm(sql);
 	}
@@ -700,7 +699,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	private static PreparedStatement prepareEmailUpdateStm() throws SQLException {
-		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerID` = ?";
+		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
@@ -710,7 +709,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	private static PreparedStatement prepareTelecommInsertStm() throws SQLException {
-		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
 				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
 	}
@@ -721,7 +720,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	private static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
-		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerID` = ?";
+		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
@@ -731,7 +730,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareTelecommSelectStm() throws SQLException {
-		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerID = ?;";
+		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerRoleID = ?;";
 		return prepareStm(sql);
 	}
 	
@@ -741,7 +740,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	private static PreparedStatement prepareAddressInsertStm() throws SQLException {
-		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
+		String sql = "INSERT INTO `addresses` (`PartnerRoleID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
 				+ "VALUES (?,?,?,?,?,?,?);";
 		return prepareStm(sql);
 	}
