@@ -48,6 +48,8 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sun.org.apache.bcel.internal.generic.LALOAD;
+
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
@@ -62,11 +64,11 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	// private static final long serialVersionUID = -2791732649836492001L; DON'T
 	// #22
-	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textHausnummer;
-	private RoleEnumObj[] rolle_lokalisiert = { new RoleEnumObj("Privatperson", RoleType.PRIVATE), new RoleEnumObj("Unternehmer", RoleType.COMMERCIAL) };
+	private RoleEnumObj[] rolle_lokalisiert = { new RoleEnumObj("Privatperson", RoleType.PRIVATE),
+			new RoleEnumObj("Unternehmer", RoleType.COMMERCIAL) };
 	private JComboBox<RoleEnumObj> enumRole;
 	private JTextField textStraße;
 	private JTextField textOrtsteil;
@@ -169,7 +171,8 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setVisible(editable);
 
 		JListTiere = new JList();
-		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
+				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();
@@ -196,6 +199,8 @@ public class WNeuerPartner extends JInternalFrame {
 		enumRole.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				getPRID();
+				if(partnerroleid != -1)
+					loadData();
 				updateEditable();
 			}
 		});
@@ -479,7 +484,7 @@ public class WNeuerPartner extends JInternalFrame {
 					PreparedStatement stm = Database.prepareTelecommSelectStm();
 					{
 						stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
-						stm.setLong(2, id);
+						stm.setLong(2, partnerroleid);
 						ResultSet rs = stm.executeQuery();
 						rs.next();
 						textTelefon.setText(rs.getString(1));
@@ -488,7 +493,7 @@ public class WNeuerPartner extends JInternalFrame {
 					{
 						stm.clearParameters();
 						stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
-						stm.setLong(2, id);
+						stm.setLong(2, partnerroleid);
 						ResultSet rs = stm.executeQuery();
 						rs.next();
 						textHandy.setText(rs.getString(1));
@@ -497,7 +502,7 @@ public class WNeuerPartner extends JInternalFrame {
 					{
 						stm.clearParameters();
 						stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
-						stm.setLong(2, id);
+						stm.setLong(2, partnerroleid);
 						ResultSet rs = stm.executeQuery();
 						rs.next();
 						textFax.setText(rs.getString(1));
@@ -533,13 +538,13 @@ public class WNeuerPartner extends JInternalFrame {
 		textComment.setEditable(editable);
 		updateEditBtns();
 	}
-	
-	private void updateEditable(){
-		if(id == -1){
+
+	private void updateEditable() {
+		if (id == -1) {
 			editable = true;
-		}else if(partnerroleid == -1){
+		} else if (partnerroleid == -1) {
 			editable = true;
-		}else{
+		} else {
 			editable = false;
 		}
 		setEditable();
@@ -560,29 +565,31 @@ public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * adds a partner
+	 * 
 	 * @author "Aron Heinecke"
 	 */
 	protected void entryPartner() {
 		if (allSet()) {
 			try {
-				if(id == -1){
+				if (id == -1) {
 					id = Database
 							.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 									((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
-				}else{
-					Database
-					.updatePartner(id,textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+				} else {
+					Database.updatePartner(id, textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
 							((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
 				}
-				if(partnerroleid == -1){
+				if (partnerroleid == -1) {
 					partnerroleid = Database.insertPatnerRoleID(id, getRoleTypeID());
-					Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax.getText(), textEmail.getText(), Integer
-							.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
-							.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
-				}else{
-					Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax.getText(), textEmail.getText(), Integer
-							.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
-							.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
+					Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+							.getText(), textOrtsteil.getText());
+				} else {
+					Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+							.getText(), textOrtsteil.getText());
 				}
 				editable = false;
 				setEditable();
@@ -593,31 +600,35 @@ public class WNeuerPartner extends JInternalFrame {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
-	
-	private void commentViewAction(boolean show){
+
+	private void commentViewAction(boolean show) {
 		boolean ismaximized = this.isMaximum();
 		Dimension size = this.getSize();
 		scrollPaneComment.setVisible(show);
 		pack();
-		try{this.setMaximum(ismaximized);}catch(Exception e){}
-		if(!ismaximized)
+		try {
+			this.setMaximum(ismaximized);
+		} catch (Exception e) {
+		}
+		if (!ismaximized)
 			this.setSize(size);
 	}
-	
-	private void getPRID(){
+
+	private void getPRID() {
 		try {
 			partnerroleid = Database.getPartnerRole(id, getRoleTypeID());
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 		}
 	}
-	
+
 	/**
 	 * Retrives the current role id according to the role id types
+	 * 
 	 * @return
 	 */
-	private long getRoleTypeID(){
-		if(((RoleEnumObj)enumRole.getSelectedItem()).getType() == RoleType.COMMERCIAL)
+	private long getRoleTypeID() {
+		if (((RoleEnumObj) enumRole.getSelectedItem()).getType() == RoleType.COMMERCIAL)
 			return Config.getLongValue("PARTNER_COMMERCIAL_ID");
 		else
 			return Config.getLongValue("PARTNER_PRIVATE_ID");
