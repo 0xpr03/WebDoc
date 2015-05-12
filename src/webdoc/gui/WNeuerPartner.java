@@ -53,6 +53,7 @@ import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
+import webdoc.gui.utils.JSearchTextField;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -118,7 +119,7 @@ public class WNeuerPartner extends JInternalFrame {
 		setMaximizable(true);
 
 		setTitle(editable ? "Neuer Partner" : "Partner");
-		setBounds(100, 100, 909, 551);
+		setBounds(100, 100, 969, 600);
 
 		JPanel contentPanel = new JPanel();
 
@@ -377,37 +378,47 @@ public class WNeuerPartner extends JInternalFrame {
 		scrollPaneComment.setBackground(Color.WHITE);
 		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		
+		JSearchTextField searchTextField = new JSearchTextField();
+		
+		JButton btnHinzufgen = new JButton("Hinzufügen");
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
-		gl_contentPane
-				.setHorizontalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane
-								.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(gl_contentPane
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(3)
-								.addComponent(JListTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane
-								.createSequentialGroup()
-								.addGroup(gl_contentPane
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(JListTiere, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-										.addGroup(gl_contentPane
-												.createSequentialGroup()
-												.addGap(1)
-												.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
-										.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
-								.addGap(4)));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnHinzufgen))
+						.addComponent(JListTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+					.addGap(172))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnHinzufgen))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(JListTiere, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
 
 		textComment = new JTextPane();
 		textComment.setFont(GUIManager.getCommentFont());

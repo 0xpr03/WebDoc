@@ -147,16 +147,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_20.setEnabled(editable);
 		  CBSchmerzempfindlichkeit.setEditable(editable);
 		  cBDenkenSchmerzen.setEditable(editable);
-		  sPSchmerzmittel.setEnabled(editable);
 		  sPVerusachenSchmerzen.setEnabled(editable);
 		  sPFunktionenMotorik.setEnabled(editable);
-		  cBKöperteilBewegen.setEditable(editable);
-		  spGehstrecke.setEnabled(editable);;
-		  spGehzeit.setEnabled(editable);;
-		  cBWitterung.setEditable(editable);
-		  comboBoxZyklus.setEditable(editable);
-		  comboBoxAuslauf.setEditable(editable);
-		  comboBox_6.setEditable(editable);
+		  cBKöperteilBewegen.setEditable(editable);;;
 		  sP_Bemerkungen.setEnabled(editable);
 	}
 	/**
@@ -236,7 +229,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
-		spinBirthdate_1 = new JSpinner();
+		spinBirthdate_1 = new JSpinner(); //Datumsmodell
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate_1.setEnabled(editable);
@@ -634,6 +627,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		JPanel panel_10 = new JPanel();
 		
 		sPSchmerzmittel = new JScrollPane();
+		sPSchmerzmittel.setEnabled(false);
 		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		JEditorPane ePSchmerzmittel = new JEditorPane();
@@ -742,13 +736,14 @@ public class WNeueAnamnese extends JInternalFrame {
 		cBKöperteilBewegen = new JComboBox();
 		cBKöperteilBewegen.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
 		
-		JLabel label_10 = new JLabel("Mögliche Gehstrecke:");
+		JLabel lblMglicheGehstreckeIn = new JLabel("Mögliche Gehstrecke in Killometer:");
 		
-		spGehstrecke = new JSpinner();
+		spGehstrecke = new JSpinner(); //Gehstrecke in Km
 		
 		JLabel label_13 = new JLabel("Mögliche Gehzeit:");
 		
-		spGehzeit = new JSpinner();
+		spGehzeit = new JSpinner(); //Gehzeit im Format HH:MM (Stunden:Minuten)
+		
 		
 		JLabel label_14 = new JLabel("Witterungsabhängikeit");
 		
@@ -808,7 +803,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		);
 		panel_11.setLayout(new MigLayout("", "[333px][109px]", "[20px][20px][20px][20px][20px][20px][20px]"));
 		panel_11.add(cBKöperteilBewegen, "cell 1 0,alignx left,aligny top");
-		panel_11.add(label_10, "cell 0 1,alignx left,aligny center");
+		panel_11.add(lblMglicheGehstreckeIn, "cell 0 1,alignx left,aligny center");
 		panel_11.add(spGehstrecke, "cell 1 1,growx,aligny top");
 		panel_11.add(label_13, "cell 0 2,alignx left,aligny center");
 		panel_11.add(spGehzeit, "cell 1 2,growx,aligny top");
