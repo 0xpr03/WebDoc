@@ -102,6 +102,9 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JScrollPane sP_Bemerkungen;
 	private long PATIENT_ID;
 	private long anamnesis_id;
+	private JButton btnEdit;
+	private JButton btnOk;
+	private JButton btnCancel;
 
 	/**
 	 * Launch the application.
@@ -140,7 +143,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_12.setEnabled(editable);
 		  scrollPane_13.setEnabled(editable);
 		  scrollPane_14.setEnabled(editable);
-		  
 		  scrollPane_15.setEnabled(editable);
 		  scrollPane_16.setEnabled(editable);
 		  scrollPane_18.setEnabled(editable);;
@@ -152,6 +154,12 @@ public class WNeueAnamnese extends JInternalFrame {
 		  sPFunktionenMotorik.setEnabled(editable);
 		  cBKöperteilBewegen.setEditable(editable);;;
 		  sP_Bemerkungen.setEnabled(editable);
+		  reloadBtn(editable);
+	}
+	private void reloadBtn(boolean editable) {
+		// TODO Auto-generated method stub
+		btnOk.setText(editable ? "Speichern" : "Schließen");
+		btnEdit.setEnabled(!editable);
 	}
 	/**
 	 * Create the application.
@@ -169,16 +177,16 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPAenderungenFamilie = new JTextPane();
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setLayout(new MigLayout("", "[][]", "[]"));
+		panel_3.setLayout(new MigLayout("", "[][][]", "[]"));
 		
-		JButton btnOk = new JButton("Speichern");
+		btnOk = new JButton("Speichern");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
 		panel_3.add(btnOk, "cell 0 0");
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		panel_3.add(btnCancel, "cell 1 0");
 		
 		JTabbedPane tabber = new JTabbedPane();
@@ -827,7 +835,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		
 		//////////////////////////////////////////
-		btnOk.setText(editable ? "Speichern" : "Schließen");
+		
+		btnEdit = new JButton("Bearbeiten");
+		panel_3.add(btnEdit, "cell 2 0");
 		setEditable(editable);
 		this.setVisible(true);
 	}
