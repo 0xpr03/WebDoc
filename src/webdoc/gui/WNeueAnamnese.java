@@ -64,7 +64,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JLabel label_4;
 	private JLabel label_5;
 	private JScrollPane scrollPane_5;
-	private JTextPane textPane;
+	private JTextPane tPAenderungenFamilie;
 	private JScrollPane scrollPane_3;
 	private JTextPane textPane_3;
 	private JScrollPane scrollPane_4;
@@ -122,7 +122,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  ePSchilderung.setEditable(editable);
 		  textField.setEditable(editable);
 		  scrollPane_5.setEnabled(editable);
-		  textPane.setEditable(editable);
+		  tPAenderungenFamilie.setEditable(editable);
 		  scrollPane_3.setEnabled(editable);
 		  textPane_3.setEditable(editable);
 		  scrollPane_4.setEnabled(editable);
@@ -140,6 +140,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_12.setEnabled(editable);
 		  scrollPane_13.setEnabled(editable);
 		  scrollPane_14.setEnabled(editable);
+		  
 		  scrollPane_15.setEnabled(editable);
 		  scrollPane_16.setEnabled(editable);
 		  scrollPane_18.setEnabled(editable);;
@@ -165,6 +166,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
+		tPAenderungenFamilie = new JTextPane();
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(new MigLayout("", "[][]", "[]"));
@@ -237,8 +239,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
 		
-		textPane = new JTextPane();
-		scrollPane_5.setViewportView(textPane);
+		
+		scrollPane_5.setViewportView(tPAenderungenFamilie);
 		
 		JPanel panel_1 = new JPanel();
 		
@@ -838,5 +840,27 @@ public class WNeueAnamnese extends JInternalFrame {
 		setTitle("Anamnese von " + strName);
 		setBounds(100, 100, 1015, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	private boolean invalidInt(String s){
+		try{
+			int i = Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}	
+	}
+	
+	private boolean invalidDouble(String s){
+		try{
+		double d = Double.parseDouble(s);
+		return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
+	}	
+	private boolean allSet(){
+		if(tPAenderungenFamilie.getText().length() <26)
+			return false;
+		return true;
 	}
 }

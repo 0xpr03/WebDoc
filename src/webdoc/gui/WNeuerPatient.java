@@ -630,7 +630,7 @@ public class WNeuerPatient extends JInternalFrame {
 		}
 	}
 	private boolean allSet(){
-		if(strName.getText().equals(""))
+		if(strName.getText().isEmpty())
 			return false;
 		if(textRasse.getText().equals(""))
 			return false;
