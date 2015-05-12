@@ -658,14 +658,27 @@ public class WNeuerPartner extends JInternalFrame {
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
+	
+	private boolean invalidInt(String s){
+		try{
+			int i = Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
+	}
 
 	private boolean allSet() {
 		if (textVorname.equals(""))
 			return false;
 		if (textName.equals(""))
 			return false;
-
-		return true;
+		if(invalidInt(textHausnummer.getText()))
+			return false;
+		if(invalidInt(textPostleitzahl.getText()))
+			return false;		
+		else 
+			return true;
 	}
 
 	private void exit() {
