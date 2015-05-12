@@ -97,8 +97,8 @@ public class Database{
 			Config.setValue("COMM_PHONE_ID", getCommTypeID("phone"));
 			Config.setValue("COMM_MOBILE_ID", getCommTypeID("mobile"));
 			Config.setValue("COMM_FAX_ID", getCommTypeID("fax"));
-			Config.setValue("PARTNER_EMPLOYEE_ID", getPartnerTypeID("employee"));
-			Config.setValue("PARTNER_CLIENT_ID", getPartnerTypeID("client"));
+			Config.setValue("PARTNER_COMMERCIAL_ID", getPartnerTypeID("commercial"));
+			Config.setValue("PARTNER_PRIVATE_ID", getPartnerTypeID("private"));
 		} catch (SQLException e) {
 			dbe = DBExceptionConverter(e,true);
 		}
@@ -186,94 +186,94 @@ public class Database{
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		int platz = 1;
 		stm.setLong(platz, tierid);
-		platz += 1;
+		platz++;
 		if(purpose.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, purpose);
-		platz += 1;
+		platz++;
 		if(keeping.equals(""))
 			stm.setNull(3, Types.VARCHAR);
 		else
 			stm.setString(3, keeping);
-		platz += 1;
+		platz++;
 		stm.setDate(4, possesionsince);
-		platz += 1;
+		platz++;
 		if (origin.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, origin);
-		platz += 1;
+		platz++;
 		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
-		platz += 1;
+		platz++;
 		if (abroadstays.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, abroadstays);
-		platz +=1;
+		platz++;
 		if(attitudeconspicuity.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else 
 			stm.setString(platz, attitudeconspicuity);
-		platz ++;
+		platz++;
 		stm.setString(platz, injurys.equals("") ? null : injurys);
-		platz ++;
+		platz++;
 		stm.setString(platz, scars.equals("") ? null : scars);
-		platz ++;
+		platz++;
 		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
-		platz ++;
+		platz++;
 		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
-		platz ++;
+		platz++;
 		stm.setString(platz, breathing.equals("") ? null : breathing);
-		platz ++;
+		platz++;
 		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
-		platz ++;
+		platz++;
 		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
-		platz ++;
+		platz++;
 		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
-		platz ++;
+		platz++;
 		stm.setString(platz, pancreas.equals("") ? null : pancreas);
-		platz ++;
+		platz++;
 		stm.setString(platz, ZNS.equals("") ? null : ZNS);
-		platz ++;
+		platz++;
 		stm.setInt(platz, epileptiformAttacks);
-		platz ++;
+		platz++;
 		stm.setString(platz, medication.equals("") ? null : medication );
-		platz ++;
+		platz++;
 		stm.setString(platz, xray.equals("") ? null : xray);
-		platz ++;
+		platz++;
 		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
-		platz ++;
+		platz++;
 		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
-		platz ++;
+		platz++;
 		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
-		platz ++;
+		platz++;
 		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
-		platz ++;
+		platz++;
 		stm.setInt(platz, painSensitivity);
-		platz ++;
+		platz++;
 		stm.setInt(platz, patientHasPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
-		platz ++;
+		platz++;
 		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
-		platz ++;
+		platz++;
 		stm.setString(platz, bodyPartUsagePossible.equals("") ? null : bodyPartUsagePossible);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, possibleWalkDistance);
-		platz ++;
+		platz++;
 		stm.setTime(platz, possibleWalkDuration);
-		platz ++;
+		platz++;
 		stm.setInt(platz, weatherDependent);
-		platz ++;
+		platz++;
 		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, outlet);
-		platz ++;
+		platz++;
 		stm.setTime(platz, availableTimeCons);
-		platz ++;
+		platz++;
 		stm.setString(platz, comment.equals("") ? null : comment);
 		
 		stm.executeUpdate();
@@ -288,97 +288,96 @@ public class Database{
 		PreparedStatement stm = connection.prepareStatement(sql);
 		int platz = 1;
 		stm.setLong(platz, tierid);
-		platz += 1;
+		platz++;
 		if(purpose.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, purpose);
-		platz += 1;
+		platz++;
 		if(keeping.equals(""))
 			stm.setNull(3, Types.VARCHAR);
 		else
 			stm.setString(3, keeping);
-		platz += 1;
+		platz++;
 		stm.setDate(4, possesionsince);
-		platz += 1;
+		platz++;
 		if (origin.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, origin);
-		platz += 1;
+		platz++;
 		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
-		platz += 1;
+		platz++;
 		if (abroadstays.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
 			stm.setString(platz, abroadstays);
-		platz +=1;
+		platz++;
 		if(attitudeconspicuity.equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else 
 			stm.setString(platz, attitudeconspicuity);
-		platz ++;
+		platz++;
 		stm.setString(platz, injurys.equals("") ? null : injurys);
-		platz ++;
+		platz++;
 		stm.setString(platz, scars.equals("") ? null : scars);
-		platz ++;
+		platz++;
 		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
-		platz ++;
+		platz++;
 		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
-		platz ++;
+		platz++;
 		stm.setString(platz, breathing.equals("") ? null : breathing);
-		platz ++;
+		platz++;
 		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
-		platz ++;
+		platz++;
 		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
-		platz ++;
+		platz++;
 		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
-		platz ++;
+		platz++;
 		stm.setString(platz, pancreas.equals("") ? null : pancreas);
-		platz ++;
+		platz++;
 		stm.setString(platz, ZNS.equals("") ? null : ZNS);
-		platz ++;
+		platz++;
 		stm.setInt(platz, epileptiformAttacks);
-		platz ++;
+		platz++;
 		stm.setString(platz, medication.equals("") ? null : medication );
-		platz ++;
+		platz++;
 		stm.setString(platz, xray.equals("") ? null : xray);
-		platz ++;
+		platz++;
 		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
-		platz ++;
+		platz++;
 		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
-		platz ++;
+		platz++;
 		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
-		platz ++;
+		platz++;
 		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
-		platz ++;
+		platz++;
 		stm.setInt(platz, painSensitivity);
-		platz ++;
+		platz++;
 		stm.setInt(platz, patientHasPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
-		platz ++;
+		platz++;
 		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
-		platz ++;
+		platz++;
 		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
-		platz ++;
+		platz++;
 		stm.setString(platz, bodyPartUsagePossible.equals("") ? null : bodyPartUsagePossible);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, possibleWalkDistance);
-		platz ++;
+		platz++;
 		stm.setTime(platz, possibleWalkDuration);
-		platz ++;
+		platz++;
 		stm.setInt(platz, weatherDependent);
-		platz ++;
+		platz++;
 		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
-		platz ++;
+		platz++;
 		stm.setDouble(platz, outlet);
-		platz ++;
+		platz++;
 		stm.setTime(platz, availableTimeCons);
-		platz ++;
+		platz++;
 		stm.setString(platz, comment.equals("") ? null : comment);
 		int changed = stm.executeUpdate();
-		platz ++;
 		
 		
 		stm.setLong(platz, AnamnesisID);
@@ -465,6 +464,28 @@ public class Database{
 	}
 	
 	/**
+	 * Retrives the partnerroleid if it exists, otherwise it will return -1
+	 * @param partnerid
+	 * @param roleid
+	 * @return prID or -1
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long getPartnerRoleID(long partnerid,long roleid) throws SQLException{
+		String sql = "SELECT PartnerRoleID FROM `partnerroles` WHERE `PartnerID` = ? AND `RoleID` = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerid);
+		stm.setLong(2, roleid);
+		ResultSet rs = stm.executeQuery();
+			if(rs.next()){
+				long id = rs.getLong(1);
+				if(id != 0)
+					return id;
+			}
+		return -1;
+	}
+	
+	/**
 	 * Inserts a new Partner into the DB
 	 * @param firstname
 	 * @param secondname
@@ -486,9 +507,8 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district ) throws SQLException{
+	public static long insertPartner(String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		long id;
-		long partnerroleid;
 		{
 			String sql = "INSERT INTO partner (`firstname`,`secondname`,`title`,`comment`,`birthday`) "
 					+"VALUES (?,?,?,?,?)";
@@ -506,16 +526,46 @@ public class Database{
 			id = getAutoID(stm.getGeneratedKeys());
 			stm.close();
 		}
-		{
-			String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
-			PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stm.setLong(1, id);
-			stm.setLong(2, partnertypeid);
-			stm.executeUpdate();
-			
-			partnerroleid = getAutoID(stm.getGeneratedKeys());
-			stm.close();
-		}
+		return id;
+	}
+	
+	/**
+	 * Inserts a new PartnerRoleID based on the partnerid and the roletypeid
+	 * @param partnerid
+	 * @param roletypeid
+	 * @return new id
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long insertPatnerRoleID(long partnerid, long roletypeid) throws SQLException{
+		String sql = "INSERT INTO `partnerroles` (`PartnerID`,`RoleID`) VALUES (?,?)";
+		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stm.setLong(1, partnerid);
+		stm.setLong(2, roletypeid);
+		stm.executeUpdate();
+		
+		long partnerroleid = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return partnerroleid;
+	}
+	
+	/**
+	 * Inserts the communication details of a partner via the partnerroleid
+	 * @param partnerroleid
+	 * @param phone
+	 * @param mobile
+	 * @param fax
+	 * @param email
+	 * @param plz
+	 * @param city
+	 * @param houenr
+	 * @param street
+	 * @param zusatz
+	 * @param district
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void insertPartnerRoleDetails(long partnerroleid,String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException {
 		{
 			PreparedStatement stm = prepareTelecommInsertStm();
 			stm.setString(1, phone);
@@ -539,13 +589,13 @@ public class Database{
 		{
 			PreparedStatement stm = prepareEmailInsertStm();
 			stm.setString(1, email);
-			stm.setLong(2, id);
+			stm.setLong(2, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
 		{
 			PreparedStatement stm = prepareAddressInsertStm();
-			stm.setLong(1, id);
+			stm.setLong(1, partnerroleid);
 			stm.setInt(2, plz);
 			stm.setString(3, city);
 			stm.setString(4, district);
@@ -555,11 +605,9 @@ public class Database{
 			stm.executeUpdate();
 			stm.close();
 		}
-		
-		return id;
 	}
 	
-	public static void updatePartner(long id,String firstname, String secondname, String title, Date birthday, String comment, String phone, String mobile, String fax, long partnertypeid, String email, int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
+	public static void updatePartner(long id,String firstname, String secondname, String title, Date birthday, String comment) throws SQLException{
 		{
 			String sql = "UPDATE partner SET `firstname` = ?, `secondname` = ?,`title` = ?,`comment` = ?,`birthday` = ? "
 					+"WHERE PartnerID = ?";
@@ -576,30 +624,61 @@ public class Database{
 			stm.executeUpdate();
 			stm.close();
 		}
+	}
+	
+	/**
+	 * Updates the communication details of a partner via the partnerroleid
+	 * @param partnerroleid
+	 * @param phone
+	 * @param mobile
+	 * @param fax
+	 * @param email
+	 * @param plz
+	 * @param city
+	 * @param houenr
+	 * @param street
+	 * @param zusatz
+	 * @param district
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void updatePartnerRoleDetails(long partnerroleid, String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
 		{
 			PreparedStatement stm = prepareTelecommUpdateStm();
 			stm.setString(1, phone);
 			stm.setLong(2, Config.getLongValue("COMM_PHONE_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			
 			stm.clearParameters();
 			stm.setString(1, mobile);
 			stm.setLong(2, Config.getLongValue("COMM_MOBILE_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			
 			stm.clearParameters();
 			stm.setString(1, fax);
 			stm.setLong(2, Config.getLongValue("COMM_FAX_ID"));
-			stm.setLong(3, id);
+			stm.setLong(3, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
 		{
 			PreparedStatement stm = prepareEmailUpdateStm();
 			stm.setString(1, email);
-			stm.setLong(2, id);
+			stm.setLong(2, partnerroleid);
+			stm.executeUpdate();
+			stm.close();
+		}
+		{
+			PreparedStatement stm = prepareAddressUpdateStm();
+			stm.setInt(1, plz);
+			stm.setString(2, city);
+			stm.setString(3, district);
+			stm.setShort(4, houenr);
+			stm.setString(5, street);
+			stm.setString(6, zusatz);
+			stm.setLong(7, partnerroleid);
 			stm.executeUpdate();
 			stm.close();
 		}
@@ -613,17 +692,24 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getPartner(long id) throws SQLException{
-		String sql = "SELECT secondname, firstname, birthday,title, `comment`, plc,city,district,housenr,street,addition,mail "
+		String sql = "SELECT secondname, firstname, birthday,title, `comment` "
 				+"FROM partner "
-				+"INNER JOIN addresses "
-				+"ON partner.PartnerID = addresses.PartnerID "
-				+"INNER JOIN email "
-				+"ON partner.PartnerID = email.PartnerID "
 				+"WHERE partner.PartnerID = ? ";	
 		
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setLong(1, id);
 		return stmt.executeQuery();
+	}
+	
+	public static ResultSet getPartnerRoleDetails(long partnerroleid) throws SQLException{
+		String sql = "SELECT plc,city,district,housenr,street,addition,mail "
+				+"FROM addresses "
+				+"INNER JOIN email "
+				+"ON addresses.PartnerRoleID = email.PartnerRoleID "
+				+"WHERE addresses.`PartnerRoleID` = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerroleid);
+		return stm.executeQuery();
 	}
 	
 	/**
@@ -687,9 +773,10 @@ public class Database{
 	 * Prepare email table insert
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareEmailInsertStm() throws SQLException {
-		String sql = "INSERT INTO `email` (`mail`,`PartnerID`) "
+		String sql = "INSERT INTO `email` (`mail`,`PartnerRoleID`) "
 				+ "VALUES (?,?);";
 		return prepareStm(sql);
 	}
@@ -698,9 +785,10 @@ public class Database{
 	 * Prepare email table update
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareEmailUpdateStm() throws SQLException {
-		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerID` = ?";
+		String sql = "UPDATE `email` SET `mail` = ? WHERE `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
@@ -708,9 +796,10 @@ public class Database{
 	 * Prepare telecommunication table insert
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareTelecommInsertStm() throws SQLException {
-		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerID`) "
+		String sql = "INSERT INTO `telecommunication` (`number`,`CommunicationID`,`PartnerRoleID`) "
 				+ "VALUES (?,?,?);";
 		return prepareStm(sql);
 	}
@@ -719,9 +808,10 @@ public class Database{
 	 * Prepare telecommunication table update
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareTelecommUpdateStm() throws SQLException {
-		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerID` = ?";
+		String sql = "UPDATE `telecommunication` SET `number` = ? WHERE `CommunicationID` = ? AND `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	
@@ -729,9 +819,10 @@ public class Database{
 	 * Prepare telecommunication table select
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	public static PreparedStatement prepareTelecommSelectStm() throws SQLException {
-		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerID = ?;";
+		String sql = "SELECT number from telecommunication WHERE CommunicatioNID = ? AND PartnerRoleID = ?;";
 		return prepareStm(sql);
 	}
 	
@@ -739,10 +830,22 @@ public class Database{
 	 * Prepare address table insert
 	 * @return AddressID,plc,toponym,housenr,street,addition
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	private static PreparedStatement prepareAddressInsertStm() throws SQLException {
-		String sql = "INSERT INTO `addresses` (`PartnerID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
+		String sql = "INSERT INTO `addresses` (`PartnerRoleID`,`plc`,`city`, `district`,`housenr`,`street`,`addition`) "
 				+ "VALUES (?,?,?,?,?,?,?);";
+		return prepareStm(sql);
+	}
+	
+	/**
+	 * Prepared address table update
+	 * @return
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	private static PreparedStatement prepareAddressUpdateStm() throws SQLException {
+		String sql = "UPDATE `addresses` SET `plc` = ?,`city` = ?, `district` = ?,`housenr` = ?,`street` = ?,`addition` = ? WHERE `PartnerRoleID` = ?";
 		return prepareStm(sql);
 	}
 	

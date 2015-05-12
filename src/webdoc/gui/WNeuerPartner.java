@@ -48,6 +48,8 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.sun.org.apache.bcel.internal.generic.LALOAD;
+
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
@@ -67,8 +69,8 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textName;
 	private JTextField textTitel;
 	private JTextField textHausnummer;
-	private RoleEnumObj[] rolle_lokalisiert = { new RoleEnumObj("Bitte Auswählen", RoleType.UNKNOWN),
-			new RoleEnumObj("Patientenbesitzer", RoleType.PETOWNER), new RoleEnumObj("Arzt", RoleType.MEDIC) };
+	private RoleEnumObj[] rolle_lokalisiert = { new RoleEnumObj("Privatperson", RoleType.PRIVATE),
+			new RoleEnumObj("Unternehmer", RoleType.COMMERCIAL) };
 	private JComboBox<RoleEnumObj> enumRole;
 	private JTextField textStraße;
 	private JTextField textOrtsteil;
@@ -84,6 +86,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextField textHandy;
 	private DateEditor dateEditor;
 	private long id;
+	private long partnerroleid = -1;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
 	private JList JListTiere;
@@ -129,10 +132,8 @@ public class WNeuerPartner extends JInternalFrame {
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (id == -1 && editable) {
-					addPartner();
-				} else if (editable) {
-					updatePartner();
+				if (id == -1 || editable) {
+					entryPartner();
 				} else {
 					dispose();
 					return;
@@ -172,7 +173,8 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setVisible(editable);
 
 		JListTiere = new JList();
-		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
+				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();
@@ -196,6 +198,19 @@ public class WNeuerPartner extends JInternalFrame {
 		spinGebdatum = new JSpinner();
 
 		enumRole = new JComboBox<RoleEnumObj>();
+		enumRole.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					getPRID();
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+				}
+				logger.debug("PartnerRoleID: {}",partnerroleid);
+				updateEditable();
+				if(partnerroleid != -1)
+					loadData();
+			}
+		});
 		enumRole.setModel(new DefaultComboBoxModel<RoleEnumObj>(rolle_lokalisiert));
 		personenbezogeneDaten.setLayout(new MigLayout("", "[24px][5px][21px][4px][18px][4px][164px,center]",
 				"[20px][20px][20px][20px][20px]"));
@@ -473,44 +488,54 @@ public class WNeuerPartner extends JInternalFrame {
 					spinGebdatum.setValue(rs.getDate(3));
 					textTitel.setText(rs.getString(4));
 					textComment.setText(rs.getString(5));
-					textPostleitzahl.setText(String.valueOf(rs.getInt(6)));
-					textOrt.setText(rs.getString(7));
-					textOrtsteil.setText(rs.getString(8));
-					textHausnummer.setText(String.valueOf(rs.getShort(9)));
-					textStraße.setText(rs.getString(10));
-					textZusatz.setText(rs.getString(11));
-					textEmail.setText(rs.getString(12));
 					rs.close();
 				}
-				{
-					PreparedStatement stm = Database.prepareTelecommSelectStm();
+				getPRID();
+				
+				if(partnerroleid != -1) {
 					{
-						stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
-						stm.setLong(2, id);
-						ResultSet rs = stm.executeQuery();
+						ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
 						rs.next();
-						textTelefon.setText(rs.getString(1));
+						textPostleitzahl.setText(String.valueOf(rs.getInt(1)));
+						textOrt.setText(rs.getString(2));
+						textOrtsteil.setText(rs.getString(3));
+						textHausnummer.setText(String.valueOf(rs.getShort(4)));
+						textStraße.setText(rs.getString(5));
+						textZusatz.setText(rs.getString(6));
+						textEmail.setText(rs.getString(7));
 						rs.close();
-					}
+					}					
 					{
-						stm.clearParameters();
-						stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
-						stm.setLong(2, id);
-						ResultSet rs = stm.executeQuery();
-						rs.next();
-						textHandy.setText(rs.getString(1));
-						rs.close();
-					}
-					{
-						stm.clearParameters();
-						stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
-						stm.setLong(2, id);
-						ResultSet rs = stm.executeQuery();
-						rs.next();
-						textFax.setText(rs.getString(1));
-						rs.close();
+						PreparedStatement stm = Database.prepareTelecommSelectStm();
+						{
+							stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textTelefon.setText(rs.getString(1));
+							rs.close();
+						}
+						{
+							stm.clearParameters();
+							stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textHandy.setText(rs.getString(1));
+							rs.close();
+						}
+						{
+							stm.clearParameters();
+							stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
+							stm.setLong(2, partnerroleid);
+							ResultSet rs = stm.executeQuery();
+							rs.next();
+							textFax.setText(rs.getString(1));
+							rs.close();
+						}
 					}
 				}
+				
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e));
 			}
@@ -541,6 +566,17 @@ public class WNeuerPartner extends JInternalFrame {
 		updateEditBtns();
 	}
 
+	private void updateEditable() {
+		if (id == -1) {
+			editable = true;
+		} else if (partnerroleid == -1) {
+			editable = true;
+		} else {
+			editable = false;
+		}
+		setEditable();
+	}
+
 	/**
 	 * updates buttons that change on selected element change also
 	 */
@@ -556,19 +592,33 @@ public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * adds a partner
+	 * 
 	 * @author "Aron Heinecke"
 	 */
-	protected void addPartner() {
+	protected void entryPartner() {
 		if (allSet()) {
 			try {
-				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config
-						.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
-				id = Database
-						.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
-								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
-								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer
-								.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
-								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
+				getPRID();
+				if (id == -1) {
+					id = Database
+							.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+									((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
+				} else {
+					Database.updatePartner(id, textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+							((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
+				}
+				if (partnerroleid == -1) {
+					partnerroleid = Database.insertPatnerRoleID(id, getRoleTypeID());
+					Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+							.getText(), textOrtsteil.getText());
+				} else {
+					Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+							.getText(), textOrtsteil.getText());
+				}
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
@@ -578,40 +628,35 @@ public class WNeuerPartner extends JInternalFrame {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
-	
-	/**
-	 * updates a partner
-	 * @author "Aron Heinecke"
-	 */
-	protected void updatePartner() {
-		if (allSet()) {
-			try {
-				long partnertype = enumRole.getSelectedItem() == RoleType.PETOWNER ? Config
-						.getLongValue("PARTNER_EMPLOYEE_ID") : Config.getLongValue("PARTNER_CLIENT_ID");
-				Database
-						.updatePartner(id,textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
-								((Date) spinGebdatum.getValue()).getTime()), textComment.getText(), textTelefon
-								.getText(), textHandy.getText(), textFax.getText(), partnertype, textEmail.getText(), Integer
-								.valueOf(textPostleitzahl.getText()), textOrt.getText(), Short
-								.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz.getText(), textOrtsteil.getText());
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
-			}
-		} else {
-			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
-		}
-	}
-	
-	private void commentViewAction(boolean show){
+
+	private void commentViewAction(boolean show) {
 		boolean ismaximized = this.isMaximum();
 		Dimension size = this.getSize();
 		scrollPaneComment.setVisible(show);
 		pack();
-		try{this.setMaximum(ismaximized);}catch(Exception e){}
-		if(!ismaximized)
+		try {
+			this.setMaximum(ismaximized);
+		} catch (Exception e) {
+		}
+		if (!ismaximized)
 			this.setSize(size);
+	}
+
+	private void getPRID() throws SQLException {
+		partnerroleid = Database.getPartnerRoleID(id, getRoleTypeID());
+		logger.debug("PartnerRoleID: {}", partnerroleid);
+	}
+
+	/**
+	 * Retrives the current role id according to the role id types
+	 * 
+	 * @return
+	 */
+	private long getRoleTypeID() {
+		if (((RoleEnumObj) enumRole.getSelectedItem()).getType() == RoleType.COMMERCIAL)
+			return Config.getLongValue("PARTNER_COMMERCIAL_ID");
+		else
+			return Config.getLongValue("PARTNER_PRIVATE_ID");
 	}
 
 	@Override
@@ -624,14 +669,27 @@ public class WNeuerPartner extends JInternalFrame {
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
+	
+	private boolean invalidInt(String s){
+		try{
+			int i = Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
+	}
 
 	private boolean allSet() {
 		if (textVorname.equals(""))
 			return false;
 		if (textName.equals(""))
 			return false;
-
-		return true;
+		if(invalidInt(textHausnummer.getText()))
+			return false;
+		if(invalidInt(textPostleitzahl.getText()))
+			return false;		
+		else 
+			return true;
 	}
 
 	private void exit() {

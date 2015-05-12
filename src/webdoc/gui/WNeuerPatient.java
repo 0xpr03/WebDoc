@@ -58,6 +58,7 @@ import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
+
 import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
@@ -627,5 +628,34 @@ public class WNeuerPatient extends JInternalFrame {
 				logger.info("No Gender selected!");
 			}
 		}
+	}
+	private boolean allSet(){
+		if(strName.getText().equals(""))
+			return false;
+		if(textRasse.getText().equals(""))
+			return false;
+		if(enumGeschlecht.equals(GenderType.UNKNOWN))
+			return false;
+		if (invalidDouble(spinGewicht.getValue().toString()))
+		if (strRufname.getText().equals(""))
+			return false;
+		return true;
+	}
+	private boolean invalidInt(String s){
+		try{
+			int i = Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}	
+	}
+	
+	private boolean invalidDouble(String s){
+		try{
+		double d = Double.parseDouble(s);
+		return false;
+		}catch(NumberFormatException e){
+			return true;
+		}	
 	}
 }

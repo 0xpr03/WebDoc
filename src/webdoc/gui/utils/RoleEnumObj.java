@@ -13,7 +13,7 @@ package webdoc.gui.utils;
  */
 public class RoleEnumObj {
 	public static enum RoleType{
-		UNKNOWN(-1),PETOWNER(1),MEDIC(2);
+		UNKNOWN(-1),PRIVATE(1),COMMERCIAL(2);
 		private RoleType(int EntryType){
 			this.EntryType = EntryType;
 		}
