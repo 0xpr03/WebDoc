@@ -235,7 +235,7 @@ public class Database{
 		String sql = "DELETE FROM `relationship` WHERE `PartnerID` = ? AND `AnimalID` = ?;";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, partnerid);
-		stm.setLong(1, animalid);
+		stm.setLong(2, animalid);
 		stm.executeUpdate();
 	}
 	
