@@ -61,6 +61,10 @@ import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
 import webdoc.gui.utils.JSearchTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
@@ -179,6 +183,24 @@ public class WNeuerPartner extends JInternalFrame {
 		btnCancelEdit.setVisible(editable);
 
 		JListTiere = new JList<ACElement>(new DefaultListModel<ACElement>());
+		JListTiere.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent mevent) {
+				if(mevent.getClickCount() >= 2){
+					openPatient();
+				}
+			}
+		});
+		JListTiere.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				switch (arg0.getKeyCode()) {
+				case KeyEvent.VK_ENTER:
+					openPatient();
+					break;
+				}
+			}
+		});
 		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
@@ -707,6 +729,13 @@ public class WNeuerPartner extends JInternalFrame {
 		} else {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
+	}
+	
+	/**
+	 * Helper class to open a patient fired by JList listeners
+	 */
+	private void openPatient() {
+		GUIManager.addWNeuerPatient(false, JListTiere.getSelectedValue().getID());
 	}
 
 	private void commentViewAction(boolean show) {
