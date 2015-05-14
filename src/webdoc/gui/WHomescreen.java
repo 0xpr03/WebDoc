@@ -327,7 +327,7 @@ public final class WHomescreen extends JFrame {
 					if(!jifToFront(FNeueBEhandlungsart)){
 						FNeueBEhandlungsart = new WNeueBehandlungsart();
 						FNeueBEhandlungsart.setVisible(true);
-						FNeueBEhandlungsart.add(FNeueBEhandlungsart);
+						FNeueBEhandlungsart.getContentPane().add(FNeueBEhandlungsart);
 					}
 					break;
 				case TEST:
@@ -399,6 +399,12 @@ public final class WHomescreen extends JFrame {
 		WNeuerPatient wnp = new WNeuerPatient(editable, id);
 		wnp.setVisible(true); // !creating,visible & add order IS important!
 		desktopPane.add(wnp);
+		wnp.toFront();
+		try {
+			wnp.setSelected(true);
+		} catch (PropertyVetoException e) {
+			logger.error(e);
+		}
 	}
 	
 	/**
@@ -408,8 +414,14 @@ public final class WHomescreen extends JFrame {
 	 */
 	public void addWNeuerPartner(boolean editable, long id){
 		WNeuerPartner wnp = new WNeuerPartner(editable, id);
-		desktopPane.add(wnp);
 		wnp.setVisible(true);
+		wnp.toFront();
+		try {
+			wnp.setSelected(true);
+		} catch (PropertyVetoException e) {
+			logger.error(e);
+		}
+		desktopPane.add(wnp);
 	}
 	
 	public void addWindow(JInternalFrame jif){
@@ -444,6 +456,12 @@ public final class WHomescreen extends JFrame {
 	public void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
 		WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(editable, animal_id, anamnesis_id, name);
 		FNeueAnamnese.setVisible(true);
+		FNeueAnamnese.toFront();
+		try {
+			FNeueAnamnese.setSelected(true);
+		} catch (PropertyVetoException e) {
+			logger.error(e);
+		}
 		desktopPane.add(FNeueAnamnese);
 	}
 }
