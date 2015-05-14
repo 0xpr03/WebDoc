@@ -246,24 +246,23 @@ public class WNeuerPatient extends JInternalFrame {
 
 		JScrollPane sPaneBemerkungen = new JScrollPane();
 		GroupLayout gl_panelBemerkungen = new GroupLayout(panelBemerkungen);
-		gl_panelBemerkungen
-				.setHorizontalGroup(gl_panelBemerkungen
-						.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panelBemerkungen.createSequentialGroup().addGap(2)
-								.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-						.addGroup(gl_panelBemerkungen
-								.createSequentialGroup()
-								.addGap(1)
-								.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGap(1)));
-		gl_panelBemerkungen
-				.setVerticalGroup(gl_panelBemerkungen
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelBemerkungen
-								.createSequentialGroup()
-								.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGap(2)
-								.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)));
+		gl_panelBemerkungen.setHorizontalGroup(
+			gl_panelBemerkungen.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addGap(2)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addGap(1)
+					.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panelBemerkungen.setVerticalGroup(
+			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBemerkungen.createSequentialGroup()
+					.addComponent(lblBemerkungen)
+					.addGap(2)
+					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+		);
 
 		txtBemerkung = new JTextPane();
 		txtBemerkung
@@ -293,9 +292,9 @@ public class WNeuerPatient extends JInternalFrame {
 							.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(4)
 							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+						.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+					.addGap(0))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
