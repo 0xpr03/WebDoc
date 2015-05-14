@@ -96,6 +96,8 @@ public class WNeuerPartner extends JInternalFrame {
 	private JScrollPane scrollPaneComment;
 	private JSearchTextField animalSearchText;
 	private PreparedStatement searchAnimalStm;
+	private ACElement pickedAnimal;
+	private JButton btnHinzufgen;
 
 	/**
 	 * Create the application.
@@ -399,7 +401,13 @@ public class WNeuerPartner extends JInternalFrame {
 		
 		animalSearchText = new JSearchTextField();
 		
-		JButton btnHinzufgen = new JButton("Hinzufügen");
+		btnHinzufgen = new JButton("Hinzufügen");
+		btnHinzufgen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnHinzufgen.setEnabled(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -475,13 +483,8 @@ public class WNeuerPartner extends JInternalFrame {
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				if (editable) {
-					if (GUIManager
-							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
-						return false;
-				}
-				loadData(element.getID());
-				updateEditBtns();
+				pickedAnimal = element;
+				btnHinzufgen.setEnabled(true);
 				return true;
 			}
 
@@ -715,6 +718,11 @@ public class WNeuerPartner extends JInternalFrame {
 		if (editable) {
 			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
 				return;
+		}
+		try {
+			searchAnimalStm.close();
+		} catch (SQLException e) {
+			logger.error(e);
 		}
 		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
