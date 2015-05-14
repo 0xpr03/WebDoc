@@ -12,7 +12,7 @@ package webdoc.gui.utils;
  */
 public class ACElement {
 	public static enum ElementType{
-		ANIMAL(0),PARTNER(1),RACE(2);
+		ANIMAL(0),PARTNER(1),RACE(2),ANAMNESEIS(3),TREATMENT(4);
 		private ElementType(int ElementType){
 			this.ElementType = ElementType;
 		}
