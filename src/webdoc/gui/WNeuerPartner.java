@@ -90,7 +90,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private long partnerroleid = -1;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
-	private JList JListTiere;
+	private JList<ACElement> JListTiere;
 	private JPanel panel_2;
 	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
@@ -177,7 +177,7 @@ public class WNeuerPartner extends JInternalFrame {
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
 
-		JListTiere = new JList();
+		JListTiere = new JList<ACElement>();
 		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
@@ -404,7 +404,13 @@ public class WNeuerPartner extends JInternalFrame {
 		btnHinzufgen = new JButton("Hinzufügen");
 		btnHinzufgen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				try {
+					Database.insertRelationship(id, pickedAnimal.getID());
+					btnHinzufgen.setEnabled(false);
+					animalSearchText.setTextWithoutNotification("");
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e,true));
+				}
 			}
 		});
 		btnHinzufgen.setEnabled(false);
@@ -595,6 +601,10 @@ public class WNeuerPartner extends JInternalFrame {
 			}
 		}
 	}
+	
+	private void loadAnimals(){
+		
+	}
 
 	/**
 	 * ReSet editable for all input elements
@@ -638,6 +648,7 @@ public class WNeuerPartner extends JInternalFrame {
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		btnCancelEdit.setVisible(id > -1 || editable);
 		btnCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
+		animalSearchText.setEnabled(id > -1);
 	}
 
 	private void updateTitle(String name, String nachname) {
@@ -646,7 +657,6 @@ public class WNeuerPartner extends JInternalFrame {
 
 	/**
 	 * adds a partner
-	 * 
 	 * @author "Aron Heinecke"
 	 */
 	protected void entryPartner() {
@@ -737,7 +747,7 @@ public class WNeuerPartner extends JInternalFrame {
 			return true;
 		}
 	}
-
+	
 	private boolean allSet() {
 		if (textVorname.equals(""))
 			return false;
@@ -750,7 +760,7 @@ public class WNeuerPartner extends JInternalFrame {
 		else 
 			return true;
 	}
-
+	
 	private void exit() {
 		this.dispose();
 		if (id != -1)
