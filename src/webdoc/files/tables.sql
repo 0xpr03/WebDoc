@@ -127,10 +127,9 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Beziehungen / relationship */
 CREATE TABLE IF NOT EXISTS `relationship` (
- `RoleID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `PartnerID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
- PRIMARY KEY (`RoleID`)
+ PRIMARY KEY (`PartnerID`,`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table BehandlungTier / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
