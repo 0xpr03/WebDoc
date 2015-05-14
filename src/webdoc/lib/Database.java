@@ -181,6 +181,24 @@ public class Database{
 	//------------- USER SPACE-----------------------//
 	
 	/**
+	 * Retrive the animals in a relation to partnerid
+	 * @param partnerid
+	 * @return
+	 * @throws SQLException
+	 */
+	private static ResultSet getPartnerAnimals(long partnerid) throws SQLException{
+		String sql = "SELECT relationship.AnimalID,Name "
+					+"FROM `relationship` "
+					+"INNER JOIN animal "
+					+"ON relationship.AnimalID = animal.AnimalID "
+					+"WHERE relationship.PartnerID = ? ;";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerid);
+		stm.execute();
+		return stm.getResultSet();
+	}
+	
+	/**
 	 * Insert relationship of partner & animal
 	 * @param partnerid
 	 * @param animalid
