@@ -14,8 +14,10 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ActionMap;
@@ -29,6 +31,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -48,9 +51,10 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.sun.org.apache.bcel.internal.generic.LALOAD;
-
+import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.RoleEnumObj;
+import webdoc.gui.utils.ACElement.ElementType;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
@@ -60,9 +64,6 @@ import webdoc.gui.utils.JSearchTextField;
 @SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
 
-	/**
-	 * 
-	 */
 	// private static final long serialVersionUID = -2791732649836492001L; DON'T
 	// #22
 	private Logger logger = LogManager.getLogger();
@@ -93,6 +94,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JPanel panel_2;
 	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
+	private JSearchTextField animalSearchText;
 
 	/**
 	 * Create the application.
@@ -122,7 +124,7 @@ public class WNeuerPartner extends JInternalFrame {
 		setMaximizable(true);
 
 		setTitle(editable ? "Neuer Partner" : "Partner");
-		setBounds(100, 100, 969, 600);
+		setBounds(100, 100, 1088, 564);
 
 		JPanel contentPanel = new JPanel();
 
@@ -394,7 +396,7 @@ public class WNeuerPartner extends JInternalFrame {
 		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JSearchTextField searchTextField = new JSearchTextField();
+		animalSearchText = new JSearchTextField();
 		
 		JButton btnHinzufgen = new JButton("Hinzufügen");
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
@@ -408,7 +410,7 @@ public class WNeuerPartner extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+							.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnHinzufgen))
 						.addComponent(JListTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
@@ -428,7 +430,7 @@ public class WNeuerPartner extends JInternalFrame {
 							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnHinzufgen))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(JListTiere, GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)))
@@ -448,6 +450,46 @@ public class WNeuerPartner extends JInternalFrame {
 		spinGebdatum.setEditor(dateEditor);
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
+		
+//		class AnimalProvider implements searchFieldAPI {
+//			@Override
+//			public List<ACElement> getData(String text) {
+//				List<ACElement> list = new ArrayList<ACElement>();
+//				try {
+//					txt.setString(1, "%" + text + "%");
+//					searchAnimalStm.setString(2, "%" + text + "%");
+//					ResultSet result = searchAnimalStm.executeQuery();
+//
+//					while (result.next()) {
+//						list.add(new ACElement(result.getString(1), result.getString(2), result.getLong(3),
+//								ElementType.ANIMAL));
+//					}
+//					result.close();
+//
+//				} catch (SQLException e) {
+//					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+//				}
+//				return list;
+//			}
+//
+//			@Override
+//			public boolean changedSelectionEvent(ACElement element) {
+//				if (editable) {
+//					if (GUIManager
+//							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
+//						return false;
+//				}
+//				loadData(element.getID());
+//				updateEditBtns();
+//				return true;
+//			}
+//
+//			@Override
+//			public String listRenderer(ACElement element) {
+//				return element.getName() + " " + element.getOptname();
+//			}
+//		}
+		
 		pack();
 		setEditable();
 	}
