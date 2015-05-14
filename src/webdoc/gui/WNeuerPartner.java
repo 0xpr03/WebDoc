@@ -474,6 +474,7 @@ public class WNeuerPartner extends JInternalFrame {
 				try {
 					searchAnimalStm.setString(1, "%" + text + "%");
 					searchAnimalStm.setString(2, "%" + text + "%");
+					searchAnimalStm.setLong(3, id);
 					ResultSet result = searchAnimalStm.executeQuery();
 
 					while (result.next()) {
@@ -504,7 +505,7 @@ public class WNeuerPartner extends JInternalFrame {
 		animalSearchText.setAPI(new AnimalProvider());
 		
 		try {
-			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
+			searchAnimalStm = Database.prepareStm(Database.getRelationshipAddableAnimalsSql());
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 		}
@@ -603,12 +604,17 @@ public class WNeuerPartner extends JInternalFrame {
 		}
 	}
 	
+	/**
+	 * Load animals related to the partnerid
+	 */
 	private void loadAnimals(){
 		try {
 			ResultSet rs = Database.getPartnerAnimals(id);
 			DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
-			if(rs.next()){
-				model.addElement(new ACElement(rs.getString(1), rs.getLong(2), ElementType.ANIMAL));
+			model.clear();
+			while(rs.next()){
+				logger.debug("found another linked animal");
+				model.addElement(new ACElement(rs.getString(2), rs.getLong(1), ElementType.ANIMAL));
 			}
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
