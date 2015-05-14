@@ -186,7 +186,7 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	private static ResultSet getPartnerAnimals(long partnerid) throws SQLException{
+	public static ResultSet getPartnerAnimals(long partnerid) throws SQLException{
 		String sql = "SELECT relationship.AnimalID,Name "
 					+"FROM `relationship` "
 					+"INNER JOIN animal "
