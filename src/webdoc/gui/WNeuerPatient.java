@@ -81,7 +81,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner spinBirthdate;
 	private JButton btnNeueAnamnese;
 	private JPanel panelVerlauf;
-	private JComboBox textPartnerSuche;
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
@@ -95,6 +94,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JPanel contentPanel;
 	private JCheckBox chckbxBemerkungAnzeigen;
 	private JPanel panelBemerkungen;
+	private JScrollPane sPaneVerlauf;
 
 	/**
 	 * Create the application.
@@ -189,12 +189,7 @@ public class WNeuerPatient extends JInternalFrame {
 		strRufname.setColumns(10);
 
 		JLabel lblRufname = new JLabel("Rufname:");
-
-		JLabel lblZugehrigerPatner = new JLabel("Zugehöriger Partner:");
-
-		textPartnerSuche = new JComboBox();
-		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]",
-				"[24px,center][24px][24px][24px][24px][24px][24px][24px][24px]"));
+		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px]"));
 		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
 		allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
 		allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
@@ -207,8 +202,6 @@ public class WNeuerPatient extends JInternalFrame {
 		allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
 		allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
 		allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
-		allgemeineDaten.add(lblZugehrigerPatner, "cell 0 8 2 1,alignx left,aligny center");
-		allgemeineDaten.add(textPartnerSuche, "cell 2 8,growx,aligny top");
 		allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
 		allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
 		allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
@@ -219,8 +212,10 @@ public class WNeuerPatient extends JInternalFrame {
 		textAnimalSuche.setColumns(10);
 
 		panelVerlauf = new JPanel();
+		panelVerlauf.setBorder(null);
 
-		JScrollPane sPaneVerlauf = new JScrollPane();
+		sPaneVerlauf = new JScrollPane();
+		sPaneVerlauf.setBorder(null);
 		sPaneVerlauf.setViewportBorder(new TitledBorder(null, "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		GroupLayout gl_PanelVerlauf = new GroupLayout(panelVerlauf);
 		gl_PanelVerlauf.setHorizontalGroup(
@@ -238,6 +233,7 @@ public class WNeuerPatient extends JInternalFrame {
 		);
 
 		listVerlauf = new JList();
+		listVerlauf.setBorder(null);
 		sPaneVerlauf.setViewportView(listVerlauf);
 		panelVerlauf.setLayout(gl_PanelVerlauf);
 
@@ -275,37 +271,32 @@ public class WNeuerPatient extends JInternalFrame {
 		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel
-				.setHorizontalGroup(gl_contentPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel
-								.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(gl_contentPanel
-										.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-								.addGap(1)));
-		gl_contentPanel
-				.setVerticalGroup(gl_contentPanel
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel
-								.createSequentialGroup()
-								.addGroup(gl_contentPanel
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPanel
-												.createSequentialGroup()
-												.addContainerGap()
-												.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGap(1)
-												.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
-										.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-										.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
-								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panelBemerkungen, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panelVerlauf, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
 
@@ -548,7 +539,6 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setEnabled(editable);
 		spinGewicht.setEnabled(editable);
 		textIdentifizierung.setEditable(editable);
-		textPartnerSuche.setEditable(editable);
 		updateEditBtns();
 	}
 
