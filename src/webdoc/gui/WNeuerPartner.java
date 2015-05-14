@@ -192,6 +192,11 @@ public class WNeuerPartner extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.debug("recived delete command");
+				try {
+					Database.removeRelationship(id, JListTiere.getSelectedValue().getID());
+				} catch (SQLException e1) {
+					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e1, true));
+				}
 			}
 		});
 		listmenu.add(pm);
