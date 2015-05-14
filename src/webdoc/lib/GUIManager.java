@@ -31,6 +31,8 @@ public final class GUIManager {
 	private static WHomescreen whomescreen = null;
 	private static Logger logger = LogManager.getLogger();
 	private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN,14);
+	private static Font search_font = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
+	private static Font search_font_default = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 	
 	/**
 	 * initiates and shows the homescreen window
@@ -116,6 +118,14 @@ public final class GUIManager {
 	
 	public static Font getCommentFont(){
 		return font;
+	}
+	
+	public static Font getSearchDefaultFont(){
+		return search_font_default;
+	}
+	
+	public static Font getSearchMainFont(){
+		return search_font;
 	}
 	
 	/**
