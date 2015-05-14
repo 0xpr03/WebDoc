@@ -181,6 +181,17 @@ public class Database{
 	//------------- USER SPACE-----------------------//
 	
 	/**
+	 * Returns the SQL to retrive the animals which can be added to the relationship
+	 * @return
+	 */
+	public static String getRelationshipAddableAnimalsSql(){
+		return getAnimalSearchStm()
+				+"AND AnimalID NOT IN ( "
+				+"SELECT AnimalID FROM relationship "
+				+"WHERE PartnerID = ? )";
+	}
+	
+	/**
 	 * Retrive the animals in a relation to partnerid
 	 * @param partnerid
 	 * @return
