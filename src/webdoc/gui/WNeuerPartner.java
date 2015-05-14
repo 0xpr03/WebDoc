@@ -409,6 +409,7 @@ public class WNeuerPartner extends JInternalFrame {
 					Database.insertRelationship(id, pickedAnimal.getID());
 					btnHinzufgen.setEnabled(false);
 					animalSearchText.setTextWithoutNotification("");
+					loadAnimals();
 				} catch (SQLException e) {
 					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e,true));
 				}
