@@ -186,8 +186,12 @@ public class WNeuerPartner extends JInternalFrame {
 		JListTiere.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
-				if(mevent.getClickCount() >= 2){
-					openPatient();
+				if(mevent.getButton() == MouseEvent.BUTTON1){
+					if(mevent.getClickCount() >= 2){
+						openPatient();
+					}
+				}else{
+					
 				}
 			}
 		});
@@ -533,7 +537,6 @@ public class WNeuerPartner extends JInternalFrame {
 		setEditable();
 	}
 	
-
 	/**
 	 * simple instance provider for events
 	 * 
