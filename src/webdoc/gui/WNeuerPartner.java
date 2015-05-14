@@ -24,6 +24,7 @@ import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -177,7 +178,7 @@ public class WNeuerPartner extends JInternalFrame {
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
 
-		JListTiere = new JList<ACElement>();
+		JListTiere = new JList<ACElement>(new DefaultListModel<ACElement>());
 		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		JListTiere.setBackground(Color.WHITE);
@@ -595,7 +596,7 @@ public class WNeuerPartner extends JInternalFrame {
 						}
 					}
 				}
-				
+				loadAnimals();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e));
 			}
@@ -603,7 +604,15 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 	
 	private void loadAnimals(){
-		
+		try {
+			ResultSet rs = Database.getPartnerAnimals(id);
+			DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
+			if(rs.next()){
+				model.addElement(new ACElement(rs.getString(1), rs.getLong(2), ElementType.ANIMAL));
+			}
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+		}
 	}
 
 	/**
