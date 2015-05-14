@@ -95,6 +95,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
 	private JSearchTextField animalSearchText;
+	private PreparedStatement searchAnimalStm;
 
 	/**
 	 * Create the application.
@@ -451,48 +452,56 @@ public class WNeuerPartner extends JInternalFrame {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
-//		class AnimalProvider implements searchFieldAPI {
-//			@Override
-//			public List<ACElement> getData(String text) {
-//				List<ACElement> list = new ArrayList<ACElement>();
-//				try {
-//					txt.setString(1, "%" + text + "%");
-//					searchAnimalStm.setString(2, "%" + text + "%");
-//					ResultSet result = searchAnimalStm.executeQuery();
-//
-//					while (result.next()) {
-//						list.add(new ACElement(result.getString(1), result.getString(2), result.getLong(3),
-//								ElementType.ANIMAL));
-//					}
-//					result.close();
-//
-//				} catch (SQLException e) {
-//					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
-//				}
-//				return list;
-//			}
-//
-//			@Override
-//			public boolean changedSelectionEvent(ACElement element) {
-//				if (editable) {
-//					if (GUIManager
-//							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
-//						return false;
-//				}
-//				loadData(element.getID());
-//				updateEditBtns();
-//				return true;
-//			}
-//
-//			@Override
-//			public String listRenderer(ACElement element) {
-//				return element.getName() + " " + element.getOptname();
-//			}
-//		}
+		class AnimalProvider implements searchFieldAPI {
+			@Override
+			public List<ACElement> getData(String text) {
+				List<ACElement> list = new ArrayList<ACElement>();
+				try {
+					searchAnimalStm.setString(1, "%" + text + "%");
+					searchAnimalStm.setString(2, "%" + text + "%");
+					ResultSet result = searchAnimalStm.executeQuery();
+
+					while (result.next()) {
+						list.add(new ACElement(result.getString(1), result.getString(2), result.getLong(3),
+								ElementType.ANIMAL));
+					}
+					result.close();
+
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+				}
+				return list;
+			}
+
+			@Override
+			public boolean changedSelectionEvent(ACElement element) {
+				if (editable) {
+					if (GUIManager
+							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
+						return false;
+				}
+				loadData(element.getID());
+				updateEditBtns();
+				return true;
+			}
+
+			@Override
+			public String listRenderer(ACElement element) {
+				return element.getName() + " " + element.getOptname();
+			}
+		}
 		
+		animalSearchText.setAPI(new AnimalProvider());
+		
+		try {
+			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+		}
 		pack();
 		setEditable();
 	}
+	
 
 	/**
 	 * simple instance provider for events
