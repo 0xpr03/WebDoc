@@ -194,6 +194,7 @@ public class WNeuerPartner extends JInternalFrame {
 				logger.debug("recived delete command");
 				try {
 					Database.removeRelationship(id, JListTiere.getSelectedValue().getID());
+					loadAnimals();
 				} catch (SQLException e1) {
 					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e1, true));
 				}
