@@ -952,7 +952,7 @@ public class Database{
 	 */
 	public static String getAnimalSearchStm(){
 		return "SELECT `Name` as name, `Callname` as optname, `AnimalID` as id, 0 as type FROM animal "
-				+"WHERE `Name` LIKE ? OR `Callname` LIKE ? ";
+				+"WHERE ( `Name` LIKE ? OR `Callname` LIKE ? ) ";
 	}
 	
 	/**
