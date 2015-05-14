@@ -194,11 +194,8 @@ public class WNeuerPartner extends JInternalFrame {
 		JListTiere.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				switch (arg0.getKeyCode()) {
-				case KeyEvent.VK_ENTER:
+				if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
 					openPatient();
-					break;
-				}
 			}
 		});
 		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
