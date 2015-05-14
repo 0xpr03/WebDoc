@@ -42,6 +42,13 @@ public class ACElement {
 		this.elemType = elemType;
 	}
 	
+	public ACElement(String name, long id, ElementType elemType){
+		this.name = name;
+		this.optname = "";
+		this.id = id;
+		this.elemType = elemType;
+	}
+	
 	public long getID(){
 		return id;
 	}
@@ -59,6 +66,6 @@ public class ACElement {
 	
 	@Override
 	public String toString(){
-		return name+" "+optname+" "+id+" "+elemType;
+		return name+" "+optname;
 	}
 }
