@@ -228,6 +228,7 @@ public final class WHomescreen extends JFrame {
 		}
 		
 		txtSuche.setAPI(new Provider());
+		txtSuche.setFont(GUIManager.getSearchMainFont());
 		
 		try {
 			searchStm = Database.prepareMultiSearchStm();
