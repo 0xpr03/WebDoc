@@ -9,6 +9,7 @@ package webdoc.gui.utils;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -82,6 +83,7 @@ public class JSearchTextField extends JTextField {
 	private static final int MIN_CHARS = 3;
 	private searchFieldAPI api = null;
 	private ACElement chosenElement = null;
+	private Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 
 	private final JPopupMenu popup = new JPopupMenu() {
 		/**
@@ -260,6 +262,14 @@ public class JSearchTextField extends JTextField {
 			notificationDenied = false;
 		}
 	}
+	
+	/**
+	 * Sets a new font type
+	 * @param font new font to use
+	 */
+	public void setFont(Font font){
+		this.font = font;
+	}
 
 	private void onTextChanged() {
 		if (!notificationDenied) {
@@ -316,6 +326,7 @@ public class JSearchTextField extends JTextField {
 		public Component getListCellRendererComponent(JList<? extends ACElement> list, ACElement element, int index,
 				boolean isSelected, boolean cellHasFocus) {
 			setText(api.listRenderer(element));
+			setFont(font);
 			if (isSelected) {
 				setBackground(HIGHLIGHT_COLOR);
 				setForeground(Color.white);
