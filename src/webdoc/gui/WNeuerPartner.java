@@ -32,8 +32,10 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
@@ -61,6 +63,7 @@ import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
 import webdoc.gui.utils.JSearchTextField;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -103,6 +106,7 @@ public class WNeuerPartner extends JInternalFrame {
 	private PreparedStatement searchAnimalStm;
 	private ACElement pickedAnimal;
 	private JButton btnHinzufgen;
+	private JPopupMenu listmenu;
 
 	/**
 	 * Create the application.
@@ -181,7 +185,17 @@ public class WNeuerPartner extends JInternalFrame {
 		});
 		downPanel.add(chckbxKommentarAnzeigen, "cell 4 0");
 		btnCancelEdit.setVisible(editable);
-
+		
+		listmenu = new JPopupMenu();
+		JMenuItem pm = new JMenuItem("Entfernen");
+		pm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logger.debug("recived delete command");
+			}
+		});
+		listmenu.add(pm);
+		
 		JListTiere = new JList<ACElement>(new DefaultListModel<ACElement>());
 		JListTiere.addMouseListener(new MouseAdapter() {
 			@Override
@@ -191,7 +205,9 @@ public class WNeuerPartner extends JInternalFrame {
 						openPatient();
 					}
 				}else{
-					
+		            int row = JListTiere.locationToIndex(mevent.getPoint());
+		            JListTiere.setSelectedIndex(row);
+					listmenu.show(mevent.getComponent(), mevent.getX(), mevent.getY());
 				}
 			}
 		});
