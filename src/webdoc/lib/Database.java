@@ -188,7 +188,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static void insertRelationship(long partnerid, long animalid) throws SQLException{
-		String sql = "";
+		String sql = "INSERT INTO relationship (`PartnerID`,`AnimalID`) VALUES(?,?)";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, partnerid);
 		stm.setLong(2, animalid);
@@ -203,7 +203,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static void removeRelationship(long partnerid, long animalid) throws SQLException {
-		String sql = "";
+		String sql = "DELETE FROM `relationship` WHERE `PartnerID` = ? AND `AnimalID` = ?;";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, partnerid);
 		stm.setLong(1, animalid);
