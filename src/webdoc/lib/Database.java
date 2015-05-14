@@ -180,6 +180,36 @@ public class Database{
 	
 	//------------- USER SPACE-----------------------//
 	
+	/**
+	 * Insert relationship of partner & animal
+	 * @param partnerid
+	 * @param animalid
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void insertRelationship(long partnerid, long animalid) throws SQLException{
+		String sql = "";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerid);
+		stm.setLong(2, animalid);
+		stm.executeUpdate();
+	}
+	
+	/**
+	 * Delete relation of partner & animal
+	 * @param partnerid
+	 * @param animalid
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static void removeRelationship(long partnerid, long animalid) throws SQLException {
+		String sql = "";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, partnerid);
+		stm.setLong(1, animalid);
+		stm.executeUpdate();
+	}
+	
 	public static long insertAnamnesis(long tierid, String purpose, String keeping, Date possesionsince, String origin, String familystrchanges, String abroadstays, String attitudeconspicuity , String injurys, String scars,String infectiousDisease, String regularVaccinations, String breathing,String digestiveTract, String endocrineSystem, String hyperthyroidism, String pancreas, String ZNS, int  epileptiformAttacks,  String xray, String medication,  String CT_MRT, String mainproblem, String descrPatientOwner,String wasUndertaken, int painSensitivity , int patientHasPain, String painkillerReaction, String motionCausingPain, String motorInterference, String bodyPartUsagePossible, double possibleWalkDistance, Time possibleWalkDuration, int weatherDependent, String cycleCorrelation, double outlet, Time availableTimeCons, String comment) throws SQLException{
 		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`) "
 				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
