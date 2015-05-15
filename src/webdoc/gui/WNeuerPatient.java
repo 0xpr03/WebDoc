@@ -60,6 +60,8 @@ import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
 import javax.swing.JCheckBox;
+import javax.swing.BoxLayout;
+import javax.swing.JTable;
 
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
@@ -84,7 +86,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
-	private JList listVerlauf;
 	private ACElement partner;
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
@@ -94,7 +95,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JPanel contentPanel;
 	private JCheckBox chckbxBemerkungAnzeigen;
 	private JPanel panelBemerkungen;
-	private JScrollPane sPaneVerlauf;
+	private JTable table;
 
 	/**
 	 * Create the application.
@@ -212,30 +213,7 @@ public class WNeuerPatient extends JInternalFrame {
 		textAnimalSuche.setColumns(10);
 
 		panelVerlauf = new JPanel();
-		panelVerlauf.setBorder(null);
-
-		sPaneVerlauf = new JScrollPane();
-		sPaneVerlauf.setBorder(null);
-		sPaneVerlauf.setViewportBorder(new TitledBorder(null, "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		GroupLayout gl_PanelVerlauf = new GroupLayout(panelVerlauf);
-		gl_PanelVerlauf.setHorizontalGroup(
-			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelVerlauf.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_PanelVerlauf.setVerticalGroup(
-			gl_PanelVerlauf.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_PanelVerlauf.createSequentialGroup()
-					.addComponent(sPaneVerlauf, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-					.addGap(2))
-		);
-
-		listVerlauf = new JList();
-		listVerlauf.setBorder(null);
-		sPaneVerlauf.setViewportView(listVerlauf);
-		panelVerlauf.setLayout(gl_PanelVerlauf);
+		panelVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
 		panelVerlauf.setVisible(!editable);
 
@@ -278,24 +256,28 @@ public class WNeuerPatient extends JInternalFrame {
 						.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+						.addComponent(panelBemerkungen, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(4)
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-						.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)))
 					.addGap(0))
 		);
+		panelVerlauf.setLayout(new BorderLayout(0, 0));
+		
+		table = new JTable();
+		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
 
@@ -533,7 +515,6 @@ public class WNeuerPatient extends JInternalFrame {
 		strRufname.setEditable(editable);
 		spinBirthdate.setEnabled(editable);
 		txtBemerkung.setEditable(editable);
-		listVerlauf.setEnabled(editable);
 		enumGeschlecht.setEditable(editable);
 		enumGeschlecht.setEnabled(editable);
 		spinGewicht.setEnabled(editable);
