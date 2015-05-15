@@ -279,21 +279,12 @@ public class WNeuerPatient extends JInternalFrame {
 		
 		table = new JTable();
 		table.setShowGrid(false);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Date", "Type"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		table.setShowHorizontalLines(false);
+		table.setShowVerticalLines(false);
+		table.setRowMargin(0);
+		table.setIntercellSpacing(new Dimension(0,0));
+		table.setFillsViewportHeight(true);
+		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<>(model);
 		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
