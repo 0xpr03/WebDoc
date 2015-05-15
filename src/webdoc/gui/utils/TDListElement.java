@@ -1,5 +1,7 @@
 package webdoc.gui.utils;
 
+import java.util.Date;
+
 /**
  * Custom object to store list entrys
  * Lightweighter then ACElement
@@ -21,10 +23,11 @@ public class TDListElement {
 	private String name;
 	private Date date;
 	
-	public TDListElement(long id, String name, LEType type){
+	public TDListElement(long id, String name, LEType type, Date date){
 		this.id = id;
 		this.name = name;
 		this.elemType = type;
+		this.date = date;
 	}
 	public TDListElement(long id, String name_1, String name_2){
 		this.id = id;
@@ -36,7 +39,13 @@ public class TDListElement {
 		this.name = name;
 		this.elemType = LEType.UNDEFINED;
 	}
-	
+	/**
+	 * Warning! Only 1 constructor creates date!
+	 * @return
+	 */
+	public Date getDate(){
+		return date;
+	}
 	public String getName(){
 		return name;
 	}
