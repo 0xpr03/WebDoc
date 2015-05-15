@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 /**
- * Custom cell renderer for the patient window JTable
+ * Custom TableModel for Patient Treatment JTable
  * @author "Aron Heinecke"
  */
 public class PatientTableModel extends AbstractTableModel {
