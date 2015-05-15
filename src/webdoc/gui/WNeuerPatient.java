@@ -62,6 +62,7 @@ import webdoc.lib.GUIManager;
 import javax.swing.JCheckBox;
 import javax.swing.BoxLayout;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
@@ -277,6 +278,22 @@ public class WNeuerPatient extends JInternalFrame {
 		panelVerlauf.setLayout(new BorderLayout(0, 0));
 		
 		table = new JTable();
+		table.setShowGrid(false);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null},
+			},
+			new String[] {
+				"Date", "Type"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
