@@ -25,6 +25,11 @@ public class ListElement {
 		this.name = name;
 		this.elemType = type;
 	}
+	public ListElement(long id, String name_1, String name_2){
+		this.id = id;
+		this.name = name_1 + name_2;
+		this.elemType = LEType.UNDEFINED;
+	}
 	public ListElement(long id, String name){
 		this.id = id;
 		this.name = name;
