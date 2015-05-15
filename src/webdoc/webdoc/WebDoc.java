@@ -41,7 +41,7 @@ public class WebDoc {
 		loadConfig();
 		
 		try {
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			logger.error("Error setting look and feel \n{}",e);
 		}
