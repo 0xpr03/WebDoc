@@ -123,13 +123,15 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `outlet` double DEFAULT NULL,
  `availableTimeCons` time DEFAULT NULL,
  `comment` text DEFAULT NULL,
- PRIMARY KEY (`AnamnesisID`)
+ PRIMARY KEY (`AnamnesisID`),
+ KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Beziehungen / relationship */
 CREATE TABLE IF NOT EXISTS `relationship` (
  `PartnerID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
- PRIMARY KEY (`PartnerID`,`AnimalID`)
+ PRIMARY KEY (`PartnerID`,`AnimalID`),
+ KEY `PartnerID` (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table BehandlungTier / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
@@ -140,5 +142,6 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `date` date NOT NULL,
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
- PRIMARY KEY (`TreatmentID`)
+ PRIMARY KEY (`TreatmentID`),
+ KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
