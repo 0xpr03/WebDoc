@@ -386,7 +386,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 					.addGap(2))
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(14)
+					.addGap(2)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane_4, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
 						.addComponent(scrollPane_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
@@ -459,7 +459,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(26)
+					.addGap(2)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane_9, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
@@ -551,7 +551,7 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, Short.MAX_VALUE)
 					.addGap(34))
 		);
 		gl_panel_4.setVerticalGroup(
@@ -559,7 +559,7 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
 					.addGap(1)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+						.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 						.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
 					.addGap(7))
 		);
@@ -673,7 +673,7 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_8.createSequentialGroup()
 					.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
 					.addGap(34))
 		);
 		gl_panel_8.setVerticalGroup(
@@ -823,7 +823,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
 						.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
 					.addGap(1)
-					.addComponent(panel_12, GroupLayout.PREFERRED_SIZE, 451, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
 					.addGap(31))
 		);
 		gl_panel_14.setVerticalGroup(
