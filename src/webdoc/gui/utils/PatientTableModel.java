@@ -10,6 +10,7 @@ import javax.swing.table.AbstractTableModel;
  * Custom TableModel for Patient Treatment JTable
  * @author "Aron Heinecke"
  */
+@SuppressWarnings("serial")
 public class PatientTableModel extends AbstractTableModel {
 	
     protected static final String[] COLUMN_NAMES = {
