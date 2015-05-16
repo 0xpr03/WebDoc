@@ -219,19 +219,20 @@ public class WNeueAnamnese extends JInternalFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(18)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(771, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(tabber, GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(1)
+							.addComponent(tabber, GroupLayout.PREFERRED_SIZE, 1000, Short.MAX_VALUE)))
 					.addGap(1))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(1)
-					.addComponent(tabber, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+					.addComponent(tabber, GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
 					.addGap(1)
 					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
@@ -304,8 +305,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		JSplitPane splitPane = new JSplitPane();
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setLeftComponent(splitPane);
-		
+		splitPane_2.setDividerLocation(0.5);
 		splitPane.setLeftComponent(panel_2);
+		splitPane.setDividerLocation(0.5);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -878,7 +880,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private void initialize(String strName) {
 		frame = new JFrame();
 		setTitle("Anamnese von " + strName);
-		setBounds(100, 100, 1015, 507);
+		setBounds(100, 100, 1018, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
