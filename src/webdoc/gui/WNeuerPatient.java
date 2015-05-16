@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -55,6 +56,8 @@ import webdoc.gui.utils.GenderEnumObj;
 import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
+import webdoc.gui.utils.PatientTableModel;
+import webdoc.gui.utils.TDListElement;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
@@ -63,6 +66,7 @@ import javax.swing.JCheckBox;
 import javax.swing.BoxLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
@@ -87,7 +91,6 @@ public class WNeuerPatient extends JInternalFrame {
 	private JSpinner.DateEditor dateEditor;
 	private long id;
 	private JTextPane txtBemerkung;
-	private ACElement partner;
 	private PreparedStatement searchRaceStm;
 	private PreparedStatement searchAnimalStm;
 	private JButton btnOk;
@@ -97,6 +100,7 @@ public class WNeuerPatient extends JInternalFrame {
 	private JCheckBox chckbxBemerkungAnzeigen;
 	private JPanel panelBemerkungen;
 	private JTable table;
+	private PatientTableModel model = new PatientTableModel();
 
 	/**
 	 * Create the application.
@@ -277,14 +281,15 @@ public class WNeuerPatient extends JInternalFrame {
 		);
 		panelVerlauf.setLayout(new BorderLayout(0, 0));
 		
-		table = new JTable();
+		table = new JTable(model);
 		table.setShowGrid(false);
 		table.setShowHorizontalLines(false);
 		table.setShowVerticalLines(false);
 		table.setRowMargin(0);
 		table.setIntercellSpacing(new Dimension(0,0));
 		table.setFillsViewportHeight(true);
-		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<>(model);
+		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(model);
+		table.setRowSorter(sorter);
 		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
