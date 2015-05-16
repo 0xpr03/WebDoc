@@ -7,7 +7,7 @@
 package webdoc.gui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -43,7 +43,7 @@ import net.miginfocom.swing.MigLayout;
 public class WNeueAnamnese extends JInternalFrame {
 
 	private JFrame frame;
-	private boolean editabel;
+	private boolean editable;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
@@ -111,7 +111,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	private void setEditable(boolean editable ){
+	private void setEditable(){
 		  textField_6.setEditable(editable);
 		  textField_7.setEditable(editable);
 		  textField_8.setEditable(editable);
@@ -159,15 +159,15 @@ public class WNeueAnamnese extends JInternalFrame {
 		  reloadBtn(editable);
 	}
 	private void reloadBtn(boolean editable) {
-		// TODO Auto-generated method stub
 		btnOk.setText(editable ? "Speichern" : "Schließen");
+		btnEdit.setVisible(anamnesis_id != -1);
 		btnEdit.setEnabled(!editable);
 	}
 	/**
 	 * Create the application.
 	 */
-	public WNeueAnamnese(final boolean editable, final long animal_id, final long anamnesis_id, final String patient_name) {
-		this.editabel = editable;
+	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id, final String patient_name) {
+		this.editable = is_editable;
 		initialize(patient_name);
 		this.PATIENT_ID = animal_id;
 		this.anamnesis_id = anamnesis_id;
@@ -184,11 +184,34 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnOk = new JButton("Speichern");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(anamnesis_id == -1){
+					//TODO: save
+				}else if(editable){
+					//TODO: change
+				}else{
+					dispose();
+				}
 			}
 		});
 		panel_3.add(btnOk, "cell 0 0");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(anamnesis_id == -1){
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+						dispose();
+					}
+				}else if(editable){
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				}
+			}
+
+		});
 		panel_3.add(btnCancel, "cell 1 0");
 		
 		JTabbedPane tabber = new JTabbedPane();
@@ -839,20 +862,35 @@ public class WNeueAnamnese extends JInternalFrame {
 		//////////////////////////////////////////
 		
 		btnEdit = new JButton("Bearbeiten");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(anamnesis_id != -1){
+					editable = true;
+					setEditable();
+				}
+			}
+		});
 		panel_3.add(btnEdit, "cell 2 0");
-		setEditable(editable);
+		setEditable();
 		this.setVisible(true);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize(String strName) {
 		frame = new JFrame();
 		setTitle("Anamnese von " + strName);
 		setBounds(100, 100, 1015, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	private void loadData() {
+		
+	}
+	
+	
+	private Component getFrame() {
+		return this;
+	}
+	
 	private boolean invalidInt(String s){
 		try{
 			int i = Integer.parseInt(s);
