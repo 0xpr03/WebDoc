@@ -37,6 +37,7 @@ import javax.swing.border.TitledBorder;
 
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
+import webdoc.lib.Database;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -102,7 +103,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JComboBox<EnumObject> comboBoxAuslauf;
 	private JComboBox<EnumObject> comboBox_6;
 	private JScrollPane sP_Bemerkungen;
-	private long PATIENT_ID;
+	private long animalID;
 	private long anamnesis_id;
 	private JButton btnEdit;
 	private JButton btnOk;
@@ -169,7 +170,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id, final String patient_name) {
 		this.editable = is_editable;
 		initialize(patient_name);
-		this.PATIENT_ID = animal_id;
+		this.animalID = animal_id;
 		this.anamnesis_id = anamnesis_id;
 		setFrameIcon(null);
 		setResizable(true);
@@ -307,7 +308,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		splitPane_2.setLeftComponent(splitPane);
 		splitPane_2.setDividerLocation(0.5);
 		splitPane.setLeftComponent(panel_2);
-		splitPane.setDividerLocation(0.5);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -409,6 +409,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
 					.addGap(29))
 		);
+		splitPane.setDividerLocation(0.5);
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel = new JPanel();
@@ -888,6 +889,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 	}
 	
+	private void saveData() {
+		if(allSet())
+			Database.insertAnamnesis(animalID, purpose, keeping, possesionsince, origin, familystrchanges, abroadstays, attitudeconspicuity, injurys, scars, infectiousDisease, regularVaccinations, breathing, digestiveTract, endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+	}
+	
 	
 	private Component getFrame() {
 		return this;
@@ -911,7 +917,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		}
 	}	
 	private boolean allSet(){
-		if(tPAenderungenFamilie.getText().length() <26)
+		if(tPAenderungenFamilie.getText().length() < 26)
 			return false;
 		return true;
 	}
