@@ -35,6 +35,8 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import webdoc.gui.utils.EnumObject;
+import webdoc.gui.utils.EnumObject.EnumType;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -87,18 +89,18 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JScrollPane scrollPane_18;
 	private JScrollPane scrollPane_19;
 	private JScrollPane scrollPane_20;
-	private JComboBox CBSchmerzempfindlichkeit;
-	private JComboBox cBDenkenSchmerzen;
+	private JComboBox<EnumObject> cBSchmerzempfindlichkeit;
+	private JComboBox<EnumObject> cBDenkenSchmerzen;
 	private JScrollPane sPSchmerzmittel;
 	private JScrollPane sPVerusachenSchmerzen;
 	private JScrollPane sPFunktionenMotorik;
-	private JComboBox cBKöperteilBewegen;
+	private JComboBox<EnumObject> cBKöperteilBewegen;
 	private JSpinner spGehstrecke;
 	private JSpinner spGehzeit;
-	private JComboBox cBWitterung;
-	private JComboBox comboBoxZyklus;
-	private JComboBox comboBoxAuslauf;
-	private JComboBox comboBox_6;
+	private JComboBox<EnumObject> cBWitterung;
+	private JComboBox<EnumObject> comboBoxZyklus;
+	private JComboBox<EnumObject> comboBoxAuslauf;
+	private JComboBox<EnumObject> comboBox_6;
 	private JScrollPane sP_Bemerkungen;
 	private long PATIENT_ID;
 	private long anamnesis_id;
@@ -148,7 +150,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_18.setEnabled(editable);;
 		  scrollPane_19.setEnabled(editable);
 		  scrollPane_20.setEnabled(editable);
-		  CBSchmerzempfindlichkeit.setEditable(editable);
+		  cBSchmerzempfindlichkeit.setEditable(editable);
 		  cBDenkenSchmerzen.setEditable(editable);
 		  sPVerusachenSchmerzen.setEnabled(editable);
 		  sPFunktionenMotorik.setEnabled(editable);
@@ -498,8 +500,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPZNS = new JTextPane();
 		scrollPane_13.setViewportView(tPZNS);
 		
-		JComboBox cBEpiAnfaelle = new JComboBox();
-		cBEpiAnfaelle.setModel(new DefaultComboBoxModel(new String[] {"Keine", "Gleichgewichtsstörungen", "Vorübergehendes Schwanken"}));
+		JComboBox<EnumObject> cBEpiAnfaelle = new JComboBox<EnumObject>();
+		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Keine", EnumType.UNKNOWN), new EnumObject("Gleichgewichtsstörungen",EnumType.A), new EnumObject("Vorübergehendes Schwanken",EnumType.B)}));
 		
 		JPanel panel_6 = new JPanel();
 		
@@ -617,13 +619,13 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel label_9 = new JLabel("Schmerzempfindlichkeit:");
 		
-		CBSchmerzempfindlichkeit = new JComboBox();
-		CBSchmerzempfindlichkeit.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		cBSchmerzempfindlichkeit = new JComboBox<EnumObject>();
+		cBSchmerzempfindlichkeit.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel lblDenkenSieIhr = new JLabel("Denken sie ihr Tier hat Schmerzen?:");
 		
-		cBDenkenSchmerzen = new JComboBox();
-		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel(new String[] {"Bitte Äuswählen", "Ja,immer", "Gelegentlich", "Nein"}));
+		cBDenkenSchmerzen = new JComboBox<EnumObject>();
+		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Äuswählen",EnumType.UNKNOWN), new EnumObject("Ja,immer",EnumType.A), new EnumObject("Gelegentlich",EnumType.B), new EnumObject("Nein",EnumType.C)}));
 		
 		ePHauptproblem = new JEditorPane();
 		scrollPane_18.setViewportView(ePHauptproblem);
@@ -665,7 +667,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addGroup(gl_panel_9.createSequentialGroup()
 							.addComponent(label_9)
 							.addGap(61)
-							.addComponent(CBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_9.createSequentialGroup()
 							.addComponent(lblDenkenSieIhr)
 							.addGap(4)
@@ -696,7 +698,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addGroup(gl_panel_9.createSequentialGroup()
 							.addGap(6)
 							.addComponent(label_9))
-						.addComponent(CBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(4)
 					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_9.createSequentialGroup()
@@ -743,8 +745,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel lblIstDerPatient = new JLabel("Ist der Patient in der Lage, den betreffenden Körperteil zu benutzen?");
 		
-		cBKöperteilBewegen = new JComboBox();
-		cBKöperteilBewegen.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		cBKöperteilBewegen = new JComboBox<EnumObject>();
+		cBKöperteilBewegen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel lblMglicheGehstreckeIn = new JLabel("Mögliche Gehstrecke in Killometer:");
 		
@@ -757,23 +759,23 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel label_14 = new JLabel("Witterungsabhängikeit");
 		
-		cBWitterung = new JComboBox();
-		cBWitterung.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		cBWitterung = new JComboBox<EnumObject>();
+		cBWitterung.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel label_15 = new JLabel("Zykluskorrelation");
 		
-		comboBoxZyklus = new JComboBox();
-		comboBoxZyklus.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		comboBoxZyklus = new JComboBox<EnumObject>();
+		comboBoxZyklus.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel label_16 = new JLabel("Auslauf:");
 		
-		comboBoxAuslauf = new JComboBox();
-		comboBoxAuslauf.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		comboBoxAuslauf = new JComboBox<EnumObject>();
+		comboBoxAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
 		
-		comboBox_6 = new JComboBox();
-		comboBox_6.setModel(new DefaultComboBoxModel(new String[] {"Bitte Auswählen", "Ja", "Nein"}));
+		comboBox_6 = new JComboBox<EnumObject>();
+		comboBox_6.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JPanel panel_12 = new JPanel();
 		panel_12.setLayout(new BorderLayout(0, 0));
