@@ -918,7 +918,9 @@ public class WNeueAnamnese extends JInternalFrame {
 					.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit
 					.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen
 					.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), spGehstrecke
-					.getValue(), new java.sql.Time(((Date)spGehzeit.getValue()).getTime()), weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+					.getValue(), new java.sql.Time(((Date) spGehzeit.getValue()).getTime()), getEnumType(cBWitterung
+					.getSelectedItem()), getEnumType(comboBoxZyklus.getSelectedItem()), getEnumType(comboBoxAuslauf
+					.getSelectedItem()), getEnumType(comboBox_6.getSelectedItem()), tPBemerkungen.getText());
 		}
 	}
 	
