@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -108,6 +109,12 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JButton btnEdit;
 	private JButton btnOk;
 	private JButton btnCancel;
+	private JTextPane textPane;
+	private JTextPane tPInfektionen;
+	private JTextPane tPImpfungen;
+	private JTextPane tPHerzKreislauf;
+	private JTextPane tPAtmung;
+	private JTextPane tPVerdauung;
 
 	/**
 	 * Launch the application.
@@ -303,8 +310,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		textPane_2 = new JTextPane();
 		scrollPane_4.setViewportView(textPane_2);
 		
-		JTextPane textPane_1 = new JTextPane();
-		scrollPane_1.setViewportView(textPane_1);
+		textPane = new JTextPane();
+		scrollPane_1.setViewportView(textPane);
 		
 		JSplitPane splitPane = new JSplitPane();
 		JSplitPane splitPane_2 = new JSplitPane();
@@ -430,13 +437,13 @@ public class WNeueAnamnese extends JInternalFrame {
 		scrollPane_8 = new JScrollPane();
 		scrollPane_8.setViewportBorder(new TitledBorder(null, "Atmung", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		JTextPane tPHerzKreislauf = new JTextPane();
+		tPHerzKreislauf = new JTextPane();
 		scrollPane_7.setViewportView(tPHerzKreislauf);
 		
-		JTextPane tPImpfungen = new JTextPane();
+		tPImpfungen = new JTextPane();
 		scrollPane_6.setViewportView(tPImpfungen);
 		
-		JTextPane tPInfektionen = new JTextPane();
+		tPInfektionen = new JTextPane();
 		scrollPane.setViewportView(tPInfektionen);
 		GroupLayout gl_pContent = new GroupLayout(pContent);
 		gl_pContent.setHorizontalGroup(
@@ -453,13 +460,13 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addComponent(splitPane_2))
 		);
 		
-		JTextPane tPAtmung = new JTextPane();
+		tPAtmung = new JTextPane();
 		scrollPane_8.setViewportView(tPAtmung);
 		
 		scrollPane_9 = new JScrollPane();
 		scrollPane_9.setViewportBorder(new TitledBorder(null, "Verdauungstrakt", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		JTextPane tPVerdauung = new JTextPane();
+		tPVerdauung = new JTextPane();
 		scrollPane_9.setViewportView(tPVerdauung);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -863,9 +870,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		getContentPane().setLayout(groupLayout);
 		
-		
-		
-		
 		//////////////////////////////////////////
 		
 		btnEdit = new JButton("Bearbeiten");
@@ -881,7 +885,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		setEditable();
 		this.setVisible(true);
 	}
-
+	
 	private void initialize(String strName) {
 		frame = new JFrame();
 		setTitle("Anamnese von " + strName);
@@ -894,10 +898,11 @@ public class WNeueAnamnese extends JInternalFrame {
 	}
 	
 	private void saveData() {
-//		if(allSet())
-//			Database.insertAnamnesis(animalID, purpose, keeping, possesionsince, origin, familystrchanges, abroadstays, attitudeconspicuity, injurys, scars, infectiousDisease, regularVaccinations, breathing, digestiveTract, endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+		String UNKNOWN = "UNKNOWN";
+		if(allSet()){
+			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+		}
 	}
-	
 	
 	private Component getFrame() {
 		return this;
@@ -919,7 +924,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		}catch(NumberFormatException e){
 			return true;
 		}
-	}	
+	}
+	
 	private boolean allSet(){
 		if(tPAenderungenFamilie.getText().length() < 26)
 			return false;
