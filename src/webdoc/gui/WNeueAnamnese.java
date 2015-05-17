@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -169,11 +170,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		  scrollPane_18.setEnabled(editable);;
 		  scrollPane_19.setEnabled(editable);
 		  scrollPane_20.setEnabled(editable);
-		  cBSchmerzempfindlichkeit.setEditable(editable);
-		  cBDenkenSchmerzen.setEditable(editable);
+		  cBSchmerzempfindlichkeit.setEnabled(editable);
+		  cBDenkenSchmerzen.setEnabled(editable);
 		  sPVerusachenSchmerzen.setEnabled(editable);
 		  sPFunktionenMotorik.setEnabled(editable);
-		  cBKöperteilBewegen.setEditable(editable);;;
+		  cBKöperteilBewegen.setEnabled(editable);;;
 		  sP_Bemerkungen.setEnabled(editable);
 		  reloadBtn(editable);
 	}
@@ -882,6 +883,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(lblWieVielZeit, "cell 0 6,alignx left,aligny center");
 		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
 		panel_14.setLayout(gl_panel_14);
+		
+		spGehstrecke.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		
 		
 		getContentPane().setLayout(groupLayout);
