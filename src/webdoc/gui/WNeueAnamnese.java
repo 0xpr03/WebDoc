@@ -119,6 +119,8 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JEditorPane ePUnternommen;
 	private JEditorPane ePVerusachenSchmerzen;
 	private JEditorPane ePSchmerzmittel;
+	private JTextPane textPane_1;
+	private JTextPane tPBemerkungen;
 
 	/**
 	 * Launch the application.
@@ -795,7 +797,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		JLabel label_13 = new JLabel("Mögliche Gehzeit:");
 		
 		spGehzeit = new JSpinner(); //Gehzeit im Format HH:MM (Stunden:Minuten)
-		spGehzeit.setModel(new SpinnerDateModel());
+		SpinnerDateModel time_model = new SpinnerDateModel();
+		time_model.setCalendarField(Calendar.MINUTE);
+		spGehzeit.setModel(time_model);
 		spGehzeit.setEditor(new JSpinner.DateEditor(spGehzeit, "HH:mm"));
 		
 		JLabel label_14 = new JLabel("Witterungsabhängikeit");
@@ -825,14 +829,14 @@ public class WNeueAnamnese extends JInternalFrame {
 		sP_Bemerkungen.setViewportBorder(new TitledBorder(null, "Sonstige Bemerkungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panel_12.add(sP_Bemerkungen, BorderLayout.CENTER);
 		
-		JTextPane tPBemerkungen = new JTextPane();
+		tPBemerkungen = new JTextPane();
 		sP_Bemerkungen.setViewportView(tPBemerkungen);
 		
 		sPFunktionenMotorik = new JScrollPane();
 		sPFunktionenMotorik.setViewportBorder(new TitledBorder(null, "Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		JTextPane textPane_19 = new JTextPane();
-		sPFunktionenMotorik.setViewportView(textPane_19);
+		textPane_1 = new JTextPane();
+		sPFunktionenMotorik.setViewportView(textPane_1);
 		GroupLayout gl_panel_14 = new GroupLayout(panel_14);
 		gl_panel_14.setHorizontalGroup(
 			gl_panel_14.createParallelGroup(Alignment.LEADING)
@@ -902,9 +906,19 @@ public class WNeueAnamnese extends JInternalFrame {
 	}
 	
 	private void saveData() {
+//		java.sql.Time time = new java.sql.Time(((Date)spGehzeit.getValue()).getTime());
 		String UNKNOWN = "UNKNOWN";
-		if(allSet()){
-			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen.getText(), motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+		if (allSet()) {
+			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(
+					((Date) spinBirthdate_1.getValue()).getTime()), textField_7.getText(), tPAenderungenFamilie
+					.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen
+					.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium
+					.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle
+					.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem
+					.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit
+					.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen
+					.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), spGehstrecke
+					.getValue(), new java.sql.Time(((Date)spGehzeit.getValue()).getTime()), weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
 		}
 	}
 	
