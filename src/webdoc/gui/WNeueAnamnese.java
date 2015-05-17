@@ -115,6 +115,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPHerzKreislauf;
 	private JTextPane tPAtmung;
 	private JTextPane tPVerdauung;
+	private JComboBox<EnumObject> cBEpiAnfaelle;
 
 	/**
 	 * Launch the application.
@@ -536,8 +537,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPZNS = new JTextPane();
 		scrollPane_13.setViewportView(tPZNS);
 		
-		JComboBox<EnumObject> cBEpiAnfaelle = new JComboBox<EnumObject>();
-		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Keine", EnumType.UNKNOWN), new EnumObject("Gleichgewichtsstörungen",EnumType.A), new EnumObject("Vorübergehendes Schwanken",EnumType.B)}));
+		cBEpiAnfaelle = new JComboBox<EnumObject>();
+		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Keine", EnumType.A), new EnumObject("Gleichgewichtsstörungen",EnumType.B), new EnumObject("Vorübergehendes Schwanken",EnumType.C)}));
 		
 		JPanel panel_6 = new JPanel();
 		
@@ -900,8 +901,12 @@ public class WNeueAnamnese extends JInternalFrame {
 	private void saveData() {
 		String UNKNOWN = "UNKNOWN";
 		if(allSet()){
-			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
 		}
+	}
+	
+	private int getEnumType(Object obj){
+		return ((EnumObject)obj).getType().getType();
 	}
 	
 	private Component getFrame() {
