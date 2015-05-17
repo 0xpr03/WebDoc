@@ -296,101 +296,101 @@ public class Database{
 	 * @return
 	 * @throws SQLException
 	 */
-	public static long insertAnamnesis(long tierid, String purpose, String keeping, Date possesionsince, String origin, String familystrchanges, String abroadstays, String attitudeconspicuity , String injurys, String scars,String infectiousDisease, String regularVaccinations, String breathing,String digestiveTract, String endocrineSystem, String hyperthyroidism, String pancreas, String ZNS, int  epileptiformAttacks,  String xray, String medication,  String CT_MRT, String mainproblem, String descrPatientOwner,String wasUndertaken, int painSensitivity , int patientHasPain, String painkillerReaction, String motionCausingPain, String motorInterference, int bodyPartUsagePossible, double possibleWalkDistance, Time possibleWalkDuration, int weatherDependent, String cycleCorrelation, double outlet, Time availableTimeCons, String comment) throws SQLException{
+	public static long insertAnamnesis(AnamnesisBP anamnesis) throws SQLException{
 		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`) "
 				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		int platz = 1;
-		stm.setLong(platz, tierid);
+		stm.setLong(platz, anamnesis.getTierid());
 		platz++;
-		if(purpose.equals(""))
+		if(anamnesis.getPurpose().equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
-			stm.setString(platz, purpose);
+			stm.setString(platz, anamnesis.getPurpose());
 		platz++;
-		if(keeping.equals(""))
+		if(anamnesis.getKeeping().equals(""))
 			stm.setNull(3, Types.VARCHAR);
 		else
-			stm.setString(3, keeping);
+			stm.setString(3, anamnesis.getKeeping());
 		platz++;
-		stm.setDate(4, possesionsince);
+		stm.setDate(4, anamnesis.getPossesionsince());
 		platz++;
-		if (origin.equals(""))
+		if (anamnesis.getOrigin().equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
-			stm.setString(platz, origin);
+			stm.setString(platz, anamnesis.getOrigin());
 		platz++;
-		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
+		stm.setString(6, anamnesis.getFamilystrchanges().equals("") ? null : anamnesis.getFamilystrchanges());
 		platz++;
-		if (abroadstays.equals(""))
+		if (anamnesis.getAbroadstays().equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else
-			stm.setString(platz, abroadstays);
+			stm.setString(platz, anamnesis.getAbroadstays());
 		platz++;
-		if(attitudeconspicuity.equals(""))
+		if(anamnesis.getAttitudeconspicuity().equals(""))
 			stm.setNull(platz, Types.VARCHAR);
 		else 
-			stm.setString(platz, attitudeconspicuity);
+			stm.setString(platz, anamnesis.getAttitudeconspicuity());
 		platz++;
-		stm.setString(platz, injurys.equals("") ? null : injurys);
+		stm.setString(platz, anamnesis.getInjurys().equals("") ? null : anamnesis.getInjurys());
 		platz++;
-		stm.setString(platz, scars.equals("") ? null : scars);
+		stm.setString(platz, anamnesis.getScars().equals("") ? null : anamnesis.getScars());
 		platz++;
-		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
+		stm.setString(platz, anamnesis.getInfectiousDisease().equals("") ? null : anamnesis.getInfectiousDisease());
 		platz++;
-		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
+		stm.setString(platz, anamnesis.getRegularVaccinations().equals("") ? null : anamnesis.getRegularVaccinations());
 		platz++;
-		stm.setString(platz, breathing.equals("") ? null : breathing);
+		stm.setString(platz, anamnesis.getBreathing().equals("") ? null : anamnesis.getBreathing());
 		platz++;
-		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
+		stm.setString(platz, anamnesis.getDigestiveTract().equals("") ? null : anamnesis.getDigestiveTract());
 		platz++;
-		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
+		stm.setString(platz, anamnesis.getEndocrineSystem().equals("") ? null : anamnesis.getEndocrineSystem());
 		platz++;
-		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
+		stm.setString(platz, anamnesis.getHyperthyroidism().equals("") ? null : anamnesis.getHyperthyroidism());
 		platz++;
-		stm.setString(platz, pancreas.equals("") ? null : pancreas);
+		stm.setString(platz, anamnesis.getPancreas().equals("") ? null : anamnesis.getPancreas());
 		platz++;
-		stm.setString(platz, ZNS.equals("") ? null : ZNS);
+		stm.setString(platz, anamnesis.getZNS().equals("") ? null : anamnesis.getZNS());
 		platz++;
-		stm.setInt(platz, epileptiformAttacks);
+		stm.setInt(platz, anamnesis.getEpileptiformAttacks());
 		platz++;
-		stm.setString(platz, medication.equals("") ? null : medication );
+		stm.setString(platz, anamnesis.getMedication().equals("") ? null : anamnesis.getMedication() );
 		platz++;
-		stm.setString(platz, xray.equals("") ? null : xray);
+		stm.setString(platz, anamnesis.getXray().equals("") ? null : anamnesis.getXray());
 		platz++;
-		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
+		stm.setString(platz, anamnesis.getCT_MRT().equals("") ? null : anamnesis.getCT_MRT());
 		platz++;
-		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
+		stm.setString(platz, anamnesis.getMainproblem().equals("") ? null : anamnesis.getMainproblem());
 		platz++;
-		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
+		stm.setString(platz, anamnesis.getDescrPatientOwner().equals("") ? null : anamnesis.getDescrPatientOwner());
 		platz++;
-		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
+		stm.setString(platz, anamnesis.getWasUndertaken().equals("") ? null : anamnesis.getWasUndertaken());
 		platz++;
-		stm.setInt(platz, painSensitivity);
+		stm.setInt(platz, anamnesis.getPainSensitivity());
 		platz++;
-		stm.setInt(platz, patientHasPain);
+		stm.setInt(platz, anamnesis.getPatientHasPain());
 		platz++;
-		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
+		stm.setString(platz, anamnesis.getPainkillerReaction().equals("") ? null : anamnesis.getPainkillerReaction());
 		platz++;
-		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
+		stm.setString(platz, anamnesis.getMotionCausingPain().equals("") ? null : anamnesis.getMotionCausingPain());
 		platz++;
-		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
+		stm.setString(platz, anamnesis.getMotorInterference().equals("") ? null : anamnesis.getMotorInterference());
 		platz++;
-		stm.setInt(platz, bodyPartUsagePossible);
+		stm.setInt(platz, anamnesis.getBodyPartUsagePossible());
 		platz++;
-		stm.setDouble(platz, possibleWalkDistance);
+		stm.setDouble(platz, anamnesis.getPossibleWalkDistance());
 		platz++;
-		stm.setTime(platz, possibleWalkDuration);
+		stm.setTime(platz, anamnesis.getPossibleWalkDuration());
 		platz++;
-		stm.setInt(platz, weatherDependent);
+		stm.setInt(platz, anamnesis.getWeatherDependent());
 		platz++;
-		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
+		stm.setString(platz, anamnesis.getCycleCorrelation().equals("") ? null : anamnesis.getCycleCorrelation());
 		platz++;
-		stm.setDouble(platz, outlet);
+		stm.setDouble(platz, anamnesis.getOutlet());
 		platz++;
-		stm.setTime(platz, availableTimeCons);
+		stm.setTime(platz, anamnesis.getAvailableTimeCons());
 		platz++;
-		stm.setString(platz, comment.equals("") ? null : comment);
+		stm.setString(platz, anamnesis.getComment().equals("") ? null : anamnesis.getComment());
 		
 		stm.executeUpdate();
 		long id = getAutoID(stm.getGeneratedKeys());
