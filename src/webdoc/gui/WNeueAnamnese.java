@@ -116,6 +116,9 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPAtmung;
 	private JTextPane tPVerdauung;
 	private JComboBox<EnumObject> cBEpiAnfaelle;
+	private JEditorPane ePUnternommen;
+	private JEditorPane ePVerusachenSchmerzen;
+	private JEditorPane ePSchmerzmittel;
 
 	/**
 	 * Launch the application.
@@ -670,7 +673,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		ePSchilderung = new JEditorPane();
 		scrollPane_19.setViewportView(ePSchilderung);
 		
-		JEditorPane ePUnternommen = new JEditorPane();
+		ePUnternommen = new JEditorPane();
 		scrollPane_20.setViewportView(ePUnternommen);
 		
 		JPanel panel_10 = new JPanel();
@@ -679,7 +682,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPSchmerzmittel.setEnabled(false);
 		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		JEditorPane ePSchmerzmittel = new JEditorPane();
+		ePSchmerzmittel = new JEditorPane();
 		sPSchmerzmittel.setViewportView(ePSchmerzmittel);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(
@@ -749,7 +752,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPVerusachenSchmerzen = new JScrollPane();
 		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		JEditorPane ePVerusachenSchmerzen = new JEditorPane();
+		ePVerusachenSchmerzen = new JEditorPane();
 		sPVerusachenSchmerzen.setViewportView(ePVerusachenSchmerzen);
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
 		gl_panel_10.setHorizontalGroup(
@@ -901,7 +904,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private void saveData() {
 		String UNKNOWN = "UNKNOWN";
 		if(allSet()){
-			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(((Date)spinBirthdate_1.getValue()).getTime()) , textField_7.getText(), tPAenderungenFamilie.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen.getText(), motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
 		}
 	}
 	
