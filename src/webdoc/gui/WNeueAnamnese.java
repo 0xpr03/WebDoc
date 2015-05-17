@@ -201,7 +201,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(anamnesis_id == -1){
-					//TODO: save
+					saveData();
 				}else if(editable){
 					//TODO: change
 				}else{
