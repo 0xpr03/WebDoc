@@ -266,8 +266,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
+		
 		spinBirthdate_1 = new JSpinner(); //Datumsmodell
 		SpinnerDateModel model = new SpinnerDateModel();
+		spinBirthdate_1.setModel(model);
+		spinBirthdate_1.setEditor(new JSpinner.DateEditor(spinBirthdate_1, "dd-MM-yyyy"));
 		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate_1.setEnabled(editable);
 		
@@ -327,8 +330,8 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_4)
 					.addGap(35)
-					.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-					.addGap(79))
+					.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+					.addGap(69))
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_5)
 					.addGap(21)
@@ -375,7 +378,7 @@ public class WNeueAnamnese extends JInternalFrame {
 							.addComponent(label_5))
 						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
-					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 					.addGap(18))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -781,7 +784,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		JLabel label_13 = new JLabel("Mögliche Gehzeit:");
 		
 		spGehzeit = new JSpinner(); //Gehzeit im Format HH:MM (Stunden:Minuten)
-		
+		spGehzeit.setModel(new SpinnerDateModel());
+		spGehzeit.setEditor(new JSpinner.DateEditor(spGehzeit, "HH:mm"));
 		
 		JLabel label_14 = new JLabel("Witterungsabhängikeit");
 		
@@ -890,8 +894,8 @@ public class WNeueAnamnese extends JInternalFrame {
 	}
 	
 	private void saveData() {
-		if(allSet())
-			Database.insertAnamnesis(animalID, purpose, keeping, possesionsince, origin, familystrchanges, abroadstays, attitudeconspicuity, injurys, scars, infectiousDisease, regularVaccinations, breathing, digestiveTract, endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
+//		if(allSet())
+//			Database.insertAnamnesis(animalID, purpose, keeping, possesionsince, origin, familystrchanges, abroadstays, attitudeconspicuity, injurys, scars, infectiousDisease, regularVaccinations, breathing, digestiveTract, endocrineSystem, hyperthyroidism, pancreas, ZNS, epileptiformAttacks, xray, medication, CT_MRT, mainproblem, descrPatientOwner, wasUndertaken, painSensitivity, patientHasPain, painkillerReaction, motionCausingPain, motorInterference, bodyPartUsagePossible, possibleWalkDistance, possibleWalkDuration, weatherDependent, cycleCorrelation, outlet, availableTimeCons, comment);
 	}
 	
 	
