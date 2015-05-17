@@ -37,6 +37,9 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.lib.Database;
@@ -46,13 +49,13 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class WNeueAnamnese extends JInternalFrame {
 
+	private Logger logger = LogManager.getLogger();
 	private JFrame frame;
 	private boolean editable;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JSpinner spinBirthdate_1;
-	private DateEditor dateEditor;
 	private JTextPane tpEndokrinium;
 	private JTextPane tPSchilddruese;
 	private JTextPane tPBauchspeicheldruese;
@@ -183,6 +186,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	 * Create the application.
 	 */
 	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id, final String patient_name) {
+		logger.debug("anamnesisid: {}\nanimalid: {}",anamnesis_id, animal_id);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
@@ -200,6 +204,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnOk = new JButton("Speichern");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				logger.debug("btnOk fired..\nanamnesisid: {}",anamnesis_id);
 				if(anamnesis_id == -1){
 					saveData();
 				}else if(editable){
@@ -932,6 +937,8 @@ public class WNeueAnamnese extends JInternalFrame {
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
+		}else{
+			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
 	
@@ -962,7 +969,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	}
 	
 	private boolean allSet(){
-		if(tPAenderungenFamilie.getText().length() < 26)
+		if(tPAenderungenFamilie.getText().length() > 26)
 			return false;
 		return true;
 	}
