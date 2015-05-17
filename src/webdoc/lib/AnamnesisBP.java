@@ -245,6 +245,10 @@ public class AnamnesisBP {
 		private double outlet;
 		private Time availableTimeCons;
 		private String comment;
+		
+		public Builder(long tierid){
+			this.tierid = tierid;
+		}
 
 		public Builder tierid(long tierid) {
 			this.tierid = tierid;
