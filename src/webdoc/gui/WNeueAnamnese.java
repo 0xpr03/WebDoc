@@ -102,7 +102,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JComboBox<EnumObject> cBWitterung;
 	private JComboBox<EnumObject> comboBoxZyklus;
 	private JComboBox<EnumObject> comboBoxAuslauf;
-	private JComboBox<EnumObject> comboBox_6;
+	private JSpinner spavailTimeCons;
 	private JScrollPane sP_Bemerkungen;
 	private long animalID;
 	private long anamnesis_id;
@@ -819,8 +819,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
 		
-		comboBox_6 = new JComboBox<EnumObject>();
-		comboBox_6.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
+		spavailTimeCons = new JSpinner();
+		spavailTimeCons.setModel(time_model);
+		spavailTimeCons.setEditor(new JSpinner.DateEditor(spavailTimeCons, "HH:mm"));
 		
 		JPanel panel_12 = new JPanel();
 		panel_12.setLayout(new BorderLayout(0, 0));
@@ -872,7 +873,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(comboBoxAuslauf, "cell 1 5,growx,aligny top");
 		panel_11.add(lblIstDerPatient, "cell 0 0,alignx left,aligny center");
 		panel_11.add(lblWieVielZeit, "cell 0 6,alignx left,aligny center");
-		panel_11.add(comboBox_6, "cell 1 6,growx,aligny top");
+		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
 		panel_14.setLayout(gl_panel_14);
 		
 		
@@ -920,7 +921,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), spGehstrecke
 					.getValue(), new java.sql.Time(((Date) spGehzeit.getValue()).getTime()), getEnumType(cBWitterung
 					.getSelectedItem()), getEnumType(comboBoxZyklus.getSelectedItem()), getEnumType(comboBoxAuslauf
-					.getSelectedItem()), getEnumType(comboBox_6.getSelectedItem()), tPBemerkungen.getText());
+					.getSelectedItem()), new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()), tPBemerkungen.getText());
 		}
 	}
 	
