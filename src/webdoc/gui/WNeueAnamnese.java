@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,6 +40,7 @@ import javax.swing.border.TitledBorder;
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.lib.Database;
+import webdoc.lib.GUIManager;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
@@ -910,18 +912,26 @@ public class WNeueAnamnese extends JInternalFrame {
 //		java.sql.Time time = new java.sql.Time(((Date)spGehzeit.getValue()).getTime());
 		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
-			Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(
-					((Date) spinBirthdate_1.getValue()).getTime()), textField_7.getText(), tPAenderungenFamilie
-					.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen
-					.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium
-					.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle
-					.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem
-					.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit
-					.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen
-					.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), spGehstrecke
-					.getValue(), new java.sql.Time(((Date) spGehzeit.getValue()).getTime()), getEnumType(cBWitterung
-					.getSelectedItem()), getEnumType(comboBoxZyklus.getSelectedItem()), getEnumType(comboBoxAuslauf
-					.getSelectedItem()), new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()), tPBemerkungen.getText());
+			try {
+				Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(
+						((Date) spinBirthdate_1.getValue()).getTime()), textField_7.getText(), tPAenderungenFamilie
+						.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen
+						.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium
+						.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle
+						.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem
+						.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit
+						.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen
+						.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), (double)spGehstrecke
+						.getValue(), new java.sql.Time(((Date) spGehzeit.getValue()).getTime()), getEnumType(cBWitterung
+						.getSelectedItem()),
+						//getEnumType(comboBoxZyklus.getSelectedItem()),
+						UNKNOWN,
+						//getEnumType(comboBoxAuslauf.getSelectedItem()),
+						-1.0,
+						new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()), tPBemerkungen.getText());
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			}
 		}
 	}
 	
