@@ -43,6 +43,7 @@ import org.apache.logging.log4j.Logger;
 
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
+import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import net.miginfocom.swing.MigLayout;
@@ -921,22 +922,46 @@ public class WNeueAnamnese extends JInternalFrame {
 		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
 			try {
-				Database.insertAnamnesis(animalID, textField_8.getText(), UNKNOWN, new java.sql.Date(
-						((Date) spinBirthdate_1.getValue()).getTime()), textField_7.getText(), tPAenderungenFamilie
-						.getText(), textPane.getText(), textPane_4.getText(), textPane_3.getText(), textPane_2.getText(), tPInfektionen
-						.getText(), tPImpfungen.getText(), tPAtmung.getText(), tPVerdauung.getText(), tpEndokrinium
-						.getText(), tPSchilddruese.getText(), tPBauchspeicheldruese.getText(), tPZNS.getText(), getEnumType(cBEpiAnfaelle
-						.getSelectedItem()), textPane_16.getText(), textPane_17.getText(), textPane_15.getText(), ePHauptproblem
-						.getText(), ePSchilderung.getText(), ePUnternommen.getText(), getEnumType(cBSchmerzempfindlichkeit
-						.getSelectedItem()), getEnumType(cBDenkenSchmerzen.getSelectedItem()), ePSchmerzmittel.getText(), ePVerusachenSchmerzen
-						.getText(), textPane_1.getText(), getEnumType(cBKöperteilBewegen.getSelectedItem()), (double)spGehstrecke
-						.getValue(), new java.sql.Time(((Date) spGehzeit.getValue()).getTime()), getEnumType(cBWitterung
-						.getSelectedItem()),
-						//getEnumType(comboBoxZyklus.getSelectedItem()),
-						UNKNOWN,
-						//getEnumType(comboBoxAuslauf.getSelectedItem()),
-						-1.0,
-						new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()), tPBemerkungen.getText());
+				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID)
+				.purpose(textField_8.getText())
+				.keeping(UNKNOWN)
+				.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
+				.origin(textField_7.getText())
+				.familystrchanges(tPAenderungenFamilie.getText())
+				.abroadstays(textPane.getText())
+				.attitudeconspicuity(textPane_4.getText())
+				.injurys(textPane_3.getText())
+				.scars(textPane_2.getText())
+				.infectiousDisease(tPInfektionen.getText())
+				.regularVaccinations(tPImpfungen.getText())
+				.breathing(tPAtmung.getText())
+				.digestiveTract(tPVerdauung.getText())
+				.endocrineSystem(tpEndokrinium.getText())
+				.hyperthyroidism(tPSchilddruese.getText())
+				.pancreas(tPBauchspeicheldruese.getText())
+				.ZNS(tPZNS.getText())
+				.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
+				.xray(textPane_16.getText())
+				.medication(textPane_17.getText())
+				.CT_MRT(textPane_15.getText())
+				.mainproblem(ePHauptproblem.getText())
+				.descrPatientOwner(ePSchilderung.getText())
+				.wasUndertaken(ePUnternommen.getText())
+				.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
+				.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
+				.painkillerReaction(ePSchmerzmittel.getText())
+				.motionCausingPain(ePVerusachenSchmerzen.getText())
+				.motorInterference(textPane_1.getText())
+				.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
+				.possibleWalkDistance((double)spGehstrecke.getValue())
+				.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
+				.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
+				.cycleCorrelation(UNKNOWN)
+				.outlet(-1.0)
+				.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
+				.comment(tPBemerkungen.getText())
+				.build();
+				Database.insertAnamnesis(anamnesis);
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
