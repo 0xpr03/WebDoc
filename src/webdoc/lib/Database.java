@@ -239,6 +239,63 @@ public class Database{
 		stm.executeUpdate();
 	}
 	
+	/**
+	 * Get anamnesis data from anamnesis id
+	 * @param anamnesisID
+	 * @return ResultSet
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static ResultSet getAnamnesis(long anamnesisID) throws SQLException{
+		String sql = "SELECT `purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment` FROM `anamnesis` WHERE `AnamnesisID` = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, anamnesisID);
+		return stm.executeQuery();
+	}
+	
+	/**
+	 * Insert anamnesis
+	 * @param tierid
+	 * @param purpose
+	 * @param keeping
+	 * @param possesionsince
+	 * @param origin
+	 * @param familystrchanges
+	 * @param abroadstays
+	 * @param attitudeconspicuity
+	 * @param injurys
+	 * @param scars
+	 * @param infectiousDisease
+	 * @param regularVaccinations
+	 * @param breathing
+	 * @param digestiveTract
+	 * @param endocrineSystem
+	 * @param hyperthyroidism
+	 * @param pancreas
+	 * @param ZNS
+	 * @param epileptiformAttacks
+	 * @param xray
+	 * @param medication
+	 * @param CT_MRT
+	 * @param mainproblem
+	 * @param descrPatientOwner
+	 * @param wasUndertaken
+	 * @param painSensitivity
+	 * @param patientHasPain
+	 * @param painkillerReaction
+	 * @param motionCausingPain
+	 * @param motorInterference
+	 * @param bodyPartUsagePossible
+	 * @param possibleWalkDistance
+	 * @param possibleWalkDuration
+	 * @param weatherDependent
+	 * @param cycleCorrelation
+	 * @param outlet
+	 * @param availableTimeCons
+	 * @param comment
+	 * @return
+	 * @throws SQLException
+	 */
 	public static long insertAnamnesis(long tierid, String purpose, String keeping, Date possesionsince, String origin, String familystrchanges, String abroadstays, String attitudeconspicuity , String injurys, String scars,String infectiousDisease, String regularVaccinations, String breathing,String digestiveTract, String endocrineSystem, String hyperthyroidism, String pancreas, String ZNS, int  epileptiformAttacks,  String xray, String medication,  String CT_MRT, String mainproblem, String descrPatientOwner,String wasUndertaken, int painSensitivity , int patientHasPain, String painkillerReaction, String motionCausingPain, String motorInterference, String bodyPartUsagePossible, double possibleWalkDistance, Time possibleWalkDuration, int weatherDependent, String cycleCorrelation, double outlet, Time availableTimeCons, String comment) throws SQLException{
 		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`) "
 				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -341,6 +398,50 @@ public class Database{
 		return id;
 	}
 	
+	/**
+	 * Update anamnesis
+	 * @param AnamnesisID
+	 * @param tierid
+	 * @param purpose
+	 * @param keeping
+	 * @param possesionsince
+	 * @param origin
+	 * @param familystrchanges
+	 * @param abroadstays
+	 * @param attitudeconspicuity
+	 * @param injurys
+	 * @param scars
+	 * @param infectiousDisease
+	 * @param regularVaccinations
+	 * @param breathing
+	 * @param digestiveTract
+	 * @param endocrineSystem
+	 * @param hyperthyroidism
+	 * @param pancreas
+	 * @param ZNS
+	 * @param epileptiformAttacks
+	 * @param xray
+	 * @param medication
+	 * @param CT_MRT
+	 * @param mainproblem
+	 * @param descrPatientOwner
+	 * @param wasUndertaken
+	 * @param painSensitivity
+	 * @param patientHasPain
+	 * @param painkillerReaction
+	 * @param motionCausingPain
+	 * @param motorInterference
+	 * @param bodyPartUsagePossible
+	 * @param possibleWalkDistance
+	 * @param possibleWalkDuration
+	 * @param weatherDependent
+	 * @param cycleCorrelation
+	 * @param outlet
+	 * @param availableTimeCons
+	 * @param comment
+	 * @return
+	 * @throws SQLException
+	 */
 	public static int updateAnamnesis(long AnamnesisID ,long tierid, String purpose, String keeping, Date possesionsince, String origin, String familystrchanges, String abroadstays, String attitudeconspicuity , String injurys, String scars,String infectiousDisease, String regularVaccinations, String breathing,String digestiveTract, String endocrineSystem, String hyperthyroidism, String pancreas, String ZNS, int  epileptiformAttacks,  String xray, String medication,  String CT_MRT, String mainproblem, String descrPatientOwner,String wasUndertaken, int painSensitivity , int patientHasPain, String painkillerReaction, String motionCausingPain, String motorInterference, String bodyPartUsagePossible, double possibleWalkDistance, Time possibleWalkDuration, int weatherDependent, String cycleCorrelation, double outlet, Time availableTimeCons, String comment) throws SQLException{
 		String sql = "UPDATE anamnesis SET `AnimalID` = ?,`purpose` = ?,`keeping` = ?,`possesionsince` = ?,`origin` = ?,`familystrchanges` = ?,`abroadstays` = ?,`attitudeconspicuity` = ?,`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?"
 				+"WHERE AnamnesisID = ?";
