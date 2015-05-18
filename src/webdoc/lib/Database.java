@@ -161,6 +161,20 @@ public class Database{
 	}
 	
 	/**
+	 * Retrives anamnesis related to the patient
+	 * @param patientID
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static ResultSet getPatientRData(long patientID) throws SQLException{
+		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate FROM `anamnesis` "
+				+"WHERE AnimalID = ? ";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, patientID);
+		return stm.executeQuery();
+	}
+	
+	/**
 	 * Returns a list of stored procedures
 	 * @return list of procedures
 	 * @throws SQLException
