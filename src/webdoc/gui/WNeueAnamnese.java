@@ -54,50 +54,50 @@ public class WNeueAnamnese extends JInternalFrame {
 	private Logger logger = LogManager.getLogger();
 	private JFrame frame;
 	private boolean editable;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField tPName;
+	private JTextField tPTierStammtVon;
+	private JTextField tPVerwendungszweck;
 	private JSpinner spinBirthdate_1;
 	private JTextPane tpEndokrinium;
 	private JTextPane tPSchilddruese;
 	private JTextPane tPBauchspeicheldruese;
 	private JTextPane tPZNS;
-	private JTextPane textPane_17;
-	private JTextPane textPane_16;
-	private JTextPane textPane_15;
+	private JTextPane tPMedikamente;
+	private JTextPane tPRoentgen;
+	private JTextPane tPCTMRT;
 	private JEditorPane ePHauptproblem;
 	private JEditorPane ePSchilderung;
 	private JLabel label_1;
 	private JLabel label_2;
-	private JTextField textField;
+	private JTextField tPRufname;
 	private JSeparator separator;
 	private JLabel label_3;
 	private JLabel label_4;
 	private JLabel label_5;
-	private JScrollPane scrollPane_5;
+	private JScrollPane sPAenderungenFamilie;
 	private JTextPane tPAenderungenFamilie;
-	private JScrollPane scrollPane_3;
-	private JTextPane textPane_3;
-	private JScrollPane scrollPane_4;
-	private JTextPane textPane_2;
-	private JScrollPane scrollPane_2;
-	private JTextPane textPane_4;
-	private JScrollPane scrollPane_1;
-	private JScrollPane scrollPane_8;
-	private JScrollPane scrollPane_6;
-	private JScrollPane scrollPane;
-	private JScrollPane scrollPane_7;
-	private JScrollPane scrollPane_9;
-	private JScrollPane scrollPane_10;
-	private JScrollPane scrollPane_11;
-	private JScrollPane scrollPane_12;
-	private JScrollPane scrollPane_13;
-	private JScrollPane scrollPane_14;
-	private JScrollPane scrollPane_15;
-	private JScrollPane scrollPane_16;
-	private JScrollPane scrollPane_18;
-	private JScrollPane scrollPane_19;
-	private JScrollPane scrollPane_20;
+	private JScrollPane sPVerletzungen;
+	private JTextPane tPVerletzungen;
+	private JScrollPane sPNarben;
+	private JTextPane tPNarben;
+	private JScrollPane sPVerhaltensaufaeligkeiten;
+	private JTextPane tPVerhaltensaufaeligkeiten;
+	private JScrollPane sPAuslandsaufenthalte;
+	private JScrollPane sPAtmung;
+	private JScrollPane sPImpfungen;
+	private JScrollPane sPInfektionen;
+	private JScrollPane sPHerzKreislauf;
+	private JScrollPane sPVerdauung;
+	private JScrollPane sPEndokrinium;
+	private JScrollPane sPSchilddruese;
+	private JScrollPane SPBauchspeicheldruese;
+	private JScrollPane sPZNS;
+	private JScrollPane sPMedikamente;
+	private JScrollPane sPRoentgen;
+	private JScrollPane sPCTMRT;
+	private JScrollPane sPHauptproblem;
+	private JScrollPane sPSchilderung;
+	private JScrollPane sPUnternommen;
 	private JComboBox<EnumObject> cBSchmerzempfindlichkeit;
 	private JComboBox<EnumObject> cBDenkenSchmerzen;
 	private JScrollPane sPSchmerzmittel;
@@ -108,7 +108,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JSpinner spGehzeit;
 	private JComboBox<EnumObject> cBWitterung;
 	private JComboBox<EnumObject> comboBoxZyklus;
-	private JComboBox<EnumObject> comboBoxAuslauf;
+	private JComboBox<EnumObject> cBAuslauf;
 	private JSpinner spavailTimeCons;
 	private JScrollPane sP_Bemerkungen;
 	private long animalID;
@@ -116,7 +116,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JButton btnEdit;
 	private JButton btnOk;
 	private JButton btnCancel;
-	private JTextPane textPane;
+	private JTextPane tPAuslandsaufenthalte;
 	private JTextPane tPInfektionen;
 	private JTextPane tPImpfungen;
 	private JTextPane tPHerzKreislauf;
@@ -126,51 +126,51 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JEditorPane ePUnternommen;
 	private JEditorPane ePVerusachenSchmerzen;
 	private JEditorPane ePSchmerzmittel;
-	private JTextPane textPane_1;
+	private JTextPane tPFunktionenMotorik;
 	private JTextPane tPBemerkungen;
 
 	/**
 	 * Launch the application.
 	 */
 	private void setEditable(){
-		  textField_6.setEditable(editable);
-		  textField_7.setEditable(editable);
-		  textField_8.setEditable(editable);
+		  tPName.setEditable(editable);
+		  tPTierStammtVon.setEditable(editable);
+		  tPVerwendungszweck.setEditable(editable);
 		  spinBirthdate_1.setEnabled(editable);
 		  tpEndokrinium.setEditable(editable);
 		  tPSchilddruese.setEditable(editable);
 		  tPBauchspeicheldruese.setEditable(editable);
 		  tPZNS.setEditable(editable);
-		  textPane_17.setEditable(editable);
-		  textPane_16.setEditable(editable);
-		  textPane_15.setEditable(editable);
+		  tPMedikamente.setEditable(editable);
+		  tPRoentgen.setEditable(editable);
+		  tPCTMRT.setEditable(editable);
 		  ePHauptproblem.setEditable(editable);
 		  ePSchilderung.setEditable(editable);
-		  textField.setEditable(editable);
-		  scrollPane_5.setEnabled(editable);
+		  tPRufname.setEditable(editable);
+		  sPAenderungenFamilie.setEnabled(editable);
 		  tPAenderungenFamilie.setEditable(editable);
-		  scrollPane_3.setEnabled(editable);
-		  textPane_3.setEditable(editable);
-		  scrollPane_4.setEnabled(editable);
-		  textPane_2.setEditable(editable);
-		  scrollPane_2.setEnabled(editable);
-		  textPane_4.setEditable(editable);
-		  scrollPane_1.setEnabled(editable);
-		  scrollPane_8.setEnabled(editable);
-		  scrollPane_6.setEnabled(editable);;
-		  scrollPane.setEnabled(editable);
-		  scrollPane_7.setEnabled(editable);;
-		  scrollPane_9.setEnabled(editable);
-		  scrollPane_10.setEnabled(editable);;
-		  scrollPane_11.setEnabled(editable);;
-		  scrollPane_12.setEnabled(editable);
-		  scrollPane_13.setEnabled(editable);
-		  scrollPane_14.setEnabled(editable);
-		  scrollPane_15.setEnabled(editable);
-		  scrollPane_16.setEnabled(editable);
-		  scrollPane_18.setEnabled(editable);;
-		  scrollPane_19.setEnabled(editable);
-		  scrollPane_20.setEnabled(editable);
+		  sPVerletzungen.setEnabled(editable);
+		  tPVerletzungen.setEditable(editable);
+		  sPNarben.setEnabled(editable);
+		  tPNarben.setEditable(editable);
+		  sPVerhaltensaufaeligkeiten.setEnabled(editable);
+		  tPVerhaltensaufaeligkeiten.setEditable(editable);
+		  sPAuslandsaufenthalte.setEnabled(editable);
+		  sPAtmung.setEnabled(editable);
+		  sPImpfungen.setEnabled(editable);;
+		  sPInfektionen.setEnabled(editable);
+		  sPHerzKreislauf.setEnabled(editable);;
+		  sPVerdauung.setEnabled(editable);
+		  sPEndokrinium.setEnabled(editable);;
+		  sPSchilddruese.setEnabled(editable);;
+		  SPBauchspeicheldruese.setEnabled(editable);
+		  sPZNS.setEnabled(editable);
+		  sPMedikamente.setEnabled(editable);
+		  sPRoentgen.setEnabled(editable);
+		  sPCTMRT.setEnabled(editable);
+		  sPHauptproblem.setEnabled(editable);;
+		  sPSchilderung.setEnabled(editable);
+		  sPUnternommen.setEnabled(editable);
 		  cBSchmerzempfindlichkeit.setEnabled(editable);
 		  cBDenkenSchmerzen.setEnabled(editable);
 		  sPVerusachenSchmerzen.setEnabled(editable);
@@ -265,18 +265,18 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JPanel panel_2 = new JPanel();
 		
-		scrollPane_5 = new JScrollPane();
-		scrollPane_5.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "\u00C4nderungen im Familiengef\u00FCge", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
+		sPAenderungenFamilie = new JScrollPane();
+		sPAenderungenFamilie.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "\u00C4nderungen im Familiengef\u00FCge", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
 		
 		label_1 = new JLabel("Name:");
 		
 		label_2 = new JLabel("Rufname:");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tPRufname = new JTextField();
+		tPRufname.setColumns(10);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		tPName = new JTextField();
+		tPName.setColumns(10);
 		
 		separator = new JSeparator();
 		
@@ -286,8 +286,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		label_5 = new JLabel("Tier stammt von:");
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
+		tPTierStammtVon = new JTextField();
+		tPTierStammtVon.setColumns(10);
 		
 		spinBirthdate_1 = new JSpinner(); //Datumsmodell
 		SpinnerDateModel model = new SpinnerDateModel();
@@ -296,37 +296,37 @@ public class WNeueAnamnese extends JInternalFrame {
 		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate_1.setEnabled(editable);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
+		tPVerwendungszweck = new JTextField();
+		tPVerwendungszweck.setColumns(10);
 		
 		
-		scrollPane_5.setViewportView(tPAenderungenFamilie);
+		sPAenderungenFamilie.setViewportView(tPAenderungenFamilie);
 		
 		JPanel panel_1 = new JPanel();
 		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Auslandsaufenthalte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPAuslandsaufenthalte = new JScrollPane();
+		sPAuslandsaufenthalte.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Auslandsaufenthalte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_2 = new JScrollPane();
-		scrollPane_2.setViewportBorder(new TitledBorder(null, "Verhaltensauf\u00E4lligkeiten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPVerhaltensaufaeligkeiten = new JScrollPane();
+		sPVerhaltensaufaeligkeiten.setViewportBorder(new TitledBorder(null, "Verhaltensauf\u00E4lligkeiten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_3 = new JScrollPane();
-		scrollPane_3.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verletzungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPVerletzungen = new JScrollPane();
+		sPVerletzungen.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verletzungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_4 = new JScrollPane();
-		scrollPane_4.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Narben", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPNarben = new JScrollPane();
+		sPNarben.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Narben", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		textPane_4 = new JTextPane();
-		scrollPane_2.setViewportView(textPane_4);
+		tPVerhaltensaufaeligkeiten = new JTextPane();
+		sPVerhaltensaufaeligkeiten.setViewportView(tPVerhaltensaufaeligkeiten);
 		
-		textPane_3 = new JTextPane();
-		scrollPane_3.setViewportView(textPane_3);
+		tPVerletzungen = new JTextPane();
+		sPVerletzungen.setViewportView(tPVerletzungen);
 		
-		textPane_2 = new JTextPane();
-		scrollPane_4.setViewportView(textPane_2);
+		tPNarben = new JTextPane();
+		sPNarben.setViewportView(tPNarben);
 		
-		textPane = new JTextPane();
-		scrollPane_1.setViewportView(textPane);
+		tPAuslandsaufenthalte = new JTextPane();
+		sPAuslandsaufenthalte.setViewportView(tPAuslandsaufenthalte);
 		
 		JSplitPane splitPane = new JSplitPane();
 		JSplitPane splitPane_2 = new JSplitPane();
@@ -339,16 +339,16 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_1)
 					.addGap(18)
-					.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tPName, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_2)
 					.addGap(2)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tPRufname, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
 				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_3)
 					.addGap(4)
-					.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_4)
 					.addGap(35)
@@ -357,10 +357,10 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addComponent(label_5)
 					.addGap(21)
-					.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+					.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(10)
-					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
 					.addGap(10))
 		);
 		gl_panel_2.setVerticalGroup(
@@ -371,13 +371,13 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_1))
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tPName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_2))
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tPRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(11)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
@@ -385,7 +385,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_3))
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(10)
@@ -398,9 +398,9 @@ public class WNeueAnamnese extends JInternalFrame {
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_5))
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
-					.addComponent(scrollPane_5, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
 					.addGap(18))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -410,28 +410,28 @@ public class WNeueAnamnese extends JInternalFrame {
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 					.addGap(2))
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(2)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_4, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-						.addComponent(scrollPane_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+						.addComponent(sPNarben, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+						.addComponent(sPVerletzungen, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+							.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
 							.addGap(2))))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
 					.addGap(17)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+					.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+					.addComponent(sPVerletzungen, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_4, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+					.addComponent(sPNarben, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
 					.addGap(29))
 		);
 		splitPane.setDividerLocation(0.5);
@@ -440,26 +440,26 @@ public class WNeueAnamnese extends JInternalFrame {
 		JPanel panel = new JPanel();
 		splitPane_2.setRightComponent(panel);
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setViewportBorder(new TitledBorder(null, "Infektionserkrankungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPInfektionen = new JScrollPane();
+		sPInfektionen.setViewportBorder(new TitledBorder(null, "Infektionserkrankungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_6 = new JScrollPane();
-		scrollPane_6.setViewportBorder(new TitledBorder(null, "Regelm\u00E4\u00DFige Impfungen:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPImpfungen = new JScrollPane();
+		sPImpfungen.setViewportBorder(new TitledBorder(null, "Regelm\u00E4\u00DFige Impfungen:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_7 = new JScrollPane();
-		scrollPane_7.setViewportBorder(new TitledBorder(null, "Herz/Kreislauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPHerzKreislauf = new JScrollPane();
+		sPHerzKreislauf.setViewportBorder(new TitledBorder(null, "Herz/Kreislauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_8 = new JScrollPane();
-		scrollPane_8.setViewportBorder(new TitledBorder(null, "Atmung", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPAtmung = new JScrollPane();
+		sPAtmung.setViewportBorder(new TitledBorder(null, "Atmung", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		tPHerzKreislauf = new JTextPane();
-		scrollPane_7.setViewportView(tPHerzKreislauf);
+		sPHerzKreislauf.setViewportView(tPHerzKreislauf);
 		
 		tPImpfungen = new JTextPane();
-		scrollPane_6.setViewportView(tPImpfungen);
+		sPImpfungen.setViewportView(tPImpfungen);
 		
 		tPInfektionen = new JTextPane();
-		scrollPane.setViewportView(tPInfektionen);
+		sPInfektionen.setViewportView(tPInfektionen);
 		GroupLayout gl_pContent = new GroupLayout(pContent);
 		gl_pContent.setHorizontalGroup(
 			gl_pContent.createParallelGroup(Alignment.LEADING)
@@ -476,29 +476,29 @@ public class WNeueAnamnese extends JInternalFrame {
 		);
 		
 		tPAtmung = new JTextPane();
-		scrollPane_8.setViewportView(tPAtmung);
+		sPAtmung.setViewportView(tPAtmung);
 		
-		scrollPane_9 = new JScrollPane();
-		scrollPane_9.setViewportBorder(new TitledBorder(null, "Verdauungstrakt", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPVerdauung = new JScrollPane();
+		sPVerdauung.setViewportBorder(new TitledBorder(null, "Verdauungstrakt", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		tPVerdauung = new JTextPane();
-		scrollPane_9.setViewportView(tPVerdauung);
+		sPVerdauung.setViewportView(tPVerdauung);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(2)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_9, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+						.addComponent(sPVerdauung, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(scrollPane_8, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+							.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
 							.addGap(1))
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+							.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
 							.addGap(1))
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+						.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(scrollPane_7, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+							.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
 							.addGap(1)))
 					.addGap(7))
 		);
@@ -506,15 +506,15 @@ public class WNeueAnamnese extends JInternalFrame {
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(7)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+					.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
 					.addGap(4)
-					.addComponent(scrollPane_6, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+					.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_7, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+					.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_8, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+					.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_9, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+					.addComponent(sPVerdauung, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 					.addGap(7))
 		);
 		panel.setLayout(gl_panel);
@@ -525,54 +525,54 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JPanel panel_5 = new JPanel();
 		
-		scrollPane_10 = new JScrollPane();
-		scrollPane_10.setViewportBorder(new TitledBorder(null, "Endokrinium:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPEndokrinium = new JScrollPane();
+		sPEndokrinium.setViewportBorder(new TitledBorder(null, "Endokrinium:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_11 = new JScrollPane();
-		scrollPane_11.setViewportBorder(new TitledBorder(null, "Schilddr\u00FCse", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPSchilddruese = new JScrollPane();
+		sPSchilddruese.setViewportBorder(new TitledBorder(null, "Schilddr\u00FCse", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_12 = new JScrollPane();
-		scrollPane_12.setViewportBorder(new TitledBorder(null, "Bauchspeicheldr\u00FCse:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		SPBauchspeicheldruese = new JScrollPane();
+		SPBauchspeicheldruese.setViewportBorder(new TitledBorder(null, "Bauchspeicheldr\u00FCse:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_13 = new JScrollPane();
-		scrollPane_13.setViewportBorder(new TitledBorder(null, "ZNS:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPZNS = new JScrollPane();
+		sPZNS.setViewportBorder(new TitledBorder(null, "ZNS:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		JLabel lblEpilemtiformeAnflle = new JLabel("Epilemtiforme Anfälle:");
 		
 		tpEndokrinium = new JTextPane();
-		scrollPane_10.setViewportView(tpEndokrinium);
+		sPEndokrinium.setViewportView(tpEndokrinium);
 		
 		tPSchilddruese = new JTextPane();
-		scrollPane_11.setViewportView(tPSchilddruese);
+		sPSchilddruese.setViewportView(tPSchilddruese);
 		
 		tPBauchspeicheldruese = new JTextPane();
-		scrollPane_12.setViewportView(tPBauchspeicheldruese);
+		SPBauchspeicheldruese.setViewportView(tPBauchspeicheldruese);
 		
 		tPZNS = new JTextPane();
-		scrollPane_13.setViewportView(tPZNS);
+		sPZNS.setViewportView(tPZNS);
 		
 		cBEpiAnfaelle = new JComboBox<EnumObject>();
 		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Keine", EnumType.A), new EnumObject("Gleichgewichtsstörungen",EnumType.B), new EnumObject("Vorübergehendes Schwanken",EnumType.C)}));
 		
 		JPanel panel_6 = new JPanel();
 		
-		scrollPane_14 = new JScrollPane();
-		scrollPane_14.setViewportBorder(new TitledBorder(null, "Medikamente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPMedikamente = new JScrollPane();
+		sPMedikamente.setViewportBorder(new TitledBorder(null, "Medikamente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_15 = new JScrollPane();
-		scrollPane_15.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00F6ntgen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPRoentgen = new JScrollPane();
+		sPRoentgen.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00F6ntgen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_16 = new JScrollPane();
-		scrollPane_16.setViewportBorder(new TitledBorder(null, "CT/MRT", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPCTMRT = new JScrollPane();
+		sPCTMRT.setViewportBorder(new TitledBorder(null, "CT/MRT", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		textPane_17 = new JTextPane();
-		scrollPane_14.setViewportView(textPane_17);
+		tPMedikamente = new JTextPane();
+		sPMedikamente.setViewportView(tPMedikamente);
 		
-		textPane_16 = new JTextPane();
-		scrollPane_15.setViewportView(textPane_16);
+		tPRoentgen = new JTextPane();
+		sPRoentgen.setViewportView(tPRoentgen);
 		
-		textPane_15 = new JTextPane();
-		scrollPane_16.setViewportView(textPane_15);
+		tPCTMRT = new JTextPane();
+		sPCTMRT.setViewportView(tPCTMRT);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -597,10 +597,10 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addGap(1)
 					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_14, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-						.addComponent(scrollPane_15, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+						.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+						.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
 						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(scrollPane_16, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
+							.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
 							.addGap(1)))
 					.addGap(1))
 		);
@@ -608,11 +608,11 @@ public class WNeueAnamnese extends JInternalFrame {
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addGap(1)
-					.addComponent(scrollPane_14, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+					.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(scrollPane_15, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+					.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(scrollPane_16, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+					.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		panel_6.setLayout(gl_panel_6);
@@ -622,10 +622,10 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addGap(7)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_10, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(scrollPane_11, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(scrollPane_12, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(scrollPane_13, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
 						.addGroup(gl_panel_5.createSequentialGroup()
 							.addComponent(lblEpilemtiformeAnflle)
 							.addGap(8)
@@ -636,13 +636,13 @@ public class WNeueAnamnese extends JInternalFrame {
 			gl_panel_5.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addGap(7)
-					.addComponent(scrollPane_10, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+					.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
 					.addGap(4)
-					.addComponent(scrollPane_11, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+					.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
 					.addGap(4)
-					.addComponent(scrollPane_12, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+					.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
 					.addGap(4)
-					.addComponent(scrollPane_13, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+					.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 					.addGap(4)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_5.createSequentialGroup()
@@ -659,14 +659,14 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JPanel panel_9 = new JPanel();
 		
-		scrollPane_18 = new JScrollPane();
-		scrollPane_18.setViewportBorder(new TitledBorder(null, "Hauptproblem", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPHauptproblem = new JScrollPane();
+		sPHauptproblem.setViewportBorder(new TitledBorder(null, "Hauptproblem", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_19 = new JScrollPane();
-		scrollPane_19.setViewportBorder(new TitledBorder(null, "Schilderung des Patientenbesitzers", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPSchilderung = new JScrollPane();
+		sPSchilderung.setViewportBorder(new TitledBorder(null, "Schilderung des Patientenbesitzers", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		scrollPane_20 = new JScrollPane();
-		scrollPane_20.setViewportBorder(new TitledBorder(null, "Was wurde unternommen?:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sPUnternommen = new JScrollPane();
+		sPUnternommen.setViewportBorder(new TitledBorder(null, "Was wurde unternommen?:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
 		JLabel label_9 = new JLabel("Schmerzempfindlichkeit:");
 		
@@ -679,13 +679,13 @@ public class WNeueAnamnese extends JInternalFrame {
 		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Äuswählen",EnumType.UNKNOWN), new EnumObject("Ja,immer",EnumType.A), new EnumObject("Gelegentlich",EnumType.B), new EnumObject("Nein",EnumType.C)}));
 		
 		ePHauptproblem = new JEditorPane();
-		scrollPane_18.setViewportView(ePHauptproblem);
+		sPHauptproblem.setViewportView(ePHauptproblem);
 		
 		ePSchilderung = new JEditorPane();
-		scrollPane_19.setViewportView(ePSchilderung);
+		sPSchilderung.setViewportView(ePSchilderung);
 		
 		ePUnternommen = new JEditorPane();
-		scrollPane_20.setViewportView(ePUnternommen);
+		sPUnternommen.setViewportView(ePUnternommen);
 		
 		JPanel panel_10 = new JPanel();
 		
@@ -726,24 +726,24 @@ public class WNeueAnamnese extends JInternalFrame {
 					.addGap(7))
 				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
 					.addGap(1)
-					.addComponent(scrollPane_20, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
 					.addGap(1))
 				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
 					.addGap(1)
 					.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
-						.addComponent(scrollPane_18, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-						.addComponent(scrollPane_19, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
+						.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+						.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
 					.addGap(1))
 		);
 		gl_panel_9.setVerticalGroup(
 			gl_panel_9.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_9.createSequentialGroup()
 					.addGap(1)
-					.addComponent(scrollPane_18, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(scrollPane_19, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(scrollPane_20, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
 					.addGap(1)
 					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_9.createSequentialGroup()
@@ -823,8 +823,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		JLabel label_16 = new JLabel("Auslauf:");
 		
-		comboBoxAuslauf = new JComboBox<EnumObject>();
-		comboBoxAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
+		cBAuslauf = new JComboBox<EnumObject>();
+		cBAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
 		
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
 		
@@ -845,8 +845,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPFunktionenMotorik = new JScrollPane();
 		sPFunktionenMotorik.setViewportBorder(new TitledBorder(null, "Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		
-		textPane_1 = new JTextPane();
-		sPFunktionenMotorik.setViewportView(textPane_1);
+		tPFunktionenMotorik = new JTextPane();
+		sPFunktionenMotorik.setViewportView(tPFunktionenMotorik);
 		GroupLayout gl_panel_14 = new GroupLayout(panel_14);
 		gl_panel_14.setHorizontalGroup(
 			gl_panel_14.createParallelGroup(Alignment.LEADING)
@@ -879,7 +879,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(label_15, "cell 0 4,alignx left,aligny center");
 		panel_11.add(comboBoxZyklus, "cell 1 4,growx,aligny top");
 		panel_11.add(label_16, "cell 0 5,alignx left,aligny center");
-		panel_11.add(comboBoxAuslauf, "cell 1 5,growx,aligny top");
+		panel_11.add(cBAuslauf, "cell 1 5,growx,aligny top");
 		panel_11.add(lblIstDerPatient, "cell 0 0,alignx left,aligny center");
 		panel_11.add(lblWieVielZeit, "cell 0 6,alignx left,aligny center");
 		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
@@ -923,15 +923,15 @@ public class WNeueAnamnese extends JInternalFrame {
 		if (allSet()) {
 			try {
 				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID)
-				.purpose(textField_8.getText())
+				.purpose(tPVerwendungszweck.getText())
 				.keeping(UNKNOWN)
 				.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
-				.origin(textField_7.getText())
+				.origin(tPTierStammtVon.getText())
 				.familystrchanges(tPAenderungenFamilie.getText())
-				.abroadstays(textPane.getText())
-				.attitudeconspicuity(textPane_4.getText())
-				.injurys(textPane_3.getText())
-				.scars(textPane_2.getText())
+				.abroadstays(tPAuslandsaufenthalte.getText())
+				.attitudeconspicuity(tPVerhaltensaufaeligkeiten.getText())
+				.injurys(tPVerletzungen.getText())
+				.scars(tPNarben.getText())
 				.infectiousDisease(tPInfektionen.getText())
 				.regularVaccinations(tPImpfungen.getText())
 				.breathing(tPAtmung.getText())
@@ -941,9 +941,9 @@ public class WNeueAnamnese extends JInternalFrame {
 				.pancreas(tPBauchspeicheldruese.getText())
 				.ZNS(tPZNS.getText())
 				.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
-				.xray(textPane_16.getText())
-				.medication(textPane_17.getText())
-				.CT_MRT(textPane_15.getText())
+				.xray(tPRoentgen.getText())
+				.medication(tPMedikamente.getText())
+				.CT_MRT(tPCTMRT.getText())
 				.mainproblem(ePHauptproblem.getText())
 				.descrPatientOwner(ePSchilderung.getText())
 				.wasUndertaken(ePUnternommen.getText())
@@ -951,7 +951,7 @@ public class WNeueAnamnese extends JInternalFrame {
 				.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
 				.painkillerReaction(ePSchmerzmittel.getText())
 				.motionCausingPain(ePVerusachenSchmerzen.getText())
-				.motorInterference(textPane_1.getText())
+				.motorInterference(tPFunktionenMotorik.getText())
 				.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
 				.possibleWalkDistance((double)spGehstrecke.getValue())
 				.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
