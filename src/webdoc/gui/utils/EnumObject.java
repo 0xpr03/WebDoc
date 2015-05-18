@@ -13,7 +13,7 @@ package webdoc.gui.utils;
  */
 public class EnumObject {
 	public static enum EnumType{
-		UNKNOWN(-1),A(0),B(1),C(2),D(3);
+		UNKNOWN(0),A(1),B(2),C(3),D(4);
 		private EnumType(int EnumType){
 			this.EnumType = EnumType;
 		}
