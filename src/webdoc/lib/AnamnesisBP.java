@@ -506,5 +506,6 @@ public class AnamnesisBP {
 		this.outlet = builder.outlet;
 		this.availableTimeCons = builder.availableTimeCons;
 		this.comment = builder.comment;
+		this.circulation = builder.circulation;
 	}
 }
