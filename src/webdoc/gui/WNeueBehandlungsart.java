@@ -6,21 +6,22 @@
  *******************************************************************************/
 package webdoc.gui;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
+import java.awt.Rectangle;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import java.awt.Rectangle;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import webdoc.gui.utils.JSearchTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import net.miginfocom.swing.MigLayout;
+import webdoc.gui.utils.JSearchTextField;
 
 @SuppressWarnings("serial")
 public class WNeueBehandlungsart extends JInternalFrame {
