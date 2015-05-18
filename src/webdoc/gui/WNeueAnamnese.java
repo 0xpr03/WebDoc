@@ -54,7 +54,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private Logger logger = LogManager.getLogger();
 	private JFrame frame;
 	private boolean editable;
-	private JTextField tPName;
+	private JTextField tFName;
 	private JTextField tPTierStammtVon;
 	private JTextField tPVerwendungszweck;
 	private JSpinner spinBirthdate_1;
@@ -69,7 +69,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JEditorPane ePSchilderung;
 	private JLabel label_1;
 	private JLabel label_2;
-	private JTextField tPRufname;
+	private JTextField tFRufname;
 	private JSeparator separator;
 	private JLabel label_3;
 	private JLabel label_4;
@@ -128,12 +128,14 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JEditorPane ePSchmerzmittel;
 	private JTextPane tPFunktionenMotorik;
 	private JTextPane tPBemerkungen;
+	private JLabel lblHaltung;
+	private JTextField tFHalltung;
 
 	/**
 	 * Launch the application.
 	 */
 	private void setEditable(){
-		  tPName.setEditable(editable);
+		  tFName.setEditable(editable);
 		  tPTierStammtVon.setEditable(editable);
 		  tPVerwendungszweck.setEditable(editable);
 		  spinBirthdate_1.setEnabled(editable);
@@ -146,7 +148,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  tPCTMRT.setEditable(editable);
 		  ePHauptproblem.setEditable(editable);
 		  ePSchilderung.setEditable(editable);
-		  tPRufname.setEditable(editable);
+		  tFRufname.setEditable(editable);
 		  sPAenderungenFamilie.setEnabled(editable);
 		  tPAenderungenFamilie.setEditable(editable);
 		  sPVerletzungen.setEnabled(editable);
@@ -177,6 +179,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		  sPFunktionenMotorik.setEnabled(editable);
 		  cBKöperteilBewegen.setEnabled(editable);;;
 		  sP_Bemerkungen.setEnabled(editable);
+		  tFHalltung.setEnabled(editable);
 		  reloadBtn(editable);
 	}
 	private void reloadBtn(boolean editable) {
@@ -272,11 +275,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 		label_2 = new JLabel("Rufname:");
 		
-		tPRufname = new JTextField();
-		tPRufname.setColumns(10);
+		tFRufname = new JTextField();
+		tFRufname.setColumns(10);
 		
-		tPName = new JTextField();
-		tPName.setColumns(10);
+		tFName = new JTextField();
+		tFName.setColumns(10);
 		
 		separator = new JSeparator();
 		
@@ -333,75 +336,87 @@ public class WNeueAnamnese extends JInternalFrame {
 		splitPane_2.setLeftComponent(splitPane);
 		splitPane_2.setDividerLocation(0.5);
 		splitPane.setLeftComponent(panel_2);
+		
+		lblHaltung = new JLabel("Haltung:");
+		
+		tFHalltung = new JTextField();
+		tFHalltung.setColumns(10);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(label_1)
-					.addGap(18)
-					.addComponent(tPName, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(label_2)
-					.addGap(2)
-					.addComponent(tPRufname, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
-				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(label_3)
-					.addGap(4)
-					.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(label_4)
-					.addGap(35)
-					.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-					.addGap(69))
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addComponent(label_5)
-					.addGap(21)
-					.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(10)
-					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-					.addGap(10))
+					.addGap(7)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_1)
+							.addGap(24)
+							.addComponent(tFName, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_2)
+							.addGap(8)
+							.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_3)
+							.addGap(8)
+							.addComponent(tPVerwendungszweck, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_4)
+							.addGap(39)
+							.addComponent(spinBirthdate_1))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(lblHaltung)
+							.addGap(65)
+							.addComponent(tFHalltung, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_5)
+							.addGap(25)
+							.addComponent(tPTierStammtVon, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(11)
+					.addGap(7)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_1))
-						.addComponent(tPName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
+						.addComponent(tFName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_2))
-						.addComponent(tPRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(11)
+						.addComponent(tFRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
+					.addGap(4)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_3))
 						.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(10)
+							.addGap(4)
 							.addComponent(label_4))
+						.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(6)
-							.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(3)
+							.addComponent(lblHaltung))
+						.addComponent(tFHalltung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
 					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addGap(3)
 							.addComponent(label_5))
 						.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(26)
-					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-					.addGap(18))
+					.addGap(4)
+					.addComponent(sPAenderungenFamilie, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
 		);
 		panel_2.setLayout(gl_panel_2);
 		splitPane.setRightComponent(panel_1);
