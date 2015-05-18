@@ -123,6 +123,9 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `outlet` double DEFAULT NULL,
  `availableTimeCons` time DEFAULT NULL,
  `comment` text DEFAULT NULL,
+ `circulation` text DEFAULT NULL,
+ `insertDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE,
  PRIMARY KEY (`AnamnesisID`),
  KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
