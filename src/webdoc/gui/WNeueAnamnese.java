@@ -1111,6 +1111,13 @@ public class WNeueAnamnese extends JInternalFrame {
 	private boolean allSet(){
 		if(tPAenderungenFamilie.getText().length() > 26)
 			return false;
+		if(tPVerwendungszweck.getText().length() > 25)
+			return false;
+		if(tFHalltung.getText().length() > 50)
+			return false;
+		if(tPTierStammtVon.getText().length() > 250)
+			return false;
 		return true;
 	}
 }
+
