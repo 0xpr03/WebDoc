@@ -180,6 +180,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		  cBKöperteilBewegen.setEnabled(editable);;;
 		  sP_Bemerkungen.setEnabled(editable);
 		  tFHalltung.setEnabled(editable);
+		  tPAuslandsaufenthalte.setEditable(editable);
+		  
 		  reloadBtn(editable);
 	}
 	private void reloadBtn(boolean editable) {
@@ -917,6 +919,7 @@ public class WNeueAnamnese extends JInternalFrame {
 			}
 		});
 		panel_3.add(btnEdit, "cell 2 0");
+		editable = false;
 		setEditable();
 		this.setVisible(true);
 	}
