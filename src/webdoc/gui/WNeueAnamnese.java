@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -932,6 +933,90 @@ public class WNeueAnamnese extends JInternalFrame {
 	}
 	
 	private void loadData() {
+		try {
+			ResultSet rs = Database.getAnamnesis(anamnesis_id);
+			if(rs.next()){
+				tPVerwendungszweck.setText(rs.getString(1));
+				int n = 2;
+				tFHalltung.setText(rs.getString(n));
+				n++;
+				// possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
+				n++;
+				tPTierStammtVon.setText(rs.getString(n));
+				n++;
+				tPAenderungenFamilie.setText(rs.getString(n));
+				n++;
+				tPAuslandsaufenthalte.setText(rs.getString(n));
+				n++;
+				tPVerhaltensaufaeligkeiten.setText(rs.getString(n));
+				n++;
+				tPVerletzungen.setText(rs.getString(n));
+				n++;
+				tPNarben.setText(rs.getString(n));
+				n++;
+				tPInfektionen.setText(rs.getString(n));
+				n++;
+				tPImpfungen.setText(rs.getString(n));
+				n++;
+				tPAtmung.setText(rs.getString(n));
+				n++;
+				tPVerdauung.setText(rs.getString(n));
+				n++;
+				tpEndokrinium.setText(rs.getString(n));
+				n++;
+				tPSchilddruese.setText(rs.getString(n));
+				n++;
+				tPBauchspeicheldruese.setText(rs.getString(n));
+				n++;
+				tPZNS.setText(rs.getString(n));
+				n++;
+				cBEpiAnfaelle.setSelectedIndex(rs.getInt(n));;
+				n++;
+				tPRoentgen.setText(rs.getString(n));
+				n++;
+				tPMedikamente.setText(rs.getString(n));
+				n++;
+				tPCTMRT.setText(rs.getString(n));
+				n++;
+				ePHauptproblem.setText(rs.getString(n));
+				n++;
+				ePSchilderung.setText(rs.getString(n));
+				n++;
+				ePUnternommen.setText(rs.getString(n));
+				n++;
+				cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
+				n++;
+				cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
+				n++;
+				ePSchmerzmittel.setText(rs.getString(n));
+				n++;
+				ePVerusachenSchmerzen.setText(rs.getString(n));
+				n++;
+				tPFunktionenMotorik.setText(rs.getString(n));
+				n++;
+				cBKöperteilBewegen.setSelectedIndex(rs.getInt(n));
+				n++;
+				spGehstrecke.setValue(rs.getDouble(n));
+				n++;
+				//new java.sql((Date) spGehzeit)))
+				n++;
+				cBWitterung.setSelectedIndex(rs.getInt(n));
+				n++;
+				// UNKNOWN
+				n++;
+				// cBAuslauf.setSelectedIndex(rs.getInt(n));
+				n++;
+				// new java.sql((Date) spavailTimeCons)))
+				n++;
+				tPBemerkungen.setText(rs.getString(n));
+				n++;
+				tPHerzKreislauf.setText(rs.getString(n));
+				n++;
+			}
+			
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
+		}
 		
 	}
 	
@@ -947,7 +1032,7 @@ public class WNeueAnamnese extends JInternalFrame {
 			try {
 				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID)
 				.purpose(tPVerwendungszweck.getText())
-				.keeping(UNKNOWN)
+				.keeping(tFHalltung.getText())
 				.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
 				.origin(tPTierStammtVon.getText())
 				.familystrchanges(tPAenderungenFamilie.getText())
