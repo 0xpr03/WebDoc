@@ -169,6 +169,10 @@ public class AnamnesisBP {
 	public String getComment() {
 		return comment;
 	}
+	
+	public String getCirculation() {
+		return circulation;
+	}
 
 	private long tierid;
 	private long anamnesisID;
@@ -189,6 +193,7 @@ public class AnamnesisBP {
 	private String hyperthyroidism;
 	private String pancreas;
 	private String ZNS;
+	private String circulation;
 	private int epileptiformAttacks;
 	private String xray;
 	private String medication;
@@ -242,6 +247,7 @@ public class AnamnesisBP {
 		private String painkillerReaction;
 		private String motionCausingPain;
 		private String motorInterference;
+		private String circulation;
 		private int bodyPartUsagePossible;
 		private double possibleWalkDistance;
 		private Time possibleWalkDuration;
@@ -262,6 +268,11 @@ public class AnamnesisBP {
 
 		public Builder anamnesisID(long anamnesisID) {
 			this.anamnesisID = anamnesisID;
+			return this;
+		}
+		
+		public Builder circulation(String circulation) {
+			this.circulation = circulation;
 			return this;
 		}
 
@@ -495,5 +506,6 @@ public class AnamnesisBP {
 		this.outlet = builder.outlet;
 		this.availableTimeCons = builder.availableTimeCons;
 		this.comment = builder.comment;
+		this.circulation = builder.circulation;
 	}
 }

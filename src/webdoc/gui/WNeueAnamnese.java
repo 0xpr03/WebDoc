@@ -27,16 +27,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JSpinner.DateEditor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,7 +47,6 @@ import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
-import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class WNeueAnamnese extends JInternalFrame {
@@ -213,9 +213,9 @@ public class WNeueAnamnese extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				logger.debug("btnOk fired..\nanamnesisid: {}",anamnesis_id);
 				if(anamnesis_id == -1){
-					saveData();
+					saveData(true);
 				}else if(editable){
-					//TODO: change
+					saveData(false);
 				}else{
 					dispose();
 				}
@@ -935,7 +935,12 @@ public class WNeueAnamnese extends JInternalFrame {
 		
 	}
 	
-	private void saveData() {
+	/**
+	 * Insert & edit method caller
+	 * @author "Aron Heinecke"
+	 * @param insert
+	 */
+	private void saveData(boolean insert) {
 //		java.sql.Time time = new java.sql.Time(((Date)spGehzeit.getValue()).getTime());
 		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
@@ -978,8 +983,12 @@ public class WNeueAnamnese extends JInternalFrame {
 				.outlet(-1.0)
 				.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
 				.comment(tPBemerkungen.getText())
+				.circulation(tPHerzKreislauf.getText())
 				.build();
-				Database.insertAnamnesis(anamnesis);
+				if(insert)
+					Database.insertAnamnesis(anamnesis);
+				else
+					logger.error("Currently not implemented");
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
