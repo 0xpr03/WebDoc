@@ -48,6 +48,7 @@ public class WebDoc {
 		}
 		
 		if(!Verifier.Verify()){
+			logger.error("Unable to validate license!");
 			System.exit(1);
 		}
 		
