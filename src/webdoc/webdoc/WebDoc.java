@@ -21,6 +21,7 @@ import webdoc.lib.DBEError;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
+import webdoc.lib.Verifier;
 import webdoc.lib.dbTools;
 
 /**
@@ -44,6 +45,10 @@ public class WebDoc {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			logger.error("Error setting look and feel \n{}",e);
+		}
+		
+		if(!Verifier.Verify()){
+			System.exit(1);
 		}
 		
 		//startup init
