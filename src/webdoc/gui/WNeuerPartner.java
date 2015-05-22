@@ -824,8 +824,7 @@ public class WNeuerPartner extends JInternalFrame {
 			return false;
 		if(invalidInt(textPostleitzahl.getText()))
 			return false;		
-		else 
-			return true;
+		return true;
 	}
 	
 	private void exit() {
