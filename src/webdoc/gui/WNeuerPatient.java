@@ -614,8 +614,21 @@ public class WNeuerPatient extends JInternalFrame {
 		if(enumGeschlecht.equals(GenderType.UNKNOWN))
 			return false;
 		if (invalidDouble(spinGewicht.getValue().toString()))
+		    return false;
+	    if (spinGewicht.getValue() == 0.0)
+	        return false;
 		if (strRufname.getText().equals(""))
 			return false;
+		if (strRufname.length() > 20)
+		    return false;
+	    if (strName.length() > 50)
+	        return false;
+        if (strFarbe.length() > 20)
+            return false;
+        if (textIdentifizierung.length() > 30)
+            return false;
+        if (txtBemerkung.lenght() > 100)
+            return false;
 		return true;
 	}
 	private boolean invalidInt(String s){
