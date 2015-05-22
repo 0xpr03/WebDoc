@@ -122,4 +122,29 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		btnEditieren.setEnabled(!editable);
 		
 	}
+	private boolean invalidInt(String s){
+		try{
+			int i = Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}	
+	}
+	
+	private boolean invalidDouble(String s){
+		try{
+		double d = Double.parseDouble(s);
+		return false;
+		}catch(NumberFormatException e){
+			return true;
+		}	
+	}
+	private boolean allSet(){
+	    if (invalidDouble(spinner.getValue.toString())
+	        return false;
+        if (textField.getText() == "")
+            return false;
+        
+        
+	}
 }
