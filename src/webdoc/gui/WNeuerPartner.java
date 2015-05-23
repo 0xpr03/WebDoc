@@ -796,11 +796,7 @@ public class WNeuerPartner extends JInternalFrame {
 			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
 				return;
 		}
-		try {
-			searchAnimalStm.close();
-		} catch (SQLException e) {
-			logger.error(e);
-		}
+		Database.closePStatement(searchAnimalStm);
 		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);

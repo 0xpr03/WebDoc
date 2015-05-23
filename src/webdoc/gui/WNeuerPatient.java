@@ -546,6 +546,8 @@ public class WNeuerPatient extends JInternalFrame {
 			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
 				return;
 		}
+		Database.closePStatement(searchRaceStm);
+		Database.closePStatement(searchAnimalStm);
 		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
