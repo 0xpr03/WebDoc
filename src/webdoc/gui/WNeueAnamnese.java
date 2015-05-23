@@ -1076,6 +1076,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					Database.insertAnamnesis(anamnesis);
 				else
 					logger.error("Currently not implemented");
+				setEnabled(false);
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
