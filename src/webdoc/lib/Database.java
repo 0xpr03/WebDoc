@@ -312,7 +312,7 @@ public class Database{
 	 */
 	public static long insertAnamnesis(AnamnesisBP anamnesis) throws SQLException{
 		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`, `circulation`) "
-				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		int platz = 1;
 		stm.setLong(platz, anamnesis.getTierid());
