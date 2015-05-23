@@ -606,6 +606,7 @@ public class WNeuerPatient extends JInternalFrame {
 			}
 		}
 	}
+	
 	private boolean allSet(){
 		if(strName.getText().isEmpty())
 			return false;
@@ -631,6 +632,7 @@ public class WNeuerPatient extends JInternalFrame {
             return false;
 		return true;
 	}
+	
 	private boolean invalidInt(String s){
 		try{
 			int i = Integer.parseInt(s);

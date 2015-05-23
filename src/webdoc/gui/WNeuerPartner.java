@@ -611,7 +611,7 @@ public class WNeuerPartner extends JInternalFrame {
 						textZusatz.setText(rs.getString(6));
 						textEmail.setText(rs.getString(7));
 						rs.close();
-					}					
+					}
 					{
 						PreparedStatement stm = Database.prepareTelecommSelectStm();
 						{
