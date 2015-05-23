@@ -113,7 +113,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JSpinner spavailTimeCons;
 	private JScrollPane sP_Bemerkungen;
 	private long animalID;
-	private long anamnesis_id;
+	private long anamnesisID;
 	private JButton btnEdit;
 	private JButton btnOk;
 	private JButton btnCancel;
@@ -135,70 +135,73 @@ public class WNeueAnamnese extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	private void setEditable(){
-		  tFName.setEditable(editable);
-		  tPTierStammtVon.setEditable(editable);
-		  tPVerwendungszweck.setEditable(editable);
-		  spinBirthdate_1.setEnabled(editable);
-		  tpEndokrinium.setEditable(editable);
-		  tPSchilddruese.setEditable(editable);
-		  tPBauchspeicheldruese.setEditable(editable);
-		  tPZNS.setEditable(editable);
-		  tPMedikamente.setEditable(editable);
-		  tPRoentgen.setEditable(editable);
-		  tPCTMRT.setEditable(editable);
-		  ePHauptproblem.setEditable(editable);
-		  ePSchilderung.setEditable(editable);
-		  tFRufname.setEditable(editable);
-		  sPAenderungenFamilie.setEnabled(editable);
-		  tPAenderungenFamilie.setEditable(editable);
-		  sPVerletzungen.setEnabled(editable);
-		  tPVerletzungen.setEditable(editable);
-		  sPNarben.setEnabled(editable);
-		  tPNarben.setEditable(editable);
-		  sPVerhaltensaufaeligkeiten.setEnabled(editable);
-		  tPVerhaltensaufaeligkeiten.setEditable(editable);
-		  sPAuslandsaufenthalte.setEnabled(editable);
-		  sPAtmung.setEnabled(editable);
-		  sPImpfungen.setEnabled(editable);;
-		  sPInfektionen.setEnabled(editable);
-		  sPHerzKreislauf.setEnabled(editable);;
-		  sPVerdauung.setEnabled(editable);
-		  sPEndokrinium.setEnabled(editable);;
-		  sPSchilddruese.setEnabled(editable);;
-		  SPBauchspeicheldruese.setEnabled(editable);
-		  sPZNS.setEnabled(editable);
-		  sPMedikamente.setEnabled(editable);
-		  sPRoentgen.setEnabled(editable);
-		  sPCTMRT.setEnabled(editable);
-		  sPHauptproblem.setEnabled(editable);;
-		  sPSchilderung.setEnabled(editable);
-		  sPUnternommen.setEnabled(editable);
-		  cBSchmerzempfindlichkeit.setEnabled(editable);
-		  cBDenkenSchmerzen.setEnabled(editable);
-		  sPVerusachenSchmerzen.setEnabled(editable);
-		  sPFunktionenMotorik.setEnabled(editable);
-		  cBKöperteilBewegen.setEnabled(editable);;;
-		  sP_Bemerkungen.setEnabled(editable);
-		  tFHalltung.setEnabled(editable);
-		  tPAuslandsaufenthalte.setEditable(editable);
-		  
-		  reloadBtn(editable);
+	private void setEditable() {
+		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesisID, animalID, editable);
+		tFName.setEditable(editable);
+		tPTierStammtVon.setEditable(editable);
+		tPVerwendungszweck.setEditable(editable);
+		spinBirthdate_1.setEnabled(editable);
+		tpEndokrinium.setEditable(editable);
+		tPSchilddruese.setEditable(editable);
+		tPBauchspeicheldruese.setEditable(editable);
+		tPZNS.setEditable(editable);
+		tPMedikamente.setEditable(editable);
+		tPRoentgen.setEditable(editable);
+		tPCTMRT.setEditable(editable);
+		ePHauptproblem.setEditable(editable);
+		ePSchilderung.setEditable(editable);
+		tFRufname.setEditable(editable);
+		sPAenderungenFamilie.setEnabled(editable);
+		tPAenderungenFamilie.setEditable(editable);
+		sPVerletzungen.setEnabled(editable);
+		tPVerletzungen.setEditable(editable);
+		sPNarben.setEnabled(editable);
+		tPNarben.setEditable(editable);
+		sPVerhaltensaufaeligkeiten.setEnabled(editable);
+		tPVerhaltensaufaeligkeiten.setEditable(editable);
+		sPAuslandsaufenthalte.setEnabled(editable);
+		sPAtmung.setEnabled(editable);
+		sPImpfungen.setEnabled(editable);
+		sPInfektionen.setEnabled(editable);
+		sPHerzKreislauf.setEnabled(editable);
+		sPVerdauung.setEnabled(editable);
+		sPEndokrinium.setEnabled(editable);
+		sPSchilddruese.setEnabled(editable);
+		SPBauchspeicheldruese.setEnabled(editable);
+		sPZNS.setEnabled(editable);
+		sPMedikamente.setEnabled(editable);
+		sPRoentgen.setEnabled(editable);
+		sPCTMRT.setEnabled(editable);
+		sPHauptproblem.setEnabled(editable);
+		sPSchilderung.setEnabled(editable);
+		sPUnternommen.setEnabled(editable);
+		cBSchmerzempfindlichkeit.setEnabled(editable);
+		cBDenkenSchmerzen.setEnabled(editable);
+		sPVerusachenSchmerzen.setEnabled(editable);
+		sPFunktionenMotorik.setEnabled(editable);
+		cBKöperteilBewegen.setEnabled(editable);
+		sP_Bemerkungen.setEnabled(editable);
+		tFHalltung.setEnabled(editable);
+		tPAuslandsaufenthalte.setEditable(editable);
+
+		reloadBtn(editable);
 	}
+	
 	private void reloadBtn(boolean editable) {
 		btnOk.setText(editable ? "Speichern" : "Schließen");
-		btnEdit.setVisible(anamnesis_id != -1);
+		btnEdit.setVisible(anamnesisID != -1);
 		btnEdit.setEnabled(!editable);
 	}
+	
 	/**
 	 * Create the application.
 	 */
 	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id, final String patient_name) {
-		logger.debug("anamnesisid: {}\nanimalid: {}",anamnesis_id, animal_id);
+		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}",anamnesis_id, animal_id,is_editable);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
-		this.anamnesis_id = anamnesis_id;
+		this.anamnesisID = anamnesis_id;
 		setFrameIcon(null);
 		setResizable(true);
 		setMaximizable(true);
@@ -920,7 +923,6 @@ public class WNeueAnamnese extends JInternalFrame {
 			}
 		});
 		panel_3.add(btnEdit, "cell 2 0");
-		editable = false;
 		setEditable();
 		this.setVisible(true);
 	}
