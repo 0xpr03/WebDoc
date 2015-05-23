@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,6 +60,8 @@ import webdoc.gui.utils.GenderEnumObj.GenderType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.gui.utils.PatientTableModel;
+import webdoc.gui.utils.TDListElement;
+import webdoc.gui.utils.TDListElement.LEType;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
@@ -284,6 +288,16 @@ public class WNeuerPatient extends JInternalFrame {
 		table.setFillsViewportHeight(true);
 		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(model);
 		table.setRowSorter(sorter);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent mevent) {
+				if(mevent.getButton() == MouseEvent.BUTTON1){
+					if(mevent.getClickCount() >= 2){
+						GUIManager.callWNewAnamnesis(true, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText());
+					}
+				}
+			}
+		});
 		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
@@ -459,6 +473,18 @@ public class WNeuerPatient extends JInternalFrame {
 	private void updateTitle(String name, String rufname) {
 		this.setTitle("Patient - " + name + " " + rufname);
 	}
+	
+	private void loadHistoryData(){
+		try {
+			ResultSet rs = Database.getPatientRData(id);
+			while(rs.next()){
+				model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+		}
+	}
 
 	/**
 	 * Loads the animal data if id not -1 (while id 0 is also never given out)
@@ -483,6 +509,7 @@ public class WNeuerPatient extends JInternalFrame {
 				textRasse.setTextWithoutNotification(result.getString(8));
 				updateTitle(result.getString(1), result.getString(2));
 				result.close();
+				loadHistoryData();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
