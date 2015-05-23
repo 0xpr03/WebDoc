@@ -18,6 +18,7 @@ import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
@@ -1086,6 +1087,17 @@ public class WNeueAnamnese extends JInternalFrame {
 		}else{
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
+	}
+	
+	@Override
+	public void dispose() {
+		if (editable) {
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
+				return;
+		}
+		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		super.dispose();
+		GUIManager.dropJID(this);
 	}
 	
 	private int getEnumType(Object obj){
