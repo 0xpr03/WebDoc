@@ -936,13 +936,14 @@ public class WNeueAnamnese extends JInternalFrame {
 	
 	private void loadData() {
 		try {
-			ResultSet rs = Database.getAnamnesis(anamnesis_id);
+			ResultSet rs = Database.getAnamnesis(anamnesisID);
 			if(rs.next()){
 				tPVerwendungszweck.setText(rs.getString(1));
 				int n = 2;
 				tFHalltung.setText(rs.getString(n));
 				n++;
-				// possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
+				spinBirthdate_1.setValue(rs.getDate(n));
+				//possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
 				n++;
 				tPTierStammtVon.setText(rs.getString(n));
 				n++;
@@ -1000,14 +1001,16 @@ public class WNeueAnamnese extends JInternalFrame {
 				n++;
 				spGehstrecke.setValue(rs.getDouble(n));
 				n++;
+				spGehzeit.setValue(rs.getTime(n));
 				//new java.sql((Date) spGehzeit)))
 				n++;
 				cBWitterung.setSelectedIndex(rs.getInt(n));
 				n++;
 				// UNKNOWN
 				n++;
-				// cBAuslauf.setSelectedIndex(rs.getInt(n));
+				cBAuslauf.setSelectedIndex(rs.getInt(n));
 				n++;
+				spavailTimeCons.setValue(rs.getTime(n));
 				// new java.sql((Date) spavailTimeCons)))
 				n++;
 				tPBemerkungen.setText(rs.getString(n));
