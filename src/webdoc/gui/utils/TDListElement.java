@@ -35,6 +35,18 @@ public class TDListElement {
 		this.elemType = type;
 		this.date = date;
 	}
+	/**
+	 * Unsafe constructor, name will be null!
+	 * @param id
+	 * @param type
+	 * @param date
+	 */
+	public TDListElement(long id, LEType type, Date date){
+		this.id = id;
+		this.elemType = type;
+		this.date = date;
+	}
+	
 	public TDListElement(long id, String name_1, String name_2){
 		this.id = id;
 		this.name = name_1 + name_2;
