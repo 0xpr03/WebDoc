@@ -615,19 +615,19 @@ public class WNeuerPatient extends JInternalFrame {
 			return false;
 		if (invalidDouble(spinGewicht.getValue().toString()))
 		    return false;
-	    if (spinGewicht.getValue() == 0.0)
+	    if (Double.parseDouble(spinGewicht.getValue().toString()) == 0.0)
 	        return false;
 		if (strRufname.getText().equals(""))
 			return false;
-		if (strRufname.length() > 20)
+		if (strRufname.getText().length() > 20)
 		    return false;
-	    if (strName.length() > 50)
+	    if (strName.getText().length() > 50)
 	        return false;
-        if (strFarbe.length() > 20)
+        if (strFarbe.getText().length() > 20)
             return false;
-        if (textIdentifizierung.length() > 30)
+        if (textIdentifizierung.getText().length() > 30)
             return false;
-        if (txtBemerkung.lenght() > 100)
+        if (txtBemerkung.getText().toString().length() > 100)
             return false;
 		return true;
 	}

@@ -25,13 +25,14 @@ import webdoc.gui.utils.JSearchTextField;
 
 @SuppressWarnings("serial")
 public class WNeueBehandlungsart extends JInternalFrame {
-	private JTextField textField;
+	private JTextField tFBezeichnung;
 	private boolean editable;
-	private JScrollPane scrollPane;
+	private JScrollPane sPErklaerung;
 	private JSpinner spinner;
 	private JSearchTextField searchTextField;
 	private JButton btnSpeichern;
 	private JButton btnEditieren;
+	private JTextPane tPErklaerung;
 	public WNeueBehandlungsart() {
 		
 		JPanel panel = new JPanel();
@@ -42,16 +43,16 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		
 		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
 		
-		JLabel lblPreisProEinheit = new JLabel("Preis pro Einheit:");
+		JLabel lblPreisProEinheit = new JLabel("Preis pro Einheit in €:");
 		
 		JLabel lblErklrung = new JLabel("Erklärung:");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tFBezeichnung = new JTextField();
+		tFBezeichnung.setColumns(10);
 		
 		spinner = new JSpinner();
 		
-		scrollPane = new JScrollPane();
+		sPErklaerung = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -60,20 +61,20 @@ public class WNeueBehandlungsart extends JInternalFrame {
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(searchTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblPreisProEinheit)
 										.addComponent(lblBezeichnung)
 										.addComponent(lblErklrung))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 221, GroupLayout.PREFERRED_SIZE)
+										.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
 										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(textField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(spinner, Alignment.LEADING)))))))
-					.addContainerGap(178, Short.MAX_VALUE))
+											.addComponent(spinner, Alignment.LEADING)
+											.addComponent(tFBezeichnung, Alignment.LEADING)))))))
+					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -83,7 +84,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBezeichnung)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tFBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPreisProEinheit)
@@ -91,13 +92,13 @@ public class WNeueBehandlungsart extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblErklrung)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+						.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+					.addGap(12)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
 		);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
+		tPErklaerung = new JTextPane();
+		sPErklaerung.setViewportView(tPErklaerung);
 		
 		btnSpeichern = new JButton("Speichern");
 		panel.add(btnSpeichern, "cell 1 0");
@@ -111,9 +112,9 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		setEditable(editable);
 	}
 	private void setEditable(boolean editable) {
-		textField.setEditable(editable);
+		tFBezeichnung.setEditable(editable);
 		spinner.setEnabled(editable);
-		scrollPane.setEnabled(editable);
+		sPErklaerung.setEnabled(editable);
 		refreshBtn();
 		
 	}
@@ -140,10 +141,13 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		}	
 	}
 	private boolean allSet(){
-	    if (invalidDouble(spinner.getValue.toString())
+	    if (invalidDouble(spinner.getValue().toString()))
 	        return false;
-        if (textField.getText() == "")
+        if (tFBezeichnung.getText() == "")
             return false;
+        if (tPErklaerung.getText().toString().length() > 20)
+        	return false;
+		return true;
         
         
 	}

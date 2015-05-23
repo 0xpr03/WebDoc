@@ -824,9 +824,32 @@ public class WNeuerPartner extends JInternalFrame {
 			return false;
 		if(invalidInt(textPostleitzahl.getText()))
 			return false;		
+		if (textEmail.getText().length() < 40)
+			return false;
+		if (textTitel.getText().length() > 10)
+			return false;
+		if(textComment.getText().toString().length() < 100)
+			return false;
+		if (invalidInt(textPostleitzahl.getText().toString()))
+			return false;
+		if (invalidInt(textHausnummer.getText().toString()))
+			return false;
+		if (textStraße.getText().length() > 20)
+			return false;
+		if (textZusatz.getText().length() > 50)
+			return false;
+		if (textOrtsteil.getText().length() > 20)
+			return false;
 		return true;
 	}
 	
+	private boolean invalidDouble(String s){
+		try{
+		double d = Double.parseDouble(s);
+		return false;
+		}catch(NumberFormatException e){
+			return true;
+		}}	
 	private void exit() {
 		this.dispose();
 		if (id != -1)
