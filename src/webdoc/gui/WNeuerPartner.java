@@ -808,7 +808,7 @@ public class WNeuerPartner extends JInternalFrame {
 	
 	private boolean invalidInt(String s){
 		try{
-			int i = Integer.parseInt(s);
+			Integer.parseInt(s);
 			return false;
 		}catch(NumberFormatException e){
 			return true;
@@ -823,12 +823,12 @@ public class WNeuerPartner extends JInternalFrame {
 		if(invalidInt(textHausnummer.getText()))
 			return false;
 		if(invalidInt(textPostleitzahl.getText()))
-			return false;		
-		if (textEmail.getText().length() < 40)
+			return false;
+		if (textEmail.getText().length() > 40)
 			return false;
 		if (textTitel.getText().length() > 10)
 			return false;
-		if(textComment.getText().toString().length() < 100)
+		if(textComment.getText().toString().length() > 100)
 			return false;
 		if (invalidInt(textPostleitzahl.getText().toString()))
 			return false;
@@ -845,7 +845,7 @@ public class WNeuerPartner extends JInternalFrame {
 	
 	private boolean invalidDouble(String s){
 		try{
-		double d = Double.parseDouble(s);
+		Double.parseDouble(s);
 		return false;
 		}catch(NumberFormatException e){
 			return true;
