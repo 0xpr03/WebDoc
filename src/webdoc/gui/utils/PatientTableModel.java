@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import webdoc.gui.utils.TDListElement.LEType;
+
 /**
  * Custom TableModel for Patient Treatment JTable
  * @author "Aron Heinecke"
@@ -69,7 +71,7 @@ public class PatientTableModel extends AbstractTableModel {
     		value = tdl.getDate();
     		break;
     	case 1:
-    		value = tdl.getType();
+    		value = tdl.getType() == LEType.TYPE_A ? "Anamn" : "Threat";
     		break;
     	}
     	return value;
