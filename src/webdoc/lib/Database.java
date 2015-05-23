@@ -219,7 +219,7 @@ public class Database{
 					+"INNER JOIN animal "
 					+"ON relationship.AnimalID = animal.AnimalID "
 					+"WHERE relationship.PartnerID = ? ;";
-		PreparedStatement stm = connection.prepareStatement(sql);
+		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, partnerid);
 		stm.execute();
 		return stm.getResultSet();
@@ -238,6 +238,7 @@ public class Database{
 		stm.setLong(1, partnerid);
 		stm.setLong(2, animalid);
 		stm.executeUpdate();
+		stm.close();
 	}
 	
 	/**
@@ -253,6 +254,7 @@ public class Database{
 		stm.setLong(1, partnerid);
 		stm.setLong(2, animalid);
 		stm.executeUpdate();
+		stm.close();
 	}
 	
 	/**
@@ -264,7 +266,7 @@ public class Database{
 	 */
 	public static ResultSet getAnamnesis(long anamnesisID) throws SQLException{
 		String sql = "SELECT `purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`,`circulation`,`insertDate`,`editDate` FROM `anamnesis` WHERE `AnamnesisID` = ?";
-		PreparedStatement stm = connection.prepareStatement(sql);
+		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, anamnesisID);
 		return stm.executeQuery();
 	}
@@ -651,7 +653,7 @@ public class Database{
 	 */
 	public static long getPartnerRoleID(long partnerid,long roleid) throws SQLException{
 		String sql = "SELECT PartnerRoleID FROM `partnerroles` WHERE `PartnerID` = ? AND `RoleID` = ?";
-		PreparedStatement stm = connection.prepareStatement(sql);
+		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, partnerid);
 		stm.setLong(2, roleid);
 		ResultSet rs = stm.executeQuery();
@@ -874,7 +876,7 @@ public class Database{
 				+"FROM partner "
 				+"WHERE partner.PartnerID = ? ";	
 		
-		PreparedStatement stmt = connection.prepareStatement(sql);
+		PreparedStatement stmt = prepareStm(sql);
 		stmt.setLong(1, id);
 		return stmt.executeQuery();
 	}
@@ -885,7 +887,7 @@ public class Database{
 				+"INNER JOIN email "
 				+"ON addresses.PartnerRoleID = email.PartnerRoleID "
 				+"WHERE addresses.`PartnerRoleID` = ?";
-		PreparedStatement stm = connection.prepareStatement(sql);
+		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, partnerroleid);
 		return stm.executeQuery();
 	}
@@ -916,7 +918,7 @@ public class Database{
 			+"ON animal.RaceID = race.RaceID "
 			+"WHERE AnimalID = ?";	
 		
-		PreparedStatement stmt = connection.prepareStatement(sql);
+		PreparedStatement stmt = prepareStm(sql);
 		stmt.setLong(1, id);
 		return stmt.executeQuery();
 	}
@@ -1035,7 +1037,9 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static PreparedStatement prepareStm(String sql) throws SQLException{
-		return connection.prepareStatement(sql);
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.closeOnCompletion();
+		return stm;
 	}
 	
 	/**
