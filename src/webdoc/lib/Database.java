@@ -162,14 +162,16 @@ public class Database{
 	
 	/**
 	 * Retrives anamnesis related to the patient
+	 * type 0 = anamnesis
+	 * 1 = threatment
 	 * @param patientID
 	 * @return
 	 * @throws SQLException 
 	 */
 	public static ResultSet getPatientRData(long patientID) throws SQLException{
-		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate FROM `anamnesis` "
+		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
 				+"WHERE AnimalID = ? ";
-		PreparedStatement stm = connection.prepareStatement(sql);
+		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, patientID);
 		return stm.executeQuery();
 	}
