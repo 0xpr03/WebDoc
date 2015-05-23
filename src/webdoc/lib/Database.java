@@ -1159,6 +1159,19 @@ public class Database{
 	}
 	
 	/**
+	 * Silently closes a prepared statement, avoiding multiple try's
+	 * @param stm
+	 * @author "Aron Heinecke"
+	 */
+	public static void closePStatement(PreparedStatement stm){
+		try {
+			stm.close();
+		} catch (SQLException e) {
+			logger.error(e);
+		}
+	}
+	
+	/**
 	 * Converts the (mostly) string based SQLExceptions to DBErrors
 	 * This function already logs errors on debug level!
 	 * Extended usage for functions where the MSG return matters
