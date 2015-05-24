@@ -110,7 +110,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JSpinner spGehzeit;
 	private JComboBox<EnumObject> cBWitterung;
 	private JComboBox<EnumObject> comboBoxZyklus;
-	private JComboBox<EnumObject> cBAuslauf;
+	private JSpinner spAuslauf;
 	private JSpinner spavailTimeCons;
 	private JScrollPane sP_Bemerkungen;
 	private long animalID;
@@ -816,10 +816,8 @@ public class WNeueAnamnese extends JInternalFrame {
 
 		JLabel label_16 = new JLabel("Auslauf:");
 
-		cBAuslauf = new JComboBox<EnumObject>();
-		cBAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
-				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
-				new EnumObject("Nein", EnumType.B) }));
+		spAuslauf = new JSpinner();
+		spAuslauf.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
 
@@ -873,7 +871,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(label_15, "cell 0 4,alignx left,aligny center");
 		panel_11.add(comboBoxZyklus, "cell 1 4,growx,aligny top");
 		panel_11.add(label_16, "cell 0 5,alignx left,aligny center");
-		panel_11.add(cBAuslauf, "cell 1 5,growx,aligny top");
+		panel_11.add(spAuslauf, "cell 1 5,growx,aligny top");
 		panel_11.add(lblIstDerPatient, "cell 0 0,alignx left,aligny center");
 		panel_11.add(lblWieVielZeit, "cell 0 6,alignx left,aligny center");
 		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
@@ -978,7 +976,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					// UNKNOWN
 					n++;
-					cBAuslauf.setSelectedIndex(rs.getInt(n));
+					spAuslauf.setValue(rs.getDouble(n));
 					n++;
 					spavailTimeCons.setValue(rs.getTime(n));
 					n++;
@@ -1016,8 +1014,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.regularVaccinations(tPImpfungen.getText()).breathing(tPAtmung.getText())
 						.digestiveTract(tPVerdauung.getText()).endocrineSystem(tpEndokrinium.getText())
 						.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
-						.ZNS(tPZNS.getText())
-						.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
+						.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
 						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
 						.mainproblem(ePHauptproblem.getText()).descrPatientOwner(ePSchilderung.getText())
 						.wasUndertaken(ePUnternommen.getText())
@@ -1030,7 +1027,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.possibleWalkDistance((double) spGehstrecke.getValue())
 						.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
 						.weatherDependent(getEnumType(cBWitterung.getSelectedItem())).cycleCorrelation(UNKNOWN)
-						.outlet(-1.0)
+						.outlet((double) spAuslauf.getValue())
 						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
 						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText()).build();
 				if (insert)
