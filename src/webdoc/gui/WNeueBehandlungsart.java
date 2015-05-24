@@ -106,8 +106,6 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		panel.add(btnEditieren, "cell 2 0");
 		getContentPane().setLayout(groupLayout);
 		
-		
-		////////////////////////////////////////////
 		setEditable(editable);
 	}
 	private void setEditable(boolean editable) {

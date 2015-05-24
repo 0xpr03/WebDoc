@@ -298,6 +298,26 @@ public class Database{
 	}
 	
 	/**
+	 * Update anamnesis
+	 * @return
+	 * @throws SQLException
+	 */
+	public static int updateAnamnesis(AnamnesisBP anamnesis) throws SQLException{
+		String sql = "UPDATE anamnesis SET `AnimalID` = ?,`purpose` = ?,`keeping` = ?,`possesionsince` = ?,`origin` = ?,`familystrchanges` = ?,`abroadstays` = ?,`attitudeconspicuity` = ?,"
+				+"`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,"
+				+"`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,"
+				+"`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,"
+				+"`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?, `circulation` = ? "
+				+"WHERE AnamnesisID = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		int pos = setAnamnesisValues(anamnesis,stm) +1;
+		stm.setLong(pos, anamnesis.getAnamnesisID());
+		int changed = stm.executeUpdate();
+		stm.close();
+		return changed;
+	}
+	
+	/**
 	 * Set anamnesis statement data
 	 * @param anamnesis
 	 * @param stm
@@ -401,27 +421,7 @@ public class Database{
 		stm.setString(platz, anamnesis.getCirculation().equals("") ? null : anamnesis.getCirculation());
 		return platz;
 	}
-	
-	/**
-	 * Update anamnesis
-	 * @return
-	 * @throws SQLException
-	 */
-	public static int updateAnamnesis(AnamnesisBP anamnesis) throws SQLException{
-		String sql = "UPDATE anamnesis SET `AnimalID` = ?,`purpose` = ?,`keeping` = ?,`possesionsince` = ?,`origin` = ?,`familystrchanges` = ?,`abroadstays` = ?,`attitudeconspicuity` = ?,"
-				+"`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,"
-				+"`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,"
-				+"`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,"
-				+"`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?, `circulation` = ? "
-				+"WHERE AnamnesisID = ?";
-		PreparedStatement stm = connection.prepareStatement(sql);
-		int pos = setAnamnesisValues(anamnesis,stm) +1;
-		stm.setLong(pos, anamnesis.getAnamnesisID());
-		int changed = stm.executeUpdate();
-		stm.close();
-		return changed;
-	}
-	
+
 	/**
 	 * Insert patient, based on the procedure, -> recommended
 	 * @param name string(50)
