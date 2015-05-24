@@ -1040,6 +1040,7 @@ public class WNeueAnamnese extends JInternalFrame {
 			try {
 				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID).purpose(tPVerwendungszweck.getText())
 						.keeping(tFHalltung.getText())
+						.anamnesisID(anamnesisID)
 						.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
 						.origin(tPTierStammtVon.getText()).familystrchanges(tPAenderungenFamilie.getText())
 						.abroadstays(tPAuslandsaufenthalte.getText())
@@ -1063,12 +1064,14 @@ public class WNeueAnamnese extends JInternalFrame {
 						.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
 						.cycleCorrelation(UNKNOWN)
 						.outlet((double) spAuslauf.getValue())
-						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
-						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText()).build();
+						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue())
+						.getTime()))
+						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText())
+						.build();
 				if (insert)
 					anamnesisID = Database.insertAnamnesis(anamnesis);
 				else
-					logger.error("Currently not implemented");
+					Database.updateAnamnesis(anamnesis);
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
