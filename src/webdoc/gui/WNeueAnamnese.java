@@ -999,8 +999,6 @@ public class WNeueAnamnese extends JInternalFrame {
 	 * @param insert
 	 */
 	private void saveData(boolean insert) {
-		// java.sql.Time time = new
-		// java.sql.Time(((Date)spGehzeit.getValue()).getTime());
 		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
 			try {
