@@ -346,92 +346,114 @@ public class WNeueAnamnese extends JInternalFrame {
 		tFHalltung = new JTextField();
 		tFHalltung.setColumns(10);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_2
-				.createSequentialGroup()
-				.addGap(7)
-				.addGroup(gl_panel_2
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_1).addGap(24)
-								.addComponent(tFName, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_2).addGap(8)
-								.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_1)
+							.addGap(24)
+							.addComponent(tFName, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_2)
+							.addGap(8)
+							.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
 						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_3).addGap(8)
-								.addComponent(tPVerwendungszweck, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_4).addGap(39)
-								.addComponent(spinBirthdate_1))
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(lblHaltung).addGap(65)
-								.addComponent(tFHalltung, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_5).addGap(25)
-								.addComponent(tPTierStammtVon, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))));
-		gl_panel_2
-				.setVerticalGroup(gl_panel_2
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2
-								.createSequentialGroup()
-								.addGap(7)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_1))
-										.addComponent(tFName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_2))
-										.addComponent(tFRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-								.addGap(4)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_3))
-										.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(4).addComponent(label_4))
-										.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(lblHaltung))
-										.addComponent(tFHalltung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addGroup(gl_panel_2
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_5))
-										.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addComponent(sPAenderungenFamilie, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)));
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_3)
+							.addGap(8)
+							.addComponent(tPVerwendungszweck, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_4)
+							.addGap(39)
+							.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(lblHaltung)
+							.addGap(65)
+							.addComponent(tFHalltung, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(label_5)
+							.addGap(25)
+							.addComponent(tPTierStammtVon, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(7)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_1))
+						.addComponent(tFName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_2))
+						.addComponent(tFRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_3))
+						.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(4)
+							.addComponent(label_4))
+						.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblHaltung))
+						.addComponent(tFHalltung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(4)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(3)
+							.addComponent(label_5))
+						.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(1)
+					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+					.addGap(1))
+		);
 		panel_2.setLayout(gl_panel_2);
 		splitPane.setRightComponent(panel_1);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1
-				.setHorizontalGroup(gl_panel_1
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup().addContainerGap()
-								.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-								.addGap(2))
-						.addGroup(gl_panel_1
-								.createSequentialGroup()
-								.addGap(2)
-								.addGroup(gl_panel_1
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(sPNarben, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-										.addComponent(sPVerletzungen, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-										.addGroup(gl_panel_1
-												.createSequentialGroup()
-												.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
-												.addGap(2)))));
-		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
-				.createSequentialGroup().addContainerGap()
-				.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(17)
-				.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(sPVerletzungen, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(sPNarben, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(29)));
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(sPNarben, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+						.addComponent(sPVerletzungen, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.PREFERRED_SIZE, 153, Short.MAX_VALUE)
+							.addGap(1))))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPVerletzungen, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPNarben, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+					.addGap(1))
+		);
 		splitPane.setDividerLocation(0.5);
 		panel_1.setLayout(gl_panel_1);
 
@@ -478,30 +500,39 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPVerdauung = new JTextPane();
 		sPVerdauung.setViewportView(tPVerdauung);
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
-				.createSequentialGroup()
-				.addGap(2)
-				.addGroup(gl_panel
-						.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPVerdauung, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-								.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE).addGap(1))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-								.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE).addGap(1))
-						.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-								.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-								.addGap(1))).addGap(7)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
-				.createSequentialGroup().addGap(7)
-				.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE).addGap(4)
-				.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(sPVerdauung, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE).addGap(7)));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(sPVerdauung, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+							.addGap(1))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+							.addGap(1))
+						.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+							.addGap(1)))
+					.addGap(1))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPVerdauung, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+					.addGap(1))
+		);
 		panel.setLayout(gl_panel);
 		pContent.setLayout(gl_pContent);
 
@@ -581,61 +612,66 @@ public class WNeueAnamnese extends JInternalFrame {
 										.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
 								.addGap(7)));
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
-		gl_panel_6.setHorizontalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_6
-				.createSequentialGroup()
-				.addGap(1)
-				.addGroup(gl_panel_6
-						.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-						.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-						.addGroup(gl_panel_6.createSequentialGroup()
-								.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE).addGap(1)))
-				.addGap(1)));
-		gl_panel_6.setVerticalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_6
-				.createSequentialGroup().addGap(1)
-				.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE).addGap(1)
-				.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE).addGap(1)
-				.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(1)));
+		gl_panel_6.setHorizontalGroup(
+			gl_panel_6.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_6.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
+						.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+						.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
+					.addGap(1))
+				.addGroup(Alignment.TRAILING, gl_panel_6.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel_6.setVerticalGroup(
+			gl_panel_6.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_6.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+		);
 		panel_6.setLayout(gl_panel_6);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5
-				.setHorizontalGroup(gl_panel_5
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5
-								.createSequentialGroup()
-								.addGap(7)
-								.addGroup(gl_panel_5
-										.createParallelGroup(Alignment.LEADING)
-										.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-										.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-										.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-										.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-										.addGroup(gl_panel_5
-												.createSequentialGroup()
-												.addComponent(lblEpilemtiformeAnflle)
-												.addGap(8)
-												.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)))
-								.addGap(7)));
-		gl_panel_5
-				.setVerticalGroup(gl_panel_5
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5
-								.createSequentialGroup()
-								.addGap(7)
-								.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-								.addGap(4)
-								.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-								.addGap(4)
-								.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-								.addGap(4)
-								.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-								.addGap(4)
-								.addGroup(gl_panel_5
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_5.createSequentialGroup().addGap(3)
-												.addComponent(lblEpilemtiformeAnflle))
-										.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(11)));
+		gl_panel_5.setHorizontalGroup(
+			gl_panel_5.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_5.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+						.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addComponent(lblEpilemtiformeAnflle)
+							.addGap(1)
+							.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(1))
+		);
+		gl_panel_5.setVerticalGroup(
+			gl_panel_5.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_5.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addGap(4)
+							.addComponent(lblEpilemtiformeAnflle))
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addGap(1)
+							.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(1))
+		);
 		panel_5.setLayout(gl_panel_5);
 		panel_4.setLayout(gl_panel_4);
 
@@ -697,58 +733,52 @@ public class WNeueAnamnese extends JInternalFrame {
 				.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
 				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE));
 		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
-		gl_panel_9
-				.setHorizontalGroup(gl_panel_9
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9
-								.createSequentialGroup()
-								.addGap(7)
-								.addGroup(gl_panel_9
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_9
-												.createSequentialGroup()
-												.addComponent(label_9)
-												.addGap(61)
-												.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(gl_panel_9
-												.createSequentialGroup()
-												.addComponent(lblDenkenSieIhr)
-												.addGap(4)
-												.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)))
-								.addGap(7))
-						.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup().addGap(1)
-								.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE).addGap(1))
-						.addGroup(Alignment.TRAILING, gl_panel_9
-								.createSequentialGroup()
-								.addGap(1)
-								.addGroup(gl_panel_9
-										.createParallelGroup(Alignment.TRAILING)
-										.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-										.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-								.addGap(1)));
-		gl_panel_9
-				.setVerticalGroup(gl_panel_9
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9
-								.createSequentialGroup()
-								.addGap(1)
-								.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-								.addGap(1)
-								.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-								.addGap(1)
-								.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-								.addGap(1)
-								.addGroup(gl_panel_9
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_9.createSequentialGroup().addGap(6).addComponent(label_9))
-										.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(4)
-								.addGroup(gl_panel_9
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel_9.createSequentialGroup().addGap(3)
-												.addComponent(lblDenkenSieIhr))
-										.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGap(11)));
+		gl_panel_9.setHorizontalGroup(
+			gl_panel_9.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(7)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblDenkenSieIhr)
+						.addComponent(label_9))
+					.addGap(1)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
+					.addGap(1))
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
+						.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+						.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
+					.addGap(1))
+		);
+		gl_panel_9.setVerticalGroup(
+			gl_panel_9.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+					.addGap(7)
+					.addComponent(label_9)
+					.addGap(1)
+					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblDenkenSieIhr))
+						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(1))
+				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
+					.addContainerGap(1, Short.MAX_VALUE)
+					.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(24))
+		);
 		panel_9.setLayout(gl_panel_9);
 
 		sPVerusachenSchmerzen = new JScrollPane();
@@ -758,16 +788,24 @@ public class WNeueAnamnese extends JInternalFrame {
 		ePVerusachenSchmerzen = new JTextPane();
 		sPVerusachenSchmerzen.setViewportView(ePVerusachenSchmerzen);
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
-		gl_panel_10.setHorizontalGroup(gl_panel_10
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup().addGap(1)
-						.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE).addGap(1))
-				.addGroup(gl_panel_10.createSequentialGroup().addGap(1)
-						.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE).addGap(1)));
-		gl_panel_10.setVerticalGroup(gl_panel_10.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_10
-				.createSequentialGroup().addGap(1)
-				.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE).addGap(1)
-				.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE).addGap(5)));
+		gl_panel_10.setHorizontalGroup(
+			gl_panel_10.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_10.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_10.createParallelGroup(Alignment.LEADING)
+						.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
+						.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
+					.addGap(1))
+		);
+		gl_panel_10.setVerticalGroup(
+			gl_panel_10.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_10.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+					.addGap(1))
+		);
 		panel_10.setLayout(gl_panel_10);
 		panel_8.setLayout(gl_panel_8);
 
