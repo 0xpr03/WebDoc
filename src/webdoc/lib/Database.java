@@ -273,51 +273,32 @@ public class Database{
 	
 	/**
 	 * Insert anamnesis
-	 * @param tierid
-	 * @param purpose
-	 * @param keeping
-	 * @param possesionsince
-	 * @param origin
-	 * @param familystrchanges
-	 * @param abroadstays
-	 * @param attitudeconspicuity
-	 * @param injurys
-	 * @param scars
-	 * @param infectiousDisease
-	 * @param regularVaccinations
-	 * @param breathing
-	 * @param digestiveTract
-	 * @param endocrineSystem
-	 * @param hyperthyroidism
-	 * @param pancreas
-	 * @param ZNS
-	 * @param epileptiformAttacks
-	 * @param xray
-	 * @param medication
-	 * @param CT_MRT
-	 * @param mainproblem
-	 * @param descrPatientOwner
-	 * @param wasUndertaken
-	 * @param painSensitivity
-	 * @param patientHasPain
-	 * @param painkillerReaction
-	 * @param motionCausingPain
-	 * @param motorInterference
-	 * @param bodyPartUsagePossible
-	 * @param possibleWalkDistance
-	 * @param possibleWalkDuration
-	 * @param weatherDependent
-	 * @param cycleCorrelation
-	 * @param outlet
-	 * @param availableTimeCons
-	 * @param comment
+	 * @param anamnesis
 	 * @return
 	 * @throws SQLException
+	 * @author "Aron Heinecke"
 	 */
 	public static long insertAnamnesis(AnamnesisBP anamnesis) throws SQLException{
 		String sql = "INSERT INTO anamnesis (`AnimalID`,`purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`, `circulation`) "
 				+"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		setAnamnesisValues(anamnesis, stm);
+		
+		stm.executeUpdate();
+		long id = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return id;
+	}
+	
+	/**
+	 * Set anamnesis statement data
+	 * @param anamnesis
+	 * @param stm
+	 * @return current insert pos to use
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	private static int setAnamnesisValues(AnamnesisBP anamnesis, PreparedStatement stm) throws SQLException{
 		int platz = 1;
 		stm.setLong(platz, anamnesis.getTierid());
 		platz++;
@@ -411,156 +392,21 @@ public class Database{
 		stm.setString(platz, anamnesis.getComment().equals("") ? null : anamnesis.getComment());
 		platz++;
 		stm.setString(platz, anamnesis.getCirculation().equals("") ? null : anamnesis.getCirculation());
-		
-		stm.executeUpdate();
-		long id = getAutoID(stm.getGeneratedKeys());
-		stm.close();
-		return id;
+		return platz;
 	}
 	
 	/**
 	 * Update anamnesis
-	 * @param AnamnesisID
-	 * @param tierid
-	 * @param purpose
-	 * @param keeping
-	 * @param possesionsince
-	 * @param origin
-	 * @param familystrchanges
-	 * @param abroadstays
-	 * @param attitudeconspicuity
-	 * @param injurys
-	 * @param scars
-	 * @param infectiousDisease
-	 * @param regularVaccinations
-	 * @param breathing
-	 * @param digestiveTract
-	 * @param endocrineSystem
-	 * @param hyperthyroidism
-	 * @param pancreas
-	 * @param ZNS
-	 * @param epileptiformAttacks
-	 * @param xray
-	 * @param medication
-	 * @param CT_MRT
-	 * @param mainproblem
-	 * @param descrPatientOwner
-	 * @param wasUndertaken
-	 * @param painSensitivity
-	 * @param patientHasPain
-	 * @param painkillerReaction
-	 * @param motionCausingPain
-	 * @param motorInterference
-	 * @param bodyPartUsagePossible
-	 * @param possibleWalkDistance
-	 * @param possibleWalkDuration
-	 * @param weatherDependent
-	 * @param cycleCorrelation
-	 * @param outlet
-	 * @param availableTimeCons
-	 * @param comment
 	 * @return
 	 * @throws SQLException
 	 */
-	public static int updateAnamnesis(long AnamnesisID ,long tierid, String purpose, String keeping, Date possesionsince, String origin, String familystrchanges, String abroadstays, String attitudeconspicuity , String injurys, String scars,String infectiousDisease, String regularVaccinations, String breathing,String digestiveTract, String endocrineSystem, String hyperthyroidism, String pancreas, String ZNS, int  epileptiformAttacks,  String xray, String medication,  String CT_MRT, String mainproblem, String descrPatientOwner,String wasUndertaken, int painSensitivity , int patientHasPain, String painkillerReaction, String motionCausingPain, String motorInterference, String bodyPartUsagePossible, double possibleWalkDistance, Time possibleWalkDuration, int weatherDependent, String cycleCorrelation, double outlet, Time availableTimeCons, String comment) throws SQLException{
+	public static int updateAnamnesis(AnamnesisBP anamnesis) throws SQLException{
 		String sql = "UPDATE anamnesis SET `AnimalID` = ?,`purpose` = ?,`keeping` = ?,`possesionsince` = ?,`origin` = ?,`familystrchanges` = ?,`abroadstays` = ?,`attitudeconspicuity` = ?,`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?"
 				+"WHERE AnamnesisID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
-		int platz = 1;
-		stm.setLong(platz, tierid);
-		platz++;
-		if(purpose.equals(""))
-			stm.setNull(platz, Types.VARCHAR);
-		else
-			stm.setString(platz, purpose);
-		platz++;
-		if(keeping.equals(""))
-			stm.setNull(3, Types.VARCHAR);
-		else
-			stm.setString(3, keeping);
-		platz++;
-		stm.setDate(4, possesionsince);
-		platz++;
-		if (origin.equals(""))
-			stm.setNull(platz, Types.VARCHAR);
-		else
-			stm.setString(platz, origin);
-		platz++;
-		stm.setString(6, familystrchanges.equals("") ? null : familystrchanges);
-		platz++;
-		if (abroadstays.equals(""))
-			stm.setNull(platz, Types.VARCHAR);
-		else
-			stm.setString(platz, abroadstays);
-		platz++;
-		if(attitudeconspicuity.equals(""))
-			stm.setNull(platz, Types.VARCHAR);
-		else 
-			stm.setString(platz, attitudeconspicuity);
-		platz++;
-		stm.setString(platz, injurys.equals("") ? null : injurys);
-		platz++;
-		stm.setString(platz, scars.equals("") ? null : scars);
-		platz++;
-		stm.setString(platz, infectiousDisease.equals("") ? null : infectiousDisease);
-		platz++;
-		stm.setString(platz, regularVaccinations.equals("") ? null : regularVaccinations);
-		platz++;
-		stm.setString(platz, breathing.equals("") ? null : breathing);
-		platz++;
-		stm.setString(platz, digestiveTract.equals("") ? null : digestiveTract);
-		platz++;
-		stm.setString(platz, endocrineSystem.equals("") ? null : endocrineSystem);
-		platz++;
-		stm.setString(platz, hyperthyroidism.equals("") ? null : hyperthyroidism);
-		platz++;
-		stm.setString(platz, pancreas.equals("") ? null : pancreas);
-		platz++;
-		stm.setString(platz, ZNS.equals("") ? null : ZNS);
-		platz++;
-		stm.setInt(platz, epileptiformAttacks);
-		platz++;
-		stm.setString(platz, medication.equals("") ? null : medication );
-		platz++;
-		stm.setString(platz, xray.equals("") ? null : xray);
-		platz++;
-		stm.setString(platz, CT_MRT.equals("") ? null : CT_MRT);
-		platz++;
-		stm.setString(platz, mainproblem.equals("") ? null : mainproblem);
-		platz++;
-		stm.setString(platz, descrPatientOwner.equals("") ? null : descrPatientOwner);
-		platz++;
-		stm.setString(platz, wasUndertaken.equals("") ? null : wasUndertaken);
-		platz++;
-		stm.setInt(platz, painSensitivity);
-		platz++;
-		stm.setInt(platz, patientHasPain);
-		platz++;
-		stm.setString(platz, painkillerReaction.equals("") ? null : painkillerReaction);
-		platz++;
-		stm.setString(platz, motionCausingPain.equals("") ? null : motionCausingPain);
-		platz++;
-		stm.setString(platz, motorInterference.equals("") ? null : motorInterference);
-		platz++;
-		stm.setString(platz, bodyPartUsagePossible.equals("") ? null : bodyPartUsagePossible);
-		platz++;
-		stm.setDouble(platz, possibleWalkDistance);
-		platz++;
-		stm.setTime(platz, possibleWalkDuration);
-		platz++;
-		stm.setInt(platz, weatherDependent);
-		platz++;
-		stm.setString(platz, cycleCorrelation.equals("") ? null : cycleCorrelation);
-		platz++;
-		stm.setDouble(platz, outlet);
-		platz++;
-		stm.setTime(platz, availableTimeCons);
-		platz++;
-		stm.setString(platz, comment.equals("") ? null : comment);
+		int pos = setAnamnesisValues(anamnesis,stm) +1;
+		stm.setLong(pos, anamnesis.getAnamnesisID());
 		int changed = stm.executeUpdate();
-		
-		
-		stm.setLong(platz, AnamnesisID);
 		stm.close();
 		return changed;
 	}
