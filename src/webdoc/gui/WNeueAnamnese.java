@@ -67,8 +67,8 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPMedikamente;
 	private JTextPane tPRoentgen;
 	private JTextPane tPCTMRT;
-	private JEditorPane ePHauptproblem;
-	private JEditorPane ePSchilderung;
+	private JTextPane tPHauptproblem;
+	private JTextPane tPSchilderung;
 	private JLabel label_1;
 	private JLabel label_2;
 	private JTextField tFRufname;
@@ -109,7 +109,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JSpinner spGehstrecke;
 	private JSpinner spGehzeit;
 	private JComboBox<EnumObject> cBWitterung;
-	private JComboBox<EnumObject> comboBoxZyklus;
+	private JComboBox<EnumObject> cBZyklus;
 	private JSpinner spAuslauf;
 	private JSpinner spavailTimeCons;
 	private JScrollPane sP_Bemerkungen;
@@ -125,9 +125,9 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPAtmung;
 	private JTextPane tPVerdauung;
 	private JComboBox<EnumObject> cBEpiAnfaelle;
-	private JEditorPane ePUnternommen;
-	private JEditorPane ePVerusachenSchmerzen;
-	private JEditorPane ePSchmerzmittel;
+	private JTextPane ePUnternommen;
+	private JTextPane ePVerusachenSchmerzen;
+	private JTextPane ePSchmerzmittel;
 	private JTextPane tPFunktionenMotorik;
 	private JTextPane tPBemerkungen;
 	private JLabel lblHaltung;
@@ -137,54 +137,49 @@ public class WNeueAnamnese extends JInternalFrame {
 	 * Launch the application.
 	 */
 	private void setEditable() {
-		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesisID, animalID, editable);
-		tFName.setEditable(editable);
-		tPTierStammtVon.setEditable(editable);
-		tPVerwendungszweck.setEditable(editable);
-		spinBirthdate_1.setEnabled(editable);
-		tpEndokrinium.setEditable(editable);
-		tPSchilddruese.setEditable(editable);
-		tPBauchspeicheldruese.setEditable(editable);
-		tPZNS.setEditable(editable);
-		tPMedikamente.setEditable(editable);
-		tPRoentgen.setEditable(editable);
-		tPCTMRT.setEditable(editable);
-		ePHauptproblem.setEditable(editable);
-		ePSchilderung.setEditable(editable);
-		tFRufname.setEditable(editable);
-		sPAenderungenFamilie.setEnabled(editable);
-		tPAenderungenFamilie.setEditable(editable);
-		sPVerletzungen.setEnabled(editable);
-		tPVerletzungen.setEditable(editable);
-		sPNarben.setEnabled(editable);
-		tPNarben.setEditable(editable);
-		sPVerhaltensaufaeligkeiten.setEnabled(editable);
-		tPVerhaltensaufaeligkeiten.setEditable(editable);
-		sPAuslandsaufenthalte.setEnabled(editable);
-		sPAtmung.setEnabled(editable);
-		sPImpfungen.setEnabled(editable);
-		sPInfektionen.setEnabled(editable);
-		sPHerzKreislauf.setEnabled(editable);
-		sPVerdauung.setEnabled(editable);
-		sPEndokrinium.setEnabled(editable);
-		sPSchilddruese.setEnabled(editable);
-		SPBauchspeicheldruese.setEnabled(editable);
-		sPZNS.setEnabled(editable);
-		sPMedikamente.setEnabled(editable);
-		sPRoentgen.setEnabled(editable);
-		sPCTMRT.setEnabled(editable);
-		sPHauptproblem.setEnabled(editable);
-		sPSchilderung.setEnabled(editable);
-		sPUnternommen.setEnabled(editable);
-		cBSchmerzempfindlichkeit.setEnabled(editable);
-		cBDenkenSchmerzen.setEnabled(editable);
-		sPVerusachenSchmerzen.setEnabled(editable);
-		sPFunktionenMotorik.setEnabled(editable);
-		cBKöperteilBewegen.setEnabled(editable);
-		sP_Bemerkungen.setEnabled(editable);
-		tFHalltung.setEnabled(editable);
-		tPAuslandsaufenthalte.setEditable(editable);
-
+		 logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesisID, animalID, editable);
+		 tpEndokrinium.setEditable(editable);
+		 tPSchilddruese.setEditable(editable);
+		 tPBauchspeicheldruese.setEditable(editable);
+		 tPZNS.setEditable(editable);
+		 tPMedikamente.setEditable(editable);
+		 tPRoentgen.setEditable(editable);
+		 tPCTMRT.setEditable(editable);
+		 spAuslauf.setEnabled(editable);
+		 tPHauptproblem.setEditable(editable);
+		 tPAenderungenFamilie.setEditable(editable);
+		 tPVerletzungen.setEditable(editable);
+		 tPNarben.setEditable(editable);
+		 tPVerhaltensaufaeligkeiten.setEditable(editable);
+		 tPAuslandsaufenthalte.setEditable(editable);
+		 tPInfektionen.setEditable(editable);
+		 tPImpfungen.setEditable(editable);
+		 tPHerzKreislauf.setEditable(editable);
+		 tPAtmung.setEditable(editable);
+		 tPVerdauung.setEditable(editable);
+		 ePUnternommen.setEditable(editable);
+		 ePVerusachenSchmerzen.setEditable(editable);
+		 ePSchmerzmittel.setEditable(editable);
+		 tPFunktionenMotorik.setEditable(editable);
+		 tPBemerkungen.setEditable(editable);
+		 tFHalltung.setEditable(editable);
+		 tFName.setEditable(false);
+		 tFRufname.setEditable(false);
+		 tPVerwendungszweck.setEditable(editable);
+		 tPTierStammtVon.setEditable(editable);
+		 spavailTimeCons.setEnabled(editable);
+		 spavailTimeCons.setEnabled(editable);
+		 spGehstrecke.setEnabled(editable);
+		 spGehzeit.setEnabled(editable);
+		 tPSchilderung.setEditable(editable);
+		 spinBirthdate_1.setEnabled(editable);
+		 cBDenkenSchmerzen.setEnabled(editable);
+		 cBEpiAnfaelle.setEnabled(editable);
+		 cBZyklus.setEnabled(editable);
+		 cBEpiAnfaelle.setEnabled(editable);
+		 cBKöperteilBewegen.setEnabled(editable);
+		 cBSchmerzempfindlichkeit.setEnabled(editable);
+		 cBWitterung.setEnabled(editable);
 		reloadBtn(editable);
 	}
 
@@ -675,13 +670,13 @@ public class WNeueAnamnese extends JInternalFrame {
 				new EnumObject("Bitte Äuswählen", EnumType.UNKNOWN), new EnumObject("Ja,immer", EnumType.A),
 				new EnumObject("Gelegentlich", EnumType.B), new EnumObject("Nein", EnumType.C) }));
 
-		ePHauptproblem = new JEditorPane();
-		sPHauptproblem.setViewportView(ePHauptproblem);
+		tPHauptproblem = new JTextPane();
+		sPHauptproblem.setViewportView(tPHauptproblem);
 
-		ePSchilderung = new JEditorPane();
-		sPSchilderung.setViewportView(ePSchilderung);
+		tPSchilderung = new JTextPane();
+		sPSchilderung.setViewportView(tPSchilderung);
 
-		ePUnternommen = new JEditorPane();
+		ePUnternommen = new JTextPane();
 		sPUnternommen.setViewportView(ePUnternommen);
 
 		JPanel panel_10 = new JPanel();
@@ -691,7 +686,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?",
 				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
-		ePSchmerzmittel = new JEditorPane();
+		ePSchmerzmittel = new JTextPane();
 		sPSchmerzmittel.setViewportView(ePSchmerzmittel);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
@@ -760,7 +755,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?",
 				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
-		ePVerusachenSchmerzen = new JEditorPane();
+		ePVerusachenSchmerzen = new JTextPane();
 		sPVerusachenSchmerzen.setViewportView(ePVerusachenSchmerzen);
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
 		gl_panel_10.setHorizontalGroup(gl_panel_10
@@ -809,8 +804,8 @@ public class WNeueAnamnese extends JInternalFrame {
 
 		JLabel label_15 = new JLabel("Zykluskorrelation");
 
-		comboBoxZyklus = new JComboBox<EnumObject>();
-		comboBoxZyklus.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+		cBZyklus = new JComboBox<EnumObject>();
+		cBZyklus.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
 				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
 				new EnumObject("Nein", EnumType.B) }));
 
@@ -869,7 +864,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(label_14, "cell 0 3,alignx left,aligny center");
 		panel_11.add(cBWitterung, "cell 1 3,growx,aligny top");
 		panel_11.add(label_15, "cell 0 4,alignx left,aligny center");
-		panel_11.add(comboBoxZyklus, "cell 1 4,growx,aligny top");
+		panel_11.add(cBZyklus, "cell 1 4,growx,aligny top");
 		panel_11.add(label_16, "cell 0 5,alignx left,aligny center");
 		panel_11.add(spAuslauf, "cell 1 5,growx,aligny top");
 		panel_11.add(lblIstDerPatient, "cell 0 0,alignx left,aligny center");
@@ -950,9 +945,9 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					tPCTMRT.setText(rs.getString(n));
 					n++;
-					ePHauptproblem.setText(rs.getString(n));
+					tPHauptproblem.setText(rs.getString(n));
 					n++;
-					ePSchilderung.setText(rs.getString(n));
+					tPSchilderung.setText(rs.getString(n));
 					n++;
 					ePUnternommen.setText(rs.getString(n));
 					n++;
@@ -1014,7 +1009,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
 						.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
 						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
-						.mainproblem(ePHauptproblem.getText()).descrPatientOwner(ePSchilderung.getText())
+						.mainproblem(tPHauptproblem.getText()).descrPatientOwner(tPSchilderung.getText())
 						.wasUndertaken(ePUnternommen.getText())
 						.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
 						.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
