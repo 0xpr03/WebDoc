@@ -595,7 +595,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void addPatient() {
 		// TODO: add picture support
-		if ((GenderEnumObj) enumGeschlecht.getSelectedItem() != null) {
+		if (allSet()) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if (gender.getType() != GenderType.UNKNOWN) {
 				try {
@@ -623,7 +623,7 @@ public class WNeuerPatient extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 */
 	private void updatePatient() {
-		if ((GenderEnumObj) enumGeschlecht.getSelectedItem() != null) {
+		if (allSet()) {
 			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
 			if (gender.getType() != GenderType.UNKNOWN) {
 				try {
