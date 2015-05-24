@@ -946,7 +946,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					tPZNS.setText(rs.getString(n));
 					n++;
-					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n));
+					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n)-1);
 					;
 					n++;
 					tPRoentgen.setText(rs.getString(n));
@@ -1022,7 +1022,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.digestiveTract(tPVerdauung.getText()).endocrineSystem(tpEndokrinium.getText())
 						.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
 						.ZNS(tPZNS.getText())
-						.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem())-1)
+						.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
 						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
 						.mainproblem(ePHauptproblem.getText()).descrPatientOwner(ePSchilderung.getText())
 						.wasUndertaken(ePUnternommen.getText())
