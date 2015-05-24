@@ -915,8 +915,6 @@ public class WNeueAnamnese extends JInternalFrame {
 					tFHalltung.setText(rs.getString(n));
 					n++;
 					spinBirthdate_1.setValue(rs.getDate(n));
-					// possesionsince(new java.sql.Date(((Date)
-					// spinBirthdate_1.getValue()).getTime()))
 					n++;
 					tPTierStammtVon.setText(rs.getString(n));
 					n++;
@@ -947,7 +945,6 @@ public class WNeueAnamnese extends JInternalFrame {
 					tPZNS.setText(rs.getString(n));
 					n++;
 					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n)-1);
-					;
 					n++;
 					tPRoentgen.setText(rs.getString(n));
 					n++;
@@ -976,7 +973,6 @@ public class WNeueAnamnese extends JInternalFrame {
 					spGehstrecke.setValue(rs.getDouble(n));
 					n++;
 					spGehzeit.setValue(rs.getTime(n));
-					// new java.sql((Date) spGehzeit)))
 					n++;
 					cBWitterung.setSelectedIndex(rs.getInt(n));
 					n++;
@@ -985,7 +981,6 @@ public class WNeueAnamnese extends JInternalFrame {
 					cBAuslauf.setSelectedIndex(rs.getInt(n));
 					n++;
 					spavailTimeCons.setValue(rs.getTime(n));
-					// new java.sql((Date) spavailTimeCons)))
 					n++;
 					tPBemerkungen.setText(rs.getString(n));
 					n++;
