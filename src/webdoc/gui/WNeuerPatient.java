@@ -66,11 +66,6 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
 	// private static final long serialVersionUID = -4647611743598708383L; DON'T
@@ -651,11 +646,9 @@ public class WNeuerPatient extends JInternalFrame {
 			return false;
 		if(enumGeschlecht.equals(GenderType.UNKNOWN))
 			return false;
-		if (invalidDouble(spinGewicht.getValue().toString()))
+		if (((double)spinGewicht.getValue()) == 0.0)
 		    return false;
-	    if (Double.parseDouble(spinGewicht.getValue().toString()) == 0.0)
-	        return false;
-		if (strRufname.getText().equals(""))
+		if (strRufname.getText().isEmpty())
 			return false;
 		if (strRufname.getText().length() > 20)
 		    return false;
@@ -669,22 +662,5 @@ public class WNeuerPatient extends JInternalFrame {
             return false;
 		return true;
 	}
-	
-	private boolean invalidInt(String s){
-		try{
-			int i = Integer.parseInt(s);
-			return false;
-		}catch(NumberFormatException e){
-			return true;
-		}	
-	}
-	
-	private boolean invalidDouble(String s){
-		try{
-		double d = Double.parseDouble(s);
-		return false;
-		}catch(NumberFormatException e){
-			return true;
-		}	
-	}
+
 }

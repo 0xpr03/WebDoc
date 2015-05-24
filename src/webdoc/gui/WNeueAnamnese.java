@@ -1097,24 +1097,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		return this;
 	}
 
-	private boolean invalidInt(String s) {
-		try {
-			int i = Integer.parseInt(s);
-			return false;
-		} catch (NumberFormatException e) {
-			return true;
-		}
-	}
-
-	private boolean invalidDouble(String s) {
-		try {
-			double d = Double.parseDouble(s);
-			return false;
-		} catch (NumberFormatException e) {
-			return true;
-		}
-	}
-
 	private boolean allSet() {
 		if (tPAenderungenFamilie.getText().length() > 26)
 			return false;

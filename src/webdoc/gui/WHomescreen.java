@@ -52,9 +52,6 @@ import webdoc.lib.GUIManager;
  */
 public final class WHomescreen extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4091113544481728677L;
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);

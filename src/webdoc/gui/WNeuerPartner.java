@@ -569,17 +569,6 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 
 	/**
-	 * Load data with a new ID, wrapper for search event handler
-	 * 
-	 * @param id
-	 * @author "Aron Heinecke"
-	 */
-	private void loadData(long id) {
-		this.id = id;
-		loadData();
-	}
-
-	/**
 	 * Loads the animal data if id not -1 (while id 0 is also never given out)
 	 * 
 	 * @author "Aron Heinecke"
@@ -837,18 +826,5 @@ public class WNeuerPartner extends JInternalFrame {
 		if (textOrtsteil.getText().length() > 20)
 			return false;
 		return true;
-	}
-	
-	private boolean invalidDouble(String s){
-		try{
-		Double.parseDouble(s);
-		return false;
-		}catch(NumberFormatException e){
-			return true;
-		}}	
-	private void exit() {
-		this.dispose();
-		if (id != -1)
-			GUIManager.dropJID(this);
 	}
 }
