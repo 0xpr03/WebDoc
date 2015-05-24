@@ -378,6 +378,7 @@ public final class WHomescreen extends JFrame {
 		
 		if(!FNeuerPatient.isVisible() && !FNeuerPartner.isVisible() ){
 			logger.debug("all closed..");
+			Database.closePStatement(searchStm);
 			super.dispose();
 			System.exit(1);
 		}
