@@ -195,6 +195,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id,
 			final String patient_name) {
 		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesis_id, animal_id, is_editable);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
