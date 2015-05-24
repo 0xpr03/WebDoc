@@ -268,7 +268,7 @@ public class Database{
 		String sql = "SELECT `purpose`,`keeping`,`possesionsince`,`origin`,`familystrchanges`,`abroadstays`,`attitudeconspicuity`,`injurys`,`scars`,`infectiousDisease`,"
 				+"`regularVaccinations`,`breathing`,`digestiveTract`,`endocrineSystem`,`hyperthyroidism`,`pancreas`,`ZNS`,`epileptiformAttacks`,`medication`,`x-ray`,`CT_MRT`,`mainproblem`,"
 				+"`descrPatientOwner`,`wasUndertaken`,`painSensitivity`,`patientHasPain`,`painkillerReaction`,`motionCausingPain`,`motorInterference`,`bodyPartUsagePossible`,`possibleWalkDistance`,"
-				+"`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`, `circulation`,`insertDate`,`editDate`) "
+				+"`possibleWalkDuration`,`weatherDependent`,`cycleCorrelation`,`outlet`,`availableTimeCons`,`comment`, `circulation`,`insertDate`,`editDate` "
 				+"FROM `anamnesis` WHERE `AnamnesisID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, anamnesisID);
@@ -412,7 +412,7 @@ public class Database{
 				+"`injurys` = ?,`scars` = ?,`infectiousDisease` = ?,`regularVaccinations` = ?,`breathing` = ?,`digestiveTract` = ?,`endocrineSystem` = ?,`hyperthyroidism` = ?,`pancreas` = ?,"
 				+"`ZNS` = ?,`epileptiformAttacks` = ?,`medication` = ?,`x-ray` = ?,`CT_MRT` = ?,`mainproblem` = ?,`descrPatientOwner` = ?,`wasUndertaken` = ?,`painSensitivity` = ?,`patientHasPain` = ?,"
 				+"`painkillerReaction` = ?,`motionCausingPain` = ?,`motorInterference` = ?,`bodyPartUsagePossible` = ?,`possibleWalkDistance` = ?,`possibleWalkDuration` = ?,`weatherDependent` = ?,"
-				+"`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?, `circulation` = ?"
+				+"`cycleCorrelation` = ?,`outlet` = ?,`availableTimeCons` = ?,`comment` = ?, `circulation` = ? "
 				+"WHERE AnamnesisID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		int pos = setAnamnesisValues(anamnesis,stm) +1;
