@@ -66,6 +66,11 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 @SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
 	// private static final long serialVersionUID = -4647611743598708383L; DON'T
@@ -106,8 +111,8 @@ public class WNeuerPatient extends JInternalFrame {
 	public WNeuerPatient(boolean editable, long id) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
-			public void internalFrameClosing(InternalFrameEvent arg0) {
-				dispose();
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				loadHistoryData();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -475,15 +480,17 @@ public class WNeuerPatient extends JInternalFrame {
 	}
 	
 	private void loadHistoryData(){
-		try {
-			model.clearElements();
-			ResultSet rs = Database.getPatientRData(id);
-			while(rs.next()){
-				model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
+		if(id != -1){
+			try {
+				model.clearElements();
+				ResultSet rs = Database.getPatientRData(id);
+				while(rs.next()){
+					model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
+				}
+				rs.close();
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
-			rs.close();
-		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 		}
 	}
 
