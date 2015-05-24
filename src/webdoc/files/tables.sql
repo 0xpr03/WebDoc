@@ -103,22 +103,22 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `hyperthyroidism` text DEFAULT NULL,
  `pancreas` text DEFAULT NULL,
  `ZNS` text DEFAULT NULL,
- `epileptiformAttacks` tinyint(4) DEFAULT NULL,
+ `epileptiformAttacks` tinyint(1)  NOT NULL,
  `medication` text DEFAULT NULL,
  `x-ray` text DEFAULT NULL,
  `CT_MRT` text DEFAULT NULL,
  `mainproblem` text DEFAULT NULL,
  `descrPatientOwner` text DEFAULT NULL,
  `wasUndertaken` text DEFAULT NULL,
- `painSensitivity` tinyint(4) DEFAULT NULL,
- `patientHasPain` tinyint(4) DEFAULT NULL,
+ `painSensitivity` tinyint(1)  NOT NULL,
+ `patientHasPain` tinyint(1)  NOT NULL,
  `painkillerReaction` text DEFAULT NULL,
  `motionCausingPain` text DEFAULT NULL,
  `motorInterference` text DEFAULT NULL,
  `bodyPartUsagePossible` text DEFAULT NULL,
  `possibleWalkDistance` double DEFAULT NULL,
  `possibleWalkDuration` time DEFAULT NULL,
- `weatherDependent` tinyint(4) DEFAULT NULL,
+ `weatherDependent` tinyint(1)  NOT NULL,
  `cycleCorrelation` text DEFAULT NULL,
  `outlet` double DEFAULT NULL,
  `availableTimeCons` time DEFAULT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`AnamnesisID`),
  KEY `AnimalID` (`AnimalID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table Beziehungen / relationship */
 CREATE TABLE IF NOT EXISTS `relationship` (
  `PartnerID` int(10) unsigned NOT NULL,
