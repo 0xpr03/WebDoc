@@ -21,7 +21,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -195,7 +194,7 @@ public class WNeueAnamnese extends JInternalFrame {
 	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id,
 			final String patient_name) {
 		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesis_id, animal_id, is_editable);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
@@ -360,7 +359,9 @@ public class WNeueAnamnese extends JInternalFrame {
 							.addComponent(label_2)
 							.addGap(8)
 							.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+							.addGap(4))
 						.addGroup(gl_panel_2.createSequentialGroup()
 							.addComponent(label_3)
 							.addGap(8)
@@ -421,7 +422,7 @@ public class WNeueAnamnese extends JInternalFrame {
 							.addComponent(label_5))
 						.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(1)
-					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+					.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -737,35 +738,35 @@ public class WNeueAnamnese extends JInternalFrame {
 		gl_panel_9.setHorizontalGroup(
 			gl_panel_9.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(7)
 					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDenkenSieIhr)
-						.addComponent(label_9))
-					.addGap(1)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE))
-					.addGap(1))
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-					.addGap(1))
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
-						.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-						.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGap(7)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDenkenSieIhr)
+								.addComponent(label_9))
+							.addGap(1)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
+								.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGap(1)
+							.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
+						.addGroup(gl_panel_9.createSequentialGroup()
+							.addGap(1)
+							.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
+								.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+								.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))))
 					.addGap(1))
 		);
 		gl_panel_9.setVerticalGroup(
-			gl_panel_9.createParallelGroup(Alignment.LEADING)
+			gl_panel_9.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_9.createSequentialGroup()
 					.addGap(1)
 					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 					.addGap(1)
 					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
 					.addGap(7)
 					.addComponent(label_9)
 					.addGap(1)
@@ -775,8 +776,8 @@ public class WNeueAnamnese extends JInternalFrame {
 							.addComponent(lblDenkenSieIhr))
 						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(1))
-				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
-					.addContainerGap(1, Short.MAX_VALUE)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addContainerGap(367, Short.MAX_VALUE)
 					.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(24))
 		);

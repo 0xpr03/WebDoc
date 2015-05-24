@@ -115,7 +115,7 @@ public class WNeuerPatient extends JInternalFrame {
 				loadHistoryData();
 			}
 		});
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;
 		initialize();
