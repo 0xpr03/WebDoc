@@ -170,7 +170,7 @@ public class Database{
 	 */
 	public static ResultSet getPatientRData(long patientID) throws SQLException{
 		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
-				+"WHERE AnimalID = ? ";
+				+"WHERE AnimalID = ? ORDER BY insdate DESC";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, patientID);
 		return stm.executeQuery();
