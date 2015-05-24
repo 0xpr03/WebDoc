@@ -151,7 +151,7 @@ public class JSearchTextField extends JTextField {
 
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e)) {
+				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null) {
 					if (api.changedSelectionEvent(chosenElement)) {
 						popup.setVisible(false);
 					}
@@ -196,8 +196,12 @@ public class JSearchTextField extends JTextField {
 					}
 
 					case KeyEvent.VK_ENTER:
-						api.changedSelectionEvent(chosenElement);
-						chosen = true;
+						if(chosenElement != null){
+							api.changedSelectionEvent(chosenElement);
+							chosen = true;
+						}else{
+							break;
+						}
 					case KeyEvent.VK_LEFT:
 					case KeyEvent.VK_RIGHT: {
 						popup.setVisible(false);

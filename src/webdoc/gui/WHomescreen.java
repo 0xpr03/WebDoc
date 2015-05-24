@@ -211,13 +211,16 @@ public final class WHomescreen extends JFrame {
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}",element);
-				if(element.getType() == ElementType.ANIMAL){
-					addWNeuerPatient(false, element.getID());
-				}else{
-					addWNeuerPartner(false, element.getID());
+				if(element != null){
+					if(element.getType() == ElementType.ANIMAL){
+						addWNeuerPatient(false, element.getID());
+					}else{
+						addWNeuerPartner(false, element.getID());
+					}
+					txtSuche.setTextWithoutNotification("");
+					return true;
 				}
-				txtSuche.setTextWithoutNotification("");
-				return true;
+				return false;
 			}
 
 			@Override
