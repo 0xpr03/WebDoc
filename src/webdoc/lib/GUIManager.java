@@ -78,10 +78,10 @@ public final class GUIManager {
 //			taskExecutor.execute(new Runnable() {
 //				public void run() {
 			wpg.setSubText(String.format("Allocating %s times..", max));
-					for(int i=0; i <= max; i++){
-						addWNeuerPatient(false, -1);
-						wpg.addSubProgress();
-					}
+			for(int i=0; i <= max; i++){
+				addWNeuerPatient(false, -1);
+				wpg.addSubProgress();
+			}
 //				}
 //			});
 //			taskExecutor.shutdown();
