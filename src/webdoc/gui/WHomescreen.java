@@ -307,6 +307,7 @@ public final class WHomescreen extends JFrame {
 						FNeuerPatient = new WNeuerPatient(true, -1);
 						FNeuerPatient.setVisible(true);
 						desktopPane.add(FNeuerPatient);
+						FNeuerPatient.toFront();
 					}
 					break;
 				case N_PARTNER:
@@ -314,6 +315,7 @@ public final class WHomescreen extends JFrame {
 						FNeuerPartner = new WNeuerPartner(true, -1);
 						FNeuerPartner.setVisible(true);
 						desktopPane.add(FNeuerPartner);
+						FNeuerPartner.toFront();
 					}
 					break;
 				case PARTNER:
@@ -397,15 +399,7 @@ public final class WHomescreen extends JFrame {
 	 * @param id
 	 */
 	public void addWNeuerPatient(boolean editable, long id){
-		WNeuerPatient wnp = new WNeuerPatient(editable, id);
-		wnp.setVisible(true); // !creating,visible & add order IS important!
-		desktopPane.add(wnp);
-		wnp.toFront();
-		try {
-			wnp.setSelected(true);
-		} catch (PropertyVetoException e) {
-			logger.error(e);
-		}
+		addFrame(new WNeuerPatient(editable, id));
 	}
 	
 	/**
@@ -414,20 +408,30 @@ public final class WHomescreen extends JFrame {
 	 * @param id
 	 */
 	public void addWNeuerPartner(boolean editable, long id){
-		WNeuerPartner wnp = new WNeuerPartner(editable, id);
-		wnp.setVisible(true);
-		wnp.toFront();
+		addFrame(new WNeuerPartner(editable, id));
+	}
+	
+	public void addWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
+		addFrame(new WNeueAnamnese(editable, animal_id, anamnesis_id, name));
+	}
+	
+	/**
+	 * removes the JInternalFrame from the desktopPane
+	 * @param jif
+	 */
+	public void removeJIF(JInternalFrame jif){
+		desktopPane.remove(jif);
+	}
+	
+	private void addFrame(JInternalFrame frame){
+		frame.setVisible(true);
+		desktopPane.add(frame);
+		frame.toFront();
 		try {
-			wnp.setSelected(true);
+			frame.setSelected(true);
 		} catch (PropertyVetoException e) {
 			logger.error(e);
 		}
-		desktopPane.add(wnp);
-	}
-	
-	public void addWindow(JInternalFrame jif){
-		desktopPane.add(jif);
-		jif.setVisible(true);
 	}
 	
 	/**
@@ -439,30 +443,10 @@ public final class WHomescreen extends JFrame {
 	}
 	
 	/**
-	 * removes the JInternalFrame from the desktopPane
-	 * @param jif
-	 */
-	public void removeJIF(JInternalFrame jif){
-		desktopPane.remove(jif);
-	}
-	
-	/**
 	 * adds a JInternalFrame to the desktopPane
 	 * @param jif
 	 */
 	public void addJIF(JInternalFrame jif){
 		desktopPane.add(jif);
-	}
-	
-	public void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
-		WNeueAnamnese FNeueAnamnese = new WNeueAnamnese(editable, animal_id, anamnesis_id, name);
-		FNeueAnamnese.setVisible(true);
-		FNeueAnamnese.toFront();
-		try {
-			FNeueAnamnese.setSelected(true);
-		} catch (PropertyVetoException e) {
-			logger.error(e);
-		}
-		desktopPane.add(FNeueAnamnese);
 	}
 }

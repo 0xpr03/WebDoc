@@ -141,7 +141,7 @@ public final class GUIManager {
 	 * Calls WNeueAnamnesis
 	 */
 	public static void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
-		whomescreen.callWNewAnamnesis(editable, animal_id, anamnesis_id, name);
+		whomescreen.addWNewAnamnesis(editable, animal_id, anamnesis_id, name);
 	}
 	
 	/**
