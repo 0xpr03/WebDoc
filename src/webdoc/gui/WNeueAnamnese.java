@@ -186,6 +186,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		btnEdit.setVisible(anamnesisID != -1);
 		btnEdit.setEnabled(!editable);
+		btnCancel.setVisible(editable);
 	}
 
 	/**
@@ -276,10 +277,10 @@ public class WNeueAnamnese extends JInternalFrame {
 
 		label_2 = new JLabel("Rufname:");
 
-		tFRufname = new JTextField();
+		tFRufname = new JTextField(patient_callname);
 		tFRufname.setColumns(10);
 
-		tFName = new JTextField();
+		tFName = new JTextField(patient_name);
 		tFName.setColumns(10);
 
 		separator = new JSeparator();
