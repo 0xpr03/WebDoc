@@ -293,7 +293,7 @@ public class WNeuerPatient extends JInternalFrame {
 			public void mouseClicked(MouseEvent mevent) {
 				if(mevent.getButton() == MouseEvent.BUTTON1){
 					if(mevent.getClickCount() >= 2){
-						GUIManager.callWNewAnamnesis(true, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText());
+						GUIManager.callWNewAnamnesis(false, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText());
 					}
 				}
 			}
