@@ -40,6 +40,18 @@ public class PatientTableModel extends AbstractTableModel {
     	fireTableDataChanged();
     }
     
+    /**
+     * Delete all rows
+     * @author "Aron Heinecke"
+     */
+    public void clearElements(){
+    	if(rowData.size() != 0){
+    		int i = rowData.size()-1;
+        	rowData.clear();
+        	super.fireTableRowsDeleted(0, i-1);
+    	}
+    }
+    
     @Override
     public int getRowCount() {
     	return rowData.size();

@@ -476,6 +476,7 @@ public class WNeuerPatient extends JInternalFrame {
 	
 	private void loadHistoryData(){
 		try {
+			model.clearElements();
 			ResultSet rs = Database.getPatientRData(id);
 			while(rs.next()){
 				model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
