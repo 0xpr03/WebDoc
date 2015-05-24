@@ -293,7 +293,7 @@ public class WNeuerPatient extends JInternalFrame {
 			public void mouseClicked(MouseEvent mevent) {
 				if(mevent.getButton() == MouseEvent.BUTTON1){
 					if(mevent.getClickCount() >= 2){
-						GUIManager.callWNewAnamnesis(false, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText());
+						GUIManager.callWNewAnamnesis(false, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText(),strRufname.getText());
 					}
 				}
 			}
@@ -340,7 +340,7 @@ public class WNeuerPatient extends JInternalFrame {
 		btnNeueAnamnese = new JButton("Neue Anamnese");
 		btnNeueAnamnese.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIManager.callWNewAnamnesis(true,id, -1,strName.getText());
+				GUIManager.callWNewAnamnesis(true,id, -1,strName.getText(), strRufname.getText());
 			}
 		});
 		downPanel.add(btnNeueAnamnese, "cell 3 0");

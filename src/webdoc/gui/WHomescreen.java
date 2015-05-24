@@ -411,8 +411,8 @@ public final class WHomescreen extends JFrame {
 		addFrame(new WNeuerPartner(editable, id));
 	}
 	
-	public void addWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name){
-		addFrame(new WNeueAnamnese(editable, animal_id, anamnesis_id, name));
+	public void addWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name,String callname){
+		addFrame(new WNeueAnamnese(editable, animal_id, anamnesis_id, name,callname));
 	}
 	
 	/**

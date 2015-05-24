@@ -191,8 +191,8 @@ public class WNeueAnamnese extends JInternalFrame {
 	/**
 	 * Create the application.
 	 */
-	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id,
-			final String patient_name) {
+	public WNeueAnamnese(boolean is_editable, long animal_id, long anamnesis_id,
+			 String patient_name, String patient_callname) {
 		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesis_id, animal_id, is_editable);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.editable = is_editable;
@@ -919,7 +919,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnEdit = new JButton("Bearbeiten");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (anamnesis_id != -1) {
+				if (anamnesisID != -1) {
 					editable = true;
 					setEditable();
 				}
