@@ -1020,7 +1020,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					tPHerzKreislauf.setText(rs.getString(n));
 					n++;
 				}
-
+				rs.close();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
@@ -1064,7 +1064,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
 						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText()).build();
 				if (insert)
-					Database.insertAnamnesis(anamnesis);
+					anamnesisID = Database.insertAnamnesis(anamnesis);
 				else
 					logger.error("Currently not implemented");
 				editable = false;
