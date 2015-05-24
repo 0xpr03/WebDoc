@@ -187,18 +187,19 @@ public class WNeueAnamnese extends JInternalFrame {
 
 		reloadBtn(editable);
 	}
-	
+
 	private void reloadBtn(boolean editable) {
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		btnEdit.setVisible(anamnesisID != -1);
 		btnEdit.setEnabled(!editable);
 	}
-	
+
 	/**
 	 * Create the application.
 	 */
-	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id, final String patient_name) {
-		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}",anamnesis_id, animal_id,is_editable);
+	public WNeueAnamnese(final boolean is_editable, final long animal_id, final long anamnesis_id,
+			final String patient_name) {
+		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesis_id, animal_id, is_editable);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
@@ -209,33 +210,33 @@ public class WNeueAnamnese extends JInternalFrame {
 		setIconifiable(true);
 		setClosable(true);
 		tPAenderungenFamilie = new JTextPane();
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(new MigLayout("", "[][][]", "[]"));
-		
+
 		btnOk = new JButton("Speichern");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				logger.debug("btnOk fired..\nanamnesisid: {}",anamnesis_id);
-				if(anamnesis_id == -1){
+				logger.debug("btnOk fired..\nanamnesisid: {}", anamnesis_id);
+				if (anamnesis_id == -1) {
 					saveData(true);
-				}else if(editable){
+				} else if (editable) {
 					saveData(false);
-				}else{
+				} else {
 					dispose();
 				}
 			}
 		});
 		panel_3.add(btnOk, "cell 0 0");
-		
+
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(anamnesis_id == -1){
+				if (anamnesis_id == -1) {
 					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						dispose();
 					}
-				}else if(editable){
+				} else if (editable) {
 					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						editable = false;
 						setEditable();
@@ -246,650 +247,621 @@ public class WNeueAnamnese extends JInternalFrame {
 
 		});
 		panel_3.add(btnCancel, "cell 1 0");
-		
+
 		JTabbedPane tabber = new JTabbedPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addComponent(tabber, GroupLayout.PREFERRED_SIZE, 1000, Short.MAX_VALUE)))
-					.addGap(1))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1)
-					.addComponent(tabber, GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		);
-		
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup().addGap(18)
+								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup().addGap(1)
+								.addComponent(tabber, GroupLayout.PREFERRED_SIZE, 1000, Short.MAX_VALUE))).addGap(1)));
+		groupLayout
+				.setVerticalGroup(groupLayout
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout
+								.createSequentialGroup()
+								.addGap(1)
+								.addComponent(tabber, GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+								.addGap(1)
+								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)));
+
 		JPanel pContent = new JPanel();
 		tabber.addTab("Allgemeine Anamnese", null, pContent, null);
-		
+
 		JPanel panel_2 = new JPanel();
-		
+
 		sPAenderungenFamilie = new JScrollPane();
-		sPAenderungenFamilie.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "\u00C4nderungen im Familiengef\u00FCge", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
-		
+		sPAenderungenFamilie.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"),
+				"\u00C4nderungen im Familiengef\u00FCge", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, null));
+
 		label_1 = new JLabel("Name:");
-		
+
 		label_2 = new JLabel("Rufname:");
-		
+
 		tFRufname = new JTextField();
 		tFRufname.setColumns(10);
-		
+
 		tFName = new JTextField();
 		tFName.setColumns(10);
-		
+
 		separator = new JSeparator();
-		
+
 		label_3 = new JLabel("Verwendungszweck:");
-		
+
 		label_4 = new JLabel("Im Besitz seit:");
-		
+
 		label_5 = new JLabel("Tier stammt von:");
-		
+
 		tPTierStammtVon = new JTextField();
 		tPTierStammtVon.setColumns(10);
-		
-		spinBirthdate_1 = new JSpinner(); //Datumsmodell
+
+		spinBirthdate_1 = new JSpinner(); // Datumsmodell
 		SpinnerDateModel model = new SpinnerDateModel();
 		spinBirthdate_1.setModel(model);
 		spinBirthdate_1.setEditor(new JSpinner.DateEditor(spinBirthdate_1, "dd-MM-yyyy"));
 		model.setCalendarField(Calendar.MINUTE);
 		spinBirthdate_1.setEnabled(editable);
-		
+
 		tPVerwendungszweck = new JTextField();
 		tPVerwendungszweck.setColumns(10);
-		
-		
+
 		sPAenderungenFamilie.setViewportView(tPAenderungenFamilie);
-		
+
 		JPanel panel_1 = new JPanel();
-		
+
 		sPAuslandsaufenthalte = new JScrollPane();
-		sPAuslandsaufenthalte.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Auslandsaufenthalte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPAuslandsaufenthalte.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"),
+				"Auslandsaufenthalte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		sPVerhaltensaufaeligkeiten = new JScrollPane();
-		sPVerhaltensaufaeligkeiten.setViewportBorder(new TitledBorder(null, "Verhaltensauf\u00E4lligkeiten", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPVerhaltensaufaeligkeiten.setViewportBorder(new TitledBorder(null, "Verhaltensauf\u00E4lligkeiten",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		sPVerletzungen = new JScrollPane();
-		sPVerletzungen.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verletzungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPVerletzungen.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"),
+				"Verletzungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		sPNarben = new JScrollPane();
-		sPNarben.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Narben", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPNarben.setViewportBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Narben",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		tPVerhaltensaufaeligkeiten = new JTextPane();
 		sPVerhaltensaufaeligkeiten.setViewportView(tPVerhaltensaufaeligkeiten);
-		
+
 		tPVerletzungen = new JTextPane();
 		sPVerletzungen.setViewportView(tPVerletzungen);
-		
+
 		tPNarben = new JTextPane();
 		sPNarben.setViewportView(tPNarben);
-		
+
 		tPAuslandsaufenthalte = new JTextPane();
 		sPAuslandsaufenthalte.setViewportView(tPAuslandsaufenthalte);
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setLeftComponent(splitPane);
 		splitPane_2.setDividerLocation(0.5);
 		splitPane.setLeftComponent(panel_2);
-		
+
 		lblHaltung = new JLabel("Haltung:");
-		
+
 		tFHalltung = new JTextField();
 		tFHalltung.setColumns(10);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(label_1)
-							.addGap(24)
-							.addComponent(tFName, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(label_2)
-							.addGap(8)
-							.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+		gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_2
+				.createSequentialGroup()
+				.addGap(7)
+				.addGroup(gl_panel_2
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_1).addGap(24)
+								.addComponent(tFName, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_2).addGap(8)
+								.addComponent(tFRufname, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
 						.addComponent(separator, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(label_3)
-							.addGap(8)
-							.addComponent(tPVerwendungszweck, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(label_4)
-							.addGap(39)
-							.addComponent(spinBirthdate_1))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(lblHaltung)
-							.addGap(65)
-							.addComponent(tFHalltung, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addComponent(label_5)
-							.addGap(25)
-							.addComponent(tPTierStammtVon, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-						.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(label_1))
-						.addComponent(tFName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(label_2))
-						.addComponent(tFRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(label_3))
-						.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(4)
-							.addComponent(label_4))
-						.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblHaltung))
-						.addComponent(tFHalltung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(label_5))
-						.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addComponent(sPAenderungenFamilie, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
-		);
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_3).addGap(8)
+								.addComponent(tPVerwendungszweck, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_4).addGap(39)
+								.addComponent(spinBirthdate_1))
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(lblHaltung).addGap(65)
+								.addComponent(tFHalltung, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addGroup(gl_panel_2.createSequentialGroup().addComponent(label_5).addGap(25)
+								.addComponent(tPTierStammtVon, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+						.addComponent(sPAenderungenFamilie, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))));
+		gl_panel_2
+				.setVerticalGroup(gl_panel_2
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2
+								.createSequentialGroup()
+								.addGap(7)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_1))
+										.addComponent(tFName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_2))
+										.addComponent(tFRufname, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+								.addGap(4)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_3))
+										.addComponent(tPVerwendungszweck, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(4).addComponent(label_4))
+										.addComponent(spinBirthdate_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(lblHaltung))
+										.addComponent(tFHalltung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addGroup(gl_panel_2
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_2.createSequentialGroup().addGap(3).addComponent(label_5))
+										.addComponent(tPTierStammtVon, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addComponent(sPAenderungenFamilie, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)));
 		panel_2.setLayout(gl_panel_2);
 		splitPane.setRightComponent(panel_1);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-					.addGap(2))
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(2)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPNarben, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-						.addComponent(sPVerletzungen, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
-							.addGap(2))))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-					.addGap(17)
-					.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sPVerletzungen, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sPNarben, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-					.addGap(29))
-		);
+		gl_panel_1
+				.setHorizontalGroup(gl_panel_1
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup().addContainerGap()
+								.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+								.addGap(2))
+						.addGroup(gl_panel_1
+								.createSequentialGroup()
+								.addGap(2)
+								.addGroup(gl_panel_1
+										.createParallelGroup(Alignment.LEADING)
+										.addComponent(sPNarben, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+										.addComponent(sPVerletzungen, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+										.addGroup(gl_panel_1
+												.createSequentialGroup()
+												.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+												.addGap(2)))));
+		gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
+				.createSequentialGroup().addContainerGap()
+				.addComponent(sPAuslandsaufenthalte, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(17)
+				.addComponent(sPVerhaltensaufaeligkeiten, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(sPVerletzungen, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(sPNarben, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(29)));
 		splitPane.setDividerLocation(0.5);
 		panel_1.setLayout(gl_panel_1);
-		
+
 		JPanel panel = new JPanel();
 		splitPane_2.setRightComponent(panel);
-		
+
 		sPInfektionen = new JScrollPane();
-		sPInfektionen.setViewportBorder(new TitledBorder(null, "Infektionserkrankungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPInfektionen.setViewportBorder(new TitledBorder(null, "Infektionserkrankungen", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		sPImpfungen = new JScrollPane();
-		sPImpfungen.setViewportBorder(new TitledBorder(null, "Regelm\u00E4\u00DFige Impfungen:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPImpfungen.setViewportBorder(new TitledBorder(null, "Regelm\u00E4\u00DFige Impfungen:", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		sPHerzKreislauf = new JScrollPane();
-		sPHerzKreislauf.setViewportBorder(new TitledBorder(null, "Herz/Kreislauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPHerzKreislauf.setViewportBorder(new TitledBorder(null, "Herz/Kreislauf", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		sPAtmung = new JScrollPane();
 		sPAtmung.setViewportBorder(new TitledBorder(null, "Atmung", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+
 		tPHerzKreislauf = new JTextPane();
 		sPHerzKreislauf.setViewportView(tPHerzKreislauf);
-		
+
 		tPImpfungen = new JTextPane();
 		sPImpfungen.setViewportView(tPImpfungen);
-		
+
 		tPInfektionen = new JTextPane();
 		sPInfektionen.setViewportView(tPInfektionen);
 		GroupLayout gl_pContent = new GroupLayout(pContent);
-		gl_pContent.setHorizontalGroup(
-			gl_pContent.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pContent.createSequentialGroup()
-					.addGap(1)
-					.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 1316, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_pContent.setVerticalGroup(
-			gl_pContent.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pContent.createSequentialGroup()
-					.addGap(1)
-					.addComponent(splitPane_2))
-		);
-		
+		gl_pContent.setHorizontalGroup(gl_pContent.createParallelGroup(Alignment.LEADING).addGroup(gl_pContent
+				.createSequentialGroup().addGap(1)
+				.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 1316, Short.MAX_VALUE).addGap(1)));
+		gl_pContent.setVerticalGroup(gl_pContent.createParallelGroup(Alignment.LEADING).addGroup(gl_pContent
+				.createSequentialGroup().addGap(1).addComponent(splitPane_2)));
+
 		tPAtmung = new JTextPane();
 		sPAtmung.setViewportView(tPAtmung);
-		
+
 		sPVerdauung = new JScrollPane();
-		sPVerdauung.setViewportBorder(new TitledBorder(null, "Verdauungstrakt", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPVerdauung.setViewportBorder(new TitledBorder(null, "Verdauungstrakt", TitledBorder.CENTER, TitledBorder.TOP,
+				null, null));
+
 		tPVerdauung = new JTextPane();
 		sPVerdauung.setViewportView(tPVerdauung);
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(2)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
+				.createSequentialGroup()
+				.addGap(2)
+				.addGroup(gl_panel
+						.createParallelGroup(Alignment.LEADING)
 						.addComponent(sPVerdauung, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-							.addGap(1))
+								.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE).addGap(1))
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-							.addGap(1))
+								.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE).addGap(1))
 						.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-							.addGap(1)))
-					.addGap(7))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(7)
-					.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-					.addGap(4)
-					.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(sPVerdauung, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-					.addGap(7))
-		);
+								.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+								.addGap(1))).addGap(7)));
+		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(gl_panel
+				.createSequentialGroup().addGap(7)
+				.addComponent(sPInfektionen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE).addGap(4)
+				.addComponent(sPImpfungen, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(sPHerzKreislauf, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(sPAtmung, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(sPVerdauung, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE).addGap(7)));
 		panel.setLayout(gl_panel);
 		pContent.setLayout(gl_pContent);
-		
+
 		JPanel panel_4 = new JPanel();
 		tabber.addTab("Allgemeine Anamnese 2", null, panel_4, null);
-		
+
 		JPanel panel_5 = new JPanel();
-		
+
 		sPEndokrinium = new JScrollPane();
-		sPEndokrinium.setViewportBorder(new TitledBorder(null, "Endokrinium:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPEndokrinium.setViewportBorder(new TitledBorder(null, "Endokrinium:", TitledBorder.CENTER, TitledBorder.TOP,
+				null, null));
+
 		sPSchilddruese = new JScrollPane();
-		sPSchilddruese.setViewportBorder(new TitledBorder(null, "Schilddr\u00FCse", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPSchilddruese.setViewportBorder(new TitledBorder(null, "Schilddr\u00FCse", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		SPBauchspeicheldruese = new JScrollPane();
-		SPBauchspeicheldruese.setViewportBorder(new TitledBorder(null, "Bauchspeicheldr\u00FCse:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		SPBauchspeicheldruese.setViewportBorder(new TitledBorder(null, "Bauchspeicheldr\u00FCse:", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		sPZNS = new JScrollPane();
 		sPZNS.setViewportBorder(new TitledBorder(null, "ZNS:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+
 		JLabel lblEpilemtiformeAnflle = new JLabel("Epilemtiforme Anfälle:");
-		
+
 		tpEndokrinium = new JTextPane();
 		sPEndokrinium.setViewportView(tpEndokrinium);
-		
+
 		tPSchilddruese = new JTextPane();
 		sPSchilddruese.setViewportView(tPSchilddruese);
-		
+
 		tPBauchspeicheldruese = new JTextPane();
 		SPBauchspeicheldruese.setViewportView(tPBauchspeicheldruese);
-		
+
 		tPZNS = new JTextPane();
 		sPZNS.setViewportView(tPZNS);
-		
+
 		cBEpiAnfaelle = new JComboBox<EnumObject>();
-		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Keine", EnumType.A), new EnumObject("Gleichgewichtsstörungen",EnumType.B), new EnumObject("Vorübergehendes Schwanken",EnumType.C)}));
-		
+		cBEpiAnfaelle.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Keine", EnumType.A), new EnumObject("Gleichgewichtsstörungen", EnumType.B),
+				new EnumObject("Vorübergehendes Schwanken", EnumType.C) }));
+
 		JPanel panel_6 = new JPanel();
-		
+
 		sPMedikamente = new JScrollPane();
-		sPMedikamente.setViewportBorder(new TitledBorder(null, "Medikamente", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPMedikamente.setViewportBorder(new TitledBorder(null, "Medikamente", TitledBorder.CENTER, TitledBorder.TOP,
+				null, null));
+
 		sPRoentgen = new JScrollPane();
-		sPRoentgen.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00F6ntgen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPRoentgen.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "R\u00F6ntgen",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		sPCTMRT = new JScrollPane();
 		sPCTMRT.setViewportBorder(new TitledBorder(null, "CT/MRT", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+
 		tPMedikamente = new JTextPane();
 		sPMedikamente.setViewportView(tPMedikamente);
-		
+
 		tPRoentgen = new JTextPane();
 		sPRoentgen.setViewportView(tPRoentgen);
-		
+
 		tPCTMRT = new JTextPane();
 		sPCTMRT.setViewportView(tPCTMRT);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
-					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, Short.MAX_VALUE)
-					.addGap(34))
-		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-						.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-					.addGap(7))
-		);
+		gl_panel_4.setHorizontalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_4
+				.createSequentialGroup().addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
+				.addGap(1).addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, Short.MAX_VALUE).addGap(34)));
+		gl_panel_4
+				.setVerticalGroup(gl_panel_4
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel_4
+								.createSequentialGroup()
+								.addGap(1)
+								.addGroup(gl_panel_4
+										.createParallelGroup(Alignment.TRAILING)
+										.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+										.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+								.addGap(7)));
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
-		gl_panel_6.setHorizontalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
+		gl_panel_6.setHorizontalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_6
+				.createSequentialGroup()
+				.addGap(1)
+				.addGroup(gl_panel_6
+						.createParallelGroup(Alignment.LEADING)
 						.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
 						.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
 						.addGroup(gl_panel_6.createSequentialGroup()
-							.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-							.addGap(1)))
-					.addGap(1))
-		);
-		gl_panel_6.setVerticalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_6.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-					.addGap(1))
-		);
+								.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE).addGap(1)))
+				.addGap(1)));
+		gl_panel_6.setVerticalGroup(gl_panel_6.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_6
+				.createSequentialGroup().addGap(1)
+				.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE).addGap(1)
+				.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE).addGap(1)
+				.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE).addGap(1)));
 		panel_6.setLayout(gl_panel_6);
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
-		gl_panel_5.setHorizontalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addComponent(lblEpilemtiformeAnflle)
-							.addGap(8)
-							.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)))
-					.addGap(7))
-		);
-		gl_panel_5.setVerticalGroup(
-			gl_panel_5.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_5.createSequentialGroup()
-					.addGap(7)
-					.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-					.addGap(4)
-					.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-					.addGap(4)
-					.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-					.addGap(4)
-					.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-					.addGap(4)
-					.addGroup(gl_panel_5.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_5.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblEpilemtiformeAnflle))
-						.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(11))
-		);
+		gl_panel_5
+				.setHorizontalGroup(gl_panel_5
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5
+								.createSequentialGroup()
+								.addGap(7)
+								.addGroup(gl_panel_5
+										.createParallelGroup(Alignment.LEADING)
+										.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+										.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+										.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+										.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+										.addGroup(gl_panel_5
+												.createSequentialGroup()
+												.addComponent(lblEpilemtiformeAnflle)
+												.addGap(8)
+												.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)))
+								.addGap(7)));
+		gl_panel_5
+				.setVerticalGroup(gl_panel_5
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_5
+								.createSequentialGroup()
+								.addGap(7)
+								.addComponent(sPEndokrinium, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+								.addGap(4)
+								.addComponent(sPSchilddruese, GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+								.addGap(4)
+								.addComponent(SPBauchspeicheldruese, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+								.addGap(4)
+								.addComponent(sPZNS, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+								.addGap(4)
+								.addGroup(gl_panel_5
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_5.createSequentialGroup().addGap(3)
+												.addComponent(lblEpilemtiformeAnflle))
+										.addComponent(cBEpiAnfaelle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(11)));
 		panel_5.setLayout(gl_panel_5);
 		panel_4.setLayout(gl_panel_4);
-		
+
 		JPanel panel_8 = new JPanel();
 		tabber.addTab("spezielle symptombezogene Anamnese", null, panel_8, null);
-		
+
 		JPanel panel_9 = new JPanel();
-		
+
 		sPHauptproblem = new JScrollPane();
-		sPHauptproblem.setViewportBorder(new TitledBorder(null, "Hauptproblem", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPHauptproblem.setViewportBorder(new TitledBorder(null, "Hauptproblem", TitledBorder.CENTER, TitledBorder.TOP,
+				null, null));
+
 		sPSchilderung = new JScrollPane();
-		sPSchilderung.setViewportBorder(new TitledBorder(null, "Schilderung des Patientenbesitzers", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPSchilderung.setViewportBorder(new TitledBorder(null, "Schilderung des Patientenbesitzers",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		sPUnternommen = new JScrollPane();
-		sPUnternommen.setViewportBorder(new TitledBorder(null, "Was wurde unternommen?:", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPUnternommen.setViewportBorder(new TitledBorder(null, "Was wurde unternommen?:", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		JLabel label_9 = new JLabel("Schmerzempfindlichkeit:");
-		
+
 		cBSchmerzempfindlichkeit = new JComboBox<EnumObject>();
-		cBSchmerzempfindlichkeit.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
-		
+		cBSchmerzempfindlichkeit.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
+				new EnumObject("Nein", EnumType.B) }));
+
 		JLabel lblDenkenSieIhr = new JLabel("Denken sie ihr Tier hat Schmerzen?:");
-		
+
 		cBDenkenSchmerzen = new JComboBox<EnumObject>();
-		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Äuswählen",EnumType.UNKNOWN), new EnumObject("Ja,immer",EnumType.A), new EnumObject("Gelegentlich",EnumType.B), new EnumObject("Nein",EnumType.C)}));
-		
+		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Äuswählen", EnumType.UNKNOWN), new EnumObject("Ja,immer", EnumType.A),
+				new EnumObject("Gelegentlich", EnumType.B), new EnumObject("Nein", EnumType.C) }));
+
 		ePHauptproblem = new JEditorPane();
 		sPHauptproblem.setViewportView(ePHauptproblem);
-		
+
 		ePSchilderung = new JEditorPane();
 		sPSchilderung.setViewportView(ePSchilderung);
-		
+
 		ePUnternommen = new JEditorPane();
 		sPUnternommen.setViewportView(ePUnternommen);
-		
+
 		JPanel panel_10 = new JPanel();
-		
+
 		sPSchmerzmittel = new JScrollPane();
 		sPSchmerzmittel.setEnabled(false);
-		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		ePSchmerzmittel = new JEditorPane();
 		sPSchmerzmittel.setViewportView(ePSchmerzmittel);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-		gl_panel_8.setHorizontalGroup(
-			gl_panel_8.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_8.createSequentialGroup()
-					.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-					.addGap(34))
-		);
-		gl_panel_8.setVerticalGroup(
-			gl_panel_8.createParallelGroup(Alignment.LEADING)
+		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
+				.createSequentialGroup().addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+				.addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE).addGap(34)));
+		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-		);
+				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE));
 		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
-		gl_panel_9.setHorizontalGroup(
-			gl_panel_9.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(label_9)
-							.addGap(61)
-							.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addComponent(lblDenkenSieIhr)
-							.addGap(4)
-							.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)))
-					.addGap(7))
-				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
-					.addGap(1))
-				.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
-						.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-						.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
-					.addGap(1))
-		);
-		gl_panel_9.setVerticalGroup(
-			gl_panel_9.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-					.addGap(1)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(6)
-							.addComponent(label_9))
-						.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblDenkenSieIhr))
-						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(11))
-		);
+		gl_panel_9
+				.setHorizontalGroup(gl_panel_9
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_9
+								.createSequentialGroup()
+								.addGap(7)
+								.addGroup(gl_panel_9
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_9
+												.createSequentialGroup()
+												.addComponent(label_9)
+												.addGap(61)
+												.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel_9
+												.createSequentialGroup()
+												.addComponent(lblDenkenSieIhr)
+												.addGap(4)
+												.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)))
+								.addGap(7))
+						.addGroup(Alignment.TRAILING, gl_panel_9.createSequentialGroup().addGap(1)
+								.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE).addGap(1))
+						.addGroup(Alignment.TRAILING, gl_panel_9
+								.createSequentialGroup()
+								.addGap(1)
+								.addGroup(gl_panel_9
+										.createParallelGroup(Alignment.TRAILING)
+										.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+										.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
+								.addGap(1)));
+		gl_panel_9
+				.setVerticalGroup(gl_panel_9
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_9
+								.createSequentialGroup()
+								.addGap(1)
+								.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+								.addGap(1)
+								.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+								.addGap(1)
+								.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+								.addGap(1)
+								.addGroup(gl_panel_9
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_9.createSequentialGroup().addGap(6).addComponent(label_9))
+										.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(4)
+								.addGroup(gl_panel_9
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel_9.createSequentialGroup().addGap(3)
+												.addComponent(lblDenkenSieIhr))
+										.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGap(11)));
 		panel_9.setLayout(gl_panel_9);
-		
+
 		sPVerusachenSchmerzen = new JScrollPane();
-		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
+
 		ePVerusachenSchmerzen = new JEditorPane();
 		sPVerusachenSchmerzen.setViewportView(ePVerusachenSchmerzen);
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
-		gl_panel_10.setHorizontalGroup(
-			gl_panel_10.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-					.addGap(1))
-				.addGroup(gl_panel_10.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_panel_10.setVerticalGroup(
-			gl_panel_10.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-					.addGap(5))
-		);
+		gl_panel_10.setHorizontalGroup(gl_panel_10
+				.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_10.createSequentialGroup().addGap(1)
+						.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE).addGap(1))
+				.addGroup(gl_panel_10.createSequentialGroup().addGap(1)
+						.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE).addGap(1)));
+		gl_panel_10.setVerticalGroup(gl_panel_10.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_10
+				.createSequentialGroup().addGap(1)
+				.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE).addGap(1)
+				.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE).addGap(5)));
 		panel_10.setLayout(gl_panel_10);
 		panel_8.setLayout(gl_panel_8);
-		
+
 		JPanel panel_14 = new JPanel();
 		tabber.addTab("Funktionsanamnese", null, panel_14, null);
-		
+
 		JPanel panel_11 = new JPanel();
-		
+
 		JLabel lblIstDerPatient = new JLabel("Ist der Patient in der Lage, den betreffenden Körperteil zu benutzen?");
-		
+
 		cBKöperteilBewegen = new JComboBox<EnumObject>();
-		cBKöperteilBewegen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
-		
+		cBKöperteilBewegen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
+				new EnumObject("Nein", EnumType.B) }));
+
 		JLabel lblMglicheGehstreckeIn = new JLabel("Mögliche Gehstrecke in Killometer:");
-		
-		spGehstrecke = new JSpinner(); //Gehstrecke in Km
-		
+
+		spGehstrecke = new JSpinner(); // Gehstrecke in Km
+
 		JLabel label_13 = new JLabel("Mögliche Gehzeit:");
-		
-		spGehzeit = new JSpinner(); //Gehzeit im Format HH:MM (Stunden:Minuten)
+
+		spGehzeit = new JSpinner(); // Gehzeit im Format HH:MM (Stunden:Minuten)
 		SpinnerDateModel time_model = new SpinnerDateModel();
 		time_model.setCalendarField(Calendar.MINUTE);
 		spGehzeit.setModel(time_model);
 		spGehzeit.setEditor(new JSpinner.DateEditor(spGehzeit, "HH:mm"));
-		
+
 		JLabel label_14 = new JLabel("Witterungsabhängikeit");
-		
+
 		cBWitterung = new JComboBox<EnumObject>();
-		cBWitterung.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
-		
+		cBWitterung.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
+				new EnumObject("Nein", EnumType.B) }));
+
 		JLabel label_15 = new JLabel("Zykluskorrelation");
-		
+
 		comboBoxZyklus = new JComboBox<EnumObject>();
-		comboBoxZyklus.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
-		
+		comboBoxZyklus.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
+				new EnumObject("Nein", EnumType.B) }));
+
 		JLabel label_16 = new JLabel("Auslauf:");
-		
+
 		cBAuslauf = new JComboBox<EnumObject>();
-		cBAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Bitte Auswählen",EnumType.UNKNOWN), new EnumObject("Ja",EnumType.A), new EnumObject("Nein",EnumType.B)}));
-		
+		cBAuslauf.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
+				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
+				new EnumObject("Nein", EnumType.B) }));
+
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
-		
+
 		spavailTimeCons = new JSpinner();
 		spavailTimeCons.setModel(time_model);
 		spavailTimeCons.setEditor(new JSpinner.DateEditor(spavailTimeCons, "HH:mm"));
-		
+
 		JPanel panel_12 = new JPanel();
 		panel_12.setLayout(new BorderLayout(0, 0));
-		
+
 		sP_Bemerkungen = new JScrollPane();
-		sP_Bemerkungen.setViewportBorder(new TitledBorder(null, "Sonstige Bemerkungen", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		sP_Bemerkungen.setViewportBorder(new TitledBorder(null, "Sonstige Bemerkungen", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
 		panel_12.add(sP_Bemerkungen, BorderLayout.CENTER);
-		
+
 		tPBemerkungen = new JTextPane();
 		sP_Bemerkungen.setViewportView(tPBemerkungen);
-		
+
 		sPFunktionenMotorik = new JScrollPane();
-		sPFunktionenMotorik.setViewportBorder(new TitledBorder(null, "Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		
+		sPFunktionenMotorik.setViewportBorder(new TitledBorder(null,
+				"Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?", TitledBorder.CENTER,
+				TitledBorder.TOP, null, null));
+
 		tPFunktionenMotorik = new JTextPane();
 		sPFunktionenMotorik.setViewportView(tPFunktionenMotorik);
 		GroupLayout gl_panel_14 = new GroupLayout(panel_14);
-		gl_panel_14.setHorizontalGroup(
-			gl_panel_14.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_14.createSequentialGroup()
-					.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING)
+		gl_panel_14.setHorizontalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_14
+				.createSequentialGroup()
+				.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING)
 						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-						.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
-					.addGap(1)
-					.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-					.addGap(31))
-		);
-		gl_panel_14.setVerticalGroup(
-			gl_panel_14.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_14.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(57))
-				.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-		);
+						.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)).addGap(1)
+				.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE).addGap(31)));
+		gl_panel_14
+				.setVerticalGroup(gl_panel_14
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_14
+								.createSequentialGroup()
+								.addGap(1)
+								.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+								.addGap(1)
+								.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(57)).addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE));
 		panel_11.setLayout(new MigLayout("", "[333px][109px]", "[20px][20px][20px][20px][20px][20px][20px]"));
 		panel_11.add(cBKöperteilBewegen, "cell 1 0,alignx left,aligny top");
 		panel_11.add(lblMglicheGehstreckeIn, "cell 0 1,alignx left,aligny center");
@@ -906,18 +878,15 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(lblWieVielZeit, "cell 0 6,alignx left,aligny center");
 		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
 		panel_14.setLayout(gl_panel_14);
-		
+
 		spGehstrecke.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-		
-		
+
 		getContentPane().setLayout(groupLayout);
-		
-		//////////////////////////////////////////
-		
+
 		btnEdit = new JButton("Bearbeiten");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(anamnesis_id != -1){
+				if (anamnesis_id != -1) {
 					editable = true;
 					setEditable();
 				}
@@ -925,158 +894,150 @@ public class WNeueAnamnese extends JInternalFrame {
 		});
 		panel_3.add(btnEdit, "cell 2 0");
 		setEditable();
+		loadData();
 		this.setVisible(true);
 	}
-	
+
 	private void initialize(String strName) {
 		frame = new JFrame();
 		setTitle("Anamnese von " + strName);
 		setBounds(100, 100, 1018, 507);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	private void loadData() {
-		try {
-			ResultSet rs = Database.getAnamnesis(anamnesisID);
-			if(rs.next()){
-				tPVerwendungszweck.setText(rs.getString(1));
-				int n = 2;
-				tFHalltung.setText(rs.getString(n));
-				n++;
-				spinBirthdate_1.setValue(rs.getDate(n));
-				//possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
-				n++;
-				tPTierStammtVon.setText(rs.getString(n));
-				n++;
-				tPAenderungenFamilie.setText(rs.getString(n));
-				n++;
-				tPAuslandsaufenthalte.setText(rs.getString(n));
-				n++;
-				tPVerhaltensaufaeligkeiten.setText(rs.getString(n));
-				n++;
-				tPVerletzungen.setText(rs.getString(n));
-				n++;
-				tPNarben.setText(rs.getString(n));
-				n++;
-				tPInfektionen.setText(rs.getString(n));
-				n++;
-				tPImpfungen.setText(rs.getString(n));
-				n++;
-				tPAtmung.setText(rs.getString(n));
-				n++;
-				tPVerdauung.setText(rs.getString(n));
-				n++;
-				tpEndokrinium.setText(rs.getString(n));
-				n++;
-				tPSchilddruese.setText(rs.getString(n));
-				n++;
-				tPBauchspeicheldruese.setText(rs.getString(n));
-				n++;
-				tPZNS.setText(rs.getString(n));
-				n++;
-				cBEpiAnfaelle.setSelectedIndex(rs.getInt(n));;
-				n++;
-				tPRoentgen.setText(rs.getString(n));
-				n++;
-				tPMedikamente.setText(rs.getString(n));
-				n++;
-				tPCTMRT.setText(rs.getString(n));
-				n++;
-				ePHauptproblem.setText(rs.getString(n));
-				n++;
-				ePSchilderung.setText(rs.getString(n));
-				n++;
-				ePUnternommen.setText(rs.getString(n));
-				n++;
-				cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
-				n++;
-				cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
-				n++;
-				ePSchmerzmittel.setText(rs.getString(n));
-				n++;
-				ePVerusachenSchmerzen.setText(rs.getString(n));
-				n++;
-				tPFunktionenMotorik.setText(rs.getString(n));
-				n++;
-				cBKöperteilBewegen.setSelectedIndex(rs.getInt(n));
-				n++;
-				spGehstrecke.setValue(rs.getDouble(n));
-				n++;
-				spGehzeit.setValue(rs.getTime(n));
-				//new java.sql((Date) spGehzeit)))
-				n++;
-				cBWitterung.setSelectedIndex(rs.getInt(n));
-				n++;
-				// UNKNOWN
-				n++;
-				cBAuslauf.setSelectedIndex(rs.getInt(n));
-				n++;
-				spavailTimeCons.setValue(rs.getTime(n));
-				// new java.sql((Date) spavailTimeCons)))
-				n++;
-				tPBemerkungen.setText(rs.getString(n));
-				n++;
-				tPHerzKreislauf.setText(rs.getString(n));
-				n++;
+		if (anamnesisID != -1) {
+			try {
+				ResultSet rs = Database.getAnamnesis(anamnesisID);
+				if (rs.next()) {
+					tPVerwendungszweck.setText(rs.getString(1));
+					int n = 2;
+					tFHalltung.setText(rs.getString(n));
+					n++;
+					spinBirthdate_1.setValue(rs.getDate(n));
+					// possesionsince(new java.sql.Date(((Date)
+					// spinBirthdate_1.getValue()).getTime()))
+					n++;
+					tPTierStammtVon.setText(rs.getString(n));
+					n++;
+					tPAenderungenFamilie.setText(rs.getString(n));
+					n++;
+					tPAuslandsaufenthalte.setText(rs.getString(n));
+					n++;
+					tPVerhaltensaufaeligkeiten.setText(rs.getString(n));
+					n++;
+					tPVerletzungen.setText(rs.getString(n));
+					n++;
+					tPNarben.setText(rs.getString(n));
+					n++;
+					tPInfektionen.setText(rs.getString(n));
+					n++;
+					tPImpfungen.setText(rs.getString(n));
+					n++;
+					tPAtmung.setText(rs.getString(n));
+					n++;
+					tPVerdauung.setText(rs.getString(n));
+					n++;
+					tpEndokrinium.setText(rs.getString(n));
+					n++;
+					tPSchilddruese.setText(rs.getString(n));
+					n++;
+					tPBauchspeicheldruese.setText(rs.getString(n));
+					n++;
+					tPZNS.setText(rs.getString(n));
+					n++;
+					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n));
+					;
+					n++;
+					tPRoentgen.setText(rs.getString(n));
+					n++;
+					tPMedikamente.setText(rs.getString(n));
+					n++;
+					tPCTMRT.setText(rs.getString(n));
+					n++;
+					ePHauptproblem.setText(rs.getString(n));
+					n++;
+					ePSchilderung.setText(rs.getString(n));
+					n++;
+					ePUnternommen.setText(rs.getString(n));
+					n++;
+					cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
+					n++;
+					cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
+					n++;
+					ePSchmerzmittel.setText(rs.getString(n));
+					n++;
+					ePVerusachenSchmerzen.setText(rs.getString(n));
+					n++;
+					tPFunktionenMotorik.setText(rs.getString(n));
+					n++;
+					cBKöperteilBewegen.setSelectedIndex(rs.getInt(n));
+					n++;
+					spGehstrecke.setValue(rs.getDouble(n));
+					n++;
+					spGehzeit.setValue(rs.getTime(n));
+					// new java.sql((Date) spGehzeit)))
+					n++;
+					cBWitterung.setSelectedIndex(rs.getInt(n));
+					n++;
+					// UNKNOWN
+					n++;
+					cBAuslauf.setSelectedIndex(rs.getInt(n));
+					n++;
+					spavailTimeCons.setValue(rs.getTime(n));
+					// new java.sql((Date) spavailTimeCons)))
+					n++;
+					tPBemerkungen.setText(rs.getString(n));
+					n++;
+					tPHerzKreislauf.setText(rs.getString(n));
+					n++;
+				}
+
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
-			
-		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e,true));
 		}
-		
 	}
-	
+
 	/**
 	 * Insert & edit method caller
+	 * 
 	 * @author "Aron Heinecke"
 	 * @param insert
 	 */
 	private void saveData(boolean insert) {
-//		java.sql.Time time = new java.sql.Time(((Date)spGehzeit.getValue()).getTime());
+		// java.sql.Time time = new
+		// java.sql.Time(((Date)spGehzeit.getValue()).getTime());
 		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
 			try {
-				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID)
-				.purpose(tPVerwendungszweck.getText())
-				.keeping(tFHalltung.getText())
-				.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
-				.origin(tPTierStammtVon.getText())
-				.familystrchanges(tPAenderungenFamilie.getText())
-				.abroadstays(tPAuslandsaufenthalte.getText())
-				.attitudeconspicuity(tPVerhaltensaufaeligkeiten.getText())
-				.injurys(tPVerletzungen.getText())
-				.scars(tPNarben.getText())
-				.infectiousDisease(tPInfektionen.getText())
-				.regularVaccinations(tPImpfungen.getText())
-				.breathing(tPAtmung.getText())
-				.digestiveTract(tPVerdauung.getText())
-				.endocrineSystem(tpEndokrinium.getText())
-				.hyperthyroidism(tPSchilddruese.getText())
-				.pancreas(tPBauchspeicheldruese.getText())
-				.ZNS(tPZNS.getText())
-				.epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
-				.xray(tPRoentgen.getText())
-				.medication(tPMedikamente.getText())
-				.CT_MRT(tPCTMRT.getText())
-				.mainproblem(ePHauptproblem.getText())
-				.descrPatientOwner(ePSchilderung.getText())
-				.wasUndertaken(ePUnternommen.getText())
-				.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
-				.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
-				.painkillerReaction(ePSchmerzmittel.getText())
-				.motionCausingPain(ePVerusachenSchmerzen.getText())
-				.motorInterference(tPFunktionenMotorik.getText())
-				.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
-				.possibleWalkDistance((double)spGehstrecke.getValue())
-				.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
-				.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
-				.cycleCorrelation(UNKNOWN)
-				.outlet(-1.0)
-				.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
-				.comment(tPBemerkungen.getText())
-				.circulation(tPHerzKreislauf.getText())
-				.build();
-				if(insert)
+				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID).purpose(tPVerwendungszweck.getText())
+						.keeping(tFHalltung.getText())
+						.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
+						.origin(tPTierStammtVon.getText()).familystrchanges(tPAenderungenFamilie.getText())
+						.abroadstays(tPAuslandsaufenthalte.getText())
+						.attitudeconspicuity(tPVerhaltensaufaeligkeiten.getText()).injurys(tPVerletzungen.getText())
+						.scars(tPNarben.getText()).infectiousDisease(tPInfektionen.getText())
+						.regularVaccinations(tPImpfungen.getText()).breathing(tPAtmung.getText())
+						.digestiveTract(tPVerdauung.getText()).endocrineSystem(tpEndokrinium.getText())
+						.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
+						.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
+						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
+						.mainproblem(ePHauptproblem.getText()).descrPatientOwner(ePSchilderung.getText())
+						.wasUndertaken(ePUnternommen.getText())
+						.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
+						.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
+						.painkillerReaction(ePSchmerzmittel.getText())
+						.motionCausingPain(ePVerusachenSchmerzen.getText())
+						.motorInterference(tPFunktionenMotorik.getText())
+						.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
+						.possibleWalkDistance((double) spGehstrecke.getValue())
+						.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
+						.weatherDependent(getEnumType(cBWitterung.getSelectedItem())).cycleCorrelation(UNKNOWN)
+						.outlet(-1.0)
+						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
+						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText()).build();
+				if (insert)
 					Database.insertAnamnesis(anamnesis);
 				else
 					logger.error("Currently not implemented");
@@ -1084,11 +1045,11 @@ public class WNeueAnamnese extends JInternalFrame {
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
-		}else{
+		} else {
 			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
 		}
 	}
-	
+
 	@Override
 	public void dispose() {
 		if (editable) {
@@ -1099,43 +1060,42 @@ public class WNeueAnamnese extends JInternalFrame {
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-	
-	private int getEnumType(Object obj){
-		return ((EnumObject)obj).getType().getType();
+
+	private int getEnumType(Object obj) {
+		return ((EnumObject) obj).getType().getType();
 	}
-	
+
 	private Component getFrame() {
 		return this;
 	}
-	
-	private boolean invalidInt(String s){
-		try{
+
+	private boolean invalidInt(String s) {
+		try {
 			int i = Integer.parseInt(s);
 			return false;
-		}catch(NumberFormatException e){
-			return true;
-		}	
-	}
-	
-	private boolean invalidDouble(String s){
-		try{
-		double d = Double.parseDouble(s);
-		return false;
-		}catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			return true;
 		}
 	}
-	
-	private boolean allSet(){
-		if(tPAenderungenFamilie.getText().length() > 26)
+
+	private boolean invalidDouble(String s) {
+		try {
+			double d = Double.parseDouble(s);
 			return false;
-		if(tPVerwendungszweck.getText().length() > 25)
+		} catch (NumberFormatException e) {
+			return true;
+		}
+	}
+
+	private boolean allSet() {
+		if (tPAenderungenFamilie.getText().length() > 26)
 			return false;
-		if(tFHalltung.getText().length() > 50)
+		if (tPVerwendungszweck.getText().length() > 25)
 			return false;
-		if(tPTierStammtVon.getText().length() > 250)
+		if (tFHalltung.getText().length() > 50)
+			return false;
+		if (tPTierStammtVon.getText().length() > 250)
 			return false;
 		return true;
 	}
 }
-
