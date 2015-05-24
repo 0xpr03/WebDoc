@@ -62,7 +62,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblPreisProEinheit)
@@ -71,9 +71,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(spinner, Alignment.LEADING)
-											.addComponent(tFBezeichnung, Alignment.LEADING)))))))
+										.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(tFBezeichnung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
 					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
