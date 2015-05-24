@@ -212,8 +212,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnOk = new JButton("Speichern");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				logger.debug("btnOk fired..\nanamnesisid: {}", anamnesis_id);
-				if (anamnesis_id == -1) {
+				logger.debug("btnOk fired..\nanamnesisid: {}", anamnesisID);
+				if (anamnesisID == -1) {
 					saveData(true);
 				} else if (editable) {
 					saveData(false);
@@ -227,7 +227,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (anamnesis_id == -1) {
+				if (anamnesisID == -1) {
 					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						dispose();
 					}
@@ -1059,7 +1059,8 @@ public class WNeueAnamnese extends JInternalFrame {
 						.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
 						.possibleWalkDistance((double) spGehstrecke.getValue())
 						.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
-						.weatherDependent(getEnumType(cBWitterung.getSelectedItem())).cycleCorrelation(UNKNOWN)
+						.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
+						.cycleCorrelation(UNKNOWN)
 						.outlet((double) spAuslauf.getValue())
 						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue()).getTime()))
 						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText()).build();
