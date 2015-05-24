@@ -222,7 +222,8 @@ public final class WHomescreen extends JFrame {
 
 			@Override
 			public String listRenderer(ACElement element) {
-				return "<html>" + element.getName() + " " + element.getOptname() + " <font size=-5><i>"
+				return "<html>" + element.getName() + " " + element.getOptname() + " <font size=-2  color=\""
+						+ (element.getType() == ElementType.ANIMAL ? "black" : "blue")+"\"><i>"
 						+ element.getType() + "</i></font></html>";
 			}
 		}
