@@ -1010,7 +1010,7 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					cBWitterung.setSelectedIndex(rs.getInt(n));
 					n++;
-					// UNKNOWN
+					cBZyklus.setSelectedIndex(rs.getInt(n));
 					n++;
 					spAuslauf.setValue(rs.getDouble(n));
 					n++;
@@ -1062,7 +1062,7 @@ public class WNeueAnamnese extends JInternalFrame {
 						.possibleWalkDistance((double) spGehstrecke.getValue())
 						.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
 						.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
-						.cycleCorrelation(UNKNOWN)
+						.cycleCorrelation(getEnumType(cBZyklus.getSelectedItem()))
 						.outlet((double) spAuslauf.getValue())
 						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue())
 						.getTime()))
