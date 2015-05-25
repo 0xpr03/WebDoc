@@ -154,7 +154,7 @@ public class AnamnesisBP {
 		return weatherDependent;
 	}
 
-	public String getCycleCorrelation() {
+	public int getCycleCorrelation() {
 		return cycleCorrelation;
 	}
 
@@ -210,7 +210,7 @@ public class AnamnesisBP {
 	private double possibleWalkDistance;
 	private Time possibleWalkDuration;
 	private int weatherDependent;
-	private String cycleCorrelation;
+	private int cycleCorrelation;
 	private double outlet;
 	private Time availableTimeCons;
 	private String comment;
@@ -252,7 +252,7 @@ public class AnamnesisBP {
 		private double possibleWalkDistance;
 		private Time possibleWalkDuration;
 		private int weatherDependent;
-		private String cycleCorrelation;
+		private int cycleCorrelation;
 		private double outlet;
 		private Time availableTimeCons;
 		private String comment;
@@ -441,7 +441,7 @@ public class AnamnesisBP {
 			return this;
 		}
 
-		public Builder cycleCorrelation(String cycleCorrelation) {
+		public Builder cycleCorrelation(int cycleCorrelation) {
 			this.cycleCorrelation = cycleCorrelation;
 			return this;
 		}

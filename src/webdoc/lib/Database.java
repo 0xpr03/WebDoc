@@ -9,6 +9,7 @@ package webdoc.lib;
 import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,10 +19,8 @@ import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -410,7 +409,7 @@ public class Database{
 		platz++;
 		stm.setInt(platz, anamnesis.getWeatherDependent());
 		platz++;
-		stm.setString(platz, anamnesis.getCycleCorrelation().equals("") ? null : anamnesis.getCycleCorrelation());
+		stm.setInt(platz, anamnesis.getCycleCorrelation());
 		platz++;
 		stm.setDouble(platz, anamnesis.getOutlet());
 		platz++;

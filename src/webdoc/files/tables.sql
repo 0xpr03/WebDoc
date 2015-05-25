@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `possibleWalkDistance` double DEFAULT NULL,
  `possibleWalkDuration` time DEFAULT NULL,
  `weatherDependent` tinyint(1)  NOT NULL,
- `cycleCorrelation` text DEFAULT NULL,
+ `cycleCorrelation` tinyint(1)  NOT NULL,
  `outlet` double DEFAULT NULL,
  `availableTimeCons` time DEFAULT NULL,
  `comment` text DEFAULT NULL,
