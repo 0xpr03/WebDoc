@@ -1035,7 +1035,6 @@ public class WNeueAnamnese extends JInternalFrame {
 	 * @param insert
 	 */
 	private void saveData(boolean insert) {
-		String UNKNOWN = "UNKNOWN";
 		if (allSet()) {
 			try {
 				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID).purpose(tPVerwendungszweck.getText())
