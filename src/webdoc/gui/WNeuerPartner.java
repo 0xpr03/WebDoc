@@ -505,11 +505,12 @@ public class WNeuerPartner extends JInternalFrame {
 		contentPanel.setLayout(gl_contentPane);
 
 		SpinnerDateModel model = new SpinnerDateModel();
-		model.setCalendarField(Calendar.MINUTE);
+		model.setCalendarField(Calendar.DAY_OF_MONTH);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		spinGebdatum.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinGebdatum, "dd-MM-yyyy");
 		spinGebdatum.setEditor(dateEditor);
+		spinGebdatum.setValue(GUIFunctions.getDefaultDate());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
@@ -825,6 +826,9 @@ public class WNeuerPartner extends JInternalFrame {
 			return false;
 		if (textOrtsteil.getText().length() > 20)
 			return false;
+		if(((Date)spinGebdatum.getValue()).getTime() == GUIFunctions.getDefaultDate().getTime()){
+			return false;
+		}
 		return true;
 	}
 }

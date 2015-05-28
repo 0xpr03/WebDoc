@@ -7,6 +7,8 @@
 package webdoc.gui;
 
 import java.awt.Component;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -22,12 +24,22 @@ import webdoc.gui.utils.CustomTreeObj.EntryType;
 import webdoc.lib.GUIManager;
 
 public class GUIFunctions {
+	private static Calendar calendar = Calendar.getInstance();
 	
 	/*Erstellen den Menuebaum*/ 
 	public static TreeModel Navi() {
 		TreeNode root = createTree();
 		JTree tree = new JTree(root);
 		return tree.getModel();
+	}
+	
+	/**
+	 * Return default date for spinners
+	 * @return
+	 */
+	public static Date getDefaultDate(){
+		calendar.setTimeInMillis(0);
+		return calendar.getTime();
 	}
 
 	private static TreeNode createTree() {
