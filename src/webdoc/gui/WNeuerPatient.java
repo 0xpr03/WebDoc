@@ -437,6 +437,7 @@ public class WNeuerPatient extends JInternalFrame {
 		spinBirthdate.setModel(model);
 		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
 		spinBirthdate.setEditor(dateEditor);
+		spinBirthdate.setValue(GUIFunctions.getDefaultDate());
 		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		model.setCalendarField(Calendar.MINUTE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -657,6 +658,8 @@ public class WNeuerPatient extends JInternalFrame {
             return false;
         if (txtBemerkung.getText().toString().length() > 100)
             return false;
+        if (GUIFunctions.compareSpinnerDates(spinBirthdate.getValue()))
+        	return false;
 		return true;
 	}
 
