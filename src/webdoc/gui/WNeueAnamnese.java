@@ -124,9 +124,9 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPAtmung;
 	private JTextPane tPVerdauung;
 	private JComboBox<EnumObject> cBEpiAnfaelle;
-	private JTextPane ePUnternommen;
-	private JTextPane ePVerusachenSchmerzen;
-	private JTextPane ePSchmerzmittel;
+	private JTextPane tPUnternommen;
+	private JTextPane tPVerusachenSchmerzen;
+	private JTextPane tPSchmerzmittel;
 	private JTextPane tPFunktionenMotorik;
 	private JTextPane tPBemerkungen;
 	private JLabel lblHaltung;
@@ -156,9 +156,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		 tPHerzKreislauf.setEditable(editable);
 		 tPAtmung.setEditable(editable);
 		 tPVerdauung.setEditable(editable);
-		 ePUnternommen.setEditable(editable);
-		 ePVerusachenSchmerzen.setEditable(editable);
-		 ePSchmerzmittel.setEditable(editable);
+		 tPUnternommen.setEditable(editable);
+		 tPVerusachenSchmerzen.setEditable(editable);
+		 tPSchmerzmittel.setEditable(editable);
 		 tPFunktionenMotorik.setEditable(editable);
 		 tPBemerkungen.setEditable(editable);
 		 tFHalltung.setEditable(editable);
@@ -715,8 +715,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPSchilderung = new JTextPane();
 		sPSchilderung.setViewportView(tPSchilderung);
 
-		ePUnternommen = new JTextPane();
-		sPUnternommen.setViewportView(ePUnternommen);
+		tPUnternommen = new JTextPane();
+		sPUnternommen.setViewportView(tPUnternommen);
 
 		JPanel panel_10 = new JPanel();
 
@@ -725,8 +725,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?",
 				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
-		ePSchmerzmittel = new JTextPane();
-		sPSchmerzmittel.setViewportView(ePSchmerzmittel);
+		tPSchmerzmittel = new JTextPane();
+		sPSchmerzmittel.setViewportView(tPSchmerzmittel);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
 		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
 				.createSequentialGroup().addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
@@ -788,8 +788,8 @@ public class WNeueAnamnese extends JInternalFrame {
 		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?",
 				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
-		ePVerusachenSchmerzen = new JTextPane();
-		sPVerusachenSchmerzen.setViewportView(ePVerusachenSchmerzen);
+		tPVerusachenSchmerzen = new JTextPane();
+		sPVerusachenSchmerzen.setViewportView(tPVerusachenSchmerzen);
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
 		gl_panel_10.setHorizontalGroup(
 			gl_panel_10.createParallelGroup(Alignment.LEADING)
@@ -990,15 +990,15 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					tPSchilderung.setText(rs.getString(n));
 					n++;
-					ePUnternommen.setText(rs.getString(n));
+					tPUnternommen.setText(rs.getString(n));
 					n++;
 					cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
 					n++;
 					cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
 					n++;
-					ePSchmerzmittel.setText(rs.getString(n));
+					tPSchmerzmittel.setText(rs.getString(n));
 					n++;
-					ePVerusachenSchmerzen.setText(rs.getString(n));
+					tPVerusachenSchmerzen.setText(rs.getString(n));
 					n++;
 					tPFunktionenMotorik.setText(rs.getString(n));
 					n++;
@@ -1051,11 +1051,11 @@ public class WNeueAnamnese extends JInternalFrame {
 						.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
 						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
 						.mainproblem(tPHauptproblem.getText()).descrPatientOwner(tPSchilderung.getText())
-						.wasUndertaken(ePUnternommen.getText())
+						.wasUndertaken(tPUnternommen.getText())
 						.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
 						.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
-						.painkillerReaction(ePSchmerzmittel.getText())
-						.motionCausingPain(ePVerusachenSchmerzen.getText())
+						.painkillerReaction(tPSchmerzmittel.getText())
+						.motionCausingPain(tPVerusachenSchmerzen.getText())
 						.motorInterference(tPFunktionenMotorik.getText())
 						.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
 						.possibleWalkDistance((double) spGehstrecke.getValue())
@@ -1109,6 +1109,64 @@ public class WNeueAnamnese extends JInternalFrame {
 			return false;
 		if (tPTierStammtVon.getText().length() > 250)
 			return false;
+		if (tPAenderungenFamilie.getText().length() > 500)
+			return false;
+		if (tPAuslandsaufenthalte.getText().length() > 250)
+			return false;
+		if (tPVerhaltensaufaeligkeiten.getText().length() > 250)
+			return false;
+		if (tPVerletzungen.getText().length() > 1000)
+			return false;
+		if (tPNarben.getText().length() > 1000)
+			return false;
+		if (tPInfektionen.getText().length() > 500)
+			return false;
+		if (tPImpfungen.getText().length() > 1000)
+			return false;
+		if (tPAtmung.getText().length() > 250)
+			return false;
+		if (tPVerdauung.getText().length() > 250)
+			return false;
+		if (tpEndokrinium.getText().length() > 1000)
+			return false;
+		if (tPSchilddruese.getText().length() > 100)
+			return false;
+		if (tPBauchspeicheldruese.getText().length() > 100)
+			return false;
+		if (tPZNS.getText().length() > 100)
+			return false;
+		if (tPMedikamente.getText().length() > 1000)
+			return false;
+		if (tPRoentgen.getText().length() > 1000)
+			return false;
+		if (tPCTMRT.getText().length() > 1000)
+			return false;
+		if (tPHauptproblem.getText().length() > 1000)
+			return false;
+		if (tPSchilderung.getText().length() > 1000)
+			return false;
+		if (tPUnternommen.getText().length() > 1000)
+			return false;
+		if (tPSchmerzmittel.getText().length() > 1000)
+			return false;
+		if (tPVerusachenSchmerzen.getText().length() > 1000)
+			return false;
+		if (tPFunktionenMotorik.getText().length() > 1000)
+			return false;
+		if (invalidDouble(spGehstrecke.getValue().toString()))
+			return false;
+		if (invalidDouble(spAuslauf.getValue().toString()))
+			return false;
+		if (tPBemerkungen.getText().length() > 1000)
+			return false;
 		return true;
+	}
+	private boolean invalidDouble(String s){
+		try{
+			Double.parseDouble(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
 	}
 }
