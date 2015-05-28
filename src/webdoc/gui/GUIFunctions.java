@@ -26,6 +26,10 @@ import webdoc.lib.GUIManager;
 public class GUIFunctions {
 	private static Calendar calendar = Calendar.getInstance();
 	
+	public static void initFunctions(){
+		calendar.setTimeInMillis(0);
+	}
+	
 	/*Erstellen den Menuebaum*/ 
 	public static TreeModel Navi() {
 		TreeNode root = createTree();
@@ -38,8 +42,17 @@ public class GUIFunctions {
 	 * @return
 	 */
 	public static Date getDefaultDate(){
-		calendar.setTimeInMillis(0);
 		return calendar.getTime();
+	}
+	
+	/**
+	 * Compare JSpinner value date to default date
+	 * @param object
+	 * @return boolean true when value matches default date
+	 * @author "Aron Heinecke"
+	 */
+	public static boolean compareSpinnerDates(Object object){
+		return getDefaultDate().compareTo((Date) object) == 0;
 	}
 
 	private static TreeNode createTree() {
