@@ -826,7 +826,7 @@ public class WNeuerPartner extends JInternalFrame {
 			return false;
 		if (textOrtsteil.getText().length() > 20)
 			return false;
-		if(((Date)spinGebdatum.getValue()).getTime() == GUIFunctions.getDefaultDate().getTime()){
+		if(GUIFunctions.compareSpinnerDates(spinGebdatum.getValue())){
 			return false;
 		}
 		return true;
