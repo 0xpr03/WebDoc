@@ -1115,43 +1115,17 @@ public class WNeueAnamnese extends JInternalFrame {
 			return false;
 		if (tPVerhaltensaufaeligkeiten.getText().length() > 250)
 			return false;
-		if (tPVerletzungen.getText().length() > 1000)
-			return false;
-		if (tPNarben.getText().length() > 1000)
-			return false;
 		if (tPInfektionen.getText().length() > 500)
-			return false;
-		if (tPImpfungen.getText().length() > 1000)
 			return false;
 		if (tPAtmung.getText().length() > 250)
 			return false;
 		if (tPVerdauung.getText().length() > 250)
-			return false;
-		if (tpEndokrinium.getText().length() > 1000)
 			return false;
 		if (tPSchilddruese.getText().length() > 100)
 			return false;
 		if (tPBauchspeicheldruese.getText().length() > 100)
 			return false;
 		if (tPZNS.getText().length() > 100)
-			return false;
-		if (tPMedikamente.getText().length() > 1000)
-			return false;
-		if (tPRoentgen.getText().length() > 1000)
-			return false;
-		if (tPCTMRT.getText().length() > 1000)
-			return false;
-		if (tPHauptproblem.getText().length() > 1000)
-			return false;
-		if (tPSchilderung.getText().length() > 1000)
-			return false;
-		if (tPUnternommen.getText().length() > 1000)
-			return false;
-		if (tPSchmerzmittel.getText().length() > 1000)
-			return false;
-		if (tPVerusachenSchmerzen.getText().length() > 1000)
-			return false;
-		if (tPFunktionenMotorik.getText().length() > 1000)
 			return false;
 		if (invalidDouble(spGehstrecke.getValue().toString()))
 			return false;
