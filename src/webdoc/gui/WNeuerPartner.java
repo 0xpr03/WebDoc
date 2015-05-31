@@ -112,8 +112,8 @@ public class WNeuerPartner extends JInternalFrame {
 	public WNeuerPartner(boolean editable, long id) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
-			public void internalFrameClosing(InternalFrameEvent arg0) {
-				dispose();
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				loadAnimals();
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
