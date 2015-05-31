@@ -745,7 +745,7 @@ public class WNeuerPartner extends JInternalFrame {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
 		} else {
-			GUIManager.showErrorDialog(this, "Es sind nicht alle Felder ausgefüllt!", "Fehlende Angaben");
+			GUIManager.showFieldErrorDialog(this);
 		}
 	}
 	

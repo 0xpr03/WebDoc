@@ -632,8 +632,7 @@ public class WNeuerPatient extends JInternalFrame {
 				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
 			}
 		} else {
-			JOptionPane.showMessageDialog(textRasse, "Kein Geschlecht ausgewählt!");
-			logger.info("No Gender selected!");
+			GUIManager.showFieldErrorDialog(this);
 		}
 	}
 	
