@@ -204,4 +204,12 @@ public final class GUIManager {
 	public static void showDBErrorDialog(Component parent, DBError dberr){
 		JOptionPane.showConfirmDialog(parent, "The following error occured: "+dberr, "DB Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 	}
+	
+	/**
+	 * Predefined allSet() error dialog
+	 * @param parent
+	 */
+	public static void showFieldErrorDialog(Component parent){
+		JOptionPane.showConfirmDialog(parent, "Es sind nicht alle Felder richtig ausgefüllt!", "Fehlende Angaben",JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+	}
 }
