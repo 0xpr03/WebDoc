@@ -181,7 +181,7 @@ public class WLicense extends JDialog {
 	private String getLicense() {
 		try {
 			InputStream is = getClass().getResourceAsStream(Config.getStrValue("licenseFilePath"));
-		    InputStreamReader isr = new InputStreamReader(is);
+		    InputStreamReader isr = new InputStreamReader(is, "UTF8");
 			BufferedReader br = new BufferedReader(isr);
 			
 			StringBuilder sb = new StringBuilder();
