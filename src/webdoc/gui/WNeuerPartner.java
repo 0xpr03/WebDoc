@@ -587,6 +587,7 @@ public class WNeuerPartner extends JInternalFrame {
 					textComment.setText(rs.getString(5));
 					rs.close();
 				}
+				updateTitle(textVorname.getText(),textName.getText());
 				getPRID();
 				
 				if(partnerroleid != -1) {
@@ -733,6 +734,7 @@ public class WNeuerPartner extends JInternalFrame {
 							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
 							.getText(), textOrtsteil.getText());
 				}
+				updateTitle(textVorname.getText(),textName.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
