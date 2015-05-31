@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.GUIFunctions;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WLicense;
 import webdoc.gui.WSetupData;
@@ -79,6 +80,7 @@ public class WebDoc {
 	}
 	
 	private static void loadMainwindow() {
+		GUIFunctions.initFunctions();
 		GUIManager.crateHomescreen();
 	}
 
