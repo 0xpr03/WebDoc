@@ -1,7 +1,6 @@
+/* Copyright (c) 2015 by the WebDoc group */
 /* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
-/* lines starting with this are IGNORES! completely */
-/* "IF NOT EXISTS" is REQUIRED! */
-/* DO NOT MODIFY! exact pattern matching */
+/* lines starting with this are IGNORES! completely, "IF NOT EXISTS" is REQUIRED! */
 /* Table partner / Partner */
 CREATE TABLE IF NOT EXISTS `partner` (
  `PartnerID` int(10) unsigned NOT NULL AUTO_INCREMENT,
