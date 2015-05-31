@@ -714,7 +714,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 * adds a partner
 	 * @author "Aron Heinecke"
 	 */
-	protected void entryPartner() {
+	private void entryPartner() {
 		if (allSet()) {
 			try {
 				getPRID();
