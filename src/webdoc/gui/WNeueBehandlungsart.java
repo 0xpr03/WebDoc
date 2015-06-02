@@ -28,7 +28,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JTextField tFBezeichnung;
 	private boolean editable;
 	private JScrollPane sPErklaerung;
-	private JSpinner spinner;
+	private JSpinner spPreis;
 	private JSearchTextField searchTextField;
 	private JButton btnSpeichern;
 	private JButton btnEditieren;
@@ -50,7 +50,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		tFBezeichnung = new JTextField();
 		tFBezeichnung.setColumns(10);
 		
-		spinner = new JSpinner();
+		spPreis = new JSpinner();
 		
 		sPErklaerung = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -71,7 +71,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-										.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(tFBezeichnung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
 					.addGap(11))
 		);
@@ -87,7 +87,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPreisProEinheit)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblErklrung)
@@ -101,7 +101,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		
 		btnSpeichern = new JButton("Speichern");
 		panel.add(btnSpeichern, "cell 1 0");
-		
+		spPreis.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		btnEditieren = new JButton("Editieren");
 		panel.add(btnEditieren, "cell 2 0");
 		getContentPane().setLayout(groupLayout);
@@ -110,7 +110,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	}
 	private void setEditable(boolean editable) {
 		tFBezeichnung.setEditable(editable);
-		spinner.setEnabled(editable);
+		spPreis.setEnabled(editable);
 		sPErklaerung.setEnabled(editable);
 		refreshBtn();
 		
@@ -120,26 +120,12 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		btnEditieren.setEnabled(!editable);
 		
 	}
-	private boolean invalidInt(String s){
-		try{
-			int i = Integer.parseInt(s);
-			return false;
-		}catch(NumberFormatException e){
-			return true;
-		}	
-	}
-	
-	private boolean invalidDouble(String s){
-		try{
-		double d = Double.parseDouble(s);
-		return false;
-		}catch(NumberFormatException e){
-			return true;
-		}	
-	}
+
 	private boolean allSet(){
-	    if (invalidDouble(spinner.getValue().toString()))
-	        return false;
+	    if (((double)spPreis.getValue()) == 0.0){
+	    	if(GUIManager.showYesNoDialog(this, "Ohne Preis anlegen ?", JOptionPane.INFORMATION_MESSAGE, "") == 1)
+	    		return false;
+	    }
         if (tFBezeichnung.getText() == "")
             return false;
         if (tPErklaerung.getText().toString().length() > 20)
