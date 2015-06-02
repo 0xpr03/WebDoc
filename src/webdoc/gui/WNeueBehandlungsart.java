@@ -123,7 +123,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 
 	private boolean allSet(){
 	    if (((double)spPreis.getValue()) == 0.0){
-	    	if(GUIManager.showYesNoDialog(this, "Ohne Preis anlegen ?", JOptionPane.INFORMATION_MESSAGE, "") == 1)
+	    	if(GUIManager.showYesNoDialog(this, "Ohne Preis anlegen ?", JOptionPane.INFORMATION_MESSAGE, "Behandlung anlegen") == 1)
 	    		return false;
 	    }
         if (tFBezeichnung.getText() == "")
