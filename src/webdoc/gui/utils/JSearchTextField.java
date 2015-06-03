@@ -173,7 +173,7 @@ public class JSearchTextField extends JTextField {
 			}
 			public void focusGained(FocusEvent e){
 				logger.debug(userText);
-				if(userText.length() != 0){
+				if (userText.length() >= MIN_CHARS) {
 					setTextWithoutNotification(userText);
 					showElements();
 				}
@@ -182,9 +182,11 @@ public class JSearchTextField extends JTextField {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e) && userText.length() != 0 ){
-					setTextWithoutNotification(userText);
-					showElements();
+				if(e.getClickCount() == 1){
+					if (SwingUtilities.isLeftMouseButton(e) && userText.length() != 0 && getSelectedText() == null ){
+						setTextWithoutNotification(userText);
+						showElements();
+					}
 				}
 			}
 		});
