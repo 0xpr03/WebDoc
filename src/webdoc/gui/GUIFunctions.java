@@ -28,6 +28,7 @@ public class GUIFunctions {
 	
 	public static void initFunctions(){
 		calendar.setTimeInMillis(0);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
 	}
 	
 	/*Erstellen den Menuebaum*/ 
