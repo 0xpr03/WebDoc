@@ -509,7 +509,7 @@ public class WNeuerPatient extends JInternalFrame {
 						: geschlecht_lokalisiert[2]);
 				logger.debug("picID: {}", result.getString(9));
 				txtBemerkung.setText(result.getString(8));
-				textRasse.setTextWithoutNotification(result.getString(8));
+				textRasse.setTextWithoutNotification(result.getString(11));
 				updateTitle(result.getString(1), result.getString(2));
 				result.close();
 				loadHistoryData();
