@@ -108,6 +108,7 @@ public final class WHomescreen extends JFrame {
 		//TODO: add placeholder function
 		//txtSuche.setText("Suche"); WONT WORK ATM
 		txtSuche.setColumns(10);
+		txtSuche.clearOnFocus(true);
 		GroupLayout gl_suchPanel = new GroupLayout(suchPanel);
 		gl_suchPanel.setHorizontalGroup(
 			gl_suchPanel.createParallelGroup(Alignment.LEADING)
