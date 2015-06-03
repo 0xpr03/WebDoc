@@ -320,13 +320,17 @@ public class JSearchTextField extends JTextField {
 	}
 
 	private void showElements(List<ACElement> data) {
+	/**
+	 * Show elements using the userText
+	 */
+	private void showElements() {
 		list.getSelectionModel().clearSelection();
 
 		DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) list.getModel();
 
 		model.clear();
 
-		for (ACElement s : data) {
+		for (ACElement s : api.getData(userText)) {
 			model.addElement(s);
 		}
 
