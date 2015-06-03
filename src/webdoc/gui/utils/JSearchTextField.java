@@ -179,6 +179,19 @@ public class JSearchTextField extends JTextField {
 			public void focusLost(FocusEvent e) {
 				popup.setVisible(false);
 			}
+			public void focusGained(FocusEvent e){
+				logger.debug(userText);
+				if(userText.length() != 0)
+					popup.setVisible(true);
+			}
+		});
+		
+		addMouseListener(new MouseAdapter() {
+			public void mouseReleased(MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null ){
+					showElements();
+				}
+			}
 		});
 
 		addKeyListener(new KeyAdapter() {
