@@ -118,6 +118,7 @@ public class JSearchTextField extends JTextField {
 	 */
 	public JSearchTextField(boolean showCurrentElement) {
 		this.showCurrElement = showCurrentElement;
+		setColumns(1);
 		JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setHorizontalScrollBar(null);

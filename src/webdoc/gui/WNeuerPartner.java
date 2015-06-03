@@ -237,13 +237,13 @@ public class WNeuerPartner extends JInternalFrame {
 		JLabel lblTitel = new JLabel("Titel:");
 
 		textName = new JTextField();
-		textName.setColumns(10);
+		textName.setColumns(1);
 
 		textVorname = new JTextField();
-		textVorname.setColumns(10);
+		textVorname.setColumns(1);
 
 		textTitel = new JTextField();
-		textTitel.setColumns(10);
+		textTitel.setColumns(1);
 
 		JLabel lblGeburtsdatum = new JLabel("Geburtsdatum:");
 		spinGebdatum = new JSpinner();
@@ -304,34 +304,34 @@ public class WNeuerPartner extends JInternalFrame {
 		JLabel lblEmail = new JLabel("E-Mail");
 
 		textHausnummer = new JTextField();
-		textHausnummer.setColumns(10);
+		textHausnummer.setColumns(1);
 
 		textStraße = new JTextField();
-		textStraße.setColumns(10);
+		textStraße.setColumns(1);
 
 		textOrtsteil = new JTextField();
-		textOrtsteil.setColumns(10);
+		textOrtsteil.setColumns(1);
 
 		textOrt = new JTextField();
-		textOrt.setColumns(10);
+		textOrt.setColumns(1);
 
 		textPostleitzahl = new JTextField();
-		textPostleitzahl.setColumns(10);
+		textPostleitzahl.setColumns(1);
 
 		textZusatz = new JTextField();
-		textZusatz.setColumns(10);
+		textZusatz.setColumns(1);
 
 		textTelefon = new JTextField();
-		textTelefon.setColumns(10);
+		textTelefon.setColumns(1);
 
 		textHandy = new JTextField();
-		textHandy.setColumns(10);
+		textHandy.setColumns(1);
 
 		textFax = new JTextField();
-		textFax.setColumns(10);
+		textFax.setColumns(1);
 
 		textEmail = new JTextField();
-		textEmail.setColumns(10);
+		textEmail.setColumns(1);
 
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2

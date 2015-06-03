@@ -107,7 +107,7 @@ public final class WHomescreen extends JFrame {
 		txtSuche = new JSearchTextField(false);
 		//TODO: add placeholder function
 		//txtSuche.setText("Suche"); WONT WORK ATM
-		txtSuche.setColumns(10);
+		txtSuche.setColumns(1);
 		txtSuche.clearOnFocus(true);
 		GroupLayout gl_suchPanel = new GroupLayout(suchPanel);
 		gl_suchPanel.setHorizontalGroup(

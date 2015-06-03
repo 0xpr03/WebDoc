@@ -170,19 +170,18 @@ public class WNeuerPatient extends JInternalFrame {
 		JLabel lblIdentifizierung = new JLabel("Identifizierung:");
 
 		strName = new JTextField();
-		strName.setColumns(10);
+		strName.setColumns(1);
 
 		textRasse = new JSearchTextField(true);
-		textRasse.setColumns(10);
 		textRasse.replaceUserText(true);
 
 		strFarbe = new JTextField();
-		strFarbe.setColumns(10);
+		strFarbe.setColumns(1);
 
 		spinGewicht = new JSpinner();
 
 		textIdentifizierung = new JTextField();
-		textIdentifizierung.setColumns(10);
+		textIdentifizierung.setColumns(1);
 
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
 		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
@@ -191,7 +190,7 @@ public class WNeuerPatient extends JInternalFrame {
 		spinBirthdate.setEnabled(editable);
 
 		strRufname = new JTextField();
-		strRufname.setColumns(10);
+		strRufname.setColumns(1);
 
 		JLabel lblRufname = new JLabel("Rufname:");
 		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px]"));
@@ -214,7 +213,7 @@ public class WNeuerPatient extends JInternalFrame {
 		daten.setLayout(gl_daten);
 
 		textAnimalSuche = new JSearchTextField(true);
-		textAnimalSuche.setColumns(10);
+		textAnimalSuche.setColumns(1);
 
 		panelVerlauf = new JPanel();
 		panelVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));

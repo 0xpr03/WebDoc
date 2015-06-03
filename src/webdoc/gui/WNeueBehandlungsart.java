@@ -51,7 +51,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		JLabel lblErklrung = new JLabel("Erklärung:");
 		
 		tFBezeichnung = new JTextField();
-		tFBezeichnung.setColumns(10);
+		tFBezeichnung.setColumns(1);
 		
 		spPreis = new JSpinner();
 		
