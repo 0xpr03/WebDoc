@@ -93,6 +93,7 @@ public class JSearchTextField extends JTextField {
 	private boolean showCurrElement;
 	private boolean notificationDenied;
 	private boolean clearOnFocus = false;
+	private boolean replaceUserText = false;
 	
 	private final JPopupMenu popup = new JPopupMenu() {
 		//private static final long serialVersionUID = 563474143628228526L;
@@ -156,17 +157,14 @@ public class JSearchTextField extends JTextField {
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null) {
-					if (api.changedSelectionEvent(chosenElement)) {
+					if(setElement()){
 						if (showCurrElement)
 							setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
-						popup.setVisible(false);
-						if(clearOnFocus)
-							userText = "";
 					}
 				}
 			}
 		});
-
+		
 		addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				popup.setVisible(false);
@@ -224,9 +222,7 @@ public class JSearchTextField extends JTextField {
 
 					case KeyEvent.VK_ENTER:
 						if(chosenElement != null){
-							api.changedSelectionEvent(chosenElement);
-							if(clearOnFocus)
-								userText = "";
+							setElement();
 						}else{
 							break;
 						}
@@ -241,12 +237,23 @@ public class JSearchTextField extends JTextField {
 					if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_UP
 							|| e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
 						userText = getText();
-
 						showElements();
 					}
 				}
 			}
 		});
+	}
+	
+	private boolean setElement(){
+		if(api.changedSelectionEvent(chosenElement)){
+			if(clearOnFocus)
+				userText = "";
+			if(replaceUserText)
+				userText = api.listRenderer(chosenElement);
+			popup.setVisible(false);
+			return true;
+		}
+		return false;
 	}
 
 	private void changeListSelectedIndex(int delta) {
@@ -296,9 +303,22 @@ public class JSearchTextField extends JTextField {
 		}
 	}
 	
+	/**
+	 * Clear last text on new focus
+	 * @param clearOnFocus
+	 */
 	public void clearOnFocus(boolean clearOnFocus){
 		this.clearOnFocus = clearOnFocus;
 	}
+
+	/**
+	 * Replace user text with new element on select
+	 * @param replaceUserText
+	 */
+	public void replaceUserText(boolean replaceUserText){
+		this.replaceUserText = replaceUserText;
+	}
+	
 	
 	/**
 	 * Sets a new font type
