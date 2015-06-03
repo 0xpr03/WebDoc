@@ -170,6 +170,8 @@ public class JSearchTextField extends JTextField {
 						if(showCurrElement)
 							setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 						popup.setVisible(false);
+						if(clearOnFocus)
+							userText = "";
 					}
 				}
 			}
@@ -298,6 +300,10 @@ public class JSearchTextField extends JTextField {
 		} finally {
 			notificationDenied = false;
 		}
+	}
+	
+	public void clearOnFocus(boolean clearOnFocus){
+		this.clearOnFocus = clearOnFocus;
 	}
 	
 	/**
