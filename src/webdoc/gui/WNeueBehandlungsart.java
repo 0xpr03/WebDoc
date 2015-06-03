@@ -42,7 +42,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		panel.setBounds(new Rectangle(1, 1, 1, 1));
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
 		
-		searchTextField = new JSearchTextField();
+		searchTextField = new JSearchTextField(true);
 		
 		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
 		

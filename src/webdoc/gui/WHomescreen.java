@@ -104,7 +104,7 @@ public final class WHomescreen extends JFrame {
 		
 		JPanel suchPanel = new JPanel();
 		
-		txtSuche = new JSearchTextField();
+		txtSuche = new JSearchTextField(false);
 		//TODO: add placeholder function
 		//txtSuche.setText("Suche"); WONT WORK ATM
 		txtSuche.setColumns(10);

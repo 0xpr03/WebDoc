@@ -56,7 +56,7 @@ import webdoc.lib.GUIManager;
 public class test extends JInternalFrame {
 
 	private static final long serialVersionUID = -8772029628747927216L;
-	private JSearchTextField topFixed;
+	private JSearchTextField searchField;
 	private PreparedStatement searchStm = null;
 	private Logger logger = LogManager.getLogger();
 	private JTextField textField;
@@ -120,7 +120,7 @@ public class test extends JInternalFrame {
 		setTitle("Testframe");
 		setBounds(100, 100, 828, 436);
 		
-		topFixed = new JSearchTextField();
+		searchField = new JSearchTextField(false);
 		
 		JPanel panelResize = new JPanel();
 		
@@ -135,14 +135,14 @@ public class test extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
 							.addGap(1))
-						.addComponent(topFixed, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+						.addComponent(searchField, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
 						.addComponent(panelDown, GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(1)
-					.addComponent(topFixed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(searchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelResize, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
 					.addGap(1)
@@ -457,7 +457,7 @@ public class test extends JInternalFrame {
 						+ element.getType() + "</i></font></html>";
 			}
 		}
-		topFixed.setAPI(new Provider());
+		searchField.setAPI(new Provider());
 		
 		try {
 			searchStm = Database.prepareMultiSearchStm();

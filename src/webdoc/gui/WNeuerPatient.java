@@ -172,7 +172,7 @@ public class WNeuerPatient extends JInternalFrame {
 		strName = new JTextField();
 		strName.setColumns(10);
 
-		textRasse = new JSearchTextField();
+		textRasse = new JSearchTextField(true);
 		textRasse.setColumns(10);
 
 		strFarbe = new JTextField();
@@ -212,7 +212,7 @@ public class WNeuerPatient extends JInternalFrame {
 		allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
 		daten.setLayout(gl_daten);
 
-		textAnimalSuche = new JSearchTextField();
+		textAnimalSuche = new JSearchTextField(true);
 		textAnimalSuche.setColumns(10);
 
 		panelVerlauf = new JPanel();
@@ -375,7 +375,7 @@ public class WNeuerPatient extends JInternalFrame {
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
 				logger.debug("Element chosen: {}", element);
-				// doing nothing, we only want to provide a search for the
+				// do nothing, we only want to provide a search for the
 				// existing types
 				return true;
 			}

@@ -445,7 +445,7 @@ public class WNeuerPartner extends JInternalFrame {
 		scrollPaneComment.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Bemerkung",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		animalSearchText = new JSearchTextField();
+		animalSearchText = new JSearchTextField(true);
 		
 		btnHinzufgen = new JButton("Hinzufügen");
 		btnHinzufgen.addActionListener(new ActionListener() {

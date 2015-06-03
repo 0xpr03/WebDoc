@@ -31,6 +31,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Custom Texfield with autocomplete support Experimental! Highly modded
  * textfield
@@ -84,6 +87,7 @@ public class JSearchTextField extends JTextField {
 	private searchFieldAPI api = null;
 	private ACElement chosenElement = null;
 	private Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	private Logger logger = LogManager.getLogger();
 
 	private final JPopupMenu popup = new JPopupMenu() {
 		/**
@@ -105,19 +109,29 @@ public class JSearchTextField extends JTextField {
 	private String userText;
 
 	private boolean chosen;
+	private boolean showCurrElement;
 
 	private boolean notificationDenied;
 
 	public void setAPI(searchFieldAPI api) {
 		this.api = api;
 	}
-
-	public JSearchTextField() {
+	
+	/**
+	 * Initialize JSearchTextField
+	 * 
+	 * @param showCurrentElement
+	 *            Define if the textfield should get the current list-element as
+	 *            value on change. If you are using HTML for the display
+	 *            renderer, set this to false.
+	 */
+	public JSearchTextField(boolean showCurrentElement) {
+		this.showCurrElement = showCurrentElement;
 		JScrollPane scrollPane = new JScrollPane(list, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setHorizontalScrollBar(null);
 		scrollPane.setBorder(null);
-
+		
 		list.setFocusable(false);
 		list.setCellRenderer(new SearchCellRenderer());
 
@@ -153,6 +167,8 @@ public class JSearchTextField extends JTextField {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null) {
 					if (api.changedSelectionEvent(chosenElement)) {
+						if(showCurrElement)
+							setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 						popup.setVisible(false);
 					}
 				}
@@ -168,6 +184,7 @@ public class JSearchTextField extends JTextField {
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (popup.isShowing()) {
+					logger.debug("chosenElement: {}", chosenElement);
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_UP: {
 						changeListSelectedIndex(-1);
@@ -215,7 +232,7 @@ public class JSearchTextField extends JTextField {
 							|| e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
 						userText = getText();
 
-						showFilteredHistory(api.getData(userText));
+						showElements(api.getData(userText));
 					}
 				}
 			}
@@ -240,15 +257,18 @@ public class JSearchTextField extends JTextField {
 				newIndex = -1;
 			}
 		}
-
+		
+		logger.debug("list selected Change.. {}",showCurrElement);
 		if (newIndex < 0) {
 			list.getSelectionModel().clearSelection();
 			list.ensureIndexIsVisible(0);
-			setTextWithoutNotification(userText);
+			if(showCurrElement)
+				setTextWithoutNotification(userText);
 		} else {
 			list.setSelectedIndex(newIndex);
 			list.ensureIndexIsVisible(newIndex);
-			setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
+			if(showCurrElement)
+				setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 		}
 		chosenElement = list.getSelectedValue();
 	}
@@ -279,14 +299,14 @@ public class JSearchTextField extends JTextField {
 		if (!notificationDenied) {
 			userText = getText();
 			if (userText.length() >= MIN_CHARS) {
-				showFilteredHistory(api.getData(userText));
+				showElements(api.getData(userText));
 			} else {
 				popup.setVisible(false);
 			}
 		}
 	}
 
-	private void showFilteredHistory(List<ACElement> data) {
+	private void showElements(List<ACElement> data) {
 		list.getSelectionModel().clearSelection();
 
 		DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) list.getModel();
