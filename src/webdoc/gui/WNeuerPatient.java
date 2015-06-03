@@ -218,8 +218,6 @@ public class WNeuerPatient extends JInternalFrame {
 		panelVerlauf = new JPanel();
 		panelVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
-		panelVerlauf.setVisible(!editable);
-
 		panelBemerkungen = new JPanel();
 		panelBemerkungen.setFont(GUIManager.getCommentFont());
 
@@ -557,6 +555,7 @@ public class WNeuerPatient extends JInternalFrame {
 		enumGeschlecht.setEnabled(editable);
 		spinGewicht.setEnabled(editable);
 		textIdentifizierung.setEditable(editable);
+		table.setEnabled(id == -1 ? false : true);
 		updateEditBtns();
 	}
 
