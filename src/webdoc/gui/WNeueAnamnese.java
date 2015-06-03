@@ -914,7 +914,11 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_14.setLayout(gl_panel_14);
 
 		spGehstrecke.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-
+		
+		spinBirthdate_1.setValue(GUIFunctions.getDefaultDate());
+		spGehzeit.setValue(GUIFunctions.getDefaultDate());
+		spavailTimeCons.setValue(GUIFunctions.getDefaultDate());
+		
 		getContentPane().setLayout(groupLayout);
 
 		btnEdit = new JButton("Bearbeiten");
