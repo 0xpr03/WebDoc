@@ -35,9 +35,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Custom Texfield with autocomplete support Experimental! Highly modded
- * textfield
- * 
+ * Search textfield with API for input-based list entrys.
+ * Search-Field in short.
  * @author "Aron Heinecke"
  */
 @SuppressWarnings("serial")
@@ -85,33 +84,24 @@ public class JSearchTextField extends JTextField {
 	private static final int MAX_VISIBLE_ROWS = 8;
 	private static final int MIN_CHARS = 3;
 	private searchFieldAPI api = null;
-	private ACElement chosenElement = null;
 	private Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
 	private Logger logger = LogManager.getLogger();
+	private final JList<ACElement> list = new JList<ACElement>(new DefaultListModel<ACElement>());
 
+	private String userText = ""; // text the user typed in, NEVER the selected element
+	private ACElement chosenElement = null; // the last selected element
+	private boolean showCurrElement;
+	private boolean notificationDenied;
+	private boolean clearOnFocus = false;
+	
 	private final JPopupMenu popup = new JPopupMenu() {
-		/**
-		 * 
-		 */
 		//private static final long serialVersionUID = 563474143628228526L;
-
 		public Dimension getPreferredSize() {
 			Dimension dimension = super.getPreferredSize();
-
 			dimension.width = JSearchTextField.this.getWidth();
-
 			return dimension;
 		}
 	};
-
-	private final JList<ACElement> list = new JList<ACElement>(new DefaultListModel<ACElement>());
-
-	private String userText;
-
-	private boolean chosen;
-	private boolean showCurrElement;
-
-	private boolean notificationDenied;
 
 	public void setAPI(searchFieldAPI api) {
 		this.api = api;
@@ -167,7 +157,7 @@ public class JSearchTextField extends JTextField {
 			public void mouseReleased(MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null) {
 					if (api.changedSelectionEvent(chosenElement)) {
-						if(showCurrElement)
+						if (showCurrElement)
 							setTextWithoutNotification(api.listRenderer(list.getSelectedValue()));
 						popup.setVisible(false);
 						if(clearOnFocus)
@@ -183,19 +173,22 @@ public class JSearchTextField extends JTextField {
 			}
 			public void focusGained(FocusEvent e){
 				logger.debug(userText);
-				if(userText.length() != 0)
-					popup.setVisible(true);
+				if(userText.length() != 0){
+					setTextWithoutNotification(userText);
+					showElements();
+				}
 			}
 		});
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e) && chosenElement != null ){
+				if (SwingUtilities.isLeftMouseButton(e) && userText.length() != 0 ){
+					setTextWithoutNotification(userText);
 					showElements();
 				}
 			}
 		});
-
+		
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 				if (popup.isShowing()) {
@@ -230,7 +223,8 @@ public class JSearchTextField extends JTextField {
 					case KeyEvent.VK_ENTER:
 						if(chosenElement != null){
 							api.changedSelectionEvent(chosenElement);
-							chosen = true;
+							if(clearOnFocus)
+								userText = "";
 						}else{
 							break;
 						}
@@ -240,14 +234,13 @@ public class JSearchTextField extends JTextField {
 						break;
 					}
 					default:
-						chosen=false;
 					}
 				} else {
 					if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_UP
 							|| e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_PAGE_DOWN) {
 						userText = getText();
 
-						showElements(api.getData(userText));
+						showElements();
 					}
 				}
 			}
@@ -290,7 +283,6 @@ public class JSearchTextField extends JTextField {
 
 	/**
 	 * Sets the text without event handling
-	 * 
 	 * @param text
 	 */
 	public void setTextWithoutNotification(String text) {
@@ -318,14 +310,13 @@ public class JSearchTextField extends JTextField {
 		if (!notificationDenied) {
 			userText = getText();
 			if (userText.length() >= MIN_CHARS) {
-				showElements(api.getData(userText));
+				showElements();
 			} else {
 				popup.setVisible(false);
 			}
 		}
 	}
-
-	private void showElements(List<ACElement> data) {
+	
 	/**
 	 * Show elements using the userText
 	 */
