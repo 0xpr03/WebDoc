@@ -292,7 +292,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		label_5 = new JLabel("Tier stammt von:");
 
 		tPTierStammtVon = new JTextField();
-		tPTierStammtVon.setColumns(10);
+		tPTierStammtVon.setColumns(1);
 
 		spinBirthdate_1 = new JSpinner(); // Datumsmodell
 		SpinnerDateModel model = new SpinnerDateModel();
@@ -302,7 +302,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		spinBirthdate_1.setEnabled(editable);
 
 		tPVerwendungszweck = new JTextField();
-		tPVerwendungszweck.setColumns(10);
+		tPVerwendungszweck.setColumns(1);
 
 		sPAenderungenFamilie.setViewportView(tPAenderungenFamilie);
 
@@ -345,7 +345,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		lblHaltung = new JLabel("Haltung:");
 
 		tFHalltung = new JTextField();
-		tFHalltung.setColumns(10);
+		tFHalltung.setColumns(1);
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
