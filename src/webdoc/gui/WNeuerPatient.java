@@ -174,6 +174,7 @@ public class WNeuerPatient extends JInternalFrame {
 
 		textRasse = new JSearchTextField(true);
 		textRasse.setColumns(10);
+		textRasse.replaceUserText(true);
 
 		strFarbe = new JTextField();
 		strFarbe.setColumns(10);
