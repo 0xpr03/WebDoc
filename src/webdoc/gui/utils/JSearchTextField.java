@@ -292,13 +292,27 @@ public class JSearchTextField extends JTextField {
 	}
 
 	/**
-	 * Sets the text without event handling
+	 * Set the current text without input triggering
 	 * @param text
 	 */
 	public void setTextWithoutNotification(String text) {
 		notificationDenied = true;
 		try {
 			setText(text);
+		} finally {
+			notificationDenied = false;
+		}
+	}
+	
+	/**
+	 * Override the last user input text (storage)
+	 * @param text
+	 */
+	public void overrideText(String text) {
+		notificationDenied = true;
+		try {
+			setText(text);
+			userText = text;
 		} finally {
 			notificationDenied = false;
 		}
