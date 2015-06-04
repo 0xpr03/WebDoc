@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.GUIFunctions;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WLicense;
+import webdoc.gui.WLicenseInput;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
@@ -23,6 +24,7 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 import webdoc.lib.Verifier;
+import webdoc.lib.Verifier.LicenseError;
 import webdoc.lib.dbTools;
 
 /**
@@ -48,9 +50,19 @@ public class WebDoc {
 			logger.error("Error setting look and feel \n{}",e);
 		}
 		
-		if(!Verifier.Verify()){
-			logger.error("Unable to validate license!");
-			System.exit(1);
+		Verifier.init();
+		{
+			LicenseError le = LicenseError.NO_KEY;
+			if(!Config.getStrValue("licenseKey").equals("")){
+				try {
+					le = Verifier.checkLicense(Config.getStrValue("licenseKey"));
+				} catch (Exception e) {
+					logger.error(e);
+					le = LicenseError.VALIDATION_ERROR;
+				}
+			}
+			if(le != LicenseError.VALID)
+				new WLicenseInput(Config.getStrValue("licenseKey"), le);
 		}
 		
 		//startup init
