@@ -289,7 +289,7 @@ public class WNeuerPatient extends JInternalFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
-				if(mevent.getButton() == MouseEvent.BUTTON1){
+				if(mevent.getButton() == MouseEvent.BUTTON1 && table.getSelectedRow() != -1){
 					if(mevent.getClickCount() >= 2){
 						GUIManager.callWNewAnamnesis(false, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText(),strRufname.getText());
 					}
