@@ -195,6 +195,22 @@ public class Database{
 	
 	//------------- USER SPACE-----------------------//
 	
+	public static ResultSet getConfig(String key) throws SQLException{
+		String sql = "SELECT value FROM config WHERE key = ?";
+		PreparedStatement stm = prepareStm(sql);
+		stm.setString(1, key);
+		return stm.executeQuery();
+	}
+	
+	public static void insertConfig(String key, byte[] blob) throws SQLException{
+		String sql = "INSERT INTO config (key,value) VALUES(?,?)";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setString(1, key);
+		stm.setBytes(2, blob);
+		stm.executeUpdate();
+		stm.close();
+	}
+	
 	/**
 	 * Returns the SQL to retrive the animals which can be added to the relationship
 	 * @return
