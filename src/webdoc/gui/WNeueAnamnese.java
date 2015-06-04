@@ -49,9 +49,9 @@ import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
-@SuppressWarnings("serial")
 public class WNeueAnamnese extends JInternalFrame {
 
+	private static final long serialVersionUID = -2774049861485506927L;
 	private Logger logger = LogManager.getLogger();
 	private JFrame frame;
 	private boolean editable;

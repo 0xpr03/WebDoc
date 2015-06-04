@@ -26,8 +26,9 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.lib.GUIManager;
 
-@SuppressWarnings("serial")
 public class WNeueBehandlungsart extends JInternalFrame {
+
+	private static final long serialVersionUID = 4589284070560679651L;
 	private JTextField tFBezeichnung;
 	private boolean editable;
 	private JScrollPane sPErklaerung;

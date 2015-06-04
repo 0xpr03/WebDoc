@@ -66,10 +66,9 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
-@SuppressWarnings("serial")
 public class WNeuerPatient extends JInternalFrame {
-	// private static final long serialVersionUID = -4647611743598708383L; DON'T
-	// #22
+
+	private static final long serialVersionUID = 2105688313403618735L;
 	private JSearchTextField textAnimalSuche;
 	private Logger logger = LogManager.getLogger();
 	private JTextField strName;

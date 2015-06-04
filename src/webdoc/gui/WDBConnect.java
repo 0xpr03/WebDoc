@@ -53,9 +53,6 @@ import webdoc.webdoc.Config;
  */
 public class WDBConnect extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 9180933401774432315L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtIP;

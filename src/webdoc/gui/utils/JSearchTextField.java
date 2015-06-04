@@ -39,8 +39,9 @@ import org.apache.logging.log4j.Logger;
  * Search-Field in short.
  * @author "Aron Heinecke"
  */
-@SuppressWarnings("serial")
 public class JSearchTextField extends JTextField {
+
+	private static final long serialVersionUID = -7804457208421039268L;
 
 	/**
 	 * Interface for communicating with the search field.
@@ -76,11 +77,6 @@ public class JSearchTextField extends JTextField {
 		public String listRenderer(ACElement element);
 	}
 
-	/**
-	 * 
-	 */
-	//private static final long serialVersionUID = 1317632194630187821L;
-
 	private static final int MAX_VISIBLE_ROWS = 8;
 	private static final int MIN_CHARS = 3;
 	private searchFieldAPI api = null;
@@ -96,7 +92,10 @@ public class JSearchTextField extends JTextField {
 	private boolean replaceUserText = false;
 	
 	private final JPopupMenu popup = new JPopupMenu() {
-		//private static final long serialVersionUID = 563474143628228526L;
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -274947063859497655L;
 		public Dimension getPreferredSize() {
 			Dimension dimension = super.getPreferredSize();
 			dimension.width = JSearchTextField.this.getWidth();
@@ -389,7 +388,10 @@ public class JSearchTextField extends JTextField {
 	 * @author "Aron Heinecke"
 	 */
 	class SearchCellRenderer extends JLabel implements ListCellRenderer<ACElement> {
-		//private static final long serialVersionUID = 6562532559604303553L;
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -149396533447910959L;
 		private Color HIGHLIGHT_COLOR = new Color(51, 153, 255);
 
 		public SearchCellRenderer() {

@@ -67,11 +67,9 @@ import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
 
-@SuppressWarnings("serial")
 public class WNeuerPartner extends JInternalFrame {
 
-	// private static final long serialVersionUID = -2791732649836492001L; DON'T
-	// #22
+	private static final long serialVersionUID = -2791732649836492001L;
 	private Logger logger = LogManager.getLogger();
 	private JTextField textName;
 	private JTextField textTitel;
