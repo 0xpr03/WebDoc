@@ -986,9 +986,9 @@ public class WNeueAnamnese extends JInternalFrame {
 					n++;
 					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n)-1);
 					n++;
-					tPRoentgen.setText(rs.getString(n));
-					n++;
 					tPMedikamente.setText(rs.getString(n));
+					n++;
+					tPRoentgen.setText(rs.getString(n));
 					n++;
 					tPCTMRT.setText(rs.getString(n));
 					n++;
