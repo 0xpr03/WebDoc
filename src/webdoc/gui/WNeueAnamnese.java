@@ -858,7 +858,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		JLabel lblWieVielZeit = new JLabel("Wie viel Zeit können Sie für ihr Tier aufbringen?");
 
 		spavailTimeCons = new JSpinner();
-		spavailTimeCons.setModel(time_model);
+		SpinnerDateModel time_model2 = new SpinnerDateModel();
+		time_model2.setCalendarField(Calendar.MINUTE);
+		spavailTimeCons.setModel(time_model2);
 		spavailTimeCons.setEditor(new JSpinner.DateEditor(spavailTimeCons, "HH:mm"));
 
 		JPanel panel_12 = new JPanel();
