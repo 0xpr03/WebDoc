@@ -61,8 +61,10 @@ public class WebDoc {
 					le = LicenseError.VALIDATION_ERROR;
 				}
 			}
-			if(le != LicenseError.VALID)
+			if(le != LicenseError.VALID){
 				new WLicenseInput(Config.getStrValue("licenseKey"), le);
+				saveConfig();
+			}
 		}
 		
 		//startup init
@@ -192,9 +194,7 @@ public class WebDoc {
 			switch(dbee.getError()){
 			case NOERROR:
 				Config.setValue("firstrun", false);
-				ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
-				cfg.loadConfig();
-				cfg.writeConfig();
+				saveConfig();
 				runSetup = false;
 				new WSetupData("User: "+Config.getStrValue("user")+"\nPassword: "+Config.getStrValue("password")+"\nIP: "+Config.getStrValue("ip")+"\nport: "+Config.getIntValue("port")+"\nDB: "+Config.getStrValue("db"));
 				break;
@@ -215,6 +215,12 @@ public class WebDoc {
 				break;
 			}
 		}
+	}
+	
+	private static void saveConfig(){
+		ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
+		cfg.loadConfig();
+		cfg.writeConfig();
 	}
 	
 	@SuppressWarnings("unused")
