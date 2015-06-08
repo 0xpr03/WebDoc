@@ -50,23 +50,23 @@ public class WebDoc {
 			logger.error("Error setting look and feel \n{}",e);
 		}
 		
-		Verifier verifier = new Verifier();
-		verifier.init();
-		{
-			LicenseError le = LicenseError.NO_KEY;
-			if(!Config.getStrValue("licenseKey").equals("")){
-				try {
-					le = verifier.checkLicense(Config.getStrValue("licenseKey"));
-				} catch (Exception e) {
-					logger.error(e);
-					le = LicenseError.VALIDATION_ERROR;
-				}
-			}
-			if(le != LicenseError.VALID){
-				new WLicenseInput(Config.getStrValue("licenseKey"), le);
-				saveConfig();
-			}
-		}
+//		Verifier verifier = new Verifier();
+//		verifier.init();
+//		{
+//			LicenseError le = LicenseError.NO_KEY;
+//			if(!Config.getStrValue("licenseKey").equals("")){
+//				try {
+//					le = verifier.checkLicense(Config.getStrValue("licenseKey"));
+//				} catch (Exception e) {
+//					logger.error(e);
+//					le = LicenseError.VALIDATION_ERROR;
+//				}
+//			}
+//			if(le != LicenseError.VALID){
+//				new WLicenseInput(Config.getStrValue("licenseKey"), le);
+//				saveConfig();
+//			}
+//		}
 		
 		//startup init
 		startup();
@@ -144,8 +144,28 @@ public class WebDoc {
 
 	private static void startup(){
 		logger.entry();
+		Verifier verifier = new Verifier();
+		
+		String lz = Config.getStrValue("licenseKey");
+		
+		boolean verified = false;
 		if(Config.getBoolValue("firstrun")){
 			new WLicense(true);
+			{
+				LicenseError le = LicenseError.NO_KEY;
+				if(!lz.equals("")){
+					try {
+						le = verifier.checkLicense(lz);
+					} catch (Exception e) {
+						logger.error(e);
+						le = LicenseError.VALIDATION_ERROR;
+					}
+				}
+				if(le != LicenseError.VALID){
+					new WLicenseInput(Config.getStrValue("licenseKey"), le);
+					saveConfig();
+				}
+			}
 			setup();
 		}else{
 			DBError dberr = Database.connect(true,false);
@@ -175,6 +195,13 @@ public class WebDoc {
 				if(dbe != DBError.NOERROR){
 					GUIManager.showErrorDialog("Fehler beim auslesen der DB Variablen!\n"+dbe.getError(), "DB init Fehler");
 					showsetup = true;
+				}
+				if(!verified){
+					LicenseError le = verifier.checkOfflineLicense(lz);
+					if(le != LicenseError.VALID){
+						new WLicenseInput(Config.getStrValue("licenseKey"), le);
+						saveConfig();
+					}
 				}
 			}
 			if(showsetup)
