@@ -50,24 +50,6 @@ public class WebDoc {
 			logger.error("Error setting look and feel \n{}",e);
 		}
 		
-//		Verifier verifier = new Verifier();
-//		verifier.init();
-//		{
-//			LicenseError le = LicenseError.NO_KEY;
-//			if(!Config.getStrValue("licenseKey").equals("")){
-//				try {
-//					le = verifier.checkLicense(Config.getStrValue("licenseKey"));
-//				} catch (Exception e) {
-//					logger.error(e);
-//					le = LicenseError.VALIDATION_ERROR;
-//				}
-//			}
-//			if(le != LicenseError.VALID){
-//				new WLicenseInput(Config.getStrValue("licenseKey"), le);
-//				saveConfig();
-//			}
-//		}
-		
 		//startup init
 		startup();
 		
@@ -151,7 +133,7 @@ public class WebDoc {
 			try {
 				le = verifier.checkLicense(lz);
 			} catch (Exception e) {
-				logger.error("{}",e);
+				logger.error("validation error {}",e);
 				le = LicenseError.VALIDATION_ERROR;
 			}
 		}
