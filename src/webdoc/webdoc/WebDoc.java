@@ -50,12 +50,13 @@ public class WebDoc {
 			logger.error("Error setting look and feel \n{}",e);
 		}
 		
-		Verifier.init();
+		Verifier verifier = new Verifier();
+		verifier.init();
 		{
 			LicenseError le = LicenseError.NO_KEY;
 			if(!Config.getStrValue("licenseKey").equals("")){
 				try {
-					le = Verifier.checkLicense(Config.getStrValue("licenseKey"));
+					le = verifier.checkLicense(Config.getStrValue("licenseKey"));
 				} catch (Exception e) {
 					logger.error(e);
 					le = LicenseError.VALIDATION_ERROR;
