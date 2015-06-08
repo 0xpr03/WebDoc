@@ -145,27 +145,20 @@ public class WebDoc {
 	private static void startup(){
 		logger.entry();
 		Verifier verifier = new Verifier();
-		
 		String lz = Config.getStrValue("licenseKey");
+		LicenseError le = LicenseError.NO_KEY;
+		if(!lz.equals("")){
+			try {
+				le = verifier.checkLicense(lz);
+			} catch (Exception e) {
+				logger.error("{}",e);
+				le = LicenseError.VALIDATION_ERROR;
+			}
+		}
+		logger.debug("LZE: {}",le);
 		
-		boolean verified = false;
 		if(Config.getBoolValue("firstrun")){
 			new WLicense(true);
-			{
-				LicenseError le = LicenseError.NO_KEY;
-				if(!lz.equals("")){
-					try {
-						le = verifier.checkLicense(lz);
-					} catch (Exception e) {
-						logger.error(e);
-						le = LicenseError.VALIDATION_ERROR;
-					}
-				}
-				if(le != LicenseError.VALID){
-					new WLicenseInput(Config.getStrValue("licenseKey"), le);
-					saveConfig();
-				}
-			}
 			setup();
 		}else{
 			DBError dberr = Database.connect(true,false);
@@ -196,16 +189,21 @@ public class WebDoc {
 					GUIManager.showErrorDialog("Fehler beim auslesen der DB Variablen!\n"+dbe.getError(), "DB init Fehler");
 					showsetup = true;
 				}
-				if(!verified){
-					LicenseError le = verifier.checkOfflineLicense(lz);
-					if(le != LicenseError.VALID){
-						new WLicenseInput(Config.getStrValue("licenseKey"), le);
-						saveConfig();
-					}
-				}
 			}
 			if(showsetup)
 				setup();
+		}
+		
+		if(le != LicenseError.VALID){
+			logger.debug("online verification error");
+			le = verifier.checkOfflineLicense(lz);
+			logger.debug("LZE: {}",le);
+			if(le != LicenseError.VALID){
+				new WLicenseInput(lz, le);
+				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
+					System.exit(1);
+				saveConfig();
+			}
 		}
 		logger.exit();
 	}
