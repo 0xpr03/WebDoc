@@ -199,7 +199,7 @@ public class WebDoc {
 			le = verifier.checkOfflineLicense(lz);
 			logger.debug("LZE: {}",le);
 			if(le != LicenseError.VALID){
-				new WLicenseInput(lz, le);
+				new WLicenseInput(true,lz, le);
 				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
 					System.exit(1);
 				saveConfig();
