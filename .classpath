@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="archive/WNeuerPartner.java|archive/WNeuerPatient.java|archive/" kind="src" path="src"/>
+	<classpathentry excluding="archive/|archive/WNeuerPartner.java|archive/WNeuerPatient.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="mariadb-java-client-1.1.8.jar">
 		<attributes>
@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="httpmime-4.4.1.jar"/>
 	<classpathentry kind="lib" path="json-simple-1.1.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
