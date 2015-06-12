@@ -1088,4 +1088,15 @@ public class Database{
 	public static DBEError DBEExceptionConverter(SQLException e){
 		return new DBEError(DBExceptionConverter(e,true), e.getMessage());
 	}
+	// Die Methoden sind nur paltzhaleter
+	public static ResultSet getThreatment(long id){
+		if (id > 0)
+			return null;
+		return null;
+	}
+	
+	public static void insertThreatment(String name, double preis, String erklaerung ){
+		
+	}
+
 }

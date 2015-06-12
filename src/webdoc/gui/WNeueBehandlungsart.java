@@ -7,6 +7,8 @@
 package webdoc.gui;
 
 import java.awt.Rectangle;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,6 +26,7 @@ import javax.swing.SpinnerNumberModel;
 
 import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
 public class WNeueBehandlungsart extends JInternalFrame {
@@ -37,6 +40,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JButton btnSpeichern;
 	private JButton btnEditieren;
 	private JTextPane tPErklaerung;
+	private long id;
 	public WNeueBehandlungsart() {
 		
 		JPanel panel = new JPanel();
@@ -135,7 +139,21 @@ public class WNeueBehandlungsart extends JInternalFrame {
         if (tPErklaerung.getText().toString().length() > 20)
         	return false;
 		return true;
-        
-        
+	}
+	private void loadData() throws SQLException{
+		if (allSet()){
+			ResultSet rs = Database.getThreatment(id);
+			rs.next();
+			tFBezeichnung.setText(rs.getString(1));
+			spPreis.setValue(rs.getInt(2));
+			tPErklaerung.setText(rs.getString(3));
+			
+			editable = false;
+		}
+	}
+	private void setData(String name, double preis, String erklaerung){
+		if (allSet()){
+			Database.insertThreatment(name, preis, erklaerung);
+		}
 	}
 }
