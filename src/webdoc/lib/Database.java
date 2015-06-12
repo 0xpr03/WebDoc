@@ -6,6 +6,7 @@
  *******************************************************************************/
 package webdoc.lib;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -196,17 +197,17 @@ public class Database{
 	//------------- USER SPACE-----------------------//
 	
 	public static ResultSet getConfig(String key) throws SQLException{
-		String sql = "SELECT value FROM config WHERE key = ?";
+		String sql = "SELECT `value` FROM config WHERE `key` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setString(1, key);
 		return stm.executeQuery();
 	}
 	
 	public static void insertConfig(String key, byte[] blob) throws SQLException{
-		String sql = "INSERT INTO config (key,value) VALUES(?,?)";
+		String sql = "INSERT INTO config (`key`,`value`) VALUES(?,?)";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setString(1, key);
-		stm.setBytes(2, blob);
+		stm.setBinaryStream(2, new ByteArrayInputStream(blob), blob.length);
 		stm.executeUpdate();
 		stm.close();
 	}
