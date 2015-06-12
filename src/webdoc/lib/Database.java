@@ -204,7 +204,7 @@ public class Database{
 	}
 	
 	public static void insertConfig(String key, byte[] blob) throws SQLException{
-		String sql = "INSERT INTO config (`key`,`value`) VALUES(?,?)";
+		String sql = "INSERT INTO config (`key`,`value`) VALUES(?,?) ON DUPLICATE KEY UPDATE `value`=VALUES(`value`)";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setString(1, key);
 		stm.setBinaryStream(2, new ByteArrayInputStream(blob), blob.length);
