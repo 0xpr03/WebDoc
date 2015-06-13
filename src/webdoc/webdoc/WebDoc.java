@@ -128,17 +128,6 @@ public class WebDoc {
 		logger.entry();
 		Verifier verifier = new Verifier();
 		String lz = Config.getStrValue("licenseKey");
-		LicenseError le = LicenseError.NO_KEY;
-		if(!lz.equals("")){
-			try {
-				le = verifier.checkLicense(lz);
-			} catch (Exception e) {
-				logger.error("validation error {}",e);
-				le = LicenseError.VALIDATION_ERROR;
-			}
-		}
-		logger.debug("LZE: {}",le);
-		
 		if(Config.getBoolValue("firstrun")){
 			new WLicense(true);
 			setup();
@@ -176,11 +165,37 @@ public class WebDoc {
 				setup();
 		}
 		
+		LicenseError le = LicenseError.NO_KEY;
+		
+		if(!lz.equals("")){
+			try {
+				le = verifier.checkOfflineLicense(lz);
+				if(le != LicenseError.VALID){
+					logger.info("offline license validation: {}",le);
+					le = verifier.checkLicense(lz);
+					
+					if(le != LicenseError.VALID){
+						logger.info("online license validation: {}",le);
+					}else{
+						verifier.insertOfflLZ(lz);
+					}
+				}else{
+					
+					// run refresh of offline LZ
+				}
+			} catch (Exception e) {
+				logger.error("validation error {}",e);
+				le = LicenseError.VALIDATION_ERROR;
+			}
+		}
+		
 		if(le != LicenseError.VALID){
 			logger.debug("online verification error");
 			le = verifier.checkOfflineLicense(lz);
 			logger.debug("LZE: {}",le);
 			if(le != LicenseError.VALID){
+				
+				
 				new WLicenseInput(true,lz, le);
 				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
 					System.exit(1);
