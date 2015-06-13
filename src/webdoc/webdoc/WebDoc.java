@@ -182,6 +182,7 @@ public class WebDoc {
 				}else{
 					Thread t = new Thread(new Runnable() { // run refresh of offline LZ
 						public void run() {
+							logger.debug("Valid offline license, lazy refresh..");
 							Verifier vef = new Verifier();
 							LicenseError le = vef.checkLicense(lz);
 							if(le == LicenseError.VALID || le == LicenseError.EXPIRED){
@@ -198,12 +199,9 @@ public class WebDoc {
 		}
 		
 		if(le != LicenseError.VALID){
-			logger.debug("online verification error");
 			le = verifier.checkOfflineLicense(lz);
 			logger.debug("LZE: {}",le);
 			if(le != LicenseError.VALID){
-				
-				
 				new WLicenseInput(true,lz, le);
 				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
 					System.exit(1);
