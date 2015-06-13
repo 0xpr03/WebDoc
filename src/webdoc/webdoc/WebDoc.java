@@ -127,7 +127,7 @@ public class WebDoc {
 	private static void startup(){
 		logger.entry();
 		Verifier verifier = new Verifier();
-		String lz = Config.getStrValue("licenseKey");
+		final String lz = Config.getStrValue("licenseKey");
 		if(Config.getBoolValue("firstrun")){
 			new WLicense(true);
 			setup();
@@ -180,8 +180,16 @@ public class WebDoc {
 						verifier.insertOfflLZ(lz);
 					}
 				}else{
-					
-					// run refresh of offline LZ
+					Thread t = new Thread(new Runnable() { // run refresh of offline LZ
+						public void run() {
+							Verifier vef = new Verifier();
+							LicenseError le = vef.checkLicense(lz);
+							if(le == LicenseError.VALID || le == LicenseError.EXPIRED){
+								vef.insertOfflLZ(lz);
+							}
+						}
+					});
+					t.start();
 				}
 			} catch (Exception e) {
 				logger.error("validation error {}",e);
