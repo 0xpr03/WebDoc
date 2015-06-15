@@ -162,8 +162,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		 tPFunktionenMotorik.setEditable(editable);
 		 tPBemerkungen.setEditable(editable);
 		 tFHalltung.setEditable(editable);
-		 tFName.setEditable(false);
-		 tFRufname.setEditable(false);
 		 tPVerwendungszweck.setEditable(editable);
 		 tPTierStammtVon.setEditable(editable);
 		 spavailTimeCons.setEnabled(editable);
@@ -915,6 +913,9 @@ public class WNeueAnamnese extends JInternalFrame {
 		panel_11.add(spavailTimeCons, "cell 1 6,growx,aligny top");
 		panel_14.setLayout(gl_panel_14);
 
+		tFName.setEditable(false);
+		tFRufname.setEditable(false);
+		
 		spGehstrecke.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		
 		spinBirthdate_1.setValue(GUIFunctions.getDefaultDate());

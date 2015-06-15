@@ -1,6 +1,7 @@
 ##### WebDoc config ####
 guistyle: 0
 firstrun: true
+licenseKey: EB2-926-1A1-EDE-7E5-E8A
 
 #database related stuff
 ip: "localhost" # ip or localhost

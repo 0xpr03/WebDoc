@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.GUIFunctions;
 import webdoc.gui.WDBConnect;
 import webdoc.gui.WLicense;
+import webdoc.gui.WLicenseInput;
 import webdoc.gui.WSetupData;
 import webdoc.lib.ConfigLib;
 import webdoc.lib.DBEError;
@@ -23,6 +24,7 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 import webdoc.lib.Verifier;
+import webdoc.lib.Verifier.LicenseError;
 import webdoc.lib.dbTools;
 
 /**
@@ -46,11 +48,6 @@ public class WebDoc {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			logger.error("Error setting look and feel \n{}",e);
-		}
-		
-		if(!Verifier.Verify()){
-			logger.error("Unable to validate license!");
-			System.exit(1);
 		}
 		
 		//startup init
@@ -129,6 +126,8 @@ public class WebDoc {
 
 	private static void startup(){
 		logger.entry();
+		Verifier verifier = new Verifier();
+		final String lz = Config.getStrValue("licenseKey");
 		if(Config.getBoolValue("firstrun")){
 			new WLicense(true);
 			setup();
@@ -165,6 +164,50 @@ public class WebDoc {
 			if(showsetup)
 				setup();
 		}
+		
+		LicenseError le = LicenseError.NO_KEY;
+		
+		if(!lz.equals("")){
+			try {
+				le = verifier.checkOfflineLicense(lz);
+				if(le != LicenseError.VALID){
+					logger.info("offline license validation: {}",le);
+					le = verifier.checkLicense(lz);
+					
+					if(le != LicenseError.VALID){
+						logger.info("online license validation: {}",le);
+					}else{
+						verifier.insertOfflLZ(lz);
+					}
+				}else{
+					Thread t = new Thread(new Runnable() { // run refresh of offline LZ
+						public void run() {
+							logger.debug("Valid offline license, lazy refresh..");
+							Verifier vef = new Verifier();
+							LicenseError le = vef.checkLicense(lz);
+							if(le == LicenseError.VALID || le == LicenseError.EXPIRED){
+								vef.insertOfflLZ(lz);
+							}
+						}
+					});
+					t.start();
+				}
+			} catch (Exception e) {
+				logger.error("validation error {}",e);
+				le = LicenseError.VALIDATION_ERROR;
+			}
+		}
+		
+		if(le != LicenseError.VALID){
+			le = verifier.checkOfflineLicense(lz);
+			logger.debug("LZE: {}",le);
+			if(le != LicenseError.VALID){
+				new WLicenseInput(true,lz, le);
+				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
+					System.exit(1);
+				saveConfig();
+			}
+		}
 		logger.exit();
 	}
 	
@@ -180,9 +223,7 @@ public class WebDoc {
 			switch(dbee.getError()){
 			case NOERROR:
 				Config.setValue("firstrun", false);
-				ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
-				cfg.loadConfig();
-				cfg.writeConfig();
+				saveConfig();
 				runSetup = false;
 				new WSetupData("User: "+Config.getStrValue("user")+"\nPassword: "+Config.getStrValue("password")+"\nIP: "+Config.getStrValue("ip")+"\nport: "+Config.getIntValue("port")+"\nDB: "+Config.getStrValue("db"));
 				break;
@@ -203,6 +244,12 @@ public class WebDoc {
 				break;
 			}
 		}
+	}
+	
+	private static void saveConfig(){
+		ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
+		cfg.loadConfig();
+		cfg.writeConfig();
 	}
 	
 	@SuppressWarnings("unused")
