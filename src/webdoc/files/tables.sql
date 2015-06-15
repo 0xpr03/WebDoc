@@ -148,3 +148,8 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  PRIMARY KEY (`TreatmentID`),
  KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+CREATE TABLE IF NOT EXISTS `config` (
+ `key` varchar(16) NOT NULL,
+ `value` blob NOT NULL,
+ PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='v0.1';
