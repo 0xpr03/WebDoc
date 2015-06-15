@@ -161,22 +161,6 @@ public class Database{
 	}
 	
 	/**
-	 * Retrives anamnesis related to the patient
-	 * type 0 = anamnesis
-	 * 1 = threatment
-	 * @param patientID
-	 * @return
-	 * @throws SQLException 
-	 */
-	public static ResultSet getPatientRData(long patientID) throws SQLException{
-		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
-				+"WHERE AnimalID = ? ORDER BY insdate DESC";
-		PreparedStatement stm = prepareStm(sql);
-		stm.setLong(1, patientID);
-		return stm.executeQuery();
-	}
-	
-	/**
 	 * Returns a list of stored procedures
 	 * @return list of procedures
 	 * @throws SQLException
@@ -195,6 +179,33 @@ public class Database{
 	}
 	
 	//------------- USER SPACE-----------------------//
+	
+	/**
+	 * Retrives anamnesis related to the patient
+	 * type 0 = anamnesis
+	 * 1 = threatment
+	 * @param patientID
+	 * @return
+	 * @throws SQLException 
+	 */
+	public static ResultSet getPatientRData(long patientID) throws SQLException{
+		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
+				+"WHERE AnimalID = ? ORDER BY insdate DESC";
+		PreparedStatement stm = prepareStm(sql);
+		stm.setLong(1, patientID);
+		return stm.executeQuery();
+	}
+	
+	// Die Methoden sind nur paltzhaleter
+	public static ResultSet getThreatment(long id){
+		if (id > 0)
+			return null;
+		return null;
+	}
+	
+	public static void insertThreatment(String name, double preis, String erklaerung ){
+		
+	}
 	
 	public static ResultSet getConfig(String key) throws SQLException{
 		String sql = "SELECT `value` FROM config WHERE `key` = ?";
@@ -1105,15 +1116,4 @@ public class Database{
 	public static DBEError DBEExceptionConverter(SQLException e){
 		return new DBEError(DBExceptionConverter(e,true), e.getMessage());
 	}
-	// Die Methoden sind nur paltzhaleter
-	public static ResultSet getThreatment(long id){
-		if (id > 0)
-			return null;
-		return null;
-	}
-	
-	public static void insertThreatment(String name, double preis, String erklaerung ){
-		
-	}
-
 }
