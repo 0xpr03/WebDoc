@@ -139,6 +139,7 @@ CREATE TABLE IF NOT EXISTS `relationship` (
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `TreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
+  `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `RoleID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
  `date` date NOT NULL,

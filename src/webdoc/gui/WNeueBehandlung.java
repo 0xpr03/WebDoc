@@ -40,7 +40,8 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JSpinner spDate;
 	private JSpinner spTime;
 	private long id;
-	public WNeueBehandlung() {
+	private JTextField tFName;
+	public WNeueBehandlung(String Name) {
 		setTitle("Neue Behandlung");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -74,88 +75,26 @@ public class WNeueBehandlung extends JInternalFrame {
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
 		
 		spTime = new JSpinner();
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(39)
-							.addComponent(lblBezeichnnung)
-							.addGap(4)
-							.addComponent(tFBezeichnung, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(8)
-							.addComponent(lblPreisProEinheit)
-							.addGap(4)
-							.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(7)
-							.addComponent(lblErklrung)
-							.addGap(54)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 281, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(7)
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblUhrzeit)
-									.addGap(68)
-									.addComponent(spTime))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblDatum)
-									.addGap(71)
-									.addComponent(spDate))
-								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-									.addComponent(lblAnzahlDerEinheiten)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(spAnzahl, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)))))
-					.addGap(7))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblBezeichnnung))
-						.addComponent(tFBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPreisProEinheit))
-						.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(4)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(103)
-							.addComponent(lblErklrung))
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(7)
-							.addComponent(lblAnzahlDerEinheiten))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(4)
-							.addComponent(spAnzahl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(9)
-							.addComponent(lblDatum))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(9)
-							.addComponent(lblUhrzeit))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-		);
-		panel.setLayout(gl_panel);
+		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][219px][20px][20px][20px]"));
+		
+		JLabel lblNameDesPatienten = new JLabel("Name des Patienten:");
+		panel.add(lblNameDesPatienten, "cell 0 0,alignx trailing");
+		
+		tFName = new JTextField();
+		panel.add(tFName, "cell 1 0,growx");
+		tFName.setColumns(10);
+		panel.add(lblBezeichnnung, "cell 0 1,alignx right,aligny center");
+		panel.add(tFBezeichnung, "cell 1 1,growx,aligny top");
+		panel.add(lblPreisProEinheit, "cell 0 2,alignx right,aligny center");
+		panel.add(spPreis, "cell 1 2,growx,aligny top");
+		panel.add(lblErklrung, "cell 0 3,alignx left,aligny center");
+		panel.add(scrollPane, "cell 1 3,grow");
+		panel.add(lblUhrzeit, "cell 0 6,alignx left,aligny center");
+		panel.add(spTime, "cell 1 6,alignx left,aligny top");
+		panel.add(lblDatum, "cell 0 5,alignx left,aligny center");
+		panel.add(spDate, "cell 1 5,alignx left,aligny top");
+		panel.add(lblAnzahlDerEinheiten, "cell 0 4,alignx left,aligny center");
+		panel.add(spAnzahl, "cell 1 4,alignx left,aligny top");
 		
 		JSearchTextField searchTextField = new JSearchTextField(false);
 		getContentPane().add(searchTextField, BorderLayout.NORTH);
@@ -174,11 +113,13 @@ public class WNeueBehandlung extends JInternalFrame {
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{spAnzahl, searchTextField, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 		setEditable(editable);
+		tFName.setText(Name);
 	}
 	private void setEditable(boolean editable) {
 		tFBezeichnung.setEditable(false);
 		spPreis.setEnabled(false);
 		tPErklaerung.setEditable(false);
+		tFName.setEditable(false);
 		spAnzahl.setEnabled(editable);
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);

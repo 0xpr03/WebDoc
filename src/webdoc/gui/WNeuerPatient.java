@@ -343,6 +343,11 @@ public class WNeuerPatient extends JInternalFrame {
 		downPanel.add(btnNeueAnamnese, "cell 3 0");
 
 		btnNeueBehandlung = new JButton("Neue Behandlung");
+		btnNeueBehandlung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		
+			}
+		});
 		downPanel.add(btnNeueBehandlung, "cell 4 0");
 
 		buttonCancelEdit.setVisible(editable);
