@@ -252,15 +252,6 @@ public class WebDoc {
 		cfg.writeConfig();
 	}
 	
-	@SuppressWarnings("unused")
-	private static void test(){
-		logger.entry();
-		Database.connect(false,false);
-		
-		
-		logger.exit();
-	}
-	
 	private static void ShutDown(){
 		logger.info("Shutting down");
 		Database.disconnect();
