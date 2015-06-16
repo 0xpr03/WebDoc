@@ -92,7 +92,6 @@ public class WebDoc {
 				if( GUIManager.showErrorYesNoDialog("Die config Datei ist beschädigt, soll sie überschrieben werden ?", "Config Fehler") == 1){
 					logger.fatal("Can't replace faulty config file.");
 					System.exit(1);
-					//TODO: registerExitFunction isn't called till now!
 				}
 			}
 			configLib.writeDefaults(true);
