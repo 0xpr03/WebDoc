@@ -1,9 +1,11 @@
 ##### WebDoc config ####
-firstrun: true
 guistyle: 0
+firstrun: true
+licenseKey: EB2-926-1A1-EDE-7E5-E8A
 
-database:
- ip: localhost
- port: 3306
- user: webdoc
- password: webdoc
+#database related stuff
+ip: "localhost" # ip or localhost
+port: 3306
+user: webdoc
+password: webdoc
+db: webdoc # database to use

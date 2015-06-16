@@ -111,9 +111,9 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{spAnzahl, searchTextField, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 		setEditable(editable);
 		tFName.setText(Name);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 	}
 	private void setEditable(boolean editable) {
 		tFBezeichnung.setEditable(false);
