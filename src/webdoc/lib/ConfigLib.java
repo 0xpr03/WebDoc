@@ -40,7 +40,6 @@ public class ConfigLib {
 	private HashMap<String,Object> defaults = new HashMap<String, Object>();
 	private int missing_entrys = 0;
 	
-	
 	public ConfigLib(String file, String default_path){
 		logger.debug("Initializing config");
 		logger.debug("OS: {}",System.getProperty("os.name"));
