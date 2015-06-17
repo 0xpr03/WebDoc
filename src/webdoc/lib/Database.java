@@ -179,7 +179,154 @@ public class Database{
 		return procedures;
 	}
 	
-	//------------- USER SPACE-----------------------//
+	/**
+	 * Execute an unsafe multiline query.
+	 * Not injection safe!
+	 * @param sql multiline sql
+	 * @return affected lines
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static int execMulitline(String sql) throws SQLException{
+		logger.debug("Executing\n{}",sql);
+		int affectedLines = -1;
+		Statement stm = null;
+		try{
+			stm = connection.createStatement();
+			stm.execute(sql);
+			affectedLines = stm.getUpdateCount();
+			logger.debug("Affected lines {}", affectedLines);
+		}finally{
+			if(stm != null){
+				try{stm.close();}catch(Exception e){}
+			}
+		}
+		
+		return affectedLines;
+	}
+	
+	/**
+	 * Prints a complete ResultSet to the debug log
+	 * @param rs
+	 * @author "Aron Heinecke"
+	 */
+	@SuppressWarnings("unused")
+	private static void printResultSet(ResultSet rs){
+		try {
+			StringBuilder sb = new StringBuilder();
+
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columns = rsmd.getColumnCount();
+			for (int i = 1; i <= columns; i++) {
+				int jdbcType = rsmd.getColumnType(i);
+				String name = rsmd.getColumnTypeName(i);
+				sb.append("Column " + i + " JDBC type " + jdbcType + ", Typename " + name + "\n");
+			}
+
+			int numberOfColumns = rsmd.getColumnCount();
+
+			for (int i = 1; i <= numberOfColumns; i++) {
+				if (i > 1)
+					sb.append(",\t");
+				String columnName = rsmd.getColumnName(i);
+				sb.append(columnName);
+			}
+			sb.append("\n");
+
+			while (rs.next()) {
+				for (int i = 1; i <= numberOfColumns; i++) {
+					if (i > 1)
+						sb.append(",\t");
+					String columnValue = rs.getString(i);
+					sb.append(columnValue);
+				}
+				sb.append("\n");
+			}
+
+			logger.debug("ResultSet: \n{}", sb);
+		}catch( SQLException e){
+			logger.debug(e);
+		}
+	}
+	
+	/**
+	 * Silently closes a prepared statement, avoiding multiple try's
+	 * @param stm
+	 * @author "Aron Heinecke"
+	 */
+	public static void closePStatement(PreparedStatement stm){
+		try {
+			stm.close();
+		} catch (SQLException e) {
+			logger.error(e);
+		}
+	}
+	
+	/**
+	 * Converts the (mostly) string based SQLExceptions to DBErrors
+	 * This function already logs errors on debug level!
+	 * Extended usage for functions where the MSG return matters
+	 * @param e
+	 * @return DBError enum
+	 * @author "Aron Heinecke"
+	 */
+	public static DBError DBExceptionConverter(SQLException e, boolean printAsError){
+		if(printAsError)
+			logger.error("DBError: \n{}", e);
+		else
+			logger.debug("Converter catched:\n{}",e);
+		String message = e.getMessage();
+		if(message.contains("Access denied for user")){
+			if(message.contains("to database")){
+				return DBError.NO_DB_OR_NO_PERM;
+			}else{
+				return DBError.INVALID_LOGIN;
+			}
+		}else if(message.contains("No database selected")){
+			return DBError.NO_DB_SELECTED;
+		}else if(message.contains("Access denied; you need")){
+			return DBError.NO_PERMISSIONS;
+		}else if(message.contains("Unknown database")){
+			return DBError.NO_DB;
+		}else if(message.contains("Operation")){
+			if(message.contains("failed")){
+				return DBError.OPERATION_FAILED;
+			}else{
+				return DBError.UNDEFINED_ERROR;
+			}
+		}else if(message.contains("Could not set parameter")){
+			return DBError.WRONG_PARAMETER_BINDING;
+		}else if(e instanceof SQLSyntaxErrorException ){
+			return DBError.WRONG_SYNTAX;
+		}else if(e instanceof SQLTimeoutException){
+			return DBError.SQL_TIMEOUT;
+		}else{
+			return DBError.UNDEFINED_ERROR;
+		}
+	}
+	
+	/**
+	 * Overloaded version, see the main declaration
+	 * @param e
+	 * @return
+	 */
+	public static DBError DBExceptionConverter(SQLException e){
+		return DBExceptionConverter(e, false);
+	}
+	
+	/**
+	 * Converts the (mostly) string based SQLExceptions to DBEErrors,
+	 * a extended error with the error msg itself.
+	 * @param e
+	 * @return DBEError containing the DBError enum and the ErrorMSG
+	 */
+	public static DBEError DBEExceptionConverter(SQLException e){
+		return new DBEError(DBExceptionConverter(e,true), e.getMessage());
+	}
+	
+	//-------------------------------------------------------//
+	//-------------------- USER SPACE -----------------------//
+	//-------------------------------------------------------//
 	
 	/**
 	 * Retrives anamnesis related to the patient
@@ -1071,150 +1218,5 @@ public class Database{
 	public static String getPartnerSearchStm(){
 		return "SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
 				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ? ";
-	}
-	
-	/**
-	 * Execute an unsafe multiline query.
-	 * Not injection safe!
-	 * @param sql multiline sql
-	 * @return affected lines
-	 * @throws SQLException
-	 * @author "Aron Heinecke"
-	 */
-	public static int execMulitline(String sql) throws SQLException{
-		logger.debug("Executing\n{}",sql);
-		int affectedLines = -1;
-		Statement stm = null;
-		try{
-			stm = connection.createStatement();
-			stm.execute(sql);
-			affectedLines = stm.getUpdateCount();
-			logger.debug("Affected lines {}", affectedLines);
-		}finally{
-			if(stm != null){
-				try{stm.close();}catch(Exception e){}
-			}
-		}
-		
-		return affectedLines;
-	}
-	
-	/**
-	 * Prints a complete ResultSet to the debug log
-	 * @param rs
-	 * @author "Aron Heinecke"
-	 */
-	@SuppressWarnings("unused")
-	private static void printResultSet(ResultSet rs){
-		try {
-			StringBuilder sb = new StringBuilder();
-
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columns = rsmd.getColumnCount();
-			for (int i = 1; i <= columns; i++) {
-				int jdbcType = rsmd.getColumnType(i);
-				String name = rsmd.getColumnTypeName(i);
-				sb.append("Column " + i + " JDBC type " + jdbcType + ", Typename " + name + "\n");
-			}
-
-			int numberOfColumns = rsmd.getColumnCount();
-
-			for (int i = 1; i <= numberOfColumns; i++) {
-				if (i > 1)
-					sb.append(",\t");
-				String columnName = rsmd.getColumnName(i);
-				sb.append(columnName);
-			}
-			sb.append("\n");
-
-			while (rs.next()) {
-				for (int i = 1; i <= numberOfColumns; i++) {
-					if (i > 1)
-						sb.append(",\t");
-					String columnValue = rs.getString(i);
-					sb.append(columnValue);
-				}
-				sb.append("\n");
-			}
-
-			logger.debug("ResultSet: \n{}", sb);
-		}catch( SQLException e){
-			logger.debug(e);
-		}
-	}
-	
-	/**
-	 * Silently closes a prepared statement, avoiding multiple try's
-	 * @param stm
-	 * @author "Aron Heinecke"
-	 */
-	public static void closePStatement(PreparedStatement stm){
-		try {
-			stm.close();
-		} catch (SQLException e) {
-			logger.error(e);
-		}
-	}
-	
-	/**
-	 * Converts the (mostly) string based SQLExceptions to DBErrors
-	 * This function already logs errors on debug level!
-	 * Extended usage for functions where the MSG return matters
-	 * @param e
-	 * @return DBError enum
-	 * @author "Aron Heinecke"
-	 */
-	public static DBError DBExceptionConverter(SQLException e, boolean printAsError){
-		if(printAsError)
-			logger.error("DBError: \n{}", e);
-		else
-			logger.debug("Converter catched:\n{}",e);
-		String message = e.getMessage();
-		if(message.contains("Access denied for user")){
-			if(message.contains("to database")){
-				return DBError.NO_DB_OR_NO_PERM;
-			}else{
-				return DBError.INVALID_LOGIN;
-			}
-		}else if(message.contains("No database selected")){
-			return DBError.NO_DB_SELECTED;
-		}else if(message.contains("Access denied; you need")){
-			return DBError.NO_PERMISSIONS;
-		}else if(message.contains("Unknown database")){
-			return DBError.NO_DB;
-		}else if(message.contains("Operation")){
-			if(message.contains("failed")){
-				return DBError.OPERATION_FAILED;
-			}else{
-				return DBError.UNDEFINED_ERROR;
-			}
-		}else if(message.contains("Could not set parameter")){
-			return DBError.WRONG_PARAMETER_BINDING;
-		}else if(e instanceof SQLSyntaxErrorException ){
-			return DBError.WRONG_SYNTAX;
-		}else if(e instanceof SQLTimeoutException){
-			return DBError.SQL_TIMEOUT;
-		}else{
-			return DBError.UNDEFINED_ERROR;
-		}
-	}
-	
-	/**
-	 * Overloaded version, see the main declaration
-	 * @param e
-	 * @return
-	 */
-	public static DBError DBExceptionConverter(SQLException e){
-		return DBExceptionConverter(e, false);
-	}
-	
-	/**
-	 * Converts the (mostly) string based SQLExceptions to DBEErrors,
-	 * a extended error with the error msg itself.
-	 * @param e
-	 * @return DBEError containing the DBError enum and the ErrorMSG
-	 */
-	public static DBEError DBEExceptionConverter(SQLException e){
-		return new DBEError(DBExceptionConverter(e,true), e.getMessage());
 	}
 }
