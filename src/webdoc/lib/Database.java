@@ -202,10 +202,10 @@ public class Database{
 	 * @return ResultSet of name,price,explanation
 	 * @throws SQLException
 	 */
-	public static ResultSet getThreatment(int id) throws SQLException{
+	public static ResultSet getThreatment(long id) throws SQLException{
 		String sql = "SELECT `name`,`price`,`explanation` FROM threatment WHERE `ThreatmentID` = ?";
 		PreparedStatement stm = prepareStm(sql);
-		stm.setInt(1, id);
+		stm.setLong(1, id);
 		return stm.executeQuery();
 	}
 	
@@ -217,14 +217,14 @@ public class Database{
 	 * @return auto-id from new entry
 	 * @throws SQLException
 	 */
-	public static int insertThreatment(String name, double preis, String erklaerung ) throws SQLException{
+	public static long insertThreatment(String name, double preis, String erklaerung ) throws SQLException{
 		String sql = "INSERT INTO threatment (`name`,`price`,`explanation`) VALUES(?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setString(1, name);
 		stm.setDouble(2, preis);
 		stm.setString(3, erklaerung);
 		stm.executeUpdate();
-		int id = getAutoIDInt(stm.getGeneratedKeys());
+		long id = getAutoID(stm.getGeneratedKeys());
 		stm.close();
 		return id;
 	}

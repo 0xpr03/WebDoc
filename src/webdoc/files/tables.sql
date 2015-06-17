@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `relationship` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Behandlung / threatment */
 CREATE TABLE IF NOT EXISTS `threatment` (
- `ThreatmentID` int(10) NOT NULL AUTO_INCREMENT,
+ `ThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `price` double unsigned NOT NULL,
  `explanation` varchar(20) NOT NULL,
  `name` varchar(25) NOT NULL,
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `threatment` (
 /* Table Tierbehandlungen / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
- `ThreatmentID` int(10) NOT NULL,
+ `ThreatmentID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
  `PartnerID` int(10) unsigned DEFAULT NULL,
