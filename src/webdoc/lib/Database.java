@@ -196,15 +196,37 @@ public class Database{
 		return stm.executeQuery();
 	}
 	
-	// Die Methoden sind nur paltzhaleter
-	public static ResultSet getThreatment(long id){
-		if (id > 0)
-			return null;
-		return null;
+	/**
+	 * Get threatment details
+	 * @param id
+	 * @return ResultSet of name,price,explanation
+	 * @throws SQLException
+	 */
+	public static ResultSet getThreatment(int id) throws SQLException{
+		String sql = "SELECT `name`,`price`,`explanation` FROM threatment WHERE `ThreatmentID` = ?";
+		PreparedStatement stm = prepareStm(sql);
+		stm.setInt(1, id);
+		return stm.executeQuery();
 	}
 	
-	public static void insertThreatment(String name, double preis, String erklaerung ){
-		
+	/**
+	 * Insert threatment
+	 * @param name
+	 * @param preis
+	 * @param erklaerung
+	 * @return auto-id from new entry
+	 * @throws SQLException
+	 */
+	public static int insertThreatment(String name, double preis, String erklaerung ) throws SQLException{
+		String sql = "INSERT INTO threatment (`name`,`price`,`explanation`) VALUES(?,?,?);";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setString(1, name);
+		stm.setDouble(2, preis);
+		stm.setString(3, erklaerung);
+		stm.executeUpdate();
+		int id = getAutoIDInt(stm.getGeneratedKeys());
+		stm.close();
+		return id;
 	}
 	
 	public static ResultSet getConfig(String key) throws SQLException{
@@ -785,6 +807,17 @@ public class Database{
 	private static long getAutoID(ResultSet rs) throws SQLException{
 		rs.next();
 		return rs.getLong(1);
+	}
+	
+	/**
+	 * Retrives the autoID from the first column, will crash otherwise
+	 * @param rs
+	 * @return long last created autoid
+	 * @throws SQLException
+	 */
+	private static int getAutoIDInt(ResultSet rs) throws SQLException{
+		rs.next();
+		return rs.getInt(1);
 	}
 	
 	/**
