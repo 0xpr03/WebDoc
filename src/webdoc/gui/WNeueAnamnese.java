@@ -485,11 +485,19 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPInfektionen = new JTextPane();
 		sPInfektionen.setViewportView(tPInfektionen);
 		GroupLayout gl_pContent = new GroupLayout(pContent);
-		gl_pContent.setHorizontalGroup(gl_pContent.createParallelGroup(Alignment.LEADING).addGroup(gl_pContent
-				.createSequentialGroup().addGap(1)
-				.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 1316, Short.MAX_VALUE).addGap(1)));
-		gl_pContent.setVerticalGroup(gl_pContent.createParallelGroup(Alignment.LEADING).addGroup(gl_pContent
-				.createSequentialGroup().addGap(1).addComponent(splitPane_2)));
+		gl_pContent.setHorizontalGroup(
+			gl_pContent.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pContent.createSequentialGroup()
+					.addGap(1)
+					.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 993, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_pContent.setVerticalGroup(
+			gl_pContent.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pContent.createSequentialGroup()
+					.addGap(1)
+					.addComponent(splitPane_2, GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+		);
 
 		tPAtmung = new JTextPane();
 		sPAtmung.setViewportView(tPAtmung);
@@ -598,33 +606,37 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPCTMRT = new JTextPane();
 		sPCTMRT.setViewportView(tPCTMRT);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(gl_panel_4.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_4
-				.createSequentialGroup().addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
-				.addGap(1).addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, Short.MAX_VALUE).addGap(34)));
-		gl_panel_4
-				.setVerticalGroup(gl_panel_4
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_4
-								.createSequentialGroup()
-								.addGap(1)
-								.addGroup(gl_panel_4
-										.createParallelGroup(Alignment.TRAILING)
-										.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-										.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-								.addGap(7)));
+		gl_panel_4.setHorizontalGroup(
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 523, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 471, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_4.setVerticalGroup(
+			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+						.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+					.addGap(1))
+		);
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
-			gl_panel_6.createParallelGroup(Alignment.LEADING)
+			gl_panel_6.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_6.createSequentialGroup()
 					.addGap(1)
 					.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-						.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
-					.addGap(1))
-				.addGroup(Alignment.TRAILING, gl_panel_6.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-					.addContainerGap())
+						.addGroup(gl_panel_6.createSequentialGroup()
+							.addGroup(gl_panel_6.createParallelGroup(Alignment.LEADING)
+								.addComponent(sPMedikamente, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+								.addComponent(sPRoentgen, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
+							.addGap(1))
+						.addGroup(gl_panel_6.createSequentialGroup()
+							.addComponent(sPCTMRT, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+							.addGap(1))))
 		);
 		gl_panel_6.setVerticalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
@@ -726,13 +738,19 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPSchmerzmittel = new JTextPane();
 		sPSchmerzmittel.setViewportView(tPSchmerzmittel);
 		GroupLayout gl_panel_8 = new GroupLayout(panel_8);
-		gl_panel_8.setHorizontalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_8
-				.createSequentialGroup().addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE).addGap(34)));
-		gl_panel_8.setVerticalGroup(gl_panel_8.createParallelGroup(Alignment.LEADING)
-				.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE));
+		gl_panel_8.setHorizontalGroup(
+			gl_panel_8.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_8.createSequentialGroup()
+					.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_8.setVerticalGroup(
+			gl_panel_8.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+		);
 		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
 		gl_panel_9.setHorizontalGroup(
 			gl_panel_9.createParallelGroup(Alignment.TRAILING)
@@ -880,22 +898,26 @@ public class WNeueAnamnese extends JInternalFrame {
 		tPFunktionenMotorik = new JTextPane();
 		sPFunktionenMotorik.setViewportView(tPFunktionenMotorik);
 		GroupLayout gl_panel_14 = new GroupLayout(panel_14);
-		gl_panel_14.setHorizontalGroup(gl_panel_14.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_14
-				.createSequentialGroup()
-				.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
-						.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)).addGap(1)
-				.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE).addGap(31)));
-		gl_panel_14
-				.setVerticalGroup(gl_panel_14
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_14
-								.createSequentialGroup()
-								.addGap(1)
-								.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-								.addGap(1)
-								.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(57)).addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE));
+		gl_panel_14.setHorizontalGroup(
+			gl_panel_14.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_14.createSequentialGroup()
+					.addGroup(gl_panel_14.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+						.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+					.addGap(1)
+					.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_14.setVerticalGroup(
+			gl_panel_14.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_14.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPFunktionenMotorik, GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(57))
+				.addComponent(panel_12, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+		);
 		panel_11.setLayout(new MigLayout("", "[333px][109px]", "[20px][20px][20px][20px][20px][20px][20px]"));
 		panel_11.add(cBKöperteilBewegen, "cell 1 0,alignx left,aligny top");
 		panel_11.add(lblMglicheGehstreckeIn, "cell 0 1,alignx left,aligny center");
