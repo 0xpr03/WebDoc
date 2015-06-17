@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `threatment` (
  `price` double unsigned NOT NULL,
  `explanation` varchar(20) NOT NULL,
  `name` varchar(25) NOT NULL,
- `active` tinyint(1) NOT NULL,
+ `active` tinyint(1) NOT NULL DEFAULT '1',
  PRIMARY KEY (`ThreatmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Tierbehandlungen / animalthreatment */
