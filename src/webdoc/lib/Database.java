@@ -412,6 +412,26 @@ public class Database{
 	}
 	
 	/**
+	 * Update Threatment by creating a new one, deprecating the old version
+	 * @param id
+	 * @param name
+	 * @param preis
+	 * @param erklaerung
+	 * @return new threatment id
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long updateThreatment(long id,String name, double preis, String erklaerung ) throws SQLException {
+		long newID = insertThreatment(name,preis,erklaerung);
+		String sql = "UPDATE threatment SET `active` = 0 WHERE `ThreatmentID` = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, id);
+		stm.executeUpdate();
+		stm.close();
+		return newID;
+	}
+	
+	/**
 	 * Get threatment details
 	 * @param id
 	 * @return ResultSet of name,price,explanation
