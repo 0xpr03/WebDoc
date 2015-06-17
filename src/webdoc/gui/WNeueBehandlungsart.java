@@ -10,9 +10,11 @@ import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.ActionMap;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,11 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import java.awt.ComponentOrientation;
 
 public class WNeueBehandlungsart extends JInternalFrame {
 
@@ -42,7 +46,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JTextPane tPErklaerung;
 	private long id;
 	public WNeueBehandlungsart() {
-		
+		setClosable(true);
+		setTitle("asd");
 		JPanel panel = new JPanel();
 		panel.setBounds(new Rectangle(1, 1, 1, 1));
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
@@ -57,7 +62,6 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		
 		tFBezeichnung = new JTextField();
 		tFBezeichnung.setColumns(1);
-		
 		spPreis = new JSpinner();
 		
 		sPErklaerung = new JScrollPane();
@@ -155,5 +159,16 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		if (allSet()){
 			Database.insertThreatment(name, preis, erklaerung);
 		}
+	}
+	
+	@Override
+	public void dispose() {
+		if (editable) {
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
+				return;
+		}
+		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		super.dispose();
+		GUIManager.dropJID(this);
 	}
 }

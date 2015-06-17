@@ -137,16 +137,24 @@ CREATE TABLE IF NOT EXISTS `relationship` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table BehandlungTier / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
- `TreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `ThreatmentID` int(10) unsigned NOT NULL,
+ `PetThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
-  `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `RoleID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
  `date` date NOT NULL,
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
- PRIMARY KEY (`TreatmentID`),
- KEY `AnimalID` (`AnimalID`)
+ PRIMARY KEY (`PetThreatmentID`),
+ KEY `AnimalID` (`AnimalID`),
+ KEY `ThreatmentID` (`ThreatmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+CREATE TABLE IF NOT EXISTS `threatment` (
+ `ThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `explanation` varchar(30) NOT NULL,
+ `price` double NOT NULL,
+ `name` varchar(25),
+ PRIMARY KEY (`ThreatmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 CREATE TABLE IF NOT EXISTS `config` (
  `key` varchar(16) NOT NULL,
