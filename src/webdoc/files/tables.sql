@@ -135,19 +135,28 @@ CREATE TABLE IF NOT EXISTS `relationship` (
  PRIMARY KEY (`PartnerID`,`AnimalID`),
  KEY `PartnerID` (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
-/* Table BehandlungTier / animalthreatment */
+/* Table Behandlung / threatment */
+CREATE TABLE IF NOT EXISTS `threatment` (
+ `ThreatmentID` int(10) NOT NULL AUTO_INCREMENT,
+ `price` double unsigned NOT NULL,
+ `explanation` varchar(20) NOT NULL,
+ `name` varchar(25) NOT NULL,
+ PRIMARY KEY (`ThreatmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+/* Table Tierbehandlungen / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
- `TreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `ThreatmentID` int(10) NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
-  `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `RoleID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
  `date` date NOT NULL,
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
- PRIMARY KEY (`TreatmentID`),
+ PRIMARY KEY (`PetThreatment`),
  KEY `AnimalID` (`AnimalID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+/* Config internal only */
 CREATE TABLE IF NOT EXISTS `config` (
  `key` varchar(16) NOT NULL,
  `value` blob NOT NULL,
