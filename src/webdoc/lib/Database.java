@@ -20,6 +20,7 @@ import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -194,6 +195,73 @@ public class Database{
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, patientID);
 		return stm.executeQuery();
+	}
+	
+	/**
+	 * Edit AnimalThreatment
+	 * @param PetThreatmentID
+	 * @param ThreatmentID
+	 * @param AnimalID
+	 * @param amount
+	 * @param date
+	 * @param time
+	 * @param comment
+	 * @throws SQLException
+	 */
+	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Date date, Time time, String comment) throws SQLException{
+		String sql = "UPDATE partner SET `ThreatmentID` = ?, `AnimalID` = ?,`amount` = ?,`date` = ?,`time` = ?,`comment` = ? "
+				+"WHERE PetThreatmentID = ?";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, ThreatmentID);
+		stm.setLong(2, AnimalID);
+		stm.setInt(3, amount);
+		stm.setDate(4, date);
+		stm.setTime(5, time);
+		stm.setString(6, comment);
+		stm.setLong(7, PetThreatmentID);
+		stm.executeUpdate();
+		stm.close();
+	}
+	
+	/**
+	 * Get AnimalThreatment
+	 * @param PetThreatmentID
+	 * @return ResultSet of ThreatmentID,AnimalID,amount,PartnerID,date,time,comment
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static ResultSet getAnimalThreatment(long PetThreatmentID) throws SQLException{
+		String sql = "SELECT `ThreatmentID`,`AnimalID`,`amount`,`date`,`time`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
+		PreparedStatement stm = prepareStm(sql);
+		stm.setLong(1, PetThreatmentID);
+		return stm.executeQuery();
+	}
+	
+	/**
+	 * Insert animal threatment
+	 * @param ThreatmentID
+	 * @param AnimalID
+	 * @param amount
+	 * @param date
+	 * @param time
+	 * @param comment
+	 * @return PetThreatmentID
+	 * @throws SQLException
+	 * @author "Aron Heinecke"
+	 */
+	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Date date, Time time, String comment) throws SQLException{
+		String sql = "INSERT INTO animalthreatment (`ThreatmentID`,`AnimalID`,`amount`,`date`,`time`,`comment`) VALUES(?,?,?,?,?,?);";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, ThreatmentID);
+		stm.setLong(2, AnimalID);
+		stm.setInt(3, amount);
+		stm.setDate(4, date);
+		stm.setTime(5, time);
+		stm.setString(6, comment);
+		stm.executeUpdate();
+		long id = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return id;
 	}
 	
 	/**
