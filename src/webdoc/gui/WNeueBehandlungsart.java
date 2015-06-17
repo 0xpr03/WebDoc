@@ -144,20 +144,31 @@ public class WNeueBehandlungsart extends JInternalFrame {
         	return false;
 		return true;
 	}
+	
 	private void loadData() throws SQLException{
-		if (allSet()){
-			ResultSet rs = Database.getThreatment(id);
-			rs.next();
-			tFBezeichnung.setText(rs.getString(1));
-			spPreis.setValue(rs.getInt(2));
-			tPErklaerung.setText(rs.getString(3));
-			
-			editable = false;
+		if(id != -1){
+			try {
+				ResultSet rs = Database.getThreatment(id);
+				rs.next();
+				tFBezeichnung.setText(rs.getString(1));
+				spPreis.setValue(rs.getInt(2));
+				tPErklaerung.setText(rs.getString(3));
+				
+				editable = false;
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			}
 		}
 	}
 	private void setData(String name, double preis, String erklaerung){
-		if (allSet()){
-			Database.insertThreatment(name, preis, erklaerung);
+		if (allSet()) {
+			try {
+				Database.insertThreatment(name, preis, erklaerung);
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			}
+		} else {
+			GUIManager.showFieldErrorDialog(this);
 		}
 	}
 	
