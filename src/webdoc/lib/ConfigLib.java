@@ -39,19 +39,19 @@ public class ConfigLib {
 	private Map<String, Object> config;
 	private HashMap<String,Object> defaults = new HashMap<String, Object>();
 	private int missing_entrys = 0;
-	
+	private File CONFIG_FOLDER;
 	
 	public ConfigLib(String file, String default_path){
 		logger.debug("Initializing config");
 		logger.debug("OS: {}",System.getProperty("os.name"));
-		File folder;
+		
 		if(System.getProperty("os.name").contains("Windows")){
-			folder = new File(System.getenv("APPDATA")+"/.webdoc");
+			CONFIG_FOLDER = new File(System.getenv("APPDATA")+"/.webdoc");
 		}else{
-			folder = new File(System.getProperty("user.home")+"/.webdoc");
+			CONFIG_FOLDER = new File(System.getProperty("user.home")+"/.webdoc");
 		}
-		folder.mkdirs();
-		FILE = new File(folder.getAbsolutePath()+"/"+file);
+		CONFIG_FOLDER.mkdirs();
+		FILE = new File(CONFIG_FOLDER.getAbsolutePath()+"/"+file);
 		DEFAULT_PATH = default_path;
 		logger.debug("Config file: {}", FILE.getAbsolutePath());
 	}
@@ -158,7 +158,7 @@ public class ConfigLib {
 			if(to_origin)
 				f = FILE;
 			else
-				f = new File(System.getProperty("user.dir")+"/origin_config.yml");
+				f = new File(CONFIG_FOLDER.getAbsolutePath()+"/origin_config.yml");
 			
 			OutputStream out = new FileOutputStream(f);
 			byte[] buffer = new byte[1024];

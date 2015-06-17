@@ -92,7 +92,6 @@ public class WebDoc {
 				if( GUIManager.showErrorYesNoDialog("Die config Datei ist beschädigt, soll sie überschrieben werden ?", "Config Fehler") == 1){
 					logger.fatal("Can't replace faulty config file.");
 					System.exit(1);
-					//TODO: registerExitFunction isn't called till now!
 				}
 			}
 			configLib.writeDefaults(true);
@@ -174,10 +173,11 @@ public class WebDoc {
 					logger.info("offline license validation: {}",le);
 					le = verifier.checkLicense(lz);
 					
-					if(le != LicenseError.VALID){
-						logger.info("online license validation: {}",le);
-					}else{
+					if(le == LicenseError.VALID){
+						logger.debug("valid online license");
 						verifier.insertOfflLZ(lz);
+					}else{
+						logger.info("online license validation: {}",le);
 					}
 				}else{
 					Thread t = new Thread(new Runnable() { // run refresh of offline LZ
@@ -203,9 +203,11 @@ public class WebDoc {
 			logger.debug("LZE: {}",le);
 			if(le != LicenseError.VALID){
 				new WLicenseInput(true,lz, le);
-				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) != LicenseError.VALID) // catch dialog fails..
+				if(verifier.checkOfflineLicense(Config.getStrValue("licenseKey")) == LicenseError.VALID){ // catch dialog fails..
+					saveConfig();
+				}else{
 					System.exit(1);
-				saveConfig();
+				}
 			}
 		}
 		logger.exit();
