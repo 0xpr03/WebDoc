@@ -328,17 +328,13 @@ public final class WHomescreen extends JFrame {
 					addWNeuerPatient(false, -1);
 					break;
 				case N_BEHANDLUNGSART:
-					logger.debug("creating behandlungsart frame");
-					FNeueBehandlungsart = new WNeueBehandlungsart();
-					FNeueBehandlungsart.setVisible(true);
-					desktopPane.add(FNeueBehandlungsart);
-//					if(!jifToFront(FNeueBehandlungsart)){
-//						FNeueBehandlungsart = new WNeueBehandlungsart();
-//						FNeueBehandlungsart.setVisible(true);
-//						desktopPane.add(FNeueBehandlungsart);
-//						FNeueBehandlungsart.setVisible(true);
-//						FNeueBehandlungsart.toFront();
-//					}
+					if(!jifToFront(FNeueBehandlungsart)){
+						FNeueBehandlungsart = new WNeueBehandlungsart();
+						FNeueBehandlungsart.setVisible(true);
+						desktopPane.add(FNeueBehandlungsart);
+						FNeueBehandlungsart.setVisible(true);
+						FNeueBehandlungsart.toFront();
+					}
 					break;
 				case TEST:
 					if(!jifToFront(FTest)){

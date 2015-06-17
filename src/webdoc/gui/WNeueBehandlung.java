@@ -27,6 +27,7 @@ import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
 import java.awt.Component;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Dimension;
 
 public class WNeueBehandlung extends JInternalFrame {
 	private JTextField spPreis;
@@ -42,6 +43,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private long id;
 	private JTextField tFName;
 	public WNeueBehandlung(String Name) {
+		setSize(new Dimension(450, 301));
 		setTitle("Neue Behandlung");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		

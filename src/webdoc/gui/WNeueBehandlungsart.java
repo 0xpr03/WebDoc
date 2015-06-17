@@ -32,6 +32,7 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 
 public class WNeueBehandlungsart extends JInternalFrame {
 
@@ -46,12 +47,12 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JTextPane tPErklaerung;
 	private long id;
 	public WNeueBehandlungsart() {
+		setSize(new Dimension(450, 304));
 		setClosable(true);
 		setTitle("asd");
 		JPanel panel = new JPanel();
 		panel.setBounds(new Rectangle(1, 1, 1, 1));
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
-		
 		searchTextField = new JSearchTextField(true);
 		
 		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
