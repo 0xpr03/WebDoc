@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `threatment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Tierbehandlungen / animalthreatment */
 CREATE TABLE IF NOT EXISTS `animalthreatment` (
- `PetThreatment` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `PetThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `ThreatmentID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `date` date NOT NULL,
  `time` time NOT NULL,
  `comment` varchar(250) NOT NULL,
- PRIMARY KEY (`PetThreatment`),
+ PRIMARY KEY (`PetThreatmentID`),
  KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
 /* Config internal only */
