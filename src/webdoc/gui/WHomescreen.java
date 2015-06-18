@@ -56,7 +56,7 @@ public final class WHomescreen extends JFrame {
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
-	private WNeueBehandlungsart FNeueBehandlungsart = new WNeueBehandlungsart();
+	private WNeueBehandlungsart FNeueBehandlungsart = new WNeueBehandlungsart(-1);
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
@@ -329,7 +329,7 @@ public final class WHomescreen extends JFrame {
 					break;
 				case N_BEHANDLUNGSART:
 					if(!jifToFront(FNeueBehandlungsart)){
-						FNeueBehandlungsart = new WNeueBehandlungsart();
+						FNeueBehandlungsart = new WNeueBehandlungsart(-1);
 						FNeueBehandlungsart.setVisible(true);
 						desktopPane.add(FNeueBehandlungsart);
 						FNeueBehandlungsart.setVisible(true);
