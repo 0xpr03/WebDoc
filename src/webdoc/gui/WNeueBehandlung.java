@@ -30,6 +30,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Dimension;
 
 public class WNeueBehandlung extends JInternalFrame {
+	
+	private static final long serialVersionUID = -6343632608398217935L;
 	private JTextField spPreis;
 	private JTextField tFBezeichnung;
 	private JTextPane tPErklaerung;
@@ -118,12 +120,12 @@ public class WNeueBehandlung extends JInternalFrame {
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 		setEditable();
 	}
-		tFBezeichnung.setEditable(false);
-		spPreis.setEnabled(false);
-		tPErklaerung.setEditable(false);
-		tFName.setEditable(false);
 	
 	private void setEditable() {
+		tFBezeichnung.setEditable(editable);
+		spPreis.setEnabled(editable);
+		tPErklaerung.setEditable(editable);
+		tFName.setEditable(editable);
 		spAnzahl.setEnabled(editable);
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);
