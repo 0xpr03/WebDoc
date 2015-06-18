@@ -37,7 +37,7 @@ import java.awt.Dimension;
 public class WNeueBehandlungsart extends JInternalFrame {
 
 	private static final long serialVersionUID = 4589284070560679651L;
-	private JTextField tFBezeichnung;
+	private JTextField txtBezeichnung;
 	private boolean editable;
 	private JScrollPane sPErklaerung;
 	private JSpinner spPreis;
@@ -49,7 +49,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	public WNeueBehandlungsart() {
 		setSize(new Dimension(450, 304));
 		setClosable(true);
-		setTitle("asd");
+		setTitle("Behandlungsart");
 		JPanel panel = new JPanel();
 		panel.setBounds(new Rectangle(1, 1, 1, 1));
 		panel.setLayout(new MigLayout("", "[][][]", "[]"));
@@ -61,8 +61,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		
 		JLabel lblErklrung = new JLabel("Erklärung:");
 		
-		tFBezeichnung = new JTextField();
-		tFBezeichnung.setColumns(1);
+		txtBezeichnung = new JTextField();
+		txtBezeichnung.setColumns(1);
 		spPreis = new JSpinner();
 		
 		sPErklaerung = new JScrollPane();
@@ -85,7 +85,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
 										.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tFBezeichnung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
+										.addComponent(txtBezeichnung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
 					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
@@ -96,7 +96,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBezeichnung)
-						.addComponent(tFBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPreisProEinheit)
@@ -121,8 +121,9 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		
 		setEditable(editable);
 	}
-	private void setEditable(boolean editable) {
-		tFBezeichnung.setEditable(editable);
+	
+	private void setEditable() {
+		txtBezeichnung.setEditable(editable);
 		spPreis.setEnabled(editable);
 		sPErklaerung.setEnabled(editable);
 		refreshBtn();
@@ -139,19 +140,19 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	    	if(GUIManager.showYesNoDialog(this, "Ohne Preis anlegen ?", JOptionPane.INFORMATION_MESSAGE, "Behandlung anlegen") == 1)
 	    		return false;
 	    }
-        if (tFBezeichnung.getText() == "")
+        if (txtBezeichnung.getText() == "")
             return false;
         if (tPErklaerung.getText().toString().length() > 20)
         	return false;
 		return true;
 	}
 	
-	private void loadData() throws SQLException{
+	private void loadData(){
 		if(id != -1){
 			try {
 				ResultSet rs = Database.getThreatment(id);
 				rs.next();
-				tFBezeichnung.setText(rs.getString(1));
+				txtBezeichnung.setText(rs.getString(1));
 				spPreis.setValue(rs.getInt(2));
 				tPErklaerung.setText(rs.getString(3));
 				
@@ -161,7 +162,7 @@ public class WNeueBehandlungsart extends JInternalFrame {
 			}
 		}
 	}
-	private void setData(String name, double preis, String erklaerung){
+	private void entryData(){
 		if (allSet()) {
 			try {
 				Database.insertThreatment(name, preis, erklaerung);
