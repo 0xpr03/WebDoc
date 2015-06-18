@@ -46,7 +46,9 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JButton btnEditieren;
 	private JTextPane tPErklaerung;
 	private long id;
-	public WNeueBehandlungsart() {
+	public WNeueBehandlungsart(long id) {
+		this.id = id;
+		editable = id == -1 ? true : false;
 		setSize(new Dimension(450, 304));
 		setClosable(true);
 		setTitle("Behandlungsart");
@@ -119,7 +121,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		panel.add(btnEditieren, "cell 2 0");
 		getContentPane().setLayout(groupLayout);
 		
-		setEditable(editable);
+		setEditable();
+		loadData();
 	}
 	
 	private void setEditable() {
@@ -127,12 +130,11 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		spPreis.setEnabled(editable);
 		sPErklaerung.setEnabled(editable);
 		refreshBtn();
-		
 	}
+	
 	private void refreshBtn() {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
-		btnEditieren.setEnabled(!editable);
-		
+		btnEditieren.setText(editable ? "Abbrechen" : "Editieren");
 	}
 
 	private boolean allSet(){
@@ -162,10 +164,21 @@ public class WNeueBehandlungsart extends JInternalFrame {
 			}
 		}
 	}
+	
+	private WNeueBehandlungsart getFrame() {
+		return this;
+	}
+	
 	private void entryData(){
 		if (allSet()) {
 			try {
-				Database.insertThreatment(name, preis, erklaerung);
+				if(id == -1)
+					id = Database.insertThreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+				else
+					id = Database.updateThreatment(id, txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+				
+				editable = false;
+				setEditable();
 			} catch (SQLException e) {
 				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 			}
