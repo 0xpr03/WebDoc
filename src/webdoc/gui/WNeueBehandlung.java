@@ -42,7 +42,9 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JSpinner spTime;
 	private long id;
 	private JTextField tFName;
-	public WNeueBehandlung(String Name) {
+	public WNeueBehandlung(long id) {
+		this.id = id;
+		editable = id == -1;
 		setSize(new Dimension(450, 301));
 		setTitle("Neue Behandlung");
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -113,15 +115,15 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
-		setEditable(editable);
-		tFName.setText(Name);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
+		setEditable();
 	}
-	private void setEditable(boolean editable) {
 		tFBezeichnung.setEditable(false);
 		spPreis.setEnabled(false);
 		tPErklaerung.setEditable(false);
 		tFName.setEditable(false);
+	
+	private void setEditable() {
 		spAnzahl.setEnabled(editable);
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);
@@ -132,7 +134,8 @@ public class WNeueBehandlung extends JInternalFrame {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
 		btnAbrechen.setEnabled(true);
 		btnNeueBehandlungsart.setEnabled(true);
-	} 
+	}
+	
 	private boolean allSet(){
 		if (Double.parseDouble(spAnzahl.getValue().toString()) == 0.0)
 			return false;
