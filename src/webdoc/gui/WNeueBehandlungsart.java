@@ -31,8 +31,12 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WNeueBehandlungsart extends JInternalFrame {
 
@@ -115,9 +119,28 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		sPErklaerung.setViewportView(tPErklaerung);
 		
 		btnSpeichern = new JButton("Speichern");
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				entryData();
+			}
+		});
 		panel.add(btnSpeichern, "cell 1 0");
 		spPreis.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		btnEditieren = new JButton("Editieren");
+		btnEditieren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(editable){
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				}else{
+					editable = true;
+					setEditable();
+				}
+			}
+		});
 		panel.add(btnEditieren, "cell 2 0");
 		getContentPane().setLayout(groupLayout);
 		
