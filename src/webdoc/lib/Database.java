@@ -1045,17 +1045,6 @@ public class Database{
 	}
 	
 	/**
-	 * Retrives the autoID from the first column, will crash otherwise
-	 * @param rs
-	 * @return long last created autoid
-	 * @throws SQLException
-	 */
-	private static int getAutoIDInt(ResultSet rs) throws SQLException{
-		rs.next();
-		return rs.getInt(1);
-	}
-	
-	/**
 	 * Retrives all columns of an animal for WPatient
 	 * @param id long id of animal, unique
 	 * @return ResultSet, needs to be closed!
