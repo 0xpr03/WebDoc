@@ -1,33 +1,23 @@
 package webdoc.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import net.miginfocom.swing.MigLayout;
 
-import java.awt.CardLayout;
-import java.awt.BorderLayout;
-
-import webdoc.gui.utils.JSearchTextField;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.JSpinner;
-import javax.swing.JButton;
-
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import com.sun.corba.se.impl.encoding.CodeSetConversion.BTCConverter;
-
-import java.awt.Component;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Dimension;
+import webdoc.gui.utils.JSearchTextField;
 
 public class WNeueBehandlung extends JInternalFrame {
 	
@@ -81,7 +71,7 @@ public class WNeueBehandlung extends JInternalFrame {
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
 		
 		spTime = new JSpinner();
-		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][219px][20px][20px][20px]"));
+		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][20px][20px][20px][219px]"));
 		
 		JLabel lblNameDesPatienten = new JLabel("Name des Patienten:");
 		panel.add(lblNameDesPatienten, "cell 0 0,alignx trailing");
@@ -93,14 +83,14 @@ public class WNeueBehandlung extends JInternalFrame {
 		panel.add(tFBezeichnung, "cell 1 1,growx,aligny top");
 		panel.add(lblPreisProEinheit, "cell 0 2,alignx right,aligny center");
 		panel.add(spPreis, "cell 1 2,growx,aligny top");
-		panel.add(lblErklrung, "cell 0 3,alignx left,aligny center");
-		panel.add(scrollPane, "cell 1 3,grow");
-		panel.add(lblUhrzeit, "cell 0 6,alignx left,aligny center");
-		panel.add(spTime, "cell 1 6,alignx left,aligny top");
-		panel.add(lblDatum, "cell 0 5,alignx left,aligny center");
-		panel.add(spDate, "cell 1 5,alignx left,aligny top");
-		panel.add(lblAnzahlDerEinheiten, "cell 0 4,alignx left,aligny center");
-		panel.add(spAnzahl, "cell 1 4,alignx left,aligny top");
+		panel.add(lblErklrung, "cell 0 6,alignx left,aligny center");
+		panel.add(scrollPane, "cell 1 6,grow");
+		panel.add(lblUhrzeit, "cell 0 5,alignx left,aligny center");
+		panel.add(spTime, "cell 1 5,alignx left,aligny top");
+		panel.add(lblDatum, "cell 0 4,alignx left,aligny center");
+		panel.add(spDate, "cell 1 4,alignx left,aligny top");
+		panel.add(lblAnzahlDerEinheiten, "cell 0 3,alignx left,aligny center");
+		panel.add(spAnzahl, "cell 1 3,alignx left,aligny top");
 		
 		JSearchTextField searchTextField = new JSearchTextField(false);
 		getContentPane().add(searchTextField, BorderLayout.NORTH);
@@ -115,6 +105,11 @@ public class WNeueBehandlung extends JInternalFrame {
 		btnAbrechen = new JButton("Abrechen");
 		pButtons.add(btnAbrechen, "cell 2 0");
 		
+		tFBezeichnung.setEditable(false);
+		spPreis.setEnabled(false);
+		tFName.setEditable(false);
+		
+		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
@@ -122,15 +117,11 @@ public class WNeueBehandlung extends JInternalFrame {
 	}
 	
 	private void setEditable() {
-		tFBezeichnung.setEditable(editable);
-		spPreis.setEnabled(editable);
-		tPErklaerung.setEditable(editable);
-		tFName.setEditable(editable);
 		spAnzahl.setEnabled(editable);
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);
 		refreshBtn(editable);
-		
+		tPErklaerung.setEditable(editable);
 	}
 	private void refreshBtn(boolean  editable) {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
@@ -139,8 +130,6 @@ public class WNeueBehandlung extends JInternalFrame {
 	}
 	
 	private boolean allSet(){
-		if (Double.parseDouble(spAnzahl.getValue().toString()) == 0.0)
-			return false;
-		return true;
+		return Double.parseDouble(spAnzahl.getValue().toString()) != 0.0;
 	}
 }
