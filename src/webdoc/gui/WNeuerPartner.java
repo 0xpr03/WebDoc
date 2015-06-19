@@ -8,6 +8,7 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
@@ -550,6 +552,8 @@ public class WNeuerPartner extends JInternalFrame {
 				return element.getName() + " " + element.getOptname();
 			}
 		}
+		
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{enumRole,textName,textVorname,textTitel, spinGebdatum, textPostleitzahl,textOrt,textOrtsteil,textStraße,textHausnummer,textZusatz,textTelefon,textHandy,textFax,textEmail, btnOk,btnCancelEdit}));
 		
 		animalSearchText.setAPI(new AnimalProvider());
 		
