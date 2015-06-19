@@ -7,6 +7,7 @@
 package webdoc.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
@@ -52,6 +53,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
@@ -462,6 +464,9 @@ public class WNeuerPatient extends JInternalFrame {
 		}
 
 		setEditable();
+		
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{textAnimalSuche,strName,strRufname,textRasse,enumGeschlecht,spinBirthdate,strFarbe,spinGewicht,textIdentifizierung,btnOk}));
+
 
 		this.pack();
 		try {
