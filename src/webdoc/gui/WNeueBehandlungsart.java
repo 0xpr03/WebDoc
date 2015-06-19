@@ -6,8 +6,8 @@
  *******************************************************************************/
 package webdoc.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -30,9 +30,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
-import webdoc.gui.utils.JSearchTextField;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class WNeueBehandlungsart extends JInternalFrame {
 
@@ -41,90 +42,97 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private boolean editable;
 	private JScrollPane sPErklaerung;
 	private JSpinner spPreis;
-	private JSearchTextField searchTextField;
-	private JButton btnSpeichern;
-	private JButton btnEditieren;
 	private JTextPane tPErklaerung;
 	private long id;
+	private JPanel panel_2;
+	private JButton btnSave;
+	private JButton btnEdit;
 	public WNeueBehandlungsart(long id) {
+		setResizable(true);
 		this.id = id;
 		editable = id == -1 ? true : false;
-		setSize(new Dimension(450, 304));
+		setSize(new Dimension(450, 249));
 		setClosable(true);
 		setTitle("Behandlungsart");
-		JPanel panel = new JPanel();
-		panel.setBounds(new Rectangle(1, 1, 1, 1));
-		panel.setLayout(new MigLayout("", "[][][]", "[]"));
-		searchTextField = new JSearchTextField(true);
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
+		JPanel panel_1 = new JPanel();
 		
 		JLabel lblPreisProEinheit = new JLabel("Preis pro Einheit in €:");
 		
+		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
+		
 		JLabel lblErklrung = new JLabel("Erklärung:");
 		
-		txtBezeichnung = new JTextField();
-		txtBezeichnung.setColumns(1);
-		spPreis = new JSpinner();
-		
 		sPErklaerung = new JScrollPane();
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblPreisProEinheit)
-										.addComponent(lblBezeichnung)
-										.addComponent(lblErklrung))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-										.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtBezeichnung, GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))))))
-					.addGap(11))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(searchTextField, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addGap(28)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblBezeichnung)
-						.addComponent(txtBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPreisProEinheit)
-						.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblErklrung)
-						.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
-					.addGap(12)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-		);
 		
 		tPErklaerung = new JTextPane();
 		sPErklaerung.setViewportView(tPErklaerung);
+		spPreis = new JSpinner();
+		spPreis.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 		
-		btnSpeichern = new JButton("Speichern");
-		btnSpeichern.addActionListener(new ActionListener() {
+		txtBezeichnung = new JTextField();
+		txtBezeichnung.setColumns(1);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(2)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblBezeichnung)
+							.addGap(41)
+							.addComponent(txtBezeichnung, GroupLayout.PREFERRED_SIZE, 314, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblPreisProEinheit)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblErklrung)
+							.addGap(56)
+							.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)))
+					.addGap(13))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(10)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblBezeichnung))
+						.addComponent(txtBezeichnung, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(9)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPreisProEinheit)
+						.addComponent(spPreis, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblErklrung)
+						.addComponent(sPErklaerung, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+					.addGap(3))
+		);
+		panel_1.setLayout(gl_panel_1);
+		getContentPane().add(panel_1);
+		
+		panel_2 = new JPanel();
+		getContentPane().add(panel_2, BorderLayout.SOUTH);
+		panel_2.setLayout(new MigLayout("", "[][][][]", "[]"));
+		
+		btnSave = new JButton("New button");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				entryData();
+				if(editable)
+					entryData();
+				else
+					dispose();
 			}
 		});
-		panel.add(btnSpeichern, "cell 1 0");
-		spPreis.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-		btnEditieren = new JButton("Editieren");
-		btnEditieren.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		panel_2.add(btnSave, "cell 1 0");
+		
+		btnEdit = new JButton("New button");
+		btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				if(editable){
 					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						editable = false;
@@ -137,8 +145,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 				}
 			}
 		});
-		panel.add(btnEditieren, "cell 2 0");
-		getContentPane().setLayout(groupLayout);
+		panel_2.add(btnEdit, "cell 3 0");
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtBezeichnung, spPreis, tPErklaerung, btnEdit, btnSave}));
 		
 		setEditable();
 		loadData();
@@ -152,8 +160,8 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	}
 	
 	private void refreshBtn() {
-		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
-		btnEditieren.setText(editable ? "Abbrechen" : "Editieren");
+		btnSave.setText(editable ? "Speichern" : "Schließen");
+		btnEdit.setText(editable ? "Abbrechen" : "Editieren");
 	}
 
 	private boolean allSet(){
@@ -184,10 +192,6 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		}
 	}
 	
-	private WNeueBehandlungsart getFrame() {
-		return this;
-	}
-	
 	private void entryData(){
 		if (allSet()) {
 			try {
@@ -204,6 +208,10 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
+	}
+	
+	private WNeueBehandlungsart getFrame() {
+		return this;
 	}
 	
 	@Override
