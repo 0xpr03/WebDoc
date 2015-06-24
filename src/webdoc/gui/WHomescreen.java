@@ -427,6 +427,10 @@ public final class WHomescreen extends JFrame {
 		addFrame(new WNeueAnamnese(editable, animal_id, anamnesis_id, name,callname));
 	}
 	
+	public void addWNeueBehandlung(long animalID, long petthreatmentID) {
+		addFrame(new WNeueBehandlung(animalID, petthreatmentID));
+	}
+	
 	/**
 	 * removes the JInternalFrame from the desktopPane
 	 * @param jif
