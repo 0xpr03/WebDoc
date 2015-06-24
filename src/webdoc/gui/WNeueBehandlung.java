@@ -3,7 +3,9 @@ package webdoc.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.sql.PreparedStatement;
 
+import javax.swing.ActionMap;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -12,12 +14,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.lib.Database;
+import webdoc.lib.GUIManager;
 
 public class WNeueBehandlung extends JInternalFrame {
 	
@@ -35,6 +40,8 @@ public class WNeueBehandlung extends JInternalFrame {
 	private long id;
 	private long animalID;
 	private JTextField tFName;
+	private PreparedStatement searchStm;
+	
 	public WNeueBehandlung(long animalID,long id) {
 		this.animalID = animalID;
 		this.id = id;
@@ -129,6 +136,18 @@ public class WNeueBehandlung extends JInternalFrame {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
 		btnAbrechen.setEnabled(true);
 		btnNeueBehandlungsart.setEnabled(true);
+	}
+	
+	@Override
+	public void dispose() {
+		if (editable) {
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
+				return;
+		}
+		Database.closePStatement(searchStm);
+		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		super.dispose();
+		GUIManager.dropJID(this);
 	}
 	
 	private boolean allSet(){
