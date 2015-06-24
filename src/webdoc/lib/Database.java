@@ -328,7 +328,7 @@ public class Database{
 	//-------------------- USER SPACE -----------------------//
 	//-------------------------------------------------------//
 	
-	//public static ResultSet getPatient
+//	public static ResultSet getPatient
 	
 	/**
 	 * Retrives anamnesis & animalthreatment entrys related to the patient
@@ -1201,7 +1201,7 @@ public class Database{
 				getAnimalSearchStm()
 				+"UNION ALL "
 				+getPartnerSearchStm();
-		return prepareStm(sql);
+		return connection.prepareStatement(sql);
 	}
 	
 	/**
@@ -1213,7 +1213,12 @@ public class Database{
 		String sql =
 				"SELECT `RaceID`,`race` FROM race "
 				+"WHERE `race` LIKE ? ";
-		return prepareStm(sql);
+		return connection.prepareStatement(sql);
+	}
+	
+	public static PreparedStatement prepareThreatmentTypeSearchStm() throws SQLException {
+		String sql = "";
+		return connection.prepareStatement(sql);
 	}
 	
 	/**
