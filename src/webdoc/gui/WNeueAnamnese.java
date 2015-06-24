@@ -956,6 +956,41 @@ public class WNeueAnamnese extends JInternalFrame {
 			}
 		});
 		panel_3.add(btnEdit, "cell 2 0");
+		
+		tpEndokrinium.setFont(GUIManager.getCommentFont());
+		tPSchilddruese.setFont(GUIManager.getCommentFont());
+		tPBauchspeicheldruese.setFont(GUIManager.getCommentFont());
+		tPZNS.setFont(GUIManager.getCommentFont());
+		tPMedikamente.setFont(GUIManager.getCommentFont());
+		tPRoentgen.setFont(GUIManager.getCommentFont());
+		tPCTMRT.setFont(GUIManager.getCommentFont());
+		spAuslauf.setFont(GUIManager.getCommentFont());
+		tPHauptproblem.setFont(GUIManager.getCommentFont());
+		tPAenderungenFamilie.setFont(GUIManager.getCommentFont());
+		tPVerletzungen.setFont(GUIManager.getCommentFont());
+		tPNarben.setFont(GUIManager.getCommentFont());
+		tPVerhaltensaufaeligkeiten.setFont(GUIManager.getCommentFont());
+		tPAuslandsaufenthalte.setFont(GUIManager.getCommentFont());
+		tPInfektionen.setFont(GUIManager.getCommentFont());
+		tPImpfungen.setFont(GUIManager.getCommentFont());
+		tPHerzKreislauf.setFont(GUIManager.getCommentFont());
+		tPAtmung.setFont(GUIManager.getCommentFont());
+		tPVerdauung.setFont(GUIManager.getCommentFont());
+		tPUnternommen.setFont(GUIManager.getCommentFont());
+		tPVerusachenSchmerzen.setFont(GUIManager.getCommentFont());
+		tPSchmerzmittel.setFont(GUIManager.getCommentFont());
+		tPFunktionenMotorik.setFont(GUIManager.getCommentFont());
+		tPBemerkungen.setFont(GUIManager.getCommentFont());
+		tFHalltung.setFont(GUIManager.getCommentFont());
+		tPVerwendungszweck.setFont(GUIManager.getCommentFont());
+		tPTierStammtVon.setFont(GUIManager.getCommentFont());
+		spavailTimeCons.setFont(GUIManager.getCommentFont());
+		spavailTimeCons.setFont(GUIManager.getCommentFont());
+		spGehstrecke.setFont(GUIManager.getCommentFont());
+		spGehzeit.setFont(GUIManager.getCommentFont());
+		tPSchilderung.setFont(GUIManager.getCommentFont());
+		spinBirthdate_1.setFont(GUIManager.getCommentFont());
+		
 		setEditable();
 		loadData();
 		this.setVisible(true);
