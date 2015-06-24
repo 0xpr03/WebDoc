@@ -1206,7 +1206,7 @@ public class Database{
 	
 	/**
 	 * Prepares a race search
-	 * @return
+	 * @return PreparedStatement
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareRaceSearchStm() throws SQLException{
@@ -1216,14 +1216,19 @@ public class Database{
 		return connection.prepareStatement(sql);
 	}
 	
+	/**
+	 * Prepare threatment type search based on their name or descr., which are still valid (active=1)
+	 * @return PreparedStatement ThreatmentID,Name
+	 * @throws SQLException
+	 */
 	public static PreparedStatement prepareThreatmentTypeSearchStm() throws SQLException {
-		String sql = "";
+		String sql = "SELECT `ThreatmentID`,`name` FROM WHERE ( `name` LIKE ? OR `explanation` LIKE ? ) AND `active` = 1 ";
 		return connection.prepareStatement(sql);
 	}
 	
 	/**
 	 * Returns the animal search sql
-	 * @return
+	 * @return String
 	 * @author "Aron Heinecke"
 	 */
 	public static String getAnimalSearchStm(){
@@ -1233,7 +1238,7 @@ public class Database{
 	
 	/**
 	 * Returns the partner search sql
-	 * @return
+	 * @return String
 	 * @author "Aron Heinecke"
 	 */
 	public static String getPartnerSearchStm(){
