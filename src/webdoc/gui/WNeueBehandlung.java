@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ActionMap;
 import javax.swing.JButton;
@@ -20,7 +24,10 @@ import net.miginfocom.swing.MigLayout;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.ACElement.ElementType;
+import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
@@ -123,6 +130,47 @@ public class WNeueBehandlung extends JInternalFrame {
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 		setEditable();
+		
+		class ThreatmentProvider implements searchFieldAPI {
+			@Override
+			public List<ACElement> getData(String text) {
+				List<ACElement> list = new ArrayList<ACElement>();
+				try {
+					searchStm.setString(1, "%" + text + "%");
+					searchStm.setString(2, "%" + text + "%");
+					ResultSet result = searchStm.executeQuery();
+
+					while (result.next()) {
+						list.add(new ACElement(result.getString(2), result.getLong(1), ElementType.RACE));
+					}
+					result.close();
+
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+				}
+				return list;
+			}
+
+			@Override
+			public boolean changedSelectionEvent(ACElement element) {
+				//TODO: LOAD
+				return true;
+			}
+
+			@Override
+			public String listRenderer(ACElement element) {
+				return element.getName();
+			}
+		}
+		
+		searchTextField.setAPI(new ThreatmentProvider());
+		
+		try {
+			searchStm = Database.prepareThreatmentTypeSearchStm();
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+		}
+		
 	}
 	
 	private void setEditable() {
