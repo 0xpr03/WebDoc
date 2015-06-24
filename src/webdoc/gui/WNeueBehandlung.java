@@ -33,8 +33,10 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JSpinner spDate;
 	private JSpinner spTime;
 	private long id;
+	private long animalID;
 	private JTextField tFName;
-	public WNeueBehandlung(long id) {
+	public WNeueBehandlung(long animalID,long id) {
+		this.animalID = animalID;
 		this.id = id;
 		editable = id == -1;
 		setSize(new Dimension(450, 301));
