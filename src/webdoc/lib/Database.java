@@ -328,8 +328,10 @@ public class Database{
 	//-------------------- USER SPACE -----------------------//
 	//-------------------------------------------------------//
 	
+	//public static ResultSet getPatient
+	
 	/**
-	 * Retrives anamnesis related to the patient
+	 * Retrives anamnesis & animalthreatment entrys related to the patient
 	 * type 0 = anamnesis
 	 * 1 = threatment
 	 * @param patientID
@@ -338,9 +340,14 @@ public class Database{
 	 */
 	public static ResultSet getPatientRData(long patientID) throws SQLException{
 		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
-				+"WHERE AnimalID = ? ORDER BY insdate DESC";
+				+"WHERE AnimalID = ? "
+				+"UNION ALL "
+				+"SELECT `PetThreatmentID` as id, `date` as insdate, 1 as type FROM `animalthreatment` "
+				+"WHERE AnimalID = ? "
+				+"ORDER BY insdate DESC";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, patientID);
+		stm.setLong(2, patientID);
 		return stm.executeQuery();
 	}
 	
