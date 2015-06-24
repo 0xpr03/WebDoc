@@ -1222,7 +1222,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareThreatmentTypeSearchStm() throws SQLException {
-		String sql = "SELECT `ThreatmentID`,`name` FROM WHERE ( `name` LIKE ? OR `explanation` LIKE ? ) AND `active` = 1 ";
+		String sql = "SELECT `ThreatmentID`,`name` FROM `threatment` WHERE ( `active` = 1 AND `name` LIKE ? ) ";
 		return connection.prepareStatement(sql);
 	}
 	
