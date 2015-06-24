@@ -51,7 +51,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JTextField tFName;
 	private PreparedStatement searchStm;
 	
-	public WNeueBehandlung(long animalID,long id) {
+	public WNeueBehandlung(long animalID,long id, String animal_name) {
 		this.animalID = animalID;
 		this.id = id;
 		editable = id == -1;
@@ -95,8 +95,8 @@ public class WNeueBehandlung extends JInternalFrame {
 		panel.add(lblNameDesPatienten, "cell 0 0,alignx trailing");
 		
 		tFName = new JTextField();
+		tFName.setText(animal_name);
 		panel.add(tFName, "cell 1 0,growx");
-		tFName.setColumns(10);
 		panel.add(lblBezeichnnung, "cell 0 1,alignx right,aligny center");
 		panel.add(tFBezeichnung, "cell 1 1,growx,aligny top");
 		panel.add(lblPreisProEinheit, "cell 0 2,alignx right,aligny center");
@@ -144,7 +144,6 @@ public class WNeueBehandlung extends JInternalFrame {
 				List<ACElement> list = new ArrayList<ACElement>();
 				try {
 					searchStm.setString(1, "%" + text + "%");
-					searchStm.setString(2, "%" + text + "%");
 					ResultSet result = searchStm.executeQuery();
 
 					while (result.next()) {

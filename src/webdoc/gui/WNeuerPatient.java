@@ -347,7 +347,7 @@ public class WNeuerPatient extends JInternalFrame {
 		btnNeueBehandlung = new JButton("Neue Behandlung");
 		btnNeueBehandlung.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIManager.callWNeueBehandlung(id, -1);
+				GUIManager.callWNeueBehandlung(id, -1, strName.getText());
 			}
 		});
 		downPanel.add(btnNeueBehandlung, "cell 4 0");

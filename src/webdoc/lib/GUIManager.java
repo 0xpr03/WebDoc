@@ -140,8 +140,8 @@ public final class GUIManager {
 	/**
 	 * Calls WNeueBehandlung
 	 */
-	public static void callWNeueBehandlung(long animal_id, long pet_threatment_id){
-		whomescreen.addWNeueBehandlung(animal_id, pet_threatment_id);
+	public static void callWNeueBehandlung(long animal_id, long pet_threatment_id, String petName){
+		whomescreen.addWNeueBehandlung(animal_id, pet_threatment_id, petName);
 	}
 	
 	/**
