@@ -328,7 +328,7 @@ public class Database{
 	//-------------------- USER SPACE -----------------------//
 	//-------------------------------------------------------//
 	
-	//public static ResultSet getPatient
+//	public static ResultSet getPatient
 	
 	/**
 	 * Retrives anamnesis & animalthreatment entrys related to the patient
@@ -1201,24 +1201,34 @@ public class Database{
 				getAnimalSearchStm()
 				+"UNION ALL "
 				+getPartnerSearchStm();
-		return prepareStm(sql);
+		return connection.prepareStatement(sql);
 	}
 	
 	/**
 	 * Prepares a race search
-	 * @return
+	 * @return PreparedStatement
 	 * @throws SQLException
 	 */
 	public static PreparedStatement prepareRaceSearchStm() throws SQLException{
 		String sql =
 				"SELECT `RaceID`,`race` FROM race "
 				+"WHERE `race` LIKE ? ";
-		return prepareStm(sql);
+		return connection.prepareStatement(sql);
+	}
+	
+	/**
+	 * Prepare threatment type search based on their name or descr., which are still valid (active=1)
+	 * @return PreparedStatement ThreatmentID,Name
+	 * @throws SQLException
+	 */
+	public static PreparedStatement prepareThreatmentTypeSearchStm() throws SQLException {
+		String sql = "SELECT `ThreatmentID`,`name` FROM `threatment` WHERE ( `active` = 1 AND `name` LIKE ? ) ";
+		return connection.prepareStatement(sql);
 	}
 	
 	/**
 	 * Returns the animal search sql
-	 * @return
+	 * @return String
 	 * @author "Aron Heinecke"
 	 */
 	public static String getAnimalSearchStm(){
@@ -1228,7 +1238,7 @@ public class Database{
 	
 	/**
 	 * Returns the partner search sql
-	 * @return
+	 * @return String
 	 * @author "Aron Heinecke"
 	 */
 	public static String getPartnerSearchStm(){
