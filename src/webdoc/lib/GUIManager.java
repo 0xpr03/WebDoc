@@ -145,6 +145,13 @@ public final class GUIManager {
 	}
 	
 	/**
+	 * Calls WNeueBehandlung
+	 */
+	public static void callWNeueBehandlungsArt(long threatmentID){
+		whomescreen.addWNeueBehandlungsArt(threatmentID);
+	}
+	
+	/**
 	 * Calls WNeueAnamnesis
 	 */
 	public static void callWNewAnamnesis(boolean editable, long animal_id, long anamnesis_id, String name,String callname){

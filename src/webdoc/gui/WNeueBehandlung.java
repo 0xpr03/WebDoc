@@ -30,6 +30,8 @@ import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WNeueBehandlung extends JInternalFrame {
 	
@@ -127,6 +129,11 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
+		btnNeueBehandlungsart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GUIManager.callWNeueBehandlungsArt(-1);
+			}
+		});
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
 		setEditable();
