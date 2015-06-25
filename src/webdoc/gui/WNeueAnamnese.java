@@ -227,9 +227,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (anamnesisID == -1) {
-					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
-						dispose();
-					}
+					dispose();
 				} else if (editable) {
 					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
 						editable = false;
