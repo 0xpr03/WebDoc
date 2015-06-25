@@ -42,8 +42,8 @@ import java.awt.event.ActionEvent;
 public class WNeueBehandlung extends JInternalFrame {
 	
 	private static final long serialVersionUID = -6343632608398217935L;
-	private JTextField spPreis;
-	private JTextField tFBezeichnung;
+	private JTextField tFstückPreis;
+	private JTextField tFTName;
 	private JTextPane tPErklaerung;
 	private JSpinner spAnzahl;
 	private JButton btnSpeichern;
@@ -54,6 +54,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JSpinner spTime;
 	private long id;
 	private long animalID;
+	private long threatmentID;
 	private JTextField tFName;
 	private PreparedStatement searchStm;
 	
@@ -70,12 +71,12 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		JLabel lblBezeichnnung = new JLabel("Bezeichnnung:");
 		
-		tFBezeichnung = new JTextField();
-		tFBezeichnung.setColumns(10);
+		tFTName = new JTextField();
+		tFTName.setColumns(10);
 		
 		JLabel lblPreisProEinheit = new JLabel("Preis pro Einheit in €:");
 		
-		spPreis = new JTextField();
+		tFstückPreis = new JTextField();
 		
 		JLabel lblErklrung = new JLabel(" Erklärung:");
 		
@@ -104,9 +105,9 @@ public class WNeueBehandlung extends JInternalFrame {
 		tFName.setText(animal_name);
 		panel.add(tFName, "cell 1 0,growx");
 		panel.add(lblBezeichnnung, "cell 0 1,alignx right,aligny center");
-		panel.add(tFBezeichnung, "cell 1 1,growx,aligny top");
+		panel.add(tFTName, "cell 1 1,growx,aligny top");
 		panel.add(lblPreisProEinheit, "cell 0 2,alignx right,aligny center");
-		panel.add(spPreis, "cell 1 2,growx,aligny top");
+		panel.add(tFstückPreis, "cell 1 2,growx,aligny top");
 		panel.add(lblErklrung, "cell 0 6,alignx left,aligny center");
 		panel.add(scrollPane, "cell 1 6,grow");
 		panel.add(lblUhrzeit, "cell 0 5,alignx left,aligny center");
@@ -129,8 +130,8 @@ public class WNeueBehandlung extends JInternalFrame {
 		btnAbrechen = new JButton("Abrechen");
 		pButtons.add(btnAbrechen, "cell 2 0");
 		
-		tFBezeichnung.setEditable(false);
-		spPreis.setEnabled(false);
+		tFTName.setEditable(false);
+		tFstückPreis.setEnabled(false);
 		tFName.setEditable(false);
 		
 		
@@ -165,12 +166,13 @@ public class WNeueBehandlung extends JInternalFrame {
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				//TODO: LOAD
 				try{
 					ResultSet rs = Database.getThreatment(element.getID());
-					spPreis.setText(rs.getInt(...));
+					rs.next();
+					tFTName.setText(rs.getString(1));
+					tFstückPreis.setText(rs.getString(2));
 					
-					
+					threatmentID = element.getID();
 					rs.close();
 				} catch (SQLException e) {
 					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
