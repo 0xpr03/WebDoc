@@ -58,9 +58,9 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JTextField tFName;
 	private PreparedStatement searchStm;
 	
-	public WNeueBehandlung(long animalID,long id, String animal_name) {
+	public WNeueBehandlung(long animalID,long in_id, String animal_name) {
 		this.animalID = animalID;
-		this.id = id;
+		this.id = in_id;
 		editable = id == -1;
 		setSize(new Dimension(450, 301));
 		setTitle("Neue Behandlung");
@@ -128,13 +128,23 @@ public class WNeueBehandlung extends JInternalFrame {
 		pButtons.add(btnSpeichern, "cell 1 0");
 		
 		btnAbrechen = new JButton("Abrechen");
+		btnAbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (id == -1) {
+					dispose();
+				} else if (editable) {
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				} else {
+					editable = true;
+					setEditable();
+				}
+			}
+		});
 		pButtons.add(btnAbrechen, "cell 2 0");
-		
-		tFTName.setEditable(false);
-		tFstückPreis.setEnabled(false);
-		tFName.setEditable(false);
-		
-		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
 		btnNeueBehandlungsart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -188,6 +198,12 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		searchTextField.setAPI(new ThreatmentProvider());
 		
+		tFTName.setEditable(false);
+		tFstückPreis.setEnabled(false);
+		tFName.setEditable(false);
+		btnAbrechen.setEnabled(true);
+		btnNeueBehandlungsart.setEnabled(true);
+		
 		try {
 			searchStm = Database.prepareThreatmentTypeSearchStm();
 		} catch (SQLException e) {
@@ -205,8 +221,21 @@ public class WNeueBehandlung extends JInternalFrame {
 	}
 	private void refreshBtn(boolean  editable) {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
-		btnAbrechen.setEnabled(true);
-		btnNeueBehandlungsart.setEnabled(true);
+		btnAbrechen.setText(editable ? "Cancel" : "Edit");
+	}
+	
+	/**
+	 * simple instance provider for events
+	 * 
+	 * @return
+	 */
+	private WNeueBehandlung getFrame() {
+		return this;
+	}
+	
+	private void loadData() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
