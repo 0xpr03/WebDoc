@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -24,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
@@ -62,6 +64,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JTextField tFName;
 	private PreparedStatement searchStm;
 	private Logger logger = LogManager.getLogger();
+	private SpinnerDateModel time_model;
 	
 	public WNeueBehandlung(long animalID,long in_id, String animal_name) {
 		this.animalID = animalID;
@@ -97,10 +100,17 @@ public class WNeueBehandlung extends JInternalFrame {
 		JLabel lblDatum = new JLabel("Datum:");
 		
 		spDate = new JSpinner();
+		time_model = new SpinnerDateModel();
+		time_model.setCalendarField(Calendar.MINUTE);
+		spDate.setModel(time_model);
+		spDate.setEditor(new JSpinner.DateEditor(spDate, "dd-MM-yyyy"));
+		
 		
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
 		
 		spTime = new JSpinner();
+		spTime.setModel(time_model);
+		spTime.setEditor(new JSpinner.DateEditor(spTime, "HH:mm"));
 		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][20px][20px][20px][219px]"));
 		
 		JLabel lblNameDesPatienten = new JLabel("Name des Patienten:");
