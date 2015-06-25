@@ -293,14 +293,14 @@ public class WNeueBehandlung extends JInternalFrame {
 	private void addThreatment() {
 		if (allSet()) {
 			logger.error("Not implemented!");
-//			try{
-//				Database.insertAnimalThreatment(threatmentID, animalID, amount, date, time, comment);
-//				editable = false;
-//				setEditable();
-//			} catch (SQLException e) {
-//				DBError error = Database.DBExceptionConverter(e);
-//				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
-//			}
+			try{
+				Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl.getValue(),new java.sql.Date( getDatetime()), tPErklaerung.getText());
+				editable = false;
+				setEditable();
+			} catch (SQLException e) {
+				DBError error = Database.DBExceptionConverter(e);
+				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
+			}
 		}else{
 			GUIManager.showFieldErrorDialog(this);
 		}
