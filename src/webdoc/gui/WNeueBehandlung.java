@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.ActionMap;
@@ -106,7 +107,6 @@ public class WNeueBehandlung extends JInternalFrame {
 		date_model.setCalendarField(Calendar.DAY_OF_MONTH);
 		spDate.setModel(date_model);
 		spDate.setEditor(new JSpinner.DateEditor(spDate, "dd-MM-yyyy"));
-		
 		
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
 		
@@ -267,6 +267,22 @@ public class WNeueBehandlung extends JInternalFrame {
 	 */
 	private WNeueBehandlung getFrame() {
 		return this;
+	}
+	
+	/**
+	 * Return the date from spDate & spTim
+	 * @return
+	 */
+	private long getDatetime(){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime((Date) spDate.getValue());
+		
+		Calendar cal_temp = Calendar.getInstance();
+		cal_temp.setTime((Date) spTime.getValue());
+		
+		cal.set(Calendar.HOUR_OF_DAY,cal_temp.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE,cal_temp.get(Calendar.MINUTE));
+		return cal.getTimeInMillis();
 	}
 	
 	private void loadData() {
