@@ -28,6 +28,8 @@ import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.ACElement;
@@ -36,6 +38,8 @@ import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import webdoc.lib.Database.DBError;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -57,6 +61,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private long threatmentID;
 	private JTextField tFName;
 	private PreparedStatement searchStm;
+	private Logger logger = LogManager.getLogger();
 	
 	public WNeueBehandlung(long animalID,long in_id, String animal_name) {
 		this.animalID = animalID;
@@ -125,6 +130,19 @@ public class WNeueBehandlung extends JInternalFrame {
 		pButtons.setLayout(new MigLayout("", "[][][][][]", "[]"));
 		
 		btnSpeichern = new JButton("Speichern");
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (id == -1 && editable) {
+					addThreatment();
+				} else if (editable) {
+					logger.error("Not implemented!");
+//					updateThreatment();
+				} else {
+					dispose();
+					return;
+				}
+			}
+		});
 		pButtons.add(btnSpeichern, "cell 1 0");
 		
 		btnAbrechen = new JButton("Abrechen");
@@ -212,12 +230,15 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 	}
 	
+	/**
+	 * Update buttons
+	 */
 	private void setEditable() {
 		spAnzahl.setEnabled(editable);
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);
-		refreshBtn(editable);
 		tPErklaerung.setEditable(editable);
+		refreshBtn(editable);
 	}
 	private void refreshBtn(boolean  editable) {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
@@ -236,6 +257,22 @@ public class WNeueBehandlung extends JInternalFrame {
 	private void loadData() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void addThreatment() {
+		if (allSet()) {
+			logger.error("Not implemented!");
+//			try{
+//				Database.insertAnimalThreatment(threatmentID, animalID, amount, date, time, comment);
+//				editable = false;
+//				setEditable();
+//			} catch (SQLException e) {
+//				DBError error = Database.DBExceptionConverter(e);
+//				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
+//			}
+		}else{
+			GUIManager.showFieldErrorDialog(this);
+		}
 	}
 	
 	@Override
