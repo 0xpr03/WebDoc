@@ -65,6 +65,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private PreparedStatement searchStm;
 	private Logger logger = LogManager.getLogger();
 	private SpinnerDateModel time_model;
+	private JSearchTextField searchTextField;
 	
 	public WNeueBehandlung(long animalID,long in_id, String animal_name) {
 		this.animalID = animalID;
@@ -132,7 +133,7 @@ public class WNeueBehandlung extends JInternalFrame {
 		panel.add(lblAnzahlDerEinheiten, "cell 0 3,alignx left,aligny center");
 		panel.add(spAnzahl, "cell 1 3,alignx left,aligny top");
 		
-		JSearchTextField searchTextField = new JSearchTextField(false);
+		searchTextField = new JSearchTextField(false);
 		getContentPane().add(searchTextField, BorderLayout.NORTH);
 		
 		JPanel pButtons = new JPanel();
@@ -248,6 +249,7 @@ public class WNeueBehandlung extends JInternalFrame {
 		spDate.setEnabled(editable);
 		spTime.setEnabled(editable);
 		tPErklaerung.setEditable(editable);
+		searchTextField.setEditable(editable);
 		refreshBtn(editable);
 	}
 	private void refreshBtn(boolean  editable) {
