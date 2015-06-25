@@ -21,6 +21,7 @@ import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -362,14 +363,14 @@ public class Database{
 	 * @param comment
 	 * @throws SQLException
 	 */
-	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Date datetime, String comment) throws SQLException{
+	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
 		String sql = "UPDATE partner SET `ThreatmentID` = ?, `AnimalID` = ?,`amount` = ?,`datetime` = ?,`comment` = ? "
 				+"WHERE PetThreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);
 		stm.setLong(2, AnimalID);
 		stm.setInt(3, amount);
-		stm.setDate(4, datetime);
+		stm.setTimestamp(4, datetime);
 		stm.setString(5, comment);
 		stm.setLong(6, PetThreatmentID);
 		stm.executeUpdate();
@@ -402,13 +403,13 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Date datetime, String comment) throws SQLException{
+	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
 		String sql = "INSERT INTO animalthreatment (`ThreatmentID`,`AnimalID`,`amount`,`datetime`,`comment`) VALUES(?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);
 		stm.setLong(2, AnimalID);
 		stm.setInt(3, amount);
-		stm.setDate(4, datetime);
+		stm.setTimestamp(4, datetime);
 		stm.setString(5, comment);
 		stm.executeUpdate();
 		long id = getAutoID(stm.getGeneratedKeys());

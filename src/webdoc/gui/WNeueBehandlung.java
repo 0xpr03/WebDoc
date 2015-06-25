@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -273,7 +274,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	 * Return the date from spDate & spTim
 	 * @return
 	 */
-	private long getDatetime(){
+	private Timestamp getDatetimeTimestamp(){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime((Date) spDate.getValue());
 		
@@ -282,7 +283,7 @@ public class WNeueBehandlung extends JInternalFrame {
 		
 		cal.set(Calendar.HOUR_OF_DAY,cal_temp.get(Calendar.HOUR_OF_DAY));
 		cal.set(Calendar.MINUTE,cal_temp.get(Calendar.MINUTE));
-		return cal.getTimeInMillis();
+		return new Timestamp(cal.getTimeInMillis());
 	}
 	
 	private void loadData() {
@@ -292,9 +293,8 @@ public class WNeueBehandlung extends JInternalFrame {
 	
 	private void addThreatment() {
 		if (allSet()) {
-			logger.error("Not implemented!");
 			try{
-				Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl.getValue(),new java.sql.Date( getDatetime()), tPErklaerung.getText());
+				Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
