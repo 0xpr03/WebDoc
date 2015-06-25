@@ -47,9 +47,9 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	private JPanel panel_2;
 	private JButton btnSave;
 	private JButton btnEdit;
-	public WNeueBehandlungsart(long id) {
+	public WNeueBehandlungsart(long in_id) {
 		setResizable(true);
-		this.id = id;
+		this.id = in_id;
 		editable = id == -1 ? true : false;
 		setSize(new Dimension(450, 249));
 		setClosable(true);
@@ -134,10 +134,14 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(editable){
-					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
-						editable = false;
-						setEditable();
-						loadData();
+					if(id == -1)
+						dispose();
+					else{
+						if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+							editable = false;
+							setEditable();
+							loadData();
+						}
 					}
 				}else{
 					editable = true;
