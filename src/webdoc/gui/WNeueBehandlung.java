@@ -64,6 +64,7 @@ public class WNeueBehandlung extends JInternalFrame {
 	private JTextField tFName;
 	private PreparedStatement searchStm;
 	private Logger logger = LogManager.getLogger();
+	private SpinnerDateModel date_model;
 	private SpinnerDateModel time_model;
 	private JSearchTextField searchTextField;
 	
@@ -101,15 +102,17 @@ public class WNeueBehandlung extends JInternalFrame {
 		JLabel lblDatum = new JLabel("Datum:");
 		
 		spDate = new JSpinner();
-		time_model = new SpinnerDateModel();
-		time_model.setCalendarField(Calendar.MINUTE);
-		spDate.setModel(time_model);
+		date_model = new SpinnerDateModel();
+		date_model.setCalendarField(Calendar.DAY_OF_MONTH);
+		spDate.setModel(date_model);
 		spDate.setEditor(new JSpinner.DateEditor(spDate, "dd-MM-yyyy"));
 		
 		
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
 		
 		spTime = new JSpinner();
+		time_model = new SpinnerDateModel();
+		time_model.setCalendarField(Calendar.HOUR_OF_DAY);
 		spTime.setModel(time_model);
 		spTime.setEditor(new JSpinner.DateEditor(spTime, "HH:mm"));
 		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][20px][20px][20px][219px]"));
