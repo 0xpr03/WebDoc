@@ -342,7 +342,7 @@ public class Database{
 		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
 				+"WHERE AnimalID = ? "
 				+"UNION ALL "
-				+"SELECT `PetThreatmentID` as id, `date` as insdate, 1 as type FROM `animalthreatment` "
+				+"SELECT `PetThreatmentID` as id, `datetime` as insdate, 1 as type FROM `animalthreatment` "
 				+"WHERE AnimalID = ? "
 				+"ORDER BY insdate DESC";
 		PreparedStatement stm = prepareStm(sql);
@@ -362,17 +362,16 @@ public class Database{
 	 * @param comment
 	 * @throws SQLException
 	 */
-	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Date date, Time time, String comment) throws SQLException{
-		String sql = "UPDATE partner SET `ThreatmentID` = ?, `AnimalID` = ?,`amount` = ?,`date` = ?,`time` = ?,`comment` = ? "
+	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Date datetime, String comment) throws SQLException{
+		String sql = "UPDATE partner SET `ThreatmentID` = ?, `AnimalID` = ?,`amount` = ?,`datetime` = ?,`comment` = ? "
 				+"WHERE PetThreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);
 		stm.setLong(2, AnimalID);
 		stm.setInt(3, amount);
-		stm.setDate(4, date);
-		stm.setTime(5, time);
-		stm.setString(6, comment);
-		stm.setLong(7, PetThreatmentID);
+		stm.setDate(4, datetime);
+		stm.setString(5, comment);
+		stm.setLong(6, PetThreatmentID);
 		stm.executeUpdate();
 		stm.close();
 	}
@@ -380,12 +379,12 @@ public class Database{
 	/**
 	 * Get AnimalThreatment
 	 * @param PetThreatmentID
-	 * @return ResultSet of ThreatmentID,AnimalID,amount,PartnerID,date,time,comment
+	 * @return ResultSet of ThreatmentID,AnimalID,amount,PartnerID,datetime,comment
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getAnimalThreatment(long PetThreatmentID) throws SQLException{
-		String sql = "SELECT `ThreatmentID`,`AnimalID`,`amount`,`date`,`time`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
+		String sql = "SELECT `ThreatmentID`,`AnimalID`,`amount`,`datetime`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, PetThreatmentID);
 		return stm.executeQuery();
@@ -403,15 +402,14 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Date date, Time time, String comment) throws SQLException{
-		String sql = "INSERT INTO animalthreatment (`ThreatmentID`,`AnimalID`,`amount`,`date`,`time`,`comment`) VALUES(?,?,?,?,?,?);";
+	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Date datetime, String comment) throws SQLException{
+		String sql = "INSERT INTO animalthreatment (`ThreatmentID`,`AnimalID`,`amount`,`datetime`,`comment`) VALUES(?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);
 		stm.setLong(2, AnimalID);
 		stm.setInt(3, amount);
-		stm.setDate(4, date);
-		stm.setTime(5, time);
-		stm.setString(6, comment);
+		stm.setDate(4, datetime);
+		stm.setString(5, comment);
 		stm.executeUpdate();
 		long id = getAutoID(stm.getGeneratedKeys());
 		stm.close();
