@@ -151,9 +151,9 @@ CREATE TABLE IF NOT EXISTS `animalthreatment` (
  `AnimalID` int(10) unsigned NOT NULL,
  `amount` tinyint(4) NOT NULL,
  `PartnerID` int(10) unsigned DEFAULT NULL,
- `date` date NOT NULL,
- `time` time NOT NULL,
+ `datetime` datetime NOT NULL,
  `comment` varchar(250) NOT NULL,
+ `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`PetThreatmentID`),
  KEY `AnimalID` (`AnimalID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
