@@ -145,7 +145,7 @@ public class WNeuerPartner extends WModelPane {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (id == -1 || editable) {
-					entryPartner();
+					insertPartner();
 				} else {
 					dispose();
 					return;
@@ -642,6 +642,7 @@ public class WNeuerPartner extends WModelPane {
 	 */
 	private void loadAnimals(){
 		try {
+			// @formatter:off
 			ResultSet rs = Database.getPartnerAnimals(id);
 			DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
 			model.clear();
@@ -649,6 +650,7 @@ public class WNeuerPartner extends WModelPane {
 				logger.debug("found another linked animal");
 				model.addElement(new ACElement(rs.getString(2), rs.getLong(1), ElementType.ANIMAL));
 			}
+			// @formatter:on
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
 		}
@@ -707,7 +709,7 @@ public class WNeuerPartner extends WModelPane {
 	 * adds a partner
 	 * @author "Aron Heinecke"
 	 */
-	private void entryPartner() {
+	private void insertPartner() {
 		if (allSet()) {
 			setGlassPaneVisible(true);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -715,6 +717,7 @@ public class WNeuerPartner extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
+								// @formatter:off
 								getPRID();
 								if (id == -1) {
 									id = Database
@@ -742,6 +745,7 @@ public class WNeuerPartner extends WModelPane {
 							} catch (SQLException e) {
 								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 							}
+							// @formatter:on
 							setGlassPaneVisible(false);
 					}
 				});
