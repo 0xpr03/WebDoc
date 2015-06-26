@@ -316,7 +316,6 @@ public class WNeueBehandlung extends WModelPane {
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
-				DBError error = Database.DBExceptionConverter(e);
 				GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 			}
 			setGlassPaneVisible(false);

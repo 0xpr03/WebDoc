@@ -576,21 +576,18 @@ public class WNeuerPatient extends WModelPane {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-
+							// @formatter:off
 							try {
 								model.clearElements();
 								ResultSet rs = Database.getPatientRData(id);
 								while (rs.next()) {
-									model.add(new TDListElement(rs.getLong(1),
-											rs.getInt(3) == 0 ? LEType.TYPE_A
-													: LEType.TYPE_B, rs
-													.getDate(2)));
+									model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
 								}
 								rs.close();
 							} catch (SQLException e) {
-								GUIManager.showDBErrorDialog(getFrame(),
-										Database.DBExceptionConverter(e, true));
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 							}
+							// @formatter:on
 							setGlassPaneVisible(false);
 						}
 					});
@@ -613,6 +610,7 @@ public class WNeuerPatient extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
+								// @formatter:off
 								ResultSet result = Database.getAnimal(id);
 								result.next();
 								strName.setText(result.getString(1));
@@ -621,9 +619,7 @@ public class WNeuerPatient extends WModelPane {
 								strFarbe.setText(result.getString(4));
 								spinGewicht.setValue(result.getDouble(5));
 								spinBirthdate.setValue(result.getDate(6));
-								enumGeschlecht.setSelectedItem(result
-										.getBoolean(7) == true ? geschlecht_lokalisiert[1]
-										: geschlecht_lokalisiert[2]);
+								enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[1] : geschlecht_lokalisiert[2]);
 								logger.debug("picID: {}", result.getString(9));
 								txtBemerkung.setText(result.getString(8));
 								textRasse.overrideText(result.getString(11));
@@ -632,9 +628,9 @@ public class WNeuerPatient extends WModelPane {
 								result.close();
 								loadHistoryData();
 							} catch (SQLException e) {
-								GUIManager.showDBErrorDialog(getFrame(),
-										Database.DBExceptionConverter(e, true));
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 							}
+							// @formatter:on
 							setGlassPaneVisible(false);
 						}
 					});
@@ -724,26 +720,22 @@ public class WNeuerPatient extends WModelPane {
 							GenderEnumObj gender = (GenderEnumObj) enumGeschlecht
 									.getSelectedItem();
 							try {
+								// @formatter:off
 								id = Database.insertPatient(
 										strName.getText(),
 										strRufname.getText(),
 										textIdentifizierung.getText(),
 										strFarbe.getText(),
 										(double) spinGewicht.getValue(),
-										new java.sql.Date(((Date) spinBirthdate
-												.getValue()).getTime()),
+										new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()),
 										gender.getType() == GenderType.FEMALE,
-										textRasse.getText(), txtBemerkung
-												.getText(), null);
+										textRasse.getText(), txtBemerkung.getText(), null);
 								editable = false;
 								setEditable();
 							} catch (SQLException e) {
-								DBError error = Database
-										.DBExceptionConverter(e);
-								GUIManager.showErrorDialog(getFrame(),
-										"Error during insertion: " + error,
-										"Insertion error");
+				                GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 							}
+							// @formatter:on
 							setGlassPaneVisible(false);
 						}
 					});
@@ -768,6 +760,7 @@ public class WNeuerPatient extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
+								// @formatter:off
 								Database.updatePatient(
 										id,
 										strName.getText(),
@@ -775,21 +768,15 @@ public class WNeuerPatient extends WModelPane {
 										textIdentifizierung.getText(),
 										strFarbe.getText(),
 										(double) spinGewicht.getValue(),
-										new java.sql.Date(((Date) spinBirthdate
-												.getValue()).getTime()),
-										((GenderEnumObj) enumGeschlecht
-												.getSelectedItem()).getType() == GenderType.FEMALE,
-										textRasse.getText(), txtBemerkung
-												.getText(), null);
+										new java.sql.Date(((Date) spinBirthdate.getValue()).getTime()),
+										((GenderEnumObj) enumGeschlecht.getSelectedItem()).getType() == GenderType.FEMALE,
+										textRasse.getText(), txtBemerkung.getText(), null);
 								editable = false;
 								setEditable();
 							} catch (SQLException e) {
-								DBError error = Database
-										.DBExceptionConverter(e);
-								GUIManager.showErrorDialog(getFrame(),
-										"Error during insertion: " + error,
-										"Insertion error");
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 							}
+							// @formatter:on
 							setGlassPaneVisible(false);
 						}
 					});
