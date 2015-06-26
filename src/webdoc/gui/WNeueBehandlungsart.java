@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
@@ -32,10 +33,12 @@ import javax.swing.UIManager;
 import net.miginfocom.swing.MigLayout;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import java.awt.Component;
 
-public class WNeueBehandlungsart extends JInternalFrame {
+public class WNeueBehandlungsart extends WModelPane {
 
 	private static final long serialVersionUID = 4589284070560679651L;
 	private JTextField txtBezeichnung;
@@ -151,7 +154,6 @@ public class WNeueBehandlungsart extends JInternalFrame {
 		});
 		panel_2.add(btnEdit, "cell 3 0");
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtBezeichnung, spPreis, tPErklaerung, btnEdit, btnSave}));
-		
 		setEditable();
 		loadData();
 	}
@@ -182,6 +184,11 @@ public class WNeueBehandlungsart extends JInternalFrame {
 	
 	private void loadData(){
 		if(id != -1){
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
 			try {
 				ResultSet rs = Database.getThreatment(id);
 				rs.next();
@@ -191,13 +198,25 @@ public class WNeueBehandlungsart extends JInternalFrame {
 				
 				editable = false;
 			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+				GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 			}
+			setGlassPaneVisible(false);
+		}
+	});
+	t.start();
+}
+});
 		}
 	}
 	
 	private void entryData(){
 		if (allSet()) {
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+
 			try {
 				if(id == -1)
 					id = Database.insertThreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
@@ -207,16 +226,19 @@ public class WNeueBehandlungsart extends JInternalFrame {
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+				GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 			}
+			setGlassPaneVisible(false);
+		}
+	});
+	t.start();
+}
+});
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
 	}
 	
-	private WNeueBehandlungsart getFrame() {
-		return this;
-	}
 	
 	@Override
 	public void dispose() {
