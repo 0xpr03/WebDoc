@@ -187,23 +187,23 @@ public class WNeueBehandlungsart extends WModelPane {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-			try {
-				ResultSet rs = Database.getThreatment(id);
-				rs.next();
-				txtBezeichnung.setText(rs.getString(1));
-				spPreis.setValue(rs.getInt(2));
-				tPErklaerung.setText(rs.getString(3));
-				
-				editable = false;
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
-			}
-			setGlassPaneVisible(false);
-		}
-	});
-	t.start();
-}
-});
+							try {
+								ResultSet rs = Database.getThreatment(id);
+								rs.next();
+								txtBezeichnung.setText(rs.getString(1));
+								spPreis.setValue(rs.getInt(2));
+								tPErklaerung.setText(rs.getString(3));
+								
+								editable = false;
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
 		}
 	}
 	
@@ -214,29 +214,29 @@ public class WNeueBehandlungsart extends WModelPane {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-
-			try {
-				if(id == -1)
-					id = Database.insertThreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
-				else
-					id = Database.updateThreatment(id, txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
-				
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
-			}
-			setGlassPaneVisible(false);
-		}
-	});
-	t.start();
-}
-});
+							try {
+								// @formatter:off
+								if(id == -1)
+									id = Database.insertThreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+								else
+									id = Database.updateThreatment(id, txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+								
+								editable = false;
+								setEditable();
+								// @formatter:on
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
 	}
-	
 	
 	@Override
 	public void dispose() {
