@@ -31,7 +31,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -40,22 +39,21 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.TableRowSorter;
 
-import net.miginfocom.swing.MigLayout;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.GenderEnumObj;
@@ -358,9 +356,15 @@ public class WNeuerPatient extends WModelPane {
 				if (mevent.getButton() == MouseEvent.BUTTON1
 						&& table.getSelectedRow() != -1) {
 					if (mevent.getClickCount() >= 2) {
-						GUIManager.callWNewAnamnesis(false, id, model
-								.getTDLEAt(table.getSelectedRow()).getID(),
-								strName.getText(), strRufname.getText());
+						// @formatter:off
+						TDListElement elem = model.getTDLEAt(table.getSelectedRow());
+						if(elem.getType() == LEType.TYPE_A){
+							GUIManager.callWNewAnamnesis(false, id, elem.getID(),
+									strName.getText(), strRufname.getText());
+						}else{
+							GUIManager.callWNeueBehandlung(id, elem.getID(), strRufname.getText());
+						}
+						// @formatter:on
 					}
 				}
 			}
