@@ -9,6 +9,8 @@ package webdoc.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +22,6 @@ import java.util.List;
 
 import javax.swing.ActionMap;
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,22 +32,18 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import net.miginfocom.swing.MigLayout;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.ACElement;
-import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.ACElement.ElementType;
+import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
-import webdoc.lib.GUIManager;
 import webdoc.lib.Database.DBError;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import webdoc.lib.GUIManager;
 
 public class WNeueBehandlung extends WModelPane {
 	
@@ -151,8 +148,7 @@ public class WNeueBehandlung extends WModelPane {
 				if (id == -1 && editable) {
 					addThreatment();
 				} else if (editable) {
-					logger.error("Not implemented!");
-//					updateThreatment();
+					updatePetThreatment();
 				} else {
 					dispose();
 					return;
@@ -236,6 +232,15 @@ public class WNeueBehandlung extends WModelPane {
 		loadData();
 	}
 	
+	protected void updatePetThreatment() {
+		try{
+			Database.editAnimalThreatment(id, threatmentID,(int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
+		} catch (SQLException e) {
+			DBError error = Database.DBExceptionConverter(e);
+			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+		}
+	}
+
 	/**
 	 * Update buttons
 	 */
@@ -311,7 +316,7 @@ public class WNeueBehandlung extends WModelPane {
 				setEditable();
 			} catch (SQLException e) {
 				DBError error = Database.DBExceptionConverter(e);
-				GUIManager.showErrorDialog(getFrame(), "Error during insertion: " + error, "Insertion error");
+				GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 			}
 			setGlassPaneVisible(false);
 		}
