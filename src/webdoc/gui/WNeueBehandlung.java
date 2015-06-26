@@ -233,7 +233,7 @@ public class WNeueBehandlung extends WModelPane {
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 		}
-		
+		loadData();
 	}
 	
 	/**
@@ -253,12 +253,6 @@ public class WNeueBehandlung extends WModelPane {
 	}
 	
 	/**
-	 * simple instance provider for events
-	 * 
-	 * @return
-	 */
-	
-	/**
 	 * Return the date from spDate & spTim
 	 * @return
 	 */
@@ -275,20 +269,32 @@ public class WNeueBehandlung extends WModelPane {
 	}
 	
 	private void loadData() {
-		setGlassPaneVisible(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Thread t = new Thread(new Runnable() {
-					public void run() {
-
-						////
-						setGlassPaneVisible(false);
-					}
-				});
-				t.start();
-			}
-		});
-		
+		if(id != -1){
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try{
+								ResultSet rs = Database.getAnimalThreatment(id);
+								rs.next();
+								updateThreatment(rs.getLong(1));
+								spAnzahl.setValue(rs.getDouble(2));
+								spDate.setValue(rs.getTimestamp(3));
+								spTime.setValue(rs.getTimestamp(3));
+								tPErklaerung.setText(rs.getString(4));
+								rs.close();
+							}catch(SQLException e){
+								DBError error = Database.DBExceptionConverter(e);
+								GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
+		}
 	}
 	
 	private void addThreatment() {
