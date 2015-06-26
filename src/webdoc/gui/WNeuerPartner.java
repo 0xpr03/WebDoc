@@ -43,6 +43,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
+import javax.swing.SwingUtilities;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -69,7 +70,7 @@ import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
 
-public class WNeuerPartner extends JInternalFrame {
+public class WNeuerPartner extends WModelPane {
 
 	private static final long serialVersionUID = -2791732649836492001L;
 	private Logger logger = LogManager.getLogger();
@@ -127,6 +128,7 @@ public class WNeuerPartner extends JInternalFrame {
 	 * Initialize the contents of the
 	 */
 	private void initialize() {
+		setGlassPaneVisible(false);
 		setFrameIcon(null);
 		setIconifiable(true);
 		setResizable(true);
@@ -567,15 +569,6 @@ public class WNeuerPartner extends JInternalFrame {
 	}
 	
 	/**
-	 * simple instance provider for events
-	 * 
-	 * @return
-	 */
-	private WNeuerPartner getFrame() {
-		return this;
-	}
-
-	/**
 	 * Loads the animal data if id not -1 (while id 0 is also never given out)
 	 * 
 	 * @author "Aron Heinecke"
@@ -718,34 +711,45 @@ public class WNeuerPartner extends JInternalFrame {
 	 */
 	private void entryPartner() {
 		if (allSet()) {
-			try {
-				getPRID();
-				if (id == -1) {
-					id = Database
-							.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
-									((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
-				} else {
-					Database.updatePartner(id, textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
-							((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
-				}
-				if (partnerroleid == -1) {
-					partnerroleid = Database.insertPatnerRoleID(id, getRoleTypeID());
-					Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
-							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
-							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
-							.getText(), textOrtsteil.getText());
-				} else {
-					Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
-							.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
-							.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
-							.getText(), textOrtsteil.getText());
-				}
-				updateTitle(textVorname.getText(),textName.getText());
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								getPRID();
+								if (id == -1) {
+									id = Database
+											.insertPartner(textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+													((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
+								} else {
+									Database.updatePartner(id, textVorname.getText(), textName.getText(), textTitel.getText(), new java.sql.Date(
+											((Date) spinGebdatum.getValue()).getTime()), textComment.getText());
+								}
+								if (partnerroleid == -1) {
+									partnerroleid = Database.insertPatnerRoleID(id, getRoleTypeID());
+									Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+											.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+											.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+											.getText(), textOrtsteil.getText());
+								} else {
+									Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
+											.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+											.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
+											.getText(), textOrtsteil.getText());
+								}
+								updateTitle(textVorname.getText(),textName.getText());
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+					}
+				});
+				t.start();
 			}
+		});
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
