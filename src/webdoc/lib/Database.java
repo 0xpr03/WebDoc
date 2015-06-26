@@ -363,7 +363,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, int amount, Timestamp datetime, String comment) throws SQLException{
-		String sql = "UPDATE partner SET `ThreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
+		String sql = "UPDATE `animalthreatment` SET `ThreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
 				+"WHERE PetThreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);

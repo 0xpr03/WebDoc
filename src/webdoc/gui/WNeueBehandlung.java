@@ -235,8 +235,9 @@ public class WNeueBehandlung extends WModelPane {
 	protected void updatePetThreatment() {
 		try{
 			Database.editAnimalThreatment(id, threatmentID,(int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
+			editable = false;
+			setEditable();
 		} catch (SQLException e) {
-			DBError error = Database.DBExceptionConverter(e);
 			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 		}
 	}
@@ -284,7 +285,7 @@ public class WNeueBehandlung extends WModelPane {
 								ResultSet rs = Database.getAnimalThreatment(id);
 								rs.next();
 								updateThreatment(rs.getLong(1));
-								spAnzahl.setValue(rs.getDouble(2));
+								spAnzahl.setValue(rs.getInt(2));
 								spDate.setValue(rs.getTimestamp(3));
 								spTime.setValue(rs.getTimestamp(3));
 								tPErklaerung.setText(rs.getString(4));
