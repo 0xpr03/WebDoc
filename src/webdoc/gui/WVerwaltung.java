@@ -14,15 +14,19 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
 import webdoc.lib.GUIManager;
+
 import java.awt.Dimension;
+
 import javax.swing.JList;
+
 import java.awt.BorderLayout;
 
-public class WVerwaltung extends JInternalFrame {
+public class WVerwaltung extends WModelPane {
 
 	private static final long serialVersionUID = 4589284070560679651L;
 	private boolean editable;
@@ -81,9 +85,36 @@ public class WVerwaltung extends JInternalFrame {
 		return true;
 	}
 	
-	private void loadData() throws SQLException{
+	private void loadData() {
+		setGlassPaneVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					public void run() {
+
+						////
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
+			}
+		});
+		
 	}
 	private void setData(String name, double preis, String erklaerung){
+		setGlassPaneVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					public void run() {
+
+						////
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
+			}
+		});
 	}
 	
 	@Override
