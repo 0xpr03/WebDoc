@@ -42,6 +42,7 @@ import net.miginfocom.swing.MigLayout;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
@@ -131,6 +132,8 @@ public class WNeueAnamnese extends JInternalFrame {
 	private JTextPane tPBemerkungen;
 	private JLabel lblHaltung;
 	private JTextField tFHalltung;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -988,6 +991,7 @@ public class WNeueAnamnese extends JInternalFrame {
 		spGehzeit.setFont(GUIManager.getCommentFont());
 		tPSchilderung.setFont(GUIManager.getCommentFont());
 		spinBirthdate_1.setFont(GUIManager.getCommentFont());
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{tPVerwendungszweck, spinBirthdate_1, tFHalltung, tPTierStammtVon, cBEpiAnfaelle, cBDenkenSchmerzen, cBKöperteilBewegen, spGehstrecke, spavailTimeCons, spGehzeit, cBWitterung, cBZyklus}));
 		
 		setEditable();
 		loadData();
