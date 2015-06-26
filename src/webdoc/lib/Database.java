@@ -20,7 +20,6 @@ import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.SQLTimeoutException;
 import java.sql.Statement;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -363,16 +362,15 @@ public class Database{
 	 * @param comment
 	 * @throws SQLException
 	 */
-	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
-		String sql = "UPDATE partner SET `ThreatmentID` = ?, `AnimalID` = ?,`amount` = ?,`datetime` = ?,`comment` = ? "
+	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, int amount, Timestamp datetime, String comment) throws SQLException{
+		String sql = "UPDATE partner SET `ThreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
 				+"WHERE PetThreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, ThreatmentID);
-		stm.setLong(2, AnimalID);
-		stm.setInt(3, amount);
-		stm.setTimestamp(4, datetime);
-		stm.setString(5, comment);
-		stm.setLong(6, PetThreatmentID);
+		stm.setInt(2, amount);
+		stm.setTimestamp(3, datetime);
+		stm.setString(4, comment);
+		stm.setLong(5, PetThreatmentID);
 		stm.executeUpdate();
 		stm.close();
 	}
@@ -385,7 +383,7 @@ public class Database{
 	 * @author "Aron Heinecke"
 	 */
 	public static ResultSet getAnimalThreatment(long PetThreatmentID) throws SQLException{
-		String sql = "SELECT `ThreatmentID`,`AnimalID`,`amount`,`datetime`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
+		String sql = "SELECT `ThreatmentID`,`amount`,`datetime`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, PetThreatmentID);
 		return stm.executeQuery();
