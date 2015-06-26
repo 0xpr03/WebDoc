@@ -28,6 +28,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
@@ -47,7 +48,7 @@ import webdoc.lib.Database.DBError;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class WNeueBehandlung extends JInternalFrame {
+public class WNeueBehandlung extends WModelPane {
 	
 	private static final long serialVersionUID = -6343632608398217935L;
 	private JTextField tFstückPreis;
@@ -266,9 +267,6 @@ public class WNeueBehandlung extends JInternalFrame {
 	 * 
 	 * @return
 	 */
-	private WNeueBehandlung getFrame() {
-		return this;
-	}
 	
 	/**
 	 * Return the date from spDate & spTim
@@ -287,22 +285,46 @@ public class WNeueBehandlung extends JInternalFrame {
 	}
 	
 	private void loadData() {
-		// TODO Auto-generated method stub
+		setGlassPaneVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					public void run() {
+
+						////
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
+			}
+		});
 		
 	}
 	
 	private void addThreatment() {
 		if (allSet()) {
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+			
 			try{
 				Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
 				DBError error = Database.DBExceptionConverter(e);
-				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
+				GUIManager.showErrorDialog(getFrame(), "Error during insertion: " + error, "Insertion error");
 			}
+			setGlassPaneVisible(false);
+		}
+	});
+	t.start();
+}
+});
 		}else{
-			GUIManager.showFieldErrorDialog(this);
+			GUIManager.showFieldErrorDialog(getFrame());
 		}
 	}
 	
