@@ -210,17 +210,7 @@ public class WNeueBehandlung extends WModelPane {
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				try{
-					ResultSet rs = Database.getThreatment(element.getID());
-					rs.next();
-					tFTName.setText(rs.getString(1));
-					tFstückPreis.setText(rs.getString(2));
-					
-					threatmentID = element.getID();
-					rs.close();
-				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
-				}
+				updateThreatment(element.getID());
 				return true;
 			}
 
@@ -325,6 +315,27 @@ public class WNeueBehandlung extends WModelPane {
 });
 		}else{
 			GUIManager.showFieldErrorDialog(getFrame());
+		}
+	}
+	
+	/**
+	 * Update the threatment based on the id<br>
+	 * !NOT the PETThreatment<br>
+	 * Shows DBErrorDialog on fail, updates threatmentID
+	 * @param id
+	 * @author "Aron Heinecke"
+	 */
+	private void updateThreatment(long id){
+		try{
+			ResultSet rs = Database.getThreatment(id);
+			rs.next();
+			tFTName.setText(rs.getString(1));
+			tFstückPreis.setText(rs.getString(2));
+			
+			threatmentID = id;
+			rs.close();
+		} catch (SQLException e) {
+			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 		}
 	}
 	
