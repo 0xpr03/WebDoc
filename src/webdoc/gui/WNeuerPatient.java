@@ -40,6 +40,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
@@ -68,7 +69,7 @@ import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
-public class WNeuerPatient extends JInternalFrame {
+public class WNeuerPatient extends WModelPane {
 
 	private static final long serialVersionUID = 2105688313403618735L;
 	private JSearchTextField textAnimalSuche;
@@ -78,8 +79,10 @@ public class WNeuerPatient extends JInternalFrame {
 	private JTextField strFarbe;
 	private JSpinner spinGewicht;
 	private JTextField textIdentifizierung;
-	private GenderEnumObj[] geschlecht_lokalisiert = { new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),
-			new GenderEnumObj("Weiblich", GenderType.FEMALE), new GenderEnumObj("Männlich", GenderType.MALE) };
+	private GenderEnumObj[] geschlecht_lokalisiert = {
+			new GenderEnumObj("Bitte Auswählen", GenderType.UNKNOWN),
+			new GenderEnumObj("Weiblich", GenderType.FEMALE),
+			new GenderEnumObj("Männlich", GenderType.MALE) };
 	private boolean editable = true;
 	private JComboBox<GenderEnumObj> enumGeschlecht;
 	private JPanel allgemeineDaten;
@@ -142,18 +145,23 @@ public class WNeuerPatient extends JInternalFrame {
 		JPanel daten = new JPanel();
 
 		allgemeineDaten = new JPanel();
-		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten", TitledBorder.CENTER, TitledBorder.TOP,
-				null, null));
+		allgemeineDaten.setBorder(new TitledBorder(null, "Allgemeine Daten",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		allgemeineDaten.setAutoscrolls(true);
 		GroupLayout gl_daten = new GroupLayout(daten);
-		gl_daten.setHorizontalGroup(gl_daten.createParallelGroup(Alignment.LEADING).addGroup(gl_daten
-				.createSequentialGroup()
-				.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, 282, Short.MAX_VALUE).addGap(1)));
-		gl_daten.setVerticalGroup(gl_daten
-				.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_daten
-						.createSequentialGroup()
-						.addComponent(allgemeineDaten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		gl_daten.setHorizontalGroup(gl_daten.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				gl_daten.createSequentialGroup()
+						.addComponent(allgemeineDaten,
+								GroupLayout.PREFERRED_SIZE, 282,
+								Short.MAX_VALUE).addGap(1)));
+		gl_daten.setVerticalGroup(gl_daten.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				gl_daten.createSequentialGroup()
+						.addComponent(allgemeineDaten,
+								GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(56, Short.MAX_VALUE)));
 
 		JLabel lblName = new JLabel("Name des Tieres:");
@@ -185,39 +193,48 @@ public class WNeuerPatient extends JInternalFrame {
 		textIdentifizierung.setColumns(1);
 
 		enumGeschlecht = new JComboBox<GenderEnumObj>();
-		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(geschlecht_lokalisiert));
+		enumGeschlecht.setModel(new DefaultComboBoxModel<GenderEnumObj>(
+				geschlecht_lokalisiert));
 		spinBirthdate = new JSpinner();
-		
+
 		spinBirthdate.setEnabled(editable);
 
 		strRufname = new JTextField();
 		strRufname.setColumns(1);
 
 		JLabel lblRufname = new JLabel("Rufname:");
-		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]", "[24px,center][24px][24px][24px][24px][24px][24px][24px]"));
-		allgemeineDaten.add(lblGeburtsdatum, "cell 0 4,alignx left,aligny center");
+		allgemeineDaten.setLayout(new MigLayout("", "[83px][18px][145px]",
+				"[24px,center][24px][24px][24px][24px][24px][24px][24px]"));
+		allgemeineDaten.add(lblGeburtsdatum,
+				"cell 0 4,alignx left,aligny center");
 		allgemeineDaten.add(spinBirthdate, "cell 1 4 2 1,growx,aligny top");
 		allgemeineDaten.add(lblRasse, "cell 0 2,alignx left,aligny center");
-		allgemeineDaten.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
+		allgemeineDaten
+				.add(lblGeschlecht, "cell 0 3,alignx left,aligny center");
 		allgemeineDaten.add(textRasse, "cell 1 2 2 1,growx,aligny top");
 		allgemeineDaten.add(enumGeschlecht, "cell 1 3 2 1,grow");
 		allgemeineDaten.add(lblRufname, "cell 0 1,alignx left,aligny center");
 		allgemeineDaten.add(lblName, "cell 0 0,alignx left,aligny center");
 		allgemeineDaten.add(strRufname, "cell 1 1 2 1,growx,aligny top");
 		allgemeineDaten.add(strName, "cell 1 0 2 1,growx,aligny top");
-		allgemeineDaten.add(lblHaarkleidfarbe, "cell 0 5,alignx left,aligny top");
+		allgemeineDaten.add(lblHaarkleidfarbe,
+				"cell 0 5,alignx left,aligny top");
 		allgemeineDaten.add(strFarbe, "cell 1 5 2 1,growx,aligny top");
-		allgemeineDaten.add(lblIdentifizierung, "cell 0 7,alignx left,aligny center");
+		allgemeineDaten.add(lblIdentifizierung,
+				"cell 0 7,alignx left,aligny center");
 		allgemeineDaten.add(lblGewicht, "cell 0 6,alignx left,aligny center");
 		allgemeineDaten.add(spinGewicht, "cell 1 6 2 1,growx,aligny top");
-		allgemeineDaten.add(textIdentifizierung, "cell 1 7 2 1,growx,aligny top");
+		allgemeineDaten.add(textIdentifizierung,
+				"cell 1 7 2 1,growx,aligny top");
 		daten.setLayout(gl_daten);
 
 		textAnimalSuche = new JSearchTextField(true);
 		textAnimalSuche.setColumns(1);
 
 		panelVerlauf = new JPanel();
-		panelVerlauf.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Verlauf", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelVerlauf.setBorder(new TitledBorder(UIManager
+				.getBorder("CheckBoxMenuItem.border"), "Verlauf",
+				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
 		panelBemerkungen = new JPanel();
 		panelBemerkungen.setFont(GUIManager.getCommentFont());
@@ -226,80 +243,132 @@ public class WNeuerPatient extends JInternalFrame {
 
 		JScrollPane sPaneBemerkungen = new JScrollPane();
 		GroupLayout gl_panelBemerkungen = new GroupLayout(panelBemerkungen);
-		gl_panelBemerkungen.setHorizontalGroup(
-			gl_panelBemerkungen.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addGap(2)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addGap(1)
-					.addComponent(lblBemerkungen, GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_panelBemerkungen.setVerticalGroup(
-			gl_panelBemerkungen.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBemerkungen.createSequentialGroup()
-					.addComponent(lblBemerkungen)
-					.addGap(2)
-					.addComponent(sPaneBemerkungen, GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
-		);
+		gl_panelBemerkungen.setHorizontalGroup(gl_panelBemerkungen
+				.createParallelGroup(Alignment.TRAILING)
+				.addGroup(
+						gl_panelBemerkungen
+								.createSequentialGroup()
+								.addGap(2)
+								.addComponent(sPaneBemerkungen,
+										GroupLayout.DEFAULT_SIZE, 208,
+										Short.MAX_VALUE))
+				.addGroup(
+						gl_panelBemerkungen
+								.createSequentialGroup()
+								.addGap(1)
+								.addComponent(lblBemerkungen,
+										GroupLayout.DEFAULT_SIZE, 208,
+										Short.MAX_VALUE).addGap(1)));
+		gl_panelBemerkungen.setVerticalGroup(gl_panelBemerkungen
+				.createParallelGroup(Alignment.LEADING).addGroup(
+						gl_panelBemerkungen
+								.createSequentialGroup()
+								.addComponent(lblBemerkungen)
+								.addGap(2)
+								.addComponent(sPaneBemerkungen,
+										GroupLayout.DEFAULT_SIZE, 315,
+										Short.MAX_VALUE)));
 
 		txtBemerkung = new JTextPane();
-		txtBemerkung
-				.setFont(new Font("SansSerif", txtBemerkung.getFont().getStyle(), txtBemerkung.getFont().getSize()));
+		txtBemerkung.setFont(new Font("SansSerif", txtBemerkung.getFont()
+				.getStyle(), txtBemerkung.getFont().getSize()));
 		sPaneBemerkungen.setViewportView(txtBemerkung);
 		panelBemerkungen.setLayout(gl_panelBemerkungen);
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textAnimalSuche, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(daten, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(panelBemerkungen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(1))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panelVerlauf, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-						.addComponent(panelBemerkungen, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textAnimalSuche, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(4)
-							.addComponent(daten, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)))
-					.addGap(0))
-		);
+		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(
+				Alignment.LEADING).addGroup(
+				gl_contentPanel
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_contentPanel
+										.createParallelGroup(
+												Alignment.TRAILING, false)
+										.addComponent(textAnimalSuche,
+												Alignment.LEADING,
+												GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addComponent(daten, Alignment.LEADING,
+												GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(panelVerlauf, GroupLayout.DEFAULT_SIZE,
+								168, Short.MAX_VALUE)
+						.addGap(1)
+						.addComponent(panelBemerkungen,
+								GroupLayout.DEFAULT_SIZE,
+								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(1)));
+		gl_contentPanel
+				.setVerticalGroup(gl_contentPanel
+						.createParallelGroup(Alignment.TRAILING)
+						.addGroup(
+								gl_contentPanel
+										.createSequentialGroup()
+										.addGroup(
+												gl_contentPanel
+														.createParallelGroup(
+																Alignment.TRAILING)
+														.addComponent(
+																panelVerlauf,
+																Alignment.LEADING,
+																GroupLayout.DEFAULT_SIZE,
+																331,
+																Short.MAX_VALUE)
+														.addComponent(
+																panelBemerkungen,
+																Alignment.LEADING,
+																GroupLayout.DEFAULT_SIZE,
+																331,
+																Short.MAX_VALUE)
+														.addGroup(
+																Alignment.LEADING,
+																gl_contentPanel
+																		.createSequentialGroup()
+																		.addContainerGap()
+																		.addComponent(
+																				textAnimalSuche,
+																				GroupLayout.PREFERRED_SIZE,
+																				GroupLayout.DEFAULT_SIZE,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addGap(4)
+																		.addComponent(
+																				daten,
+																				GroupLayout.PREFERRED_SIZE,
+																				286,
+																				GroupLayout.PREFERRED_SIZE)))
+										.addGap(0)));
 		panelVerlauf.setLayout(new BorderLayout(0, 0));
-		
+
 		table = new JTable(model);
 		table.setShowGrid(false);
 		table.setShowHorizontalLines(false);
 		table.setShowVerticalLines(false);
 		table.setRowMargin(0);
-		table.setIntercellSpacing(new Dimension(0,0));
+		table.setIntercellSpacing(new Dimension(0, 0));
 		table.setFillsViewportHeight(true);
-		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(model);
+		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(
+				model);
 		table.setRowSorter(sorter);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
-				if(mevent.getButton() == MouseEvent.BUTTON1 && table.getSelectedRow() != -1){
-					if(mevent.getClickCount() >= 2){
-						GUIManager.callWNewAnamnesis(false, id, model.getTDLEAt(table.getSelectedRow()).getID(), strName.getText(),strRufname.getText());
+				if (mevent.getButton() == MouseEvent.BUTTON1
+						&& table.getSelectedRow() != -1) {
+					if (mevent.getClickCount() >= 2) {
+						GUIManager.callWNewAnamnesis(false, id, model
+								.getTDLEAt(table.getSelectedRow()).getID(),
+								strName.getText(), strRufname.getText());
 					}
 				}
 			}
 		});
 		panelVerlauf.add(table);
 		contentPanel.setLayout(gl_contentPanel);
-		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][left]", "[26.00]"));
+		downPanel.setLayout(new MigLayout("",
+				"[29.00][42.00][][left][left][left]", "[26.00]"));
 
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
@@ -339,7 +408,8 @@ public class WNeuerPatient extends JInternalFrame {
 		btnNeueAnamnese = new JButton("Neue Anamnese");
 		btnNeueAnamnese.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIManager.callWNewAnamnesis(true,id, -1,strName.getText(), strRufname.getText());
+				GUIManager.callWNewAnamnesis(true, id, -1, strName.getText(),
+						strRufname.getText());
 			}
 		});
 		downPanel.add(btnNeueAnamnese, "cell 3 0");
@@ -368,12 +438,14 @@ public class WNeuerPatient extends JInternalFrame {
 					ResultSet result = searchRaceStm.executeQuery();
 
 					while (result.next()) {
-						list.add(new ACElement(result.getString(2), "", result.getLong(1), ElementType.RACE));
+						list.add(new ACElement(result.getString(2), "", result
+								.getLong(1), ElementType.RACE));
 					}
 					result.close();
 
 				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+					GUIManager.showDBErrorDialog(null,
+							Database.DBExceptionConverter(e, true));
 				}
 				return list;
 			}
@@ -407,13 +479,15 @@ public class WNeuerPatient extends JInternalFrame {
 					ResultSet result = searchAnimalStm.executeQuery();
 
 					while (result.next()) {
-						list.add(new ACElement(result.getString(1), result.getString(2), result.getLong(3),
+						list.add(new ACElement(result.getString(1), result
+								.getString(2), result.getLong(3),
 								ElementType.ANIMAL));
 					}
 					result.close();
 
 				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+					GUIManager.showDBErrorDialog(null,
+							Database.DBExceptionConverter(e, true));
 				}
 				return list;
 			}
@@ -421,8 +495,10 @@ public class WNeuerPatient extends JInternalFrame {
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
 				if (editable) {
-					if (GUIManager
-							.showYesNoDialog(getFrame(), "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Änderungen verwerfen..") == 0)
+					if (GUIManager.showYesNoDialog(getFrame(),
+							"Änderungen verwerfen ?",
+							JOptionPane.WARNING_MESSAGE,
+							"Änderungen verwerfen..") == 0)
 						return false;
 				}
 				loadData(element.getID());
@@ -442,16 +518,18 @@ public class WNeuerPatient extends JInternalFrame {
 		dateEditor = new JSpinner.DateEditor(spinBirthdate, "dd-MM-yyyy");
 		spinBirthdate.setEditor(dateEditor);
 		spinBirthdate.setValue(GUIFunctions.getDefaultDate());
-		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		spinGewicht.setModel(new SpinnerNumberModel(new Double(0), null, null,
+				new Double(1)));
 		model.setCalendarField(Calendar.MINUTE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
-		
+
 		chckbxBemerkungAnzeigen = new JCheckBox("Bemerkung anzeigen");
 		chckbxBemerkungAnzeigen.setSelected(true);
 		chckbxBemerkungAnzeigen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelBemerkungen.setVisible(chckbxBemerkungAnzeigen.isSelected());
+				panelBemerkungen.setVisible(chckbxBemerkungAnzeigen
+						.isSelected());
 			}
 		});
 		downPanel.add(chckbxBemerkungAnzeigen, "cell 5 0");
@@ -460,19 +538,24 @@ public class WNeuerPatient extends JInternalFrame {
 		try {
 			searchRaceStm = Database.prepareRaceSearchStm();
 		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+			GUIManager.showDBErrorDialog(null,
+					Database.DBExceptionConverter(e, true));
 		}
 
 		setEditable();
-		
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{textAnimalSuche,strName,strRufname,textRasse,enumGeschlecht,spinBirthdate,strFarbe,spinGewicht,textIdentifizierung,btnOk}));
 
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
+				textAnimalSuche, strName, strRufname, textRasse,
+				enumGeschlecht, spinBirthdate, strFarbe, spinGewicht,
+				textIdentifizierung, btnOk }));
 
 		this.pack();
 		try {
-			searchAnimalStm = Database.prepareStm(Database.getAnimalSearchStm());
+			searchAnimalStm = Database
+					.prepareStm(Database.getAnimalSearchStm());
 		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			GUIManager.showDBErrorDialog(this,
+					Database.DBExceptionConverter(e, true));
 		}
 
 		loadData();
@@ -481,19 +564,35 @@ public class WNeuerPatient extends JInternalFrame {
 	private void updateTitle(String name, String rufname) {
 		this.setTitle("Patient - " + name + " " + rufname);
 	}
-	
-	private void loadHistoryData(){
-		if(id != -1){
-			try {
-				model.clearElements();
-				ResultSet rs = Database.getPatientRData(id);
-				while(rs.next()){
-					model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
+
+	private void loadHistoryData() {
+		if (id != -1) {
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+
+							try {
+								model.clearElements();
+								ResultSet rs = Database.getPatientRData(id);
+								while (rs.next()) {
+									model.add(new TDListElement(rs.getLong(1),
+											rs.getInt(3) == 0 ? LEType.TYPE_A
+													: LEType.TYPE_B, rs
+													.getDate(2)));
+								}
+								rs.close();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(),
+										Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
 				}
-				rs.close();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
-			}
+			});
 		}
 	}
 
@@ -504,26 +603,40 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void loadData() {
 		if (id != -1) {
-			try {
-				ResultSet result = Database.getAnimal(id);
-				result.next();
-				strName.setText(result.getString(1));
-				strRufname.setText(result.getString(2));
-				textIdentifizierung.setText(result.getString(3));
-				strFarbe.setText(result.getString(4));
-				spinGewicht.setValue(result.getDouble(5));
-				spinBirthdate.setValue(result.getDate(6));
-				enumGeschlecht.setSelectedItem(result.getBoolean(7) == true ? geschlecht_lokalisiert[1]
-						: geschlecht_lokalisiert[2]);
-				logger.debug("picID: {}", result.getString(9));
-				txtBemerkung.setText(result.getString(8));
-				textRasse.overrideText(result.getString(11));
-				updateTitle(result.getString(1), result.getString(2));
-				result.close();
-				loadHistoryData();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
-			}
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								ResultSet result = Database.getAnimal(id);
+								result.next();
+								strName.setText(result.getString(1));
+								strRufname.setText(result.getString(2));
+								textIdentifizierung.setText(result.getString(3));
+								strFarbe.setText(result.getString(4));
+								spinGewicht.setValue(result.getDouble(5));
+								spinBirthdate.setValue(result.getDate(6));
+								enumGeschlecht.setSelectedItem(result
+										.getBoolean(7) == true ? geschlecht_lokalisiert[1]
+										: geschlecht_lokalisiert[2]);
+								logger.debug("picID: {}", result.getString(9));
+								txtBemerkung.setText(result.getString(8));
+								textRasse.overrideText(result.getString(11));
+								updateTitle(result.getString(1),
+										result.getString(2));
+								result.close();
+								loadHistoryData();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(),
+										Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
 		}
 	}
 
@@ -532,9 +645,6 @@ public class WNeuerPatient extends JInternalFrame {
 	 * 
 	 * @return
 	 */
-	private WNeuerPatient getFrame() {
-		return this;
-	}
 
 	/**
 	 * Load data with a new ID, wrapper for search event handler
@@ -549,6 +659,7 @@ public class WNeuerPatient extends JInternalFrame {
 
 	/**
 	 * ReSet editable for all input elements
+	 * 
 	 * @author "Aron Heinecke"
 	 */
 	private void setEditable() {
@@ -587,11 +698,12 @@ public class WNeuerPatient extends JInternalFrame {
 		}
 		Database.closePStatement(searchRaceStm);
 		Database.closePStatement(searchAnimalStm);
-		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
+		((ActionMap) UIManager.getLookAndFeelDefaults().get(
+				"InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-	
+
 	/**
 	 * add a patient
 	 * 
@@ -600,20 +712,41 @@ public class WNeuerPatient extends JInternalFrame {
 	private void addPatient() {
 		// TODO: add picture support
 		if (allSet()) {
-			GenderEnumObj gender = (GenderEnumObj) enumGeschlecht.getSelectedItem();
-			try {
-				id = Database
-						.insertPatient(strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
-								.getText(), (double) spinGewicht.getValue(), new java.sql.Date(
-								((Date) spinBirthdate.getValue()).getTime()), gender.getType() == GenderType.FEMALE, textRasse
-								.getText(), txtBemerkung.getText(), null);
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				DBError error = Database.DBExceptionConverter(e);
-				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
-			}
-		}else{
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							GenderEnumObj gender = (GenderEnumObj) enumGeschlecht
+									.getSelectedItem();
+							try {
+								id = Database.insertPatient(
+										strName.getText(),
+										strRufname.getText(),
+										textIdentifizierung.getText(),
+										strFarbe.getText(),
+										(double) spinGewicht.getValue(),
+										new java.sql.Date(((Date) spinBirthdate
+												.getValue()).getTime()),
+										gender.getType() == GenderType.FEMALE,
+										textRasse.getText(), txtBemerkung
+												.getText(), null);
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								DBError error = Database
+										.DBExceptionConverter(e);
+								GUIManager.showErrorDialog(getFrame(),
+										"Error during insertion: " + error,
+										"Insertion error");
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
+		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
 	}
@@ -625,45 +758,68 @@ public class WNeuerPatient extends JInternalFrame {
 	 */
 	private void updatePatient() {
 		if (allSet()) {
-			try {
-				Database.updatePatient(id, strName.getText(), strRufname.getText(), textIdentifizierung.getText(), strFarbe
-						.getText(), (double) spinGewicht.getValue(), new java.sql.Date(
-						((Date) spinBirthdate.getValue()).getTime()), ((GenderEnumObj) enumGeschlecht.getSelectedItem())
-						.getType() == GenderType.FEMALE, textRasse.getText(), txtBemerkung.getText(), null);
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				DBError error = Database.DBExceptionConverter(e);
-				GUIManager.showErrorDialog(this, "Error during insertion: " + error, "Insertion error");
-			}
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								Database.updatePatient(
+										id,
+										strName.getText(),
+										strRufname.getText(),
+										textIdentifizierung.getText(),
+										strFarbe.getText(),
+										(double) spinGewicht.getValue(),
+										new java.sql.Date(((Date) spinBirthdate
+												.getValue()).getTime()),
+										((GenderEnumObj) enumGeschlecht
+												.getSelectedItem()).getType() == GenderType.FEMALE,
+										textRasse.getText(), txtBemerkung
+												.getText(), null);
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								DBError error = Database
+										.DBExceptionConverter(e);
+								GUIManager.showErrorDialog(getFrame(),
+										"Error during insertion: " + error,
+										"Insertion error");
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
 	}
-	
-	private boolean allSet(){
-		if(strName.getText().isEmpty())
+
+	private boolean allSet() {
+		if (strName.getText().isEmpty())
 			return false;
-		if(textRasse.getText().equals(""))
+		if (textRasse.getText().equals(""))
 			return false;
-		if(enumGeschlecht.equals(GenderType.UNKNOWN))
+		if (enumGeschlecht.equals(GenderType.UNKNOWN))
 			return false;
-		if (((double)spinGewicht.getValue()) == 0.0)
-		    return false;
+		if (((double) spinGewicht.getValue()) == 0.0)
+			return false;
 		if (strRufname.getText().isEmpty())
 			return false;
 		if (strRufname.getText().length() > 20)
-		    return false;
-	    if (strName.getText().length() > 50)
-	        return false;
-        if (strFarbe.getText().length() > 20)
-            return false;
-        if (textIdentifizierung.getText().length() > 30)
-            return false;
-        if (txtBemerkung.getText().toString().length() > 100)
-            return false;
-        if (GUIFunctions.compareSpinnerDates(spinBirthdate.getValue()))
-        	return false;
+			return false;
+		if (strName.getText().length() > 50)
+			return false;
+		if (strFarbe.getText().length() > 20)
+			return false;
+		if (textIdentifizierung.getText().length() > 30)
+			return false;
+		if (txtBemerkung.getText().toString().length() > 100)
+			return false;
+		if (GUIFunctions.compareSpinnerDates(spinBirthdate.getValue()))
+			return false;
 		return true;
 	}
 
