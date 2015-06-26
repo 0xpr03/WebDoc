@@ -378,7 +378,7 @@ public class Database{
 	/**
 	 * Get AnimalThreatment
 	 * @param PetThreatmentID
-	 * @return ResultSet of ThreatmentID,AnimalID,amount,PartnerID,datetime,comment
+	 * @return ResultSet of ThreatmentID,amount,PartnerID,datetime,comment
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
