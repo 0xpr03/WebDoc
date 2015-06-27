@@ -83,7 +83,7 @@ public class PatientTableModel extends AbstractTableModel {
     		value = tdl.getDate();
     		break;
     	case 1:
-    		value = tdl.getType() == LEType.TYPE_A ? "Anamn" : "Threat";
+    		value = tdl.getType() == LEType.TYPE_A ? "Anamnesis" : "Threatment";
     		break;
     	}
     	return value;
