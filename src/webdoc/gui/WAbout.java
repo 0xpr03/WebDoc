@@ -8,11 +8,13 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,10 +26,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import webdoc.webdoc.Config;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Rectangle;
-import javax.swing.UIManager;
 
 /**
  * About window
@@ -69,35 +67,41 @@ public class WAbout extends JDialog {
 		}
 		{
 			JPanel panelAbout = new JPanel();
+			panelAbout.setBorder(null);
 			panelAbout.setBackground(Color.WHITE);
 			tabbedPane.addTab("About", null, panelAbout, null);
 			panelAbout.setLayout(new BoxLayout(panelAbout, BoxLayout.X_AXIS));
 			{
 				JPanel jpanel = new JPanel();
-				jpanel.setOpaque(false);
+				jpanel.setBackground(Color.WHITE);
 				jpanel.setLayout(new BorderLayout(0, 0));
-				JLabel lblwebdoc = new JLabel("<html><div style=\"borderl-left: 5px\"><br>WebDoc<br><br>Version %v<br></div></html>".replace("%v", Config.getStrValue("version")));
-				lblwebdoc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+				JLabel lblwebdoc = new JLabel("<html>WebDoc<br><br>Version: %v<br><br>Written by<br>Aron Heinecke (aron.heinecke@t-online.de)<br>Jonathan Peper</div><br><br>For license details please see under \"License\"</html>".replace("%v", Config.getStrValue("version")));
+				lblwebdoc.setOpaque(true);
+				lblwebdoc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 				lblwebdoc.setAlignmentY(0.0f);
 				lblwebdoc.setBackground(Color.WHITE);
 				lblwebdoc.setVerticalAlignment(SwingConstants.TOP);
-				jpanel.add(lblwebdoc);
+				JScrollPane scrollPane = new JScrollPane(lblwebdoc);
+				scrollPane.setOpaque(false);
+				scrollPane.setBorder(null);
+				scrollPane.setBackground(Color.WHITE);
 				{
-					Component placeHolder = Box.createHorizontalStrut(5);
+					Component placeHolder = Box.createHorizontalStrut(10);
 					jpanel.add(placeHolder, BorderLayout.WEST);
 				}
 				{
-					Component placeHolder = Box.createHorizontalStrut(5);
-					jpanel.add(placeHolder, BorderLayout.WEST);
+					Component placeHolder = Box.createVerticalStrut(10);
+					jpanel.add(placeHolder, BorderLayout.NORTH);
 				}
 				{
 					Component placeHolder = Box.createHorizontalStrut(5);
-					jpanel.add(placeHolder, BorderLayout.WEST);
+					jpanel.add(placeHolder, BorderLayout.EAST);
 				}
 				{
-					Component placeHolder = Box.createHorizontalStrut(5);
-					jpanel.add(placeHolder, BorderLayout.WEST);
+					Component placeHolder = Box.createVerticalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.SOUTH);
 				}
+				jpanel.add(scrollPane);
 				panelAbout.add(jpanel);
 			}
 		}
@@ -129,11 +133,11 @@ public class WAbout extends JDialog {
 					jpanel.add(placeHolder, BorderLayout.WEST);
 				}
 				{
-					Component placeHolder = Box.createHorizontalStrut(4);
+					Component placeHolder = Box.createVerticalStrut(4);
 					jpanel.add(placeHolder, BorderLayout.SOUTH);
 				}
 				{
-					Component placeHolder = Box.createHorizontalStrut(5);
+					Component placeHolder = Box.createVerticalStrut(5);
 					jpanel.add(placeHolder, BorderLayout.NORTH);
 				}
 				{
@@ -144,10 +148,11 @@ public class WAbout extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(null);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JLabel lblCopyrightWebdoc = new JLabel("Copyright 2015 WebDoc group");
+				JLabel lblCopyrightWebdoc = new JLabel("Copyright © 2015 WebDoc group");
 				buttonPane.add(lblCopyrightWebdoc);
 			}
 			{
