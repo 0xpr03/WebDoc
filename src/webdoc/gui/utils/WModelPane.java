@@ -4,12 +4,10 @@
  * are made available under the terms of the WebDoc license.
  * Available inside this binary and at http://webdoc.proctet.net/license.txt
  *******************************************************************************/
-package webdoc.gui;
+package webdoc.gui.utils;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JProgressBar;
-
-import webdoc.gui.utils.DisabledGlassPane;
 
 public class WModelPane extends JInternalFrame {
 	private DisabledGlassPane glassPane = new DisabledGlassPane();

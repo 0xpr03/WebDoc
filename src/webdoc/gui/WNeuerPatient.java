@@ -62,6 +62,7 @@ import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.gui.utils.PatientTableModel;
 import webdoc.gui.utils.TDListElement;
+import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.TDListElement.LEType;
 import webdoc.lib.Database;
 import webdoc.lib.Database.DBError;

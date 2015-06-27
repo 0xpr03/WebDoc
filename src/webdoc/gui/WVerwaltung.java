@@ -26,6 +26,7 @@ import javax.swing.JList;
 
 import java.awt.BorderLayout;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.WModelPane;
 
 public class WVerwaltung extends WModelPane {
 
