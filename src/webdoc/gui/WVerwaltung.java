@@ -25,11 +25,14 @@ import java.awt.Dimension;
 import javax.swing.JList;
 
 import java.awt.BorderLayout;
+
+import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.JSearchTextField;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
 import webdoc.gui.utils.WModelPane;
+import webdoc.gui.utils.EnumObject.EnumType;
 
 
 public class WVerwaltung extends WModelPane {
@@ -41,7 +44,7 @@ public class WVerwaltung extends WModelPane {
 	private JButton btnSchliesen;
 	private JButton btnNeueBehandlungsart;
 	private JPanel panel_2;
-	private JComboBox cBAuswahl;
+	private JComboBox<EnumObject> cBAuswahl;
 	private JSearchTextField searchTextField;
 	public WVerwaltung() {
 		
@@ -85,8 +88,8 @@ public class WVerwaltung extends WModelPane {
 		
 		searchTextField = new JSearchTextField(false);
 		
-		cBAuswahl = new JComboBox();
-		cBAuswahl.setModel(new DefaultComboBoxModel(new String[] {"Behandlungsarten", "Patienten", "Partner"}));
+		cBAuswahl = new JComboBox<EnumObject>();
+		cBAuswahl.setModel((new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Behandlungsarten", EnumType.A), new EnumObject("Patienten", EnumType.A), new EnumObject("Partner", EnumType.A)})));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.TRAILING)
