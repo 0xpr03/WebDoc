@@ -573,87 +573,110 @@ public class WNeuerPartner extends WModelPane {
 	 */
 	private void loadData() {
 		if (id != -1) {
-			try {
-				{
-					ResultSet rs = Database.getPartner(id);
-					rs.next();
-					textName.setText(rs.getString(1));
-					textVorname.setText(rs.getString(2));
-					spinGebdatum.setValue(rs.getDate(3));
-					textTitel.setText(rs.getString(4));
-					textComment.setText(rs.getString(5));
-					rs.close();
-				}
-				updateTitle(textVorname.getText(),textName.getText());
-				getPRID();
-				
-				if(partnerroleid != -1) {
-					{
-						ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
-						rs.next();
-						textPostleitzahl.setText(String.valueOf(rs.getInt(1)));
-						textOrt.setText(rs.getString(2));
-						textOrtsteil.setText(rs.getString(3));
-						textHausnummer.setText(String.valueOf(rs.getShort(4)));
-						textStraße.setText(rs.getString(5));
-						textZusatz.setText(rs.getString(6));
-						textEmail.setText(rs.getString(7));
-						rs.close();
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								{
+									ResultSet rs = Database.getPartner(id);
+									rs.next();
+									textName.setText(rs.getString(1));
+									textVorname.setText(rs.getString(2));
+									spinGebdatum.setValue(rs.getDate(3));
+									textTitel.setText(rs.getString(4));
+									textComment.setText(rs.getString(5));
+									rs.close();
+								}
+								updateTitle(textVorname.getText(),textName.getText());
+								getPRID();
+								
+								if(partnerroleid != -1) {
+									{
+										ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
+										rs.next();
+										textPostleitzahl.setText(String.valueOf(rs.getInt(1)));
+										textOrt.setText(rs.getString(2));
+										textOrtsteil.setText(rs.getString(3));
+										textHausnummer.setText(String.valueOf(rs.getShort(4)));
+										textStraße.setText(rs.getString(5));
+										textZusatz.setText(rs.getString(6));
+										textEmail.setText(rs.getString(7));
+										rs.close();
+									}
+									{
+										PreparedStatement stm = Database.prepareTelecommSelectStm();
+										{
+											stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
+											stm.setLong(2, partnerroleid);
+											ResultSet rs = stm.executeQuery();
+											rs.next();
+											textTelefon.setText(rs.getString(1));
+											rs.close();
+										}
+										{
+											stm.clearParameters();
+											stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
+											stm.setLong(2, partnerroleid);
+											ResultSet rs = stm.executeQuery();
+											rs.next();
+											textHandy.setText(rs.getString(1));
+											rs.close();
+										}
+										{
+											stm.clearParameters();
+											stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
+											stm.setLong(2, partnerroleid);
+											ResultSet rs = stm.executeQuery();
+											rs.next();
+											textFax.setText(rs.getString(1));
+											rs.close();
+										}
+									}
+								}
+								loadAnimals();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e));
+							}
+						setGlassPaneVisible(false);
 					}
-					{
-						PreparedStatement stm = Database.prepareTelecommSelectStm();
-						{
-							stm.setLong(1, Config.getLongValue("COMM_PHONE_ID"));
-							stm.setLong(2, partnerroleid);
-							ResultSet rs = stm.executeQuery();
-							rs.next();
-							textTelefon.setText(rs.getString(1));
-							rs.close();
-						}
-						{
-							stm.clearParameters();
-							stm.setLong(1, Config.getLongValue("COMM_MOBILE_ID"));
-							stm.setLong(2, partnerroleid);
-							ResultSet rs = stm.executeQuery();
-							rs.next();
-							textHandy.setText(rs.getString(1));
-							rs.close();
-						}
-						{
-							stm.clearParameters();
-							stm.setLong(1, Config.getLongValue("COMM_FAX_ID"));
-							stm.setLong(2, partnerroleid);
-							ResultSet rs = stm.executeQuery();
-							rs.next();
-							textFax.setText(rs.getString(1));
-							rs.close();
-						}
-					}
-				}
-				loadAnimals();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e));
+				});
+				t.start();
 			}
+			});
 		}
+						
 	}
 	
 	/**
 	 * Load animals related to the partnerid
 	 */
 	private void loadAnimals(){
-		try {
-			// @formatter:off
-			ResultSet rs = Database.getPartnerAnimals(id);
-			DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
-			model.clear();
-			while(rs.next()){
-				logger.debug("found another linked animal");
-				model.addElement(new ACElement(rs.getString(2), rs.getLong(1), ElementType.ANIMAL));
+		setGlassPaneVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					public void run() {
+				try {
+					// @formatter:off
+					ResultSet rs = Database.getPartnerAnimals(id);
+					DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
+					model.clear();
+					while(rs.next()){
+						logger.debug("found another linked animal");
+						model.addElement(new ACElement(rs.getString(2), rs.getLong(1), ElementType.ANIMAL));
+					}
+					// @formatter:on
+				} catch (SQLException e) {
+					GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+				}
+				setGlassPaneVisible(false);
 			}
-			// @formatter:on
-		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+		});
+		t.start();
 		}
+		});
 	}
 
 	/**
