@@ -24,6 +24,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import webdoc.webdoc.Config;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Rectangle;
+import javax.swing.UIManager;
 
 /**
  * About window
@@ -54,7 +58,7 @@ public class WAbout extends JDialog {
 	public WAbout() {
 		setAlwaysOnTop(true);
 		setResizable(false);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 322);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -69,12 +73,32 @@ public class WAbout extends JDialog {
 			tabbedPane.addTab("About", null, panelAbout, null);
 			panelAbout.setLayout(new BoxLayout(panelAbout, BoxLayout.X_AXIS));
 			{
+				JPanel jpanel = new JPanel();
+				jpanel.setOpaque(false);
+				jpanel.setLayout(new BorderLayout(0, 0));
 				JLabel lblwebdoc = new JLabel("<html><div style=\"borderl-left: 5px\"><br>WebDoc<br><br>Version %v<br></div></html>".replace("%v", Config.getStrValue("version")));
 				lblwebdoc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
 				lblwebdoc.setAlignmentY(0.0f);
 				lblwebdoc.setBackground(Color.WHITE);
 				lblwebdoc.setVerticalAlignment(SwingConstants.TOP);
-				panelAbout.add(lblwebdoc);
+				jpanel.add(lblwebdoc);
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.WEST);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.WEST);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.WEST);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.WEST);
+				}
+				panelAbout.add(jpanel);
 			}
 		}
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -95,7 +119,27 @@ public class WAbout extends JDialog {
 				JScrollPane scrollPane = new JScrollPane(lblNewLabel);
 				scrollPane.setBorder(null);
 				scrollPane.setBackground(Color.WHITE);
-				panelCopyright.add(scrollPane);
+				JPanel jpanel = new JPanel();
+				jpanel.setOpaque(false);
+				jpanel.setLayout(new BorderLayout(0, 0));
+				jpanel.add(scrollPane, BorderLayout.CENTER);
+				panelCopyright.add(jpanel);
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.WEST);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(4);
+					jpanel.add(placeHolder, BorderLayout.SOUTH);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.NORTH);
+				}
+				{
+					Component placeHolder = Box.createHorizontalStrut(5);
+					jpanel.add(placeHolder, BorderLayout.EAST);
+				}
 			}
 		}
 		{
