@@ -32,8 +32,6 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import net.miginfocom.swing.MigLayout;
@@ -312,7 +310,7 @@ public class WNeueBehandlung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl
+								id = Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl
 										.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
 								editable = false;
 								setEditable();
@@ -345,7 +343,6 @@ public class WNeueBehandlung extends WModelPane {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
 						try {
-
 							ResultSet rs = Database.getThreatment(id);
 							rs.next();
 							tFTName.setText(rs.getString(1));
