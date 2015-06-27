@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="archive/|archive/REAME.md|webdoc/test/" kind="src" path="src"/>
+	<classpathentry excluding="archive/|archive/REAME.md|webdoc/gui/WVerwaltung.java|webdoc/test/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="mariadb-java-client-1.1.8.jar">
 		<attributes>
