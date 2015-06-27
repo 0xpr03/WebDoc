@@ -35,6 +35,7 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
@@ -50,7 +51,7 @@ import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
-public class WNeueAnamnese extends JInternalFrame {
+public class WNeueAnamnese extends WModelPane {
 
 	private static final long serialVersionUID = -2774049861485506927L;
 	private Logger logger = LogManager.getLogger();
@@ -1007,90 +1008,101 @@ public class WNeueAnamnese extends JInternalFrame {
 
 	private void loadData() {
 		if (anamnesisID != -1) {
-			try {
-				ResultSet rs = Database.getAnamnesis(anamnesisID);
-				if (rs.next()) {
-					tPVerwendungszweck.setText(rs.getString(1));
-					int n = 2;
-					tFHalltung.setText(rs.getString(n));
-					n++;
-					spinBirthdate_1.setValue(rs.getDate(n));
-					n++;
-					tPTierStammtVon.setText(rs.getString(n));
-					n++;
-					tPAenderungenFamilie.setText(rs.getString(n));
-					n++;
-					tPAuslandsaufenthalte.setText(rs.getString(n));
-					n++;
-					tPVerhaltensaufaeligkeiten.setText(rs.getString(n));
-					n++;
-					tPVerletzungen.setText(rs.getString(n));
-					n++;
-					tPNarben.setText(rs.getString(n));
-					n++;
-					tPInfektionen.setText(rs.getString(n));
-					n++;
-					tPImpfungen.setText(rs.getString(n));
-					n++;
-					tPAtmung.setText(rs.getString(n));
-					n++;
-					tPVerdauung.setText(rs.getString(n));
-					n++;
-					tpEndokrinium.setText(rs.getString(n));
-					n++;
-					tPSchilddruese.setText(rs.getString(n));
-					n++;
-					tPBauchspeicheldruese.setText(rs.getString(n));
-					n++;
-					tPZNS.setText(rs.getString(n));
-					n++;
-					cBEpiAnfaelle.setSelectedIndex(rs.getInt(n)-1);
-					n++;
-					tPMedikamente.setText(rs.getString(n));
-					n++;
-					tPRoentgen.setText(rs.getString(n));
-					n++;
-					tPCTMRT.setText(rs.getString(n));
-					n++;
-					tPHauptproblem.setText(rs.getString(n));
-					n++;
-					tPSchilderung.setText(rs.getString(n));
-					n++;
-					tPUnternommen.setText(rs.getString(n));
-					n++;
-					cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
-					n++;
-					cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
-					n++;
-					tPSchmerzmittel.setText(rs.getString(n));
-					n++;
-					tPVerusachenSchmerzen.setText(rs.getString(n));
-					n++;
-					tPFunktionenMotorik.setText(rs.getString(n));
-					n++;
-					cBKöperteilBewegen.setSelectedIndex(rs.getInt(n));
-					n++;
-					spGehstrecke.setValue(rs.getDouble(n));
-					n++;
-					spGehzeit.setValue(rs.getTime(n));
-					n++;
-					cBWitterung.setSelectedIndex(rs.getInt(n));
-					n++;
-					cBZyklus.setSelectedIndex(rs.getInt(n));
-					n++;
-					spAuslauf.setValue(rs.getDouble(n));
-					n++;
-					spavailTimeCons.setValue(rs.getTime(n));
-					n++;
-					tPBemerkungen.setText(rs.getString(n));
-					n++;
-					tPHerzKreislauf.setText(rs.getString(n));
-					n++;
-				}
-				rs.close();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								ResultSet rs = Database.getAnamnesis(anamnesisID);
+								if (rs.next()) {
+									tPVerwendungszweck.setText(rs.getString(1));
+									int n = 2;
+									tFHalltung.setText(rs.getString(n));
+									n++;
+									spinBirthdate_1.setValue(rs.getDate(n));
+									n++;
+									tPTierStammtVon.setText(rs.getString(n));
+									n++;
+									tPAenderungenFamilie.setText(rs.getString(n));
+									n++;
+									tPAuslandsaufenthalte.setText(rs.getString(n));
+									n++;
+									tPVerhaltensaufaeligkeiten.setText(rs.getString(n));
+									n++;
+									tPVerletzungen.setText(rs.getString(n));
+									n++;
+									tPNarben.setText(rs.getString(n));
+									n++;
+									tPInfektionen.setText(rs.getString(n));
+									n++;
+									tPImpfungen.setText(rs.getString(n));
+									n++;
+									tPAtmung.setText(rs.getString(n));
+									n++;
+									tPVerdauung.setText(rs.getString(n));
+									n++;
+									tpEndokrinium.setText(rs.getString(n));
+									n++;
+									tPSchilddruese.setText(rs.getString(n));
+									n++;
+									tPBauchspeicheldruese.setText(rs.getString(n));
+									n++;
+									tPZNS.setText(rs.getString(n));
+									n++;
+									cBEpiAnfaelle.setSelectedIndex(rs.getInt(n)-1);
+									n++;
+									tPMedikamente.setText(rs.getString(n));
+									n++;
+									tPRoentgen.setText(rs.getString(n));
+									n++;
+									tPCTMRT.setText(rs.getString(n));
+									n++;
+									tPHauptproblem.setText(rs.getString(n));
+									n++;
+									tPSchilderung.setText(rs.getString(n));
+									n++;
+									tPUnternommen.setText(rs.getString(n));
+									n++;
+									cBSchmerzempfindlichkeit.setSelectedIndex(rs.getInt(n));
+									n++;
+									cBDenkenSchmerzen.setSelectedIndex(rs.getInt(n));
+									n++;
+									tPSchmerzmittel.setText(rs.getString(n));
+									n++;
+									tPVerusachenSchmerzen.setText(rs.getString(n));
+									n++;
+									tPFunktionenMotorik.setText(rs.getString(n));
+									n++;
+									cBKöperteilBewegen.setSelectedIndex(rs.getInt(n));
+									n++;
+									spGehstrecke.setValue(rs.getDouble(n));
+									n++;
+									spGehzeit.setValue(rs.getTime(n));
+									n++;
+									cBWitterung.setSelectedIndex(rs.getInt(n));
+									n++;
+									cBZyklus.setSelectedIndex(rs.getInt(n));
+									n++;
+									spAuslauf.setValue(rs.getDouble(n));
+									n++;
+									spavailTimeCons.setValue(rs.getTime(n));
+									n++;
+									tPBemerkungen.setText(rs.getString(n));
+									n++;
+									tPHerzKreislauf.setText(rs.getString(n));
+									n++;
+								}
+								rs.close();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
 			}
+		});
 		}
 	}
 
@@ -1100,48 +1112,59 @@ public class WNeueAnamnese extends JInternalFrame {
 	 * @author "Aron Heinecke"
 	 * @param insert
 	 */
-	private void saveData(boolean insert) {
+	private void saveData(final boolean insert) {
 		if (allSet()) {
-			try {
-				AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID).purpose(tPVerwendungszweck.getText())
-						.keeping(tFHalltung.getText())
-						.anamnesisID(anamnesisID)
-						.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
-						.origin(tPTierStammtVon.getText()).familystrchanges(tPAenderungenFamilie.getText())
-						.abroadstays(tPAuslandsaufenthalte.getText())
-						.attitudeconspicuity(tPVerhaltensaufaeligkeiten.getText()).injurys(tPVerletzungen.getText())
-						.scars(tPNarben.getText()).infectiousDisease(tPInfektionen.getText())
-						.regularVaccinations(tPImpfungen.getText()).breathing(tPAtmung.getText())
-						.digestiveTract(tPVerdauung.getText()).endocrineSystem(tpEndokrinium.getText())
-						.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
-						.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
-						.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
-						.mainproblem(tPHauptproblem.getText()).descrPatientOwner(tPSchilderung.getText())
-						.wasUndertaken(tPUnternommen.getText())
-						.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
-						.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
-						.painkillerReaction(tPSchmerzmittel.getText())
-						.motionCausingPain(tPVerusachenSchmerzen.getText())
-						.motorInterference(tPFunktionenMotorik.getText())
-						.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
-						.possibleWalkDistance((double) spGehstrecke.getValue())
-						.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
-						.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
-						.cycleCorrelation(getEnumType(cBZyklus.getSelectedItem()))
-						.outlet((double) spAuslauf.getValue())
-						.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue())
-						.getTime()))
-						.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText())
-						.build();
-				if (insert)
-					anamnesisID = Database.insertAnamnesis(anamnesis);
-				else
-					Database.updateAnamnesis(anamnesis);
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								AnamnesisBP anamnesis = new AnamnesisBP.Builder(animalID).purpose(tPVerwendungszweck.getText())
+										.keeping(tFHalltung.getText())
+										.anamnesisID(anamnesisID)
+										.possesionsince(new java.sql.Date(((Date) spinBirthdate_1.getValue()).getTime()))
+										.origin(tPTierStammtVon.getText()).familystrchanges(tPAenderungenFamilie.getText())
+										.abroadstays(tPAuslandsaufenthalte.getText())
+										.attitudeconspicuity(tPVerhaltensaufaeligkeiten.getText()).injurys(tPVerletzungen.getText())
+										.scars(tPNarben.getText()).infectiousDisease(tPInfektionen.getText())
+										.regularVaccinations(tPImpfungen.getText()).breathing(tPAtmung.getText())
+										.digestiveTract(tPVerdauung.getText()).endocrineSystem(tpEndokrinium.getText())
+										.hyperthyroidism(tPSchilddruese.getText()).pancreas(tPBauchspeicheldruese.getText())
+										.ZNS(tPZNS.getText()).epileptiformAttacks(getEnumType(cBEpiAnfaelle.getSelectedItem()))
+										.xray(tPRoentgen.getText()).medication(tPMedikamente.getText()).CT_MRT(tPCTMRT.getText())
+										.mainproblem(tPHauptproblem.getText()).descrPatientOwner(tPSchilderung.getText())
+										.wasUndertaken(tPUnternommen.getText())
+										.painSensitivity(getEnumType(cBSchmerzempfindlichkeit.getSelectedItem()))
+										.patientHasPain(getEnumType(cBDenkenSchmerzen.getSelectedItem()))
+										.painkillerReaction(tPSchmerzmittel.getText())
+										.motionCausingPain(tPVerusachenSchmerzen.getText())
+										.motorInterference(tPFunktionenMotorik.getText())
+										.bodyPartUsagePossible(getEnumType(cBKöperteilBewegen.getSelectedItem()))
+										.possibleWalkDistance((double) spGehstrecke.getValue())
+										.possibleWalkDuration(new java.sql.Time(((Date) spGehzeit.getValue()).getTime()))
+										.weatherDependent(getEnumType(cBWitterung.getSelectedItem()))
+										.cycleCorrelation(getEnumType(cBZyklus.getSelectedItem()))
+										.outlet((double) spAuslauf.getValue())
+										.availableTimeCons(new java.sql.Time(((Date) spavailTimeCons.getValue())
+										.getTime()))
+										.comment(tPBemerkungen.getText()).circulation(tPHerzKreislauf.getText())
+										.build();
+								if (insert)
+									anamnesisID = Database.insertAnamnesis(anamnesis);
+								else
+									Database.updateAnamnesis(anamnesis);
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
 			}
+			});
 		} else {
 			GUIManager.showFieldErrorDialog(this);
 		}
@@ -1162,9 +1185,6 @@ public class WNeueAnamnese extends JInternalFrame {
 		return ((EnumObject) obj).getType().getType();
 	}
 
-	private Component getFrame() {
-		return this;
-	}
 
 	private boolean allSet() {
 		if (tPAenderungenFamilie.getText().length() > 26)
@@ -1201,12 +1221,5 @@ public class WNeueAnamnese extends JInternalFrame {
 			return false;
 		return true;
 	}
-	private boolean invalidDouble(String s){
-		try{
-			Double.parseDouble(s);
-			return false;
-		}catch(NumberFormatException e){
-			return true;
-		}
-	}
+
 }

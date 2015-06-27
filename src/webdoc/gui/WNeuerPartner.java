@@ -806,14 +806,6 @@ public class WNeuerPartner extends WModelPane {
 		GUIManager.dropJID(this);
 	}
 	
-	private boolean invalidInt(String s){
-		try{
-			Integer.parseInt(s);
-			return false;
-		}catch(NumberFormatException e){
-			return true;
-		}
-	}
 	
 	private boolean allSet() {
 		if (textVorname.equals(""))

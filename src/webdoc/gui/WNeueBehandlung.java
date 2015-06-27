@@ -336,19 +336,31 @@ public class WNeueBehandlung extends WModelPane {
 	 * @param id
 	 * @author "Aron Heinecke"
 	 */
-	private void updateThreatment(long id){
-		try{
-			ResultSet rs = Database.getThreatment(id);
-			rs.next();
-			tFTName.setText(rs.getString(1));
-			tFstückPreis.setText(rs.getString(2));
-			
-			threatmentID = id;
-			rs.close();
-		} catch (SQLException e) {
-			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+	private void updateThreatment(final long id){
+		setGlassPaneVisible(true);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				Thread t = new Thread(new Runnable() {
+					public void run() {
+						try{
+							
+							ResultSet rs = Database.getThreatment(id);
+							rs.next();
+							tFTName.setText(rs.getString(1));
+							tFstückPreis.setText(rs.getString(2));
+							
+							threatmentID = id;
+							rs.close();
+						} catch (SQLException e) {
+							GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+						}
+								setGlassPaneVisible(false);
+							}
+						});
+		t.start();
 		}
-	}
+		});
+			}
 	
 	@Override
 	public void dispose() {
