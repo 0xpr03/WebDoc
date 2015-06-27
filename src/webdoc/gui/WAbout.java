@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -80,14 +81,21 @@ public class WAbout extends JDialog {
 		contentPanel.add(tabbedPane, BorderLayout.CENTER);
 		{
 			JPanel panelCopyright = new JPanel();
+			panelCopyright.setBorder(null);
 			panelCopyright.setBackground(Color.WHITE);
 			tabbedPane.addTab("3rd Librarys", null, panelCopyright, null);
 			panelCopyright.setLayout(new BoxLayout(panelCopyright, BoxLayout.X_AXIS));
 			{
 				JLabel lblNewLabel = new JLabel("<html><b>Used librarys:</b><br><br><li>eclipse mig layout<br><br><li>mariafoundation JDBC<br><br><li>Apache HttpComponents<br><br><li>SnakeYAML<br><br><li>Log4j<br><br><li>Json Simple<br><br></html>");
+				lblNewLabel.setOpaque(true);
+				lblNewLabel.setBorder(null);
+				lblNewLabel.setBackground(Color.WHITE);
 				lblNewLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,14));
 				lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-				panelCopyright.add(lblNewLabel);
+				JScrollPane scrollPane = new JScrollPane(lblNewLabel);
+				scrollPane.setBorder(null);
+				scrollPane.setBackground(Color.WHITE);
+				panelCopyright.add(scrollPane);
 			}
 		}
 		{
