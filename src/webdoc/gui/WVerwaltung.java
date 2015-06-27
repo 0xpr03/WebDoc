@@ -26,6 +26,9 @@ import javax.swing.JList;
 
 import java.awt.BorderLayout;
 import webdoc.gui.utils.JSearchTextField;
+import javax.swing.JComboBox;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.DefaultComboBoxModel;
 
 public class WVerwaltung extends WModelPane {
 
@@ -36,6 +39,8 @@ public class WVerwaltung extends WModelPane {
 	private JButton btnSchliesen;
 	private JButton btnNeueBehandlungsart;
 	private JPanel panel_2;
+	private JComboBox cBAuswahl;
+	private JSearchTextField searchTextField;
 	public WVerwaltung() {
 		setSize(new Dimension(329, 543));
 		setClosable(true);
@@ -75,20 +80,26 @@ public class WVerwaltung extends WModelPane {
 		panel_2 = new JPanel();
 		getContentPane().add(panel_2, BorderLayout.NORTH);
 		
-		JSearchTextField searchTextField = new JSearchTextField(false);
+		searchTextField = new JSearchTextField(false);
+		
+		cBAuswahl = new JComboBox();
+		cBAuswahl.setModel(new DefaultComboBoxModel(new String[] {"Behandlungsarten", "Patienten", "Partner"}));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(1)
-					.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-					.addGap(1))
+					.addComponent(cBAuswahl, 0, 115, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
 					.addGap(1)
-					.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.BASELINE)
+						.addComponent(searchTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(cBAuswahl))
 					.addGap(1))
 		);
 		panel_2.setLayout(gl_panel_2);
@@ -100,7 +111,15 @@ public class WVerwaltung extends WModelPane {
 		
 	}
 	private void refreshBtn() {
-		
+		if (cBAuswahl.getSelectedItem().toString() == "Patienten"){
+			btnNeueBehandlungsart.setText("Neuer Patient");
+		}
+		if (cBAuswahl.getSelectedItem().toString() == "Behandlungsarten"){
+			btnNeueBehandlungsart.setText("Neue Behandlungsart");
+		}
+		if (cBAuswahl.getSelectedItem().toString() == "Partner"){
+			btnNeueBehandlungsart.setText("Neuer Partner");
+		}
 	}
 
 	private boolean allSet(){

@@ -345,15 +345,6 @@ public final class WHomescreen extends JFrame {
 						desktopPane.add(FTest);
 					}
 					break;
-				case N_BEHANDLUNG:
-//					if(!jifToFront(FNeueBehandlung)){
-//						FNeueBehandlung = new WNeueBehandlung(-1);
-//						FNeueBehandlung.setVisible(true);
-//						desktopPane.add(FNeueBehandlung);
-//						FNeueBehandlung.setVisible(true);
-//						FNeueBehandlung.toFront();
-//					}
-					break;
 				default:
 					
 				}

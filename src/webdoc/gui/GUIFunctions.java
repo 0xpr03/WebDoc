@@ -70,14 +70,12 @@ public class GUIFunctions {
         DefaultMutableTreeNode partner = new DefaultMutableTreeNode(new CustomTreeObj( "Partner",EntryType.PARTNER) );
         DefaultMutableTreeNode test = new DefaultMutableTreeNode(new CustomTreeObj( "TEST",EntryType.TEST) );
         
-        DefaultMutableTreeNode neueBehandlung = new DefaultMutableTreeNode( new CustomTreeObj("Neue Behandlung",EntryType.N_BEHANDLUNG) );
         
         patientenundpartner.add( neuerPatient );
         patientenundpartner.add( neuerPartner );
         patientenundpartner.add(patient);
         patientenundpartner.add(partner);
  
-        behandlung.add( neueBehandlung );
         behandlung.add(neueBehandlungsart);
  
         root.add(main);
