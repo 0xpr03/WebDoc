@@ -42,7 +42,6 @@ import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
-import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
 public class WNeueBehandlung extends WModelPane {
@@ -63,7 +62,6 @@ public class WNeueBehandlung extends WModelPane {
 	private long threatmentID;
 	private JTextField tFName;
 	private PreparedStatement searchStm;
-	private Logger logger = LogManager.getLogger();
 	private SpinnerDateModel date_model;
 	private SpinnerDateModel time_model;
 	private JSearchTextField searchTextField;
@@ -295,7 +293,6 @@ public class WNeueBehandlung extends WModelPane {
 								tPErklaerung.setText(rs.getString(4));
 								rs.close();
 							} catch (SQLException e) {
-								DBError error = Database.DBExceptionConverter(e);
 								GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 							}
 							setGlassPaneVisible(false);
@@ -314,7 +311,6 @@ public class WNeueBehandlung extends WModelPane {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-
 							try {
 								Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl
 										.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
