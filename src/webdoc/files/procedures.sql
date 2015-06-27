@@ -15,7 +15,7 @@ CREATE PROCEDURE `insertPatient`(
 	OUT `out_id` INTEGER UNSIGNED )
     MODIFIES SQL DATA
 BEGIN
-	DECLARE `var_rID` INTEGER;
+	DECLARE `var_rID` INT unsigned;
 
 	SELECT `RaceID` INTO var_rID FROM `race` WHERE `race` = param_race;
 
@@ -46,7 +46,7 @@ CREATE PROCEDURE `updatePatient`(
 	IN `param_pictureid` INTEGER UNSIGNED )
     MODIFIES SQL DATA
 BEGIN
-	DECLARE `var_rID` INTEGER;
+	DECLARE `var_rID` INT unsigned;
 
 	SELECT `RaceID` INTO var_rID FROM `race` WHERE `race` = param_race;
 
