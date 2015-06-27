@@ -38,6 +38,7 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;

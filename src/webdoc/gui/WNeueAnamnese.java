@@ -46,6 +46,7 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import webdoc.gui.utils.EnumObject;
+import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;

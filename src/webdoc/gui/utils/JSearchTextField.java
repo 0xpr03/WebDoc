@@ -171,7 +171,7 @@ public class JSearchTextField extends JTextField {
 			}
 			public void focusGained(FocusEvent e){
 				logger.debug(userText);
-				if (userText.length() >= MIN_CHARS) {
+				if (userText.length() >= MIN_CHARS && isEditable()) {
 					setTextWithoutNotification(userText);
 					showElements();
 				}
@@ -180,7 +180,7 @@ public class JSearchTextField extends JTextField {
 		
 		addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
-				if(e.getClickCount() == 1){
+				if(e.getClickCount() == 1 && isEditable()){
 					if (SwingUtilities.isLeftMouseButton(e) && userText.length() != 0 && getSelectedText() == null ){
 						setTextWithoutNotification(userText);
 						showElements();
@@ -254,6 +254,13 @@ public class JSearchTextField extends JTextField {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void setEditable(boolean editable){
+		if(popup != null)
+			popup.setVisible(false);
+		super.setEditable(editable);
 	}
 
 	private void changeListSelectedIndex(int delta) {

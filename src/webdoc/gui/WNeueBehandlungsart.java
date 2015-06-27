@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import net.miginfocom.swing.MigLayout;
+import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
