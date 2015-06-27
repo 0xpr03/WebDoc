@@ -369,7 +369,7 @@ public class WNeuerPatient extends WModelPane {
 				}
 			}
 		});
-		panelVerlauf.add(table);
+		panelVerlauf.add(new JScrollPane( table ));
 		contentPanel.setLayout(gl_contentPanel);
 		downPanel.setLayout(new MigLayout("",
 				"[29.00][42.00][][left][left][left]", "[26.00]"));
@@ -604,7 +604,7 @@ public class WNeuerPatient extends WModelPane {
 	 */
 	private void loadData() {
 		if (id != -1) {
-			setGlassPaneVisible(true);
+			setGlassPaneVisible(true,true);
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
