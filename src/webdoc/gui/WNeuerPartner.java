@@ -677,6 +677,7 @@ public class WNeuerPartner extends WModelPane {
 		textTitel.setEditable(editable);
 		spinGebdatum.setEnabled(editable);
 		textComment.setEditable(editable);
+		enumRole.setEnabled(editable);
 		updateEditBtns();
 	}
 
