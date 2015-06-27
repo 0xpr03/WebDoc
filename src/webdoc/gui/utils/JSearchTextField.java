@@ -170,7 +170,6 @@ public class JSearchTextField extends JTextField {
 				popup.setVisible(false);
 			}
 			public void focusGained(FocusEvent e){
-				logger.debug(userText);
 				if (userText.length() >= MIN_CHARS && isEditable()) {
 					setTextWithoutNotification(userText);
 					showElements();

@@ -127,7 +127,6 @@ public class WNeuerPartner extends WModelPane {
 	 * Initialize the contents of the
 	 */
 	private void initialize() {
-		setGlassPaneVisible(false);
 		setFrameIcon(null);
 		setIconifiable(true);
 		setResizable(true);
