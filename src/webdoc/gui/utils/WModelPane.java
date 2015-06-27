@@ -32,6 +32,8 @@ public class WModelPane extends JInternalFrame {
 			glassPane.deactivate();
 		}
 		progressBar.setVisible(enabled);
+		if(!enabled)
+			this.requestFocusInWindow();
 	}
 	
 	/**
