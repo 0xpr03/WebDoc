@@ -46,7 +46,7 @@ import webdoc.lib.Database.DBError;
 import webdoc.lib.GUIManager;
 
 public class WNeueBehandlung extends WModelPane {
-	
+
 	private static final long serialVersionUID = -6343632608398217935L;
 	private JTextField tFstückPreis;
 	private JTextField tFTName;
@@ -67,58 +67,58 @@ public class WNeueBehandlung extends WModelPane {
 	private SpinnerDateModel date_model;
 	private SpinnerDateModel time_model;
 	private JSearchTextField searchTextField;
-	
-	public WNeueBehandlung(long animalID,long in_id, String animal_name) {
+
+	public WNeueBehandlung(long animalID, long in_id, String animal_name) {
 		this.animalID = animalID;
 		this.id = in_id;
 		editable = id == -1;
 		setSize(new Dimension(450, 301));
 		setTitle("Neue Behandlung");
 		getContentPane().setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
-		
+
 		JLabel lblBezeichnnung = new JLabel("Bezeichnnung:");
-		
+
 		tFTName = new JTextField();
 		tFTName.setColumns(10);
-		
+
 		JLabel lblPreisProEinheit = new JLabel("Preis pro Einheit in €:");
-		
+
 		tFstückPreis = new JTextField();
-		
+
 		JLabel lblErklrung = new JLabel(" Erklärung:");
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
+
 		tPErklaerung = new JTextPane();
 		scrollPane.setViewportView(tPErklaerung);
-		
+
 		JLabel lblAnzahlDerEinheiten = new JLabel("Anzahl der Einheiten:");
-		
+
 		spAnzahl = new JSpinner();
-		
+
 		JLabel lblDatum = new JLabel("Datum:");
-		
+
 		spDate = new JSpinner();
 		date_model = new SpinnerDateModel();
 		date_model.setCalendarField(Calendar.DAY_OF_MONTH);
 		spDate.setModel(date_model);
 		spDate.setEditor(new JSpinner.DateEditor(spDate, "dd-MM-yyyy"));
-		
+
 		JLabel lblUhrzeit = new JLabel("Uhrzeit:");
-		
+
 		spTime = new JSpinner();
 		time_model = new SpinnerDateModel();
 		time_model.setCalendarField(Calendar.HOUR_OF_DAY);
 		spTime.setModel(time_model);
 		spTime.setEditor(new JSpinner.DateEditor(spTime, "HH:mm"));
 		panel.setLayout(new MigLayout("", "[102px][281px,grow]", "[][20px][20px][20px][20px][20px][219px]"));
-		
+
 		JLabel lblNameDesPatienten = new JLabel("Name des Patienten:");
 		panel.add(lblNameDesPatienten, "cell 0 0,alignx trailing");
-		
+
 		tFName = new JTextField();
 		tFName.setText(animal_name);
 		panel.add(tFName, "cell 1 0,growx");
@@ -134,14 +134,14 @@ public class WNeueBehandlung extends WModelPane {
 		panel.add(spDate, "cell 1 4,alignx left,aligny top");
 		panel.add(lblAnzahlDerEinheiten, "cell 0 3,alignx left,aligny center");
 		panel.add(spAnzahl, "cell 1 3,alignx left,aligny top");
-		
+
 		searchTextField = new JSearchTextField(false);
 		getContentPane().add(searchTextField, BorderLayout.NORTH);
-		
+
 		JPanel pButtons = new JPanel();
 		getContentPane().add(pButtons, BorderLayout.SOUTH);
 		pButtons.setLayout(new MigLayout("", "[][][][][]", "[]"));
-		
+
 		btnSpeichern = new JButton("Speichern");
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class WNeueBehandlung extends WModelPane {
 			}
 		});
 		pButtons.add(btnSpeichern, "cell 1 0");
-		
+
 		btnAbrechen = new JButton("Abrechen");
 		btnAbrechen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -182,9 +182,10 @@ public class WNeueBehandlung extends WModelPane {
 			}
 		});
 		pButtons.add(btnNeueBehandlungsart, "cell 4 0");
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{searchTextField, tPErklaerung, spAnzahl, spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { searchTextField, tPErklaerung, spAnzahl,
+				spDate, spTime, btnSpeichern, btnAbrechen, btnNeueBehandlungsart }));
 		setEditable();
-		
+
 		class ThreatmentProvider implements searchFieldAPI {
 			@Override
 			public List<ACElement> getData(String text) {
@@ -215,15 +216,15 @@ public class WNeueBehandlung extends WModelPane {
 				return element.getName();
 			}
 		}
-		
+
 		searchTextField.setAPI(new ThreatmentProvider());
-		
+
 		tFTName.setEditable(false);
 		tFstückPreis.setEnabled(false);
 		tFName.setEditable(false);
 		btnAbrechen.setEnabled(true);
 		btnNeueBehandlungsart.setEnabled(true);
-		
+
 		try {
 			searchStm = Database.prepareThreatmentTypeSearchStm();
 		} catch (SQLException e) {
@@ -231,10 +232,11 @@ public class WNeueBehandlung extends WModelPane {
 		}
 		loadData();
 	}
-	
+
 	protected void updatePetThreatment() {
-		try{
-			Database.editAnimalThreatment(id, threatmentID,(int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
+		try {
+			Database.editAnimalThreatment(id, threatmentID, (int) spAnzahl
+					.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
 			editable = false;
 			setEditable();
 		} catch (SQLException e) {
@@ -253,35 +255,37 @@ public class WNeueBehandlung extends WModelPane {
 		searchTextField.setEditable(editable);
 		refreshBtn(editable);
 	}
-	private void refreshBtn(boolean  editable) {
+
+	private void refreshBtn(boolean editable) {
 		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
 		btnAbrechen.setText(editable ? "Cancel" : "Edit");
 	}
-	
+
 	/**
 	 * Return the date from spDate & spTim
+	 * 
 	 * @return
 	 */
-	private Timestamp getDatetimeTimestamp(){
+	private Timestamp getDatetimeTimestamp() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime((Date) spDate.getValue());
-		
+
 		Calendar cal_temp = Calendar.getInstance();
 		cal_temp.setTime((Date) spTime.getValue());
-		
-		cal.set(Calendar.HOUR_OF_DAY,cal_temp.get(Calendar.HOUR_OF_DAY));
-		cal.set(Calendar.MINUTE,cal_temp.get(Calendar.MINUTE));
+
+		cal.set(Calendar.HOUR_OF_DAY, cal_temp.get(Calendar.HOUR_OF_DAY));
+		cal.set(Calendar.MINUTE, cal_temp.get(Calendar.MINUTE));
 		return new Timestamp(cal.getTimeInMillis());
 	}
-	
+
 	private void loadData() {
-		if(id != -1){
+		if (id != -1) {
 			setGlassPaneVisible(true);
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-							try{
+							try {
 								ResultSet rs = Database.getAnimalThreatment(id);
 								rs.next();
 								updateThreatment(rs.getLong(1));
@@ -290,7 +294,7 @@ public class WNeueBehandlung extends WModelPane {
 								spTime.setValue(rs.getTimestamp(3));
 								tPErklaerung.setText(rs.getString(4));
 								rs.close();
-							}catch(SQLException e){
+							} catch (SQLException e) {
 								DBError error = Database.DBExceptionConverter(e);
 								GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 							}
@@ -302,7 +306,7 @@ public class WNeueBehandlung extends WModelPane {
 			});
 		}
 	}
-	
+
 	private void addThreatment() {
 		if (allSet()) {
 			setGlassPaneVisible(true);
@@ -310,58 +314,60 @@ public class WNeueBehandlung extends WModelPane {
 				public void run() {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
-			
-			try{
-				Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl.getValue(),getDatetimeTimestamp(), tPErklaerung.getText());
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
-			}
-			setGlassPaneVisible(false);
-		}
-	});
-	t.start();
-}
-});
-		}else{
+
+							try {
+								Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl
+										.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}
+					});
+					t.start();
+				}
+			});
+		} else {
 			GUIManager.showFieldErrorDialog(getFrame());
 		}
 	}
-	
+
 	/**
 	 * Update the threatment based on the id<br>
 	 * !NOT the PETThreatment<br>
 	 * Shows DBErrorDialog on fail, updates threatmentID
+	 * 
 	 * @param id
 	 * @author "Aron Heinecke"
 	 */
-	private void updateThreatment(final long id){
+	private void updateThreatment(final long id) {
 		setGlassPaneVisible(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
-						try{
-							
+						try {
+
 							ResultSet rs = Database.getThreatment(id);
 							rs.next();
 							tFTName.setText(rs.getString(1));
 							tFstückPreis.setText(rs.getString(2));
-							
+
 							threatmentID = id;
 							rs.close();
 						} catch (SQLException e) {
 							GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 						}
-								setGlassPaneVisible(false);
-							}
-						});
-		t.start();
-		}
-		});
+						setGlassPaneVisible(false);
+					}
+				});
+				t.start();
 			}
-	
+		});
+	}
+
 	@Override
 	public void dispose() {
 		if (editable) {
@@ -373,8 +379,8 @@ public class WNeueBehandlung extends WModelPane {
 		super.dispose();
 		GUIManager.dropJID(this);
 	}
-	
-	private boolean allSet(){
+
+	private boolean allSet() {
 		return Double.parseDouble(spAnzahl.getValue().toString()) != 0.0;
 	}
 }
