@@ -304,7 +304,6 @@ public final class WHomescreen extends JFrame {
 				logger.debug("menu: {}", selMenu.getType());
 				switch(selMenu.getType()){
 				case HAUPTMENÜ:
-					//TODO: show main menu					
 					break;
 				case N_PATIENT:
 					if(!jifToFront(FNeuerPatient)){
@@ -321,10 +320,6 @@ public final class WHomescreen extends JFrame {
 						desktopPane.add(FNeuerPartner);
 						FNeuerPartner.toFront();
 					}
-					break;
-				case PARTNER:
-					addWNeuerPartner(false, -1);
-					//TODO GUIManager.addIFrame(GUIManager.getNewFrameId(),  new WNeuerPartner(false, -1));
 					break;
 				case PATIENT:
 					addWNeuerPatient(false, -1);
@@ -346,7 +341,6 @@ public final class WHomescreen extends JFrame {
 					}
 					break;
 				default:
-					
 				}
 			}
 		}

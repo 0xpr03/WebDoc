@@ -160,7 +160,7 @@ public class WNeueBehandlungsart extends WModelPane {
 	private void setEditable() {
 		txtBezeichnung.setEditable(editable);
 		spPreis.setEnabled(editable);
-		sPErklaerung.setEnabled(editable);
+		tPErklaerung.setEnabled(editable);
 		refreshBtn();
 	}
 	
