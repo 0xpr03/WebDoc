@@ -338,7 +338,7 @@ public class WNeueBehandlung extends WModelPane {
 	 * @author "Aron Heinecke"
 	 */
 	private void updateThreatment(final long id) {
-		setGlassPaneVisible(true);
+		setGlassPaneVisible(true,true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Thread t = new Thread(new Runnable() {
