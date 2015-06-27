@@ -84,7 +84,7 @@ public class WAbout extends JDialog {
 			tabbedPane.addTab("3rd Librarys", null, panelCopyright, null);
 			panelCopyright.setLayout(new BoxLayout(panelCopyright, BoxLayout.X_AXIS));
 			{
-				JLabel lblNewLabel = new JLabel("<html><b>Used librarys:</b><br><br><li>eclipse mig layout<br><br><li>mariafoundation JDBC<br><br><li>Apache HttpComponents<br><br></html>");
+				JLabel lblNewLabel = new JLabel("<html><b>Used librarys:</b><br><br><li>eclipse mig layout<br><br><li>mariafoundation JDBC<br><br><li>Apache HttpComponents<br><br><li>SnakeYAML<br><br><li>Log4j<br><br><li>Json Simple<br><br></html>");
 				lblNewLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN,14));
 				lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 				panelCopyright.add(lblNewLabel);
