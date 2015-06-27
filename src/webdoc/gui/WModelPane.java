@@ -48,5 +48,22 @@ public class WModelPane extends JInternalFrame {
 	/**
 	 * 
 	 */
+	public boolean invalidDouble(String s){
+		try{
+			Double.parseDouble(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
+	}
+	
+	public boolean invalidInt(String s){
+		try{
+			Integer.parseInt(s);
+			return false;
+		}catch(NumberFormatException e){
+			return true;
+		}
+	}
 
 }
