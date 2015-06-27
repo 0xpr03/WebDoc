@@ -9,6 +9,10 @@ package webdoc.lib;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -114,6 +118,32 @@ public final class GUIManager {
 			
 			wpg.dispose();
 		}
+	}
+	
+	/**
+	 * Restart application<br>
+	 * CAUTION! this does NOT make any backchecks
+	 * @throws IOException
+	 * @throws URISyntaxException
+	 */
+	public static void restartApplication() throws IOException, URISyntaxException
+	{
+	  final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+	  final File currentJar = new File(GUIManager.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+
+	  /* check for non jarfile */
+	  if(!currentJar.getName().endsWith(".jar"))
+	    return;
+
+	  /* Build command: java -jar application.jar */
+	  final ArrayList<String> command = new ArrayList<String>();
+	  command.add(javaBin);
+	  command.add("-jar");
+	  command.add(currentJar.getPath());
+
+	  final ProcessBuilder builder = new ProcessBuilder(command);
+	  builder.start();
+	  System.exit(0);
 	}
 	
 	public static Font getCommentFont(){

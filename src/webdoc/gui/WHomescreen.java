@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
@@ -252,6 +255,23 @@ public final class WHomescreen extends JFrame {
 				dispose();
 			}
 		});
+		
+		JMenuItem mntmRestart = new JMenuItem("Restart");
+		mntmRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(GUIManager.showYesNoDialog(getFrame(), "Wollen Sie wirklich neustarten?\n(Ungesp. Änderungen gehen verloren)", JOptionPane.QUESTION_MESSAGE, "Neustarten") == 0){
+					try {
+						GUIManager.restartApplication();
+					} catch (IOException | URISyntaxException e) {
+						logger.error(e);
+					}
+				}
+			}
+		});
+		mnMenu.add(mntmRestart);
+		
+		JSeparator separator_1 = new JSeparator();
+		mnMenu.add(separator_1);
 		mnMenu.add(mntmExit);
 		
 		JMenu mnHelp = new JMenu("Help");
@@ -445,6 +465,10 @@ public final class WHomescreen extends JFrame {
 	 */
 	public JInternalFrame[] getJIFs(){
 		return desktopPane.getAllFrames();
+	}
+	
+	private WHomescreen getFrame(){
+		return this;
 	}
 	
 	/**
