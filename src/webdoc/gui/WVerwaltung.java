@@ -26,13 +26,11 @@ import javax.swing.JList;
 
 import java.awt.BorderLayout;
 import webdoc.gui.utils.JSearchTextField;
-<<<<<<< HEAD
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.DefaultComboBoxModel;
-=======
 import webdoc.gui.utils.WModelPane;
->>>>>>> 9ecc3e0938df3c20a91891e921c9b7c5d7d250ab
+
 
 public class WVerwaltung extends WModelPane {
 
@@ -46,6 +44,7 @@ public class WVerwaltung extends WModelPane {
 	private JComboBox cBAuswahl;
 	private JSearchTextField searchTextField;
 	public WVerwaltung() {
+		
 		setSize(new Dimension(329, 543));
 		setClosable(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
