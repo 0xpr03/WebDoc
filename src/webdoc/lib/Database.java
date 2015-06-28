@@ -362,12 +362,12 @@ public class Database{
 	 * @param comment
 	 * @throws SQLException
 	 */
-	public static void editAnimalTreatment(long PetTreatmentID, long TreatmentID, int amount, Timestamp datetime, String comment) throws SQLException{
+	public static void editAnimalTreatment(long PetTreatmentID, long TreatmentID, double amount, Timestamp datetime, String comment) throws SQLException{
 		String sql = "UPDATE `animaltreatment` SET `TreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
 				+"WHERE PetTreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, TreatmentID);
-		stm.setInt(2, amount);
+		stm.setDouble(2, amount);
 		stm.setTimestamp(3, datetime);
 		stm.setString(4, comment);
 		stm.setLong(5, PetTreatmentID);
@@ -401,12 +401,12 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertAnimalTreatment(long TreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
+	public static long insertAnimalTreatment(long TreatmentID, long AnimalID, double amount, Timestamp datetime, String comment) throws SQLException{
 		String sql = "INSERT INTO animaltreatment (`TreatmentID`,`AnimalID`,`amount`,`datetime`,`comment`) VALUES(?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, TreatmentID);
 		stm.setLong(2, AnimalID);
-		stm.setInt(3, amount);
+		stm.setDouble(3, amount);
 		stm.setTimestamp(4, datetime);
 		stm.setString(5, comment);
 		stm.executeUpdate();

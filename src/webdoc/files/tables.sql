@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `animaltreatment` (
  `PetTreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `TreatmentID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
- `amount` tinyint(4) NOT NULL,
+ `amount` double NOT NULL,
  `PartnerID` int(10) unsigned DEFAULT NULL,
  `datetime` datetime NOT NULL,
  `comment` varchar(250) NOT NULL,

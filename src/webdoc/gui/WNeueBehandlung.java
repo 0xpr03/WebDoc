@@ -29,6 +29,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -95,6 +96,8 @@ public class WNeueBehandlung extends WModelPane {
 		JLabel lblAnzahlDerEinheiten = new JLabel("Anzahl der Einheiten:");
 
 		spAnzahl = new JSpinner();
+		spAnzahl.setPreferredSize(new Dimension(45, 20));
+		spAnzahl.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
 
 		JLabel lblDatum = new JLabel("Datum:");
 
@@ -143,7 +146,7 @@ public class WNeueBehandlung extends WModelPane {
 		btnSpeichern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (id == -1 && editable) {
-					addThreatment();
+					addTreatment();
 				} else if (editable) {
 					updatePetThreatment();
 				} else {
@@ -204,7 +207,7 @@ public class WNeueBehandlung extends WModelPane {
 
 			@Override
 			public boolean changedSelectionEvent(ACElement element) {
-				updateThreatment(element.getID());
+				updateTreatment(element.getID());
 				return true;
 			}
 
@@ -285,8 +288,8 @@ public class WNeueBehandlung extends WModelPane {
 							try {
 								ResultSet rs = Database.getAnimalTreatment(id);
 								rs.next();
-								updateThreatment(rs.getLong(1));
-								spAnzahl.setValue(rs.getInt(2));
+								updateTreatment(rs.getLong(1));
+								spAnzahl.setValue(rs.getDouble(2));
 								spDate.setValue(rs.getTimestamp(3));
 								spTime.setValue(rs.getTimestamp(3));
 								tPErklaerung.setText(rs.getString(4));
@@ -303,7 +306,7 @@ public class WNeueBehandlung extends WModelPane {
 		}
 	}
 
-	private void addThreatment() {
+	private void addTreatment() {
 		if (allSet()) {
 			setGlassPaneVisible(true);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -311,7 +314,7 @@ public class WNeueBehandlung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								id = Database.insertAnimalTreatment(threatmentID, animalID, (int) spAnzahl
+								id = Database.insertAnimalTreatment(threatmentID, animalID, (double) spAnzahl
 										.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
 								editable = false;
 								setEditable();
@@ -330,14 +333,14 @@ public class WNeueBehandlung extends WModelPane {
 	}
 
 	/**
-	 * Update the threatment based on the id<br>
-	 * !NOT the PETThreatment<br>
+	 * Update the treatment based on the id<br>
+	 * !NOT the PETTreatment<br>
 	 * Shows DBErrorDialog on fail, updates threatmentID
 	 * 
 	 * @param id
 	 * @author "Aron Heinecke"
 	 */
-	private void updateThreatment(final long id) {
+	private void updateTreatment(final long id) {
 		setGlassPaneVisible(true,true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -348,7 +351,7 @@ public class WNeueBehandlung extends WModelPane {
 							rs.next();
 							tFTName.setText(rs.getString(1));
 							tFstückPreis.setText(rs.getString(2));
-
+							
 							threatmentID = id;
 							rs.close();
 						} catch (SQLException e) {
