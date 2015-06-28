@@ -1242,4 +1242,14 @@ public class Database{
 		return "SELECT `firstname` as name, `secondname` as optname, `PartnerID` as id, 1 as type FROM partner "
 				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ? ";
 	}
+
+
+	public static long insertExamination(long id, String string, String string2) throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static ResultSet getExamination() {
+		return null;
+	}
 }
