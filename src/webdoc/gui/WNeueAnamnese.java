@@ -891,9 +891,7 @@ public class WNeueAnamnese extends WModelPane {
 		sP_Bemerkungen.setViewportView(tPBemerkungen);
 
 		sPFunktionenMotorik = new JScrollPane();
-		sPFunktionenMotorik.setViewportBorder(new TitledBorder(null,
-				"Welche Funktionen motorischer und anderer Art sind nicht beeinflusst?", TitledBorder.CENTER,
-				TitledBorder.TOP, null, null));
+		sPFunktionenMotorik.setViewportBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Welche Funktionen motorischer und anderer Art sind beeinflusst?", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
 		tPFunktionenMotorik = new JTextPane();
 		sPFunktionenMotorik.setViewportView(tPFunktionenMotorik);

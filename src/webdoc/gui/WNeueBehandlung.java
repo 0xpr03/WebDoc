@@ -375,6 +375,10 @@ public class WNeueBehandlung extends WModelPane {
 	}
 
 	private boolean allSet() {
-		return Double.parseDouble(spAnzahl.getValue().toString()) != 0.0;
+		if  (Double.parseDouble(spAnzahl.getValue().toString()) == 0.0){
+			return false;}
+		if (tFName.getText() == ""){
+			return false;}
+		return true;
 	}
 }
