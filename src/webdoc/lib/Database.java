@@ -331,9 +331,9 @@ public class Database{
 //	public static ResultSet getPatient
 	
 	/**
-	 * Retrives anamnesis & animalthreatment entrys related to the patient
+	 * Retrives anamnesis & animaltreatment entrys related to the patient
 	 * type 0 = anamnesis
-	 * 1 = threatment
+	 * 1 = treatment
 	 * @param patientID
 	 * @return
 	 * @throws SQLException 
@@ -342,7 +342,7 @@ public class Database{
 		String sql = "SELECT `AnamnesisID` as id, `insertDate` as insdate, 0 as type FROM `anamnesis` "
 				+"WHERE AnimalID = ? "
 				+"UNION ALL "
-				+"SELECT `PetThreatmentID` as id, `datetime` as insdate, 1 as type FROM `animalthreatment` "
+				+"SELECT `PetTreatmentID` as id, `datetime` as insdate, 1 as type FROM `animaltreatment` "
 				+"WHERE AnimalID = ? "
 				+"ORDER BY insdate DESC";
 		PreparedStatement stm = prepareStm(sql);
@@ -352,9 +352,9 @@ public class Database{
 	}
 	
 	/**
-	 * Edit AnimalThreatment
-	 * @param PetThreatmentID
-	 * @param ThreatmentID
+	 * Edit AnimalTreatment
+	 * @param PetTreatmentID
+	 * @param TreatmentID
 	 * @param AnimalID
 	 * @param amount
 	 * @param date
@@ -362,49 +362,49 @@ public class Database{
 	 * @param comment
 	 * @throws SQLException
 	 */
-	public static void editAnimalThreatment(long PetThreatmentID, long ThreatmentID, int amount, Timestamp datetime, String comment) throws SQLException{
-		String sql = "UPDATE `animalthreatment` SET `ThreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
-				+"WHERE PetThreatmentID = ?";
+	public static void editAnimalTreatment(long PetTreatmentID, long TreatmentID, int amount, Timestamp datetime, String comment) throws SQLException{
+		String sql = "UPDATE `animaltreatment` SET `TreatmentID` = ?, `amount` = ?,`datetime` = ?,`comment` = ? "
+				+"WHERE PetTreatmentID = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
-		stm.setLong(1, ThreatmentID);
+		stm.setLong(1, TreatmentID);
 		stm.setInt(2, amount);
 		stm.setTimestamp(3, datetime);
 		stm.setString(4, comment);
-		stm.setLong(5, PetThreatmentID);
+		stm.setLong(5, PetTreatmentID);
 		stm.executeUpdate();
 		stm.close();
 	}
 	
 	/**
-	 * Get AnimalThreatment
-	 * @param PetThreatmentID
-	 * @return ResultSet of ThreatmentID,amount,PartnerID,datetime,comment
+	 * Get AnimalTreatment
+	 * @param PetTreatmentID
+	 * @return ResultSet of TreatmentID,amount,PartnerID,datetime,comment
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static ResultSet getAnimalThreatment(long PetThreatmentID) throws SQLException{
-		String sql = "SELECT `ThreatmentID`,`amount`,`datetime`,`comment` FROM animalthreatment WHERE `PetThreatmentID` = ?";
+	public static ResultSet getAnimalTreatment(long PetTreatmentID) throws SQLException{
+		String sql = "SELECT `TreatmentID`,`amount`,`datetime`,`comment` FROM animaltreatment WHERE `PetTreatmentID` = ?";
 		PreparedStatement stm = prepareStm(sql);
-		stm.setLong(1, PetThreatmentID);
+		stm.setLong(1, PetTreatmentID);
 		return stm.executeQuery();
 	}
 	
 	/**
-	 * Insert animal threatment
-	 * @param ThreatmentID
+	 * Insert animal treatment
+	 * @param TreatmentID
 	 * @param AnimalID
 	 * @param amount
 	 * @param date
 	 * @param time
 	 * @param comment
-	 * @return PetThreatmentID
+	 * @return PetTreatmentID
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long insertAnimalThreatment(long ThreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
-		String sql = "INSERT INTO animalthreatment (`ThreatmentID`,`AnimalID`,`amount`,`datetime`,`comment`) VALUES(?,?,?,?,?);";
+	public static long insertAnimalTreatment(long TreatmentID, long AnimalID, int amount, Timestamp datetime, String comment) throws SQLException{
+		String sql = "INSERT INTO animaltreatment (`TreatmentID`,`AnimalID`,`amount`,`datetime`,`comment`) VALUES(?,?,?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
-		stm.setLong(1, ThreatmentID);
+		stm.setLong(1, TreatmentID);
 		stm.setLong(2, AnimalID);
 		stm.setInt(3, amount);
 		stm.setTimestamp(4, datetime);
@@ -416,18 +416,18 @@ public class Database{
 	}
 	
 	/**
-	 * Update Threatment by creating a new one, deprecating the old version
+	 * Update Treatment by creating a new one, deprecating the old version
 	 * @param id
 	 * @param name
 	 * @param preis
 	 * @param erklaerung
-	 * @return new threatment id
+	 * @return new treatment id
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static long updateThreatment(long id,String name, double preis, String erklaerung ) throws SQLException {
-		long newID = insertThreatment(name,preis,erklaerung);
-		String sql = "UPDATE threatment SET `active` = 0 WHERE `ThreatmentID` = ?";
+	public static long updateTreatment(long id,String name, double preis, String erklaerung ) throws SQLException {
+		long newID = insertTreatment(name,preis,erklaerung);
+		String sql = "UPDATE treatment SET `active` = 0 WHERE `TreatmentID` = ?";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, id);
 		stm.executeUpdate();
@@ -436,28 +436,28 @@ public class Database{
 	}
 	
 	/**
-	 * Get threatment details
+	 * Get treatment details
 	 * @param id
 	 * @return ResultSet of name,price,explanation
 	 * @throws SQLException
 	 */
-	public static ResultSet getThreatment(long id) throws SQLException{
-		String sql = "SELECT `name`,`price`,`explanation` FROM threatment WHERE `ThreatmentID` = ?";
+	public static ResultSet getTreatment(long id) throws SQLException{
+		String sql = "SELECT `name`,`price`,`explanation` FROM treatment WHERE `TreatmentID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, id);
 		return stm.executeQuery();
 	}
 	
 	/**
-	 * Insert threatment
+	 * Insert treatment
 	 * @param name
 	 * @param preis
 	 * @param erklaerung
 	 * @return auto-id from new entry
 	 * @throws SQLException
 	 */
-	public static long insertThreatment(String name, double preis, String erklaerung ) throws SQLException{
-		String sql = "INSERT INTO threatment (`name`,`price`,`explanation`) VALUES(?,?,?);";
+	public static long insertTreatment(String name, double preis, String erklaerung ) throws SQLException{
+		String sql = "INSERT INTO treatment (`name`,`price`,`explanation`) VALUES(?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setString(1, name);
 		stm.setDouble(2, preis);
@@ -890,7 +890,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void insertPartnerRoleDetails(long partnerroleid,String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException {
+	public static void insertPartnerRoleDetails(long partnerroleid,String phone, String mobile, String fax, String email,String plz, String city, short houenr, String street, String zusatz, String district) throws SQLException {
 		{
 			PreparedStatement stm = prepareTelecommInsertStm();
 			stm.setString(1, phone);
@@ -921,7 +921,7 @@ public class Database{
 		{
 			PreparedStatement stm = prepareAddressInsertStm();
 			stm.setLong(1, partnerroleid);
-			stm.setInt(2, plz);
+			stm.setString(2, plz);
 			stm.setString(3, city);
 			stm.setString(4, district);
 			stm.setShort(5, houenr);
@@ -967,7 +967,7 @@ public class Database{
 	 * @throws SQLException
 	 * @author "Aron Heinecke"
 	 */
-	public static void updatePartnerRoleDetails(long partnerroleid, String phone, String mobile, String fax, String email,int plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
+	public static void updatePartnerRoleDetails(long partnerroleid, String phone, String mobile, String fax, String email,String plz, String city, short houenr, String street, String zusatz, String district) throws SQLException{
 		{
 			PreparedStatement stm = prepareTelecommUpdateStm();
 			stm.setString(1, phone);
@@ -997,7 +997,7 @@ public class Database{
 		}
 		{
 			PreparedStatement stm = prepareAddressUpdateStm();
-			stm.setInt(1, plz);
+			stm.setString(1, plz);
 			stm.setString(2, city);
 			stm.setString(3, district);
 			stm.setShort(4, houenr);
@@ -1214,12 +1214,12 @@ public class Database{
 	}
 	
 	/**
-	 * Prepare threatment type search based on their name or descr., which are still valid (active=1)
-	 * @return PreparedStatement ThreatmentID,Name
+	 * Prepare treatment type search based on their name or descr., which are still valid (active=1)
+	 * @return PreparedStatement TreatmentID,Name
 	 * @throws SQLException
 	 */
-	public static PreparedStatement prepareThreatmentTypeSearchStm() throws SQLException {
-		String sql = "SELECT `ThreatmentID`,`name` FROM `threatment` WHERE ( `active` = 1 AND `name` LIKE ? ) ";
+	public static PreparedStatement prepareTreatmentTypeSearchStm() throws SQLException {
+		String sql = "SELECT `TreatmentID`,`name` FROM `treatment` WHERE ( `active` = 1 AND `name` LIKE ? ) ";
 		return connection.prepareStatement(sql);
 	}
 	
