@@ -596,7 +596,7 @@ public class WNeuerPartner extends WModelPane {
 									{
 										ResultSet rs = Database.getPartnerRoleDetails(partnerroleid);
 										rs.next();
-										textPostleitzahl.setText(String.valueOf(rs.getInt(1)));
+										textPostleitzahl.setText(rs.getString(1));
 										textOrt.setText(rs.getString(2));
 										textOrtsteil.setText(rs.getString(3));
 										textHausnummer.setText(String.valueOf(rs.getShort(4)));
@@ -753,12 +753,12 @@ public class WNeuerPartner extends WModelPane {
 								if (partnerroleid == -1) {
 									partnerroleid = Database.insertPatnerRoleID(id, getRoleTypeID());
 									Database.insertPartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
-											.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+											.getText(), textEmail.getText(), textPostleitzahl.getText(), textOrt
 											.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
 											.getText(), textOrtsteil.getText());
 								} else {
 									Database.updatePartnerRoleDetails(partnerroleid, textTelefon.getText(), textHandy.getText(), textFax
-											.getText(), textEmail.getText(), Integer.valueOf(textPostleitzahl.getText()), textOrt
+											.getText(), textEmail.getText(), textPostleitzahl.getText(), textOrt
 											.getText(), Short.valueOf(textHausnummer.getText()), textStraße.getText(), textZusatz
 											.getText(), textOrtsteil.getText());
 								}
@@ -835,9 +835,9 @@ public class WNeuerPartner extends WModelPane {
 			return false;
 		if (textName.equals(""))
 			return false;
-		if(invalidInt(textHausnummer.getText()))
+		if(textHausnummer.getText().equals(""))
 			return false;
-		if(invalidInt(textPostleitzahl.getText()))
+		if(textPostleitzahl.getText().equals(""))
 			return false;
 		if (textEmail.getText().length() > 40)
 			return false;
@@ -845,7 +845,7 @@ public class WNeuerPartner extends WModelPane {
 			return false;
 		if(textComment.getText().toString().length() > 100)
 			return false;
-		if (invalidInt(textPostleitzahl.getText().toString()))
+		if (textPostleitzahl.getText().length() > 20)
 			return false;
 		if (invalidInt(textHausnummer.getText().toString()))
 			return false;

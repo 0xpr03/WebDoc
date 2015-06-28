@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS `partner` (
 /* Table addresses / Adresse */
 CREATE TABLE IF NOT EXISTS `addresses` (
  `PartnerRoleID` int(10) unsigned NOT NULL,
- `plc` int(11) NOT NULL,
+ `plc` varchar(20) NOT NULL,
  `city` varchar(20) NOT NULL,
  `district` varchar(20) NOT NULL,
  `housenr` smallint(6) NOT NULL,
  `street` varchar(20) NOT NULL,
  `addition` varchar(50) NOT NULL,
  PRIMARY KEY (`PartnerRoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table roles / Rollen */
 CREATE TABLE IF NOT EXISTS `roles` (
  `RoleID` int(6) unsigned NOT NULL AUTO_INCREMENT,
@@ -60,10 +60,10 @@ CREATE TABLE IF NOT EXISTS `partnerroles` (
 /* Table race / Rasse */
 CREATE TABLE IF NOT EXISTS `race` (
  `RaceID` int(11) NOT NULL AUTO_INCREMENT,
- `race` varchar(20) NOT NULL,
+ `race` varchar(60) NOT NULL,
  PRIMARY KEY (`RaceID`),
  KEY `race` (`race`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
 /* Table animal / Tier */
 CREATE TABLE IF NOT EXISTS `animal` (
  `AnimalID` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -135,28 +135,28 @@ CREATE TABLE IF NOT EXISTS `relationship` (
  PRIMARY KEY (`PartnerID`,`AnimalID`),
  KEY `PartnerID` (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
-/* Table Behandlung / threatment */
-CREATE TABLE IF NOT EXISTS `threatment` (
- `ThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+/* Table Behandlung / treatment */
+CREATE TABLE IF NOT EXISTS `treatment` (
+ `TreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `price` double unsigned NOT NULL,
  `explanation` varchar(20) NOT NULL,
  `name` varchar(25) NOT NULL,
  `active` tinyint(1) NOT NULL DEFAULT '1',
- PRIMARY KEY (`ThreatmentID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
-/* Table Tierbehandlungen / animalthreatment */
-CREATE TABLE IF NOT EXISTS `animalthreatment` (
- `PetThreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
- `ThreatmentID` int(10) unsigned NOT NULL,
+ PRIMARY KEY (`TreatmentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+/* Table Tierbehandlungen / animaltreatment */
+CREATE TABLE IF NOT EXISTS `animaltreatment` (
+ `PetTreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `TreatmentID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
- `amount` tinyint(4) NOT NULL,
+ `amount` double NOT NULL,
  `PartnerID` int(10) unsigned DEFAULT NULL,
  `datetime` datetime NOT NULL,
  `comment` varchar(250) NOT NULL,
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
- PRIMARY KEY (`PetThreatmentID`),
+ PRIMARY KEY (`PetTreatmentID`),
  KEY `AnimalID` (`AnimalID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.3';
 /* Config internal only */
 CREATE TABLE IF NOT EXISTS `config` (
  `key` varchar(16) NOT NULL,
