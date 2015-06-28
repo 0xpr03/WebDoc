@@ -189,7 +189,7 @@ public class WNeueBehandlungsart extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								ResultSet rs = Database.getThreatment(id);
+								ResultSet rs = Database.getTreatment(id);
 								rs.next();
 								txtBezeichnung.setText(rs.getString(1));
 								spPreis.setValue(rs.getInt(2));
@@ -218,9 +218,9 @@ public class WNeueBehandlungsart extends WModelPane {
 							try {
 								// @formatter:off
 								if(id == -1)
-									id = Database.insertThreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+									id = Database.insertTreatment(txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
 								else
-									id = Database.updateThreatment(id, txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
+									id = Database.updateTreatment(id, txtBezeichnung.getText(), (double) spPreis.getValue(), tPErklaerung.getText());
 								
 								editable = false;
 								setEditable();

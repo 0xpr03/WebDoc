@@ -9,7 +9,7 @@ CREATE PROCEDURE `insertPatient`(
 	IN `param_weight` DOUBLE,
 	IN `param_birthdate` date,
 	IN `param_gender` BOOLEAN,
-	IN `param_race` VARCHAR(20) CHARSET utf8,
+	IN `param_race` VARCHAR(60) CHARSET utf8,
 	IN `param_comment` VARCHAR(100) CHARSET utf8,
 	IN `param_pictureid` INTEGER UNSIGNED,
 	OUT `out_id` INTEGER UNSIGNED )
@@ -41,7 +41,7 @@ CREATE PROCEDURE `updatePatient`(
 	IN `param_weight` DOUBLE,
 	IN `param_birthdate` date,
 	IN `param_gender` BOOLEAN,
-	IN `param_race` VARCHAR(20) CHARSET utf8,
+	IN `param_race` VARCHAR(60) CHARSET utf8,
 	IN `param_comment` VARCHAR(100) CHARSET utf8,
 	IN `param_pictureid` INTEGER UNSIGNED )
     MODIFIES SQL DATA

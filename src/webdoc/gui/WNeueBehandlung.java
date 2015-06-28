@@ -223,7 +223,7 @@ public class WNeueBehandlung extends WModelPane {
 		btnNeueBehandlungsart.setEnabled(true);
 
 		try {
-			searchStm = Database.prepareThreatmentTypeSearchStm();
+			searchStm = Database.prepareTreatmentTypeSearchStm();
 		} catch (SQLException e) {
 			GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
 		}
@@ -232,7 +232,7 @@ public class WNeueBehandlung extends WModelPane {
 
 	protected void updatePetThreatment() {
 		try {
-			Database.editAnimalThreatment(id, threatmentID, (int) spAnzahl
+			Database.editAnimalTreatment(id, threatmentID, (int) spAnzahl
 					.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
 			editable = false;
 			setEditable();
@@ -283,7 +283,7 @@ public class WNeueBehandlung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								ResultSet rs = Database.getAnimalThreatment(id);
+								ResultSet rs = Database.getAnimalTreatment(id);
 								rs.next();
 								updateThreatment(rs.getLong(1));
 								spAnzahl.setValue(rs.getInt(2));
@@ -311,7 +311,7 @@ public class WNeueBehandlung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								id = Database.insertAnimalThreatment(threatmentID, animalID, (int) spAnzahl
+								id = Database.insertAnimalTreatment(threatmentID, animalID, (int) spAnzahl
 										.getValue(), getDatetimeTimestamp(), tPErklaerung.getText());
 								editable = false;
 								setEditable();
@@ -344,7 +344,7 @@ public class WNeueBehandlung extends WModelPane {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
 						try {
-							ResultSet rs = Database.getThreatment(id);
+							ResultSet rs = Database.getTreatment(id);
 							rs.next();
 							tFTName.setText(rs.getString(1));
 							tFstückPreis.setText(rs.getString(2));
