@@ -45,111 +45,112 @@ public class WNeueUntersuchung extends WModelPane {
 
 
 
-	public WNeueUntersuchung(long id) {
-		initialize(id);
+	public WNeueUntersuchung(long in_id) {
+		this.id = in_id;
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-		private void initialize(long id) {
-			frmNeueUntersuchung = new JFrame();
-			frmNeueUntersuchung.setTitle("Neue Untersuchung");
-			frmNeueUntersuchung.setBounds(100, 100, 450, 335);
-			frmNeueUntersuchung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			
-			JPanel panel = new JPanel();
-			frmNeueUntersuchung.getContentPane().add(panel, BorderLayout.SOUTH);
-			panel.setLayout(new MigLayout("", "[][][][]", "[]"));
-			
-			btnSpeichern = new JButton("Speichern");
-			panel.add(btnSpeichern, "cell 1 0");
-			
-			btnCancel = new JButton("Cancel");
-			panel.add(btnCancel, "cell 2 0");
-			
-			JPanel panel_1 = new JPanel();
-			frmNeueUntersuchung.getContentPane().add(panel_1, BorderLayout.CENTER);
-			
-			JLabel lblNameDesTieres = new JLabel("Name des Tieres:");
-			
-			tFName = new JTextField();
-			tFName.setColumns(10);
-			
-			JLabel lblDatum = new JLabel("Datum:");
-			
-			spDate = new JSpinner();
-			spDate.setModel(new SpinnerDateModel(new Date(1435442400000L), null, null, Calendar.DAY_OF_YEAR));
-			panel_1.setLayout(new MigLayout("", "[83px][333px,grow]", "[20px][20px][grow]"));
-			panel_1.add(lblNameDesTieres, "cell 0 0,alignx left,aligny center");
-			panel_1.add(tFName, "cell 1 0,growx,aligny top");
-			panel_1.add(lblDatum, "cell 0 1,alignx left,aligny center");
-			panel_1.add(spDate, "cell 1 1,alignx left,aligny top");
-			
-			JLabel lblBefund = new JLabel("Befund");
-			panel_1.add(lblBefund, "cell 0 2");
-			
-			JScrollPane scrollPane = new JScrollPane();
-			panel_1.add(scrollPane, "cell 1 2,grow");
-			
-			tPBefund = new JTextPane();
-			scrollPane.setViewportView(tPBefund);
-			tFName.setEditable(false);
-			
-			
-			
+	private void initialize() {
+		frmNeueUntersuchung = new JFrame();
+		frmNeueUntersuchung.setTitle("Neue Untersuchung");
+		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
+		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel();
+		frmNeueUntersuchung.getContentPane().add(panel, BorderLayout.SOUTH);
+		panel.setLayout(new MigLayout("", "[][][][]", "[]"));
+		
+		btnSpeichern = new JButton("Speichern");
+		panel.add(btnSpeichern, "cell 1 0");
+		
+		btnCancel = new JButton("Cancel");
+		panel.add(btnCancel, "cell 2 0");
+		
+		JPanel panel_1 = new JPanel();
+		frmNeueUntersuchung.getContentPane().add(panel_1, BorderLayout.CENTER);
+		
+		JLabel lblNameDesTieres = new JLabel("Name des Tieres:");
+		
+		tFName = new JTextField();
+		tFName.setColumns(10);
+		
+		JLabel lblDatum = new JLabel("Datum:");
+		
+		spDate = new JSpinner();
+		spDate.setModel(new SpinnerDateModel(new Date(1435442400000L), null, null, Calendar.DAY_OF_YEAR));
+		panel_1.setLayout(new MigLayout("", "[83px][333px,grow]", "[20px][20px][grow]"));
+		panel_1.add(lblNameDesTieres, "cell 0 0,alignx left,aligny center");
+		panel_1.add(tFName, "cell 1 0,growx,aligny top");
+		panel_1.add(lblDatum, "cell 0 1,alignx left,aligny center");
+		panel_1.add(spDate, "cell 1 1,alignx left,aligny top");
+		
+		JLabel lblBefund = new JLabel("Befund");
+		panel_1.add(lblBefund, "cell 0 2");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel_1.add(scrollPane, "cell 1 2,grow");
+		
+		tPBefund = new JTextPane();
+		scrollPane.setViewportView(tPBefund);
+		tFName.setEditable(false);
+		
+		
+		
+		setEditable();
+	}
+
+	private void setEditable() {
+		tPBefund.setEditable(editable);
+		spDate.setEnabled(editable);
+		refreshBtn();
+	}
+
+	private void refreshBtn() {
+		btnSpeichern.setText(editable ? "Speichern" : "Schließen");
+		btnCancel.setText(editable ? "Cancel" : "Edit");		
+	}
+	
+	private boolean allSet(){
+		return tPBefund.getText() != "";
+	}
+	
+	private void addExamination() {
+		if (allSet()) {
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								id = Database.insertExamination(id, spDate.getValue().toString(), tPBefund.getText().toString());
+								editable = false;
+								setEditable();
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+							}
+							setGlassPaneVisible(false);
+						}}
+					);
+					t.start();
+				}
+			});
+		} else {
+			GUIManager.showFieldErrorDialog(getFrame());
+		}
+	}
+	private void getExamination(){
+		ResultSet rs = Database.getExamination();
+		try {
+			id = rs.getLong(1);
+			spDate.setValue(rs.getDate(2));
+			tPBefund.setText(rs.getString(3));
+			editable = false;
 			setEditable();
+		} catch (SQLException e) {
+			
 		}
-	
-		private void setEditable() {
-			tPBefund.setEditable(editable);
-			spDate.setEnabled(editable);
-			refreshBtn();
-		}
-	
-		private void refreshBtn() {
-			btnSpeichern.setText(editable ? "Speichern" : "Schließen");
-			btnCancel.setText(editable ? "Cancel" : "Edit");		
-		}
-		
-		private boolean allSet(){
-			return tPBefund.getText() != "";
-		}
-		
-		private void addExamination() {
-			if (allSet()) {
-				setGlassPaneVisible(true);
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						Thread t = new Thread(new Runnable() {
-							public void run() {
-								try {
-									id = Database.insertExamination(id, spDate.getValue().toString(), tPBefund.getText().toString());
-									editable = false;
-									setEditable();
-								} catch (SQLException e) {
-									GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
-								}
-								setGlassPaneVisible(false);
-							}}
-						);
-						t.start();
-					}
-				});
-			} else {
-				GUIManager.showFieldErrorDialog(getFrame());
-			}
-		}
-		private void getExamination(){
-			ResultSet rs = Database.getExamination();
-			try {
-				id = rs.getLong(1);
-				spDate.setValue(rs.getDate(2));
-				tPBefund.setText(rs.getString(3));
-				editable = false;
-				setEditable();
-			} catch (SQLException e) {
-				
-			}
-		}
+	}
 }
