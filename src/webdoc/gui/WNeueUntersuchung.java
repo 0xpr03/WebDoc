@@ -139,16 +139,19 @@ public class WNeueUntersuchung extends WModelPane {
 			GUIManager.showFieldErrorDialog(getFrame());
 		}
 	}
+	
 	private void getExamination(){
-		ResultSet rs = Database.getExamination();
-		try {
-			id = rs.getLong(1);
-			spDate.setValue(rs.getDate(2));
-			tPBefund.setText(rs.getString(3));
-			editable = false;
-			setEditable();
-		} catch (SQLException e) {
-			
+		if(id != -1){
+			try {
+				ResultSet rs = Database.getExamination(id);
+				id = rs.getLong(1);
+				spDate.setValue(rs.getDate(2));
+				tPBefund.setText(rs.getString(3));
+				editable = false;
+				setEditable();
+			} catch (SQLException e) {
+				GUIManager.showDBErrorDialog(null, Database.DBExceptionConverter(e, true));
+			}
 		}
 	}
 }
