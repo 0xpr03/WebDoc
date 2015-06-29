@@ -337,7 +337,6 @@ public class WNeueAnamnese extends WModelPane {
 		JSplitPane splitPane = new JSplitPane();
 		JSplitPane splitPane_2 = new JSplitPane();
 		splitPane_2.setLeftComponent(splitPane);
-		splitPane_2.setDividerLocation(0.5);
 		splitPane.setLeftComponent(panel_2);
 
 		lblHaltung = new JLabel("Haltung:");
@@ -953,6 +952,9 @@ public class WNeueAnamnese extends WModelPane {
 			}
 		});
 		panel_3.add(btnEdit, "cell 2 0");
+		
+		splitPane_2.setResizeWeight(0.5);
+		splitPane.setResizeWeight(0.5);
 		
 		tpEndokrinium.setFont(GUIManager.getCommentFont());
 		tPSchilddruese.setFont(GUIManager.getCommentFont());
