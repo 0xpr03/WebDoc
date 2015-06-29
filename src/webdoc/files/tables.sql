@@ -144,6 +144,16 @@ CREATE TABLE IF NOT EXISTS `treatment` (
  `active` tinyint(1) NOT NULL DEFAULT '1',
  PRIMARY KEY (`TreatmentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.2';
+/* Table Untersuchung / examination */
+CREATE TABLE IF NOT EXISTS `examination` (
+ `ExaminationID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `AnimalID` int(10) unsigned NOT NULL,
+ `date` date NOT NULL,
+ `statement` text NOT NULL,
+ `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`ExaminationID`),
+ KEY `AnimalID` (`AnimalID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
 /* Table Tierbehandlungen / animaltreatment */
 CREATE TABLE IF NOT EXISTS `animaltreatment` (
  `PetTreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,

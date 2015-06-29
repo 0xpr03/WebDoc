@@ -43,8 +43,6 @@ public class WNeueUntersuchung extends WModelPane {
 	private Boolean editable;
 	private long id;
 
-
-
 	public WNeueUntersuchung(long in_id) {
 		this.id = in_id;
 		initialize();
