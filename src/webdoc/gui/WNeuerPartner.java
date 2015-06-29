@@ -219,14 +219,16 @@ public class WNeuerPartner extends WModelPane {
 		tableTiere.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
-				if(mevent.getButton() == MouseEvent.BUTTON1){
-					if(mevent.getClickCount() >= 2){
-						openPatient();
+				int row = tableTiere.rowAtPoint(mevent.getPoint());
+				if(row != -1){
+					if(mevent.getButton() == MouseEvent.BUTTON1){
+						if(mevent.getClickCount() >= 2){
+							openPatient();
+						}
+					}else{
+			            tableTiere.setRowSelectionInterval(row, row);
+						listmenu.show(mevent.getComponent(), mevent.getX(), mevent.getY());
 					}
-				}else{
-		            int row = tableTiere.rowAtPoint(mevent.getPoint());
-		            tableTiere.setColumnSelectionInterval(row, row);
-					listmenu.show(mevent.getComponent(), mevent.getX(), mevent.getY());
 				}
 			}
 		});
