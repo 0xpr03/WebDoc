@@ -51,6 +51,7 @@ public class WNeueUntersuchung extends WModelPane {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(String petName) {
+		editable = id == -1 ? true : false;
 		frmNeueUntersuchung = new JFrame();
 		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
 		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

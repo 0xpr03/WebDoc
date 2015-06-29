@@ -693,6 +693,7 @@ public class WNeuerPatient extends WModelPane {
 	private void updateEditBtns() {
 		btnNeueAnamnese.setEnabled(id != -1);
 		btnNeueBehandlung.setEnabled(id != -1);
+		btnNeueUntersuchung.setEnabled(id != -1);
 		btnOk.setText(editable ? "Speichern" : "Schließen");
 		buttonCancelEdit.setVisible(id > -1 || editable);
 		buttonCancelEdit.setText(id == -1 || editable ? "Cancel" : "Editieren");
