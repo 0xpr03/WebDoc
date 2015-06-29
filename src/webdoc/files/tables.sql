@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
 CREATE TABLE IF NOT EXISTS `relationship` (
  `PartnerID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
+ `insertDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`PartnerID`,`AnimalID`),
  KEY `PartnerID` (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
