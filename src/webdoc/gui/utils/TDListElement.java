@@ -47,11 +47,19 @@ public class TDListElement {
 		this.date = date;
 	}
 	
+	public TDListElement(long id, String name, Date date){
+		this.id = id;
+		this.name = name;
+		this.date = date;
+		this.elemType = LEType.UNDEFINED;
+	}
+	
 	public TDListElement(long id, String name_1, String name_2){
 		this.id = id;
 		this.name = name_1 + name_2;
 		this.elemType = LEType.UNDEFINED;
 	}
+	
 	public TDListElement(long id, String name){
 		this.id = id;
 		this.name = name;

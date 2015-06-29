@@ -678,11 +678,10 @@ public class WNeuerPartner extends WModelPane {
 				try {
 					// @formatter:off
 					ResultSet rs = Database.getPartnerAnimals(id);
-					DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) tableTiere.getModel();
-					model.clear();
+					model.clearElements();
 					while(rs.next()){
-						logger.debug("found another linked animal");
-						model.addElement(new ACElement(rs.getString(2), rs.getLong(1), ElementType.ANIMAL));
+						logger.debug("found another linked animal: {} {} {}",rs.getLong(1),rs.getString(2),rs.getDate(3));
+						model.add(new TDListElement(rs.getLong(1),rs.getString(2), rs.getDate(3)));
 					}
 					// @formatter:on
 				} catch (SQLException e) {
