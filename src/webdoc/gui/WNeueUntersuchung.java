@@ -10,6 +10,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,7 +31,7 @@ public class WNeueUntersuchung extends WModelPane {
 	 * 
 	 */
 	private static final long serialVersionUID = 1755313522984992683L;
-	private JFrame frmNeueUntersuchung;
+	private JInternalFrame frmNeueUntersuchung;
 	private JTextField tFName;
 	private JTextPane tPBefund;
 	private JSpinner spDate;
@@ -50,7 +51,8 @@ public class WNeueUntersuchung extends WModelPane {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(String petName) {
-		frmNeueUntersuchung = new JFrame();
+		editable = id == -1 ? true : false;
+		frmNeueUntersuchung = new JInternalFrame();
 		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
 		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		

@@ -731,7 +731,6 @@ public class WNeueAnamnese extends WModelPane {
 		JPanel panel_10 = new JPanel();
 
 		sPSchmerzmittel = new JScrollPane();
-		sPSchmerzmittel.setEnabled(false);
 		sPSchmerzmittel.setViewportBorder(new TitledBorder(null, "Wie reagiert das Tier auf Schmerzmittel?",
 				TitledBorder.CENTER, TitledBorder.TOP, null, null));
 
