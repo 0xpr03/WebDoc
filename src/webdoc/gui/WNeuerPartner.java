@@ -476,6 +476,7 @@ public class WNeuerPartner extends WModelPane {
 				}
 			}
 		});
+		JScrollPane scrollPane_Table = new JScrollPane(tableTiere);
 		btnHinzufgen.setEnabled(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPanel);
 		gl_contentPane.setHorizontalGroup(
@@ -491,7 +492,7 @@ public class WNeuerPartner extends WModelPane {
 							.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnHinzufgen))
-						.addComponent(tableTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane_Table, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
 					.addContainerGap())
@@ -506,7 +507,7 @@ public class WNeuerPartner extends WModelPane {
 								.addComponent(btnHinzufgen)
 								.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(6)
-							.addComponent(tableTiere, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+							.addComponent(scrollPane_Table, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
