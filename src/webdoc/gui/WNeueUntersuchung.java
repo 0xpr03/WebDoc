@@ -124,7 +124,7 @@ public class WNeueUntersuchung extends WModelPane {
 						Thread t = new Thread(new Runnable() {
 							public void run() {
 								try {
-									id = Database.insertExamination(getID(), spDate.getValue().toString(), tPBefund.getText().toString());
+									id = Database.insertExamination(id, spDate.getValue().toString(), tPBefund.getText().toString());
 									editable = false;
 									setEditable();
 								} catch (SQLException e) {
@@ -152,7 +152,4 @@ public class WNeueUntersuchung extends WModelPane {
 				
 			}
 		}
-		private long getID() {
-			return id;
-			}
 }
