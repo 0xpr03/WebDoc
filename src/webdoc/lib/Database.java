@@ -1252,7 +1252,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static long insertExamination(long animalID, String statement, Date date) throws SQLException {
-		String sql = "INSERT INTO examination (`AnimalID`,`date`,`statement`) VALUES (?,?,?);";
+		String sql = "INSERT INTO `examination` (`AnimalID`,`date`,`statement`) VALUES (?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, animalID);
 		stm.setDate(2, date);
@@ -1262,7 +1262,16 @@ public class Database{
 		return examinationID;
 	}
 
-	public static ResultSet getExamination() throws SQLException {
-		return null;
+	/**
+	 * Get examination
+	 * @param id examination id
+	 * @return ResultSet date,statement
+	 * @throws SQLException
+	 */
+	public static ResultSet getExamination(long id) throws SQLException {
+		String sql = "SELECT `date`,`statement` FROM `examination` WHERE `ExaminationID` = ?";
+		PreparedStatement stm = prepareStm(sql);
+		stm.setLong(1, id);
+		return stm.executeQuery();
 	}
 }
