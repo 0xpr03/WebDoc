@@ -237,8 +237,7 @@ public class WNeuerPartner extends WModelPane {
 					openPatient();
 			}
 		});
-		tableTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
-				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		tableTiere.setBorder(null);
 		tableTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();
