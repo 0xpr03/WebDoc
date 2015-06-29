@@ -1243,13 +1243,26 @@ public class Database{
 				+"WHERE `firstname` LIKE ? OR `secondname` LIKE ? ";
 	}
 
-
-	public static long insertExamination(long id, String string, String string2) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * Insert into tbl examination
+	 * @param id
+	 * @param string
+	 * @param string2
+	 * @return new entry id
+	 * @throws SQLException
+	 */
+	public static long insertExamination(long animalID, String statement, Date date) throws SQLException {
+		String sql = "INSERT INTO examination (`AnimalID`,`date`,`statement`) VALUES (?,?,?);";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setLong(1, animalID);
+		stm.setDate(2, date);
+		stm.setString(3, statement);
+		long examinationID = getAutoID(stm.getGeneratedKeys());
+		stm.close();
+		return examinationID;
 	}
 
-	public static ResultSet getExamination() {
+	public static ResultSet getExamination() throws SQLException {
 		return null;
 	}
 }
