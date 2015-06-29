@@ -1261,6 +1261,23 @@ public class Database{
 		stm.close();
 		return examinationID;
 	}
+	
+	/**
+	 * Insert into tbl examination
+	 * @param id
+	 * @param string
+	 * @param string2
+	 * @return new entry id
+	 * @throws SQLException
+	 */
+	public static void updateExamination(long exminationID, Timestamp datetime,String statement) throws SQLException {
+		String sql = "INSERT `examination` SET `datetime` = ?, `statement` = ? WHERE `ExaminationID` = ?;";
+		PreparedStatement stm = connection.prepareStatement(sql);
+		stm.setTimestamp(1, datetime);
+		stm.setString(2, statement);
+		stm.setLong(3, exminationID);
+		stm.close();
+	}
 
 	/**
 	 * Get examination

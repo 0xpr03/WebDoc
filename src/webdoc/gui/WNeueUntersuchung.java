@@ -1,33 +1,29 @@
 package webdoc.gui;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SwingUtilities;
+
 import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JSpinner;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SwingUtilities;
-import javax.xml.crypto.Data;
-
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
-import java.util.Calendar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WNeueUntersuchung extends WModelPane {
 
@@ -43,29 +39,57 @@ public class WNeueUntersuchung extends WModelPane {
 	private JButton btnCancel;
 	private Boolean editable;
 	private long id;
+	private long animalID;
 
-	public WNeueUntersuchung(long in_id) {
+	public WNeueUntersuchung(String petName,long in_id,long in_animalID) {
 		this.id = in_id;
-		initialize();
+		this.animalID = in_animalID;
+		initialize(petName);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(String petName) {
 		frmNeueUntersuchung = new JFrame();
 		frmNeueUntersuchung.setTitle("Neue Untersuchung");
 		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
-		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frmNeueUntersuchung.getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new MigLayout("", "[][][][]", "[]"));
 		
 		btnSpeichern = new JButton("Speichern");
+		btnSpeichern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (editable) {
+					entryExamination();
+				} else {
+					dispose();
+					return;
+				}
+			}
+		});
 		panel.add(btnSpeichern, "cell 1 0");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (id == -1) {
+					dispose();
+				} else if (editable) {
+					if (GUIFunctions.showIgnoreChangesDialog(getFrame()) == 0) {
+						editable = false;
+						setEditable();
+						loadData();
+					}
+				} else {
+					editable = true;
+					setEditable();
+				}
+			}
+		});
 		panel.add(btnCancel, "cell 2 0");
 		
 		JPanel panel_1 = new JPanel();
@@ -73,7 +97,7 @@ public class WNeueUntersuchung extends WModelPane {
 		
 		JLabel lblNameDesTieres = new JLabel("Name des Tieres:");
 		
-		tFName = new JTextField();
+		tFName = new JTextField(petName);
 		tFName.setColumns(10);
 		
 		JLabel lblDatum = new JLabel("Datum:");
@@ -96,9 +120,8 @@ public class WNeueUntersuchung extends WModelPane {
 		scrollPane.setViewportView(tPBefund);
 		tFName.setEditable(false);
 		
-		
-		
 		setEditable();
+		loadData();
 	}
 
 	private void setEditable() {
@@ -116,7 +139,7 @@ public class WNeueUntersuchung extends WModelPane {
 		return tPBefund.getText() != "";
 	}
 	
-	private void addExamination() {
+	private void entryExamination() {
 		if (allSet()) {
 			setGlassPaneVisible(true);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -124,7 +147,10 @@ public class WNeueUntersuchung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								id = Database.insertExamination(id,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
+								if(id == -1)
+									id = Database.insertExamination(animalID,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
+								else
+									Database.updateExamination(id,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
 								editable = false;
 								setEditable();
 							} catch (SQLException e) {
@@ -141,7 +167,7 @@ public class WNeueUntersuchung extends WModelPane {
 		}
 	}
 	
-	private void getExamination(){
+	private void loadData(){
 		if(id != -1){
 			try {
 				ResultSet rs = Database.getExamination(id);
