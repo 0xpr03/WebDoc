@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `treatment` (
 CREATE TABLE IF NOT EXISTS `examination` (
  `ExaminationID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
- `datetime` datetime NOT NULL,
+ `date` date NOT NULL,
  `statement` text NOT NULL,
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`ExaminationID`),
