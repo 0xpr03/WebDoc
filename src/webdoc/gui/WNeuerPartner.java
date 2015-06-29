@@ -525,7 +525,8 @@ public class WNeuerPartner extends WModelPane {
 				try {
 					searchAnimalStm.setString(1, "%" + text + "%");
 					searchAnimalStm.setString(2, "%" + text + "%");
-					searchAnimalStm.setLong(3, id);
+					searchAnimalStm.setString(3, "%" + text + "%");
+					searchAnimalStm.setLong(4, id);
 					ResultSet result = searchAnimalStm.executeQuery();
 
 					while (result.next()) {
