@@ -3,6 +3,7 @@ package webdoc.gui;
 import java.awt.EventQueue;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -123,7 +124,7 @@ public class WNeueUntersuchung extends WModelPane {
 					Thread t = new Thread(new Runnable() {
 						public void run() {
 							try {
-								id = Database.insertExamination(id, spDate.getValue().toString(), tPBefund.getText().toString());
+								id = Database.insertExamination(id,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
 								editable = false;
 								setEditable();
 							} catch (SQLException e) {
@@ -145,7 +146,7 @@ public class WNeueUntersuchung extends WModelPane {
 			try {
 				ResultSet rs = Database.getExamination(id);
 				id = rs.getLong(1);
-				spDate.setValue(rs.getDate(2));
+				spDate.setValue(rs.getTimestamp(2));
 				tPBefund.setText(rs.getString(3));
 				editable = false;
 				setEditable();

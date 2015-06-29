@@ -1251,11 +1251,11 @@ public class Database{
 	 * @return new entry id
 	 * @throws SQLException
 	 */
-	public static long insertExamination(long animalID, String statement, Date date) throws SQLException {
-		String sql = "INSERT INTO `examination` (`AnimalID`,`date`,`statement`) VALUES (?,?,?);";
+	public static long insertExamination(long animalID, Timestamp datetime,String statement) throws SQLException {
+		String sql = "INSERT INTO `examination` (`AnimalID`,`datetime`,`statement`) VALUES (?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, animalID);
-		stm.setDate(2, date);
+		stm.setTimestamp(2, datetime);
 		stm.setString(3, statement);
 		long examinationID = getAutoID(stm.getGeneratedKeys());
 		stm.close();
@@ -1265,11 +1265,11 @@ public class Database{
 	/**
 	 * Get examination
 	 * @param id examination id
-	 * @return ResultSet date,statement
+	 * @return ResultSet datetime,statement
 	 * @throws SQLException
 	 */
 	public static ResultSet getExamination(long id) throws SQLException {
-		String sql = "SELECT `date`,`statement` FROM `examination` WHERE `ExaminationID` = ?";
+		String sql = "SELECT `datetime`,`statement` FROM `examination` WHERE `ExaminationID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, id);
 		return stm.executeQuery();
