@@ -502,7 +502,7 @@ public class Database{
 	 * @throws SQLException
 	 */
 	public static ResultSet getPartnerAnimals(long partnerid) throws SQLException{
-		String sql = "SELECT relationship.AnimalID,Name "
+		String sql = "SELECT relationship.AnimalID,Name,relationship.insertDate "
 					+"FROM `relationship` "
 					+"INNER JOIN animal "
 					+"ON relationship.AnimalID = animal.AnimalID "
