@@ -679,7 +679,7 @@ public class WNeuerPartner extends WModelPane {
 					ResultSet rs = Database.getPartnerAnimals(id);
 					model.clearElements();
 					while(rs.next()){
-						logger.debug("found another linked animal: {} {} {}",rs.getLong(1),rs.getString(2),rs.getDate(3));
+						logger.debug("found another linked animal");
 						model.add(new TDListElement(rs.getLong(1),rs.getString(2), rs.getDate(3)));
 					}
 					// @formatter:on
