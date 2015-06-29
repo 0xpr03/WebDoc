@@ -102,7 +102,8 @@ public class WNeueUntersuchung extends WModelPane {
 		JLabel lblDatum = new JLabel("Datum:");
 		
 		spDate = new JSpinner();
-		spDate.setModel(new SpinnerDateModel(new Date(1435442400000L), null, null, Calendar.DAY_OF_YEAR));
+		spDate.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_YEAR));
+		spDate.setEditor(new JSpinner.DateEditor(spDate, "dd-MM-yyyy"));
 		panel_1.setLayout(new MigLayout("", "[83px][333px,grow]", "[20px][20px][grow]"));
 		panel_1.add(lblNameDesTieres, "cell 0 0,alignx left,aligny center");
 		panel_1.add(tFName, "cell 1 0,growx,aligny top");
@@ -147,9 +148,9 @@ public class WNeueUntersuchung extends WModelPane {
 						public void run() {
 							try {
 								if(id == -1)
-									id = Database.insertExamination(animalID,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
+									id = Database.insertExamination(animalID,new java.sql.Date( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
 								else
-									Database.updateExamination(id,new Timestamp( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
+									Database.updateExamination(id,new java.sql.Date( ((Date)spDate.getValue()).getTime()), tPBefund.getText().toString());
 								editable = false;
 								setEditable();
 							} catch (SQLException e) {
@@ -171,7 +172,7 @@ public class WNeueUntersuchung extends WModelPane {
 			try {
 				ResultSet rs = Database.getExamination(id);
 				id = rs.getLong(1);
-				spDate.setValue(rs.getTimestamp(2));
+				spDate.setValue(rs.getDate(2));
 				tPBefund.setText(rs.getString(3));
 				editable = false;
 				setEditable();

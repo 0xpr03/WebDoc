@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
 CREATE TABLE IF NOT EXISTS `relationship` (
  `PartnerID` int(10) unsigned NOT NULL,
  `AnimalID` int(10) unsigned NOT NULL,
+ `insertDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
  PRIMARY KEY (`PartnerID`,`AnimalID`),
  KEY `PartnerID` (`PartnerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
@@ -148,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `treatment` (
 CREATE TABLE IF NOT EXISTS `examination` (
  `ExaminationID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
- `datetime` datetime NOT NULL,
+ `date` date NOT NULL,
  `statement` text NOT NULL,
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`ExaminationID`),

@@ -1245,17 +1245,17 @@ public class Database{
 
 	/**
 	 * Insert into tbl examination
-	 * @param id
-	 * @param string
-	 * @param string2
-	 * @return new entry id
+	 * @param animalID
+	 * @param date
+	 * @param statement
+	 * @return new examination id
 	 * @throws SQLException
 	 */
-	public static long insertExamination(long animalID, Timestamp datetime,String statement) throws SQLException {
-		String sql = "INSERT INTO `examination` (`AnimalID`,`datetime`,`statement`) VALUES (?,?,?);";
+	public static long insertExamination(long animalID, Date date,String statement) throws SQLException {
+		String sql = "INSERT INTO `examination` (`AnimalID`,`date`,`statement`) VALUES (?,?,?);";
 		PreparedStatement stm = connection.prepareStatement(sql);
 		stm.setLong(1, animalID);
-		stm.setTimestamp(2, datetime);
+		stm.setDate(2, date);
 		stm.setString(3, statement);
 		long examinationID = getAutoID(stm.getGeneratedKeys());
 		stm.close();
@@ -1263,17 +1263,16 @@ public class Database{
 	}
 	
 	/**
-	 * Insert into tbl examination
-	 * @param id
-	 * @param string
-	 * @param string2
-	 * @return new entry id
+	 * Update tbl examination
+	 * @param exminationID
+	 * @param date
+	 * @param statement
 	 * @throws SQLException
 	 */
-	public static void updateExamination(long exminationID, Timestamp datetime,String statement) throws SQLException {
-		String sql = "INSERT `examination` SET `datetime` = ?, `statement` = ? WHERE `ExaminationID` = ?;";
+	public static void updateExamination(long exminationID, Date date,String statement) throws SQLException {
+		String sql = "INSERT `examination` SET `date` = ?, `statement` = ? WHERE `ExaminationID` = ?;";
 		PreparedStatement stm = connection.prepareStatement(sql);
-		stm.setTimestamp(1, datetime);
+		stm.setDate(1, date);
 		stm.setString(2, statement);
 		stm.setLong(3, exminationID);
 		stm.close();
@@ -1282,11 +1281,11 @@ public class Database{
 	/**
 	 * Get examination
 	 * @param id examination id
-	 * @return ResultSet datetime,statement
+	 * @return ResultSet date,statement
 	 * @throws SQLException
 	 */
 	public static ResultSet getExamination(long id) throws SQLException {
-		String sql = "SELECT `datetime`,`statement` FROM `examination` WHERE `ExaminationID` = ?";
+		String sql = "SELECT `date`,`statement` FROM `examination` WHERE `ExaminationID` = ?";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, id);
 		return stm.executeQuery();
