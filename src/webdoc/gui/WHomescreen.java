@@ -440,6 +440,10 @@ public final class WHomescreen extends JFrame {
 		addFrame(new WNeueBehandlungsart(threatmentID));
 	}
 	
+	public void addWeueUntersuchung(String petName,long in_id,long in_animalID){
+		addFrame(new WNeueUntersuchung(petName, in_id, in_animalID));
+	}
+	
 	/**
 	 * removes the JInternalFrame from the desktopPane
 	 * @param jif

@@ -101,6 +101,7 @@ public class WNeuerPatient extends WModelPane {
 	private JPanel panelBemerkungen;
 	private JTable table;
 	private PatientTableModel model = new PatientTableModel();
+	private JButton btnNeueUntersuchung;
 
 	/**
 	 * Create the application.
@@ -133,7 +134,7 @@ public class WNeuerPatient extends WModelPane {
 		setMinimumSize(new Dimension(1, 1));
 
 		setTitle(editable ? "Neuer Patient" : "Patient");
-		setBounds(100, 100, 756, 400);
+		setBounds(100, 100, 739, 400);
 
 		JPanel downPanel = new JPanel();
 		downPanel.setBounds(new Rectangle(1, 1, 1, 1));
@@ -371,8 +372,7 @@ public class WNeuerPatient extends WModelPane {
 		});
 		panelVerlauf.add(new JScrollPane( table ));
 		contentPanel.setLayout(gl_contentPanel);
-		downPanel.setLayout(new MigLayout("",
-				"[29.00][42.00][][left][left][left]", "[26.00]"));
+		downPanel.setLayout(new MigLayout("", "[29.00][42.00][][left][left][][left]", "[26.00]"));
 
 		btnOk = new JButton();
 		btnOk.addActionListener(new ActionListener() {
@@ -424,6 +424,14 @@ public class WNeuerPatient extends WModelPane {
 				GUIManager.callWNeueBehandlung(id, -1, strName.getText());
 			}
 		});
+		
+		btnNeueUntersuchung = new JButton("Neue Untersuchung");
+		btnNeueUntersuchung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUIManager.callWNeueUntersuchung(strName.getText(), -1, id);
+			}
+		});
+		downPanel.add(btnNeueUntersuchung, "flowx,cell 4 0");
 		downPanel.add(btnNeueBehandlung, "cell 4 0");
 
 		buttonCancelEdit.setVisible(editable);
@@ -536,7 +544,7 @@ public class WNeuerPatient extends WModelPane {
 						.isSelected());
 			}
 		});
-		downPanel.add(chckbxBemerkungAnzeigen, "cell 5 0");
+		downPanel.add(chckbxBemerkungAnzeigen, "cell 6 0");
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
 		try {

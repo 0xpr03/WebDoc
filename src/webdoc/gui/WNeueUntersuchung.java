@@ -52,7 +52,6 @@ public class WNeueUntersuchung extends WModelPane {
 	 */
 	private void initialize(String petName) {
 		frmNeueUntersuchung = new JFrame();
-		frmNeueUntersuchung.setTitle("Neue Untersuchung");
 		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
 		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -119,7 +118,6 @@ public class WNeueUntersuchung extends WModelPane {
 		tPBefund = new JTextPane();
 		scrollPane.setViewportView(tPBefund);
 		tFName.setEditable(false);
-		
 		setEditable();
 		loadData();
 	}
@@ -127,6 +125,7 @@ public class WNeueUntersuchung extends WModelPane {
 	private void setEditable() {
 		tPBefund.setEditable(editable);
 		spDate.setEnabled(editable);
+		frmNeueUntersuchung.setTitle(editable ? "Neue Untersuchung" : "Untersuchung");
 		refreshBtn();
 	}
 

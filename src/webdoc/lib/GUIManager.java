@@ -189,6 +189,13 @@ public final class GUIManager {
 	}
 	
 	/**
+	 * Calls WNeueUntersuchung
+	 */
+	public static void callWNeueUntersuchung(String petName,long in_id,long in_animalID){
+		whomescreen.addWeueUntersuchung(petName, in_id, in_animalID);
+	}
+	
+	/**
 	 * Shows a generic error dialog with a yes & no button
 	 * @param parent parent window
 	 * @param message message to display
