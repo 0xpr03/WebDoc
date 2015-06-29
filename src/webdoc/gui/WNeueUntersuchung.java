@@ -1,9 +1,10 @@
 package webdoc.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -22,8 +23,6 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class WNeueUntersuchung extends WModelPane {
 
