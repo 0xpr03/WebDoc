@@ -43,6 +43,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -52,6 +53,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.TableRowSorter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -61,10 +63,13 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.ACElement;
 import webdoc.gui.utils.ACElement.ElementType;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.PatientTableModel;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
+import webdoc.gui.utils.PartnerTableModel;
 import webdoc.gui.utils.RoleEnumObj;
 import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.RoleEnumObj.RoleType;
+import webdoc.gui.utils.TDListElement;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import webdoc.webdoc.Config;
@@ -96,7 +101,8 @@ public class WNeuerPartner extends WModelPane {
 	private long partnerroleid = -1;
 	private JButton btnOk;
 	private JButton btnCancelEdit;
-	private JList<ACElement> JListTiere;
+	private JTable tableTiere;
+	private PartnerTableModel model = new PartnerTableModel();
 	private JPanel panel_2;
 	private JTextPane textComment;
 	private JScrollPane scrollPaneComment;
@@ -191,10 +197,9 @@ public class WNeuerPartner extends WModelPane {
 			public void actionPerformed(ActionEvent e) {
 				logger.debug("recived delete command");
 				try {
-					if(JListTiere.getSelectedValue().getID() > 0){
-						Database.removeRelationship(id, JListTiere.getSelectedValue().getID());
+					TDListElement elem = model.getTDLEAt(tableTiere.getSelectedRow());
+						Database.removeRelationship(id, elem.getID());
 						loadAnimals();
-					}
 				} catch (SQLException e1) {
 					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e1, true));
 				}
@@ -202,8 +207,19 @@ public class WNeuerPartner extends WModelPane {
 		});
 		listmenu.add(pm);
 		
-		JListTiere = new JList<ACElement>(new DefaultListModel<ACElement>());
-		JListTiere.addMouseListener(new MouseAdapter() {
+		
+		tableTiere = new JTable(model);
+		tableTiere.setShowGrid(false);
+		tableTiere.setShowHorizontalLines(false);
+		tableTiere.setShowVerticalLines(false);
+		tableTiere.setRowMargin(0);
+		tableTiere.setIntercellSpacing(new Dimension(0, 0));
+		tableTiere.setFillsViewportHeight(true);
+		TableRowSorter<PartnerTableModel> sorter = new TableRowSorter<PartnerTableModel>(
+				model);
+		tableTiere.setRowSorter(sorter);
+		
+		tableTiere.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
 				if(mevent.getButton() == MouseEvent.BUTTON1){
@@ -211,22 +227,22 @@ public class WNeuerPartner extends WModelPane {
 						openPatient();
 					}
 				}else{
-		            int row = JListTiere.locationToIndex(mevent.getPoint());
-		            JListTiere.setSelectedIndex(row);
+		            int row = tableTiere.rowAtPoint(mevent.getPoint());
+		            tableTiere.setColumnSelectionInterval(row, row);
 					listmenu.show(mevent.getComponent(), mevent.getX(), mevent.getY());
 				}
 			}
 		});
-		JListTiere.addKeyListener(new KeyAdapter() {
+		tableTiere.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
 					openPatient();
 			}
 		});
-		JListTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
+		tableTiere.setBorder(new TitledBorder(UIManager.getBorder("CheckBoxMenuItem.border"), "Tiere",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		JListTiere.setBackground(Color.WHITE);
+		tableTiere.setBackground(Color.WHITE);
 
 		JPanel personenbezogeneDaten = new JPanel();
 
@@ -475,7 +491,7 @@ public class WNeuerPartner extends WModelPane {
 							.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnHinzufgen))
-						.addComponent(JListTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
+						.addComponent(tableTiere, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPaneComment, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
 					.addContainerGap())
@@ -490,7 +506,7 @@ public class WNeuerPartner extends WModelPane {
 								.addComponent(btnHinzufgen)
 								.addComponent(animalSearchText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(6)
-							.addComponent(JListTiere, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+							.addComponent(tableTiere, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(personenbezogeneDaten, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -662,7 +678,7 @@ public class WNeuerPartner extends WModelPane {
 				try {
 					// @formatter:off
 					ResultSet rs = Database.getPartnerAnimals(id);
-					DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) JListTiere.getModel();
+					DefaultListModel<ACElement> model = (DefaultListModel<ACElement>) tableTiere.getModel();
 					model.clear();
 					while(rs.next()){
 						logger.debug("found another linked animal");
@@ -785,7 +801,7 @@ public class WNeuerPartner extends WModelPane {
 	 * Helper class to open a patient fired by JList listeners
 	 */
 	private void openPatient() {
-		GUIManager.addWNeuerPatient(false, JListTiere.getSelectedValue().getID());
+		GUIManager.addWNeuerPatient(false, model.getTDLEAt(tableTiere.getSelectedRow()).getID());
 	}
 
 	private void commentViewAction(boolean show) {
