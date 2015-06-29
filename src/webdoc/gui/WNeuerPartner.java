@@ -829,7 +829,6 @@ public class WNeuerPartner extends WModelPane {
 		GUIManager.dropJID(this);
 	}
 	
-	
 	private boolean allSet() {
 		if (textVorname.equals(""))
 			return false;

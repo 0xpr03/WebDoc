@@ -480,6 +480,7 @@ public class WNeuerPatient extends WModelPane {
 				try {
 					searchAnimalStm.setString(1, "%" + text + "%");
 					searchAnimalStm.setString(2, "%" + text + "%");
+					searchAnimalStm.setString(3, "%" + text + "%");
 					ResultSet result = searchAnimalStm.executeQuery();
 
 					while (result.next()) {

@@ -434,6 +434,7 @@ public class test extends JInternalFrame {
 					searchStm.setString(2, text);
 					searchStm.setString(3, text);
 					searchStm.setString(4, text);
+					searchStm.setString(5, text);
 					ResultSet result = searchStm.executeQuery();
 					
 					while(result.next()){
