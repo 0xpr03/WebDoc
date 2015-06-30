@@ -55,7 +55,7 @@ public class WNeueBehandlungsart extends WModelPane {
 		editable = id == -1 ? true : false;
 		setSize(new Dimension(450, 249));
 		setClosable(true);
-		setTitle("Behandlungsart");
+		setTitle(editable ? "Neue Behandlungsart" : "Behanlungsart");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_1 = new JPanel();

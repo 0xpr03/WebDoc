@@ -31,7 +31,6 @@ public class WNeueUntersuchung extends WModelPane {
 	 * 
 	 */
 	private static final long serialVersionUID = 1755313522984992683L;
-	private JInternalFrame frmNeueUntersuchung;
 	private JTextField tFName;
 	private JTextPane tPBefund;
 	private JSpinner spDate;
@@ -52,12 +51,11 @@ public class WNeueUntersuchung extends WModelPane {
 	 */
 	private void initialize(String petName) {
 		editable = id == -1 ? true : false;
-		frmNeueUntersuchung = new JInternalFrame();
-		frmNeueUntersuchung.setBounds(100, 100, 450, 335);
-		frmNeueUntersuchung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 335);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		frmNeueUntersuchung.getContentPane().add(panel, BorderLayout.SOUTH);
+		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new MigLayout("", "[][][][]", "[]"));
 		
 		btnSpeichern = new JButton("Speichern");
@@ -93,7 +91,7 @@ public class WNeueUntersuchung extends WModelPane {
 		panel.add(btnCancel, "cell 2 0");
 		
 		JPanel panel_1 = new JPanel();
-		frmNeueUntersuchung.getContentPane().add(panel_1, BorderLayout.CENTER);
+		getContentPane().add(panel_1, BorderLayout.CENTER);
 		
 		JLabel lblNameDesTieres = new JLabel("Name des Tieres:");
 		
@@ -127,7 +125,7 @@ public class WNeueUntersuchung extends WModelPane {
 	private void setEditable() {
 		tPBefund.setEditable(editable);
 		spDate.setEnabled(editable);
-		frmNeueUntersuchung.setTitle(editable ? "Neue Untersuchung" : "Untersuchung");
+		setTitle(editable ? "Neue Untersuchung" : "Untersuchung");
 		refreshBtn();
 	}
 
