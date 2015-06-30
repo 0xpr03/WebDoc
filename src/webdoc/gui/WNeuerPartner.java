@@ -872,9 +872,9 @@ public class WNeuerPartner extends WModelPane {
 			return false;
 		if (textOrtsteil.getText().length() > 20)
 			return false;
-		if(GUIFunctions.compareSpinnerDates(spinGebdatum.getValue())){
-			return false;
-		}
+//		if(GUIFunctions.compareSpinnerDates(spinGebdatum.getValue())){
+//			return false;
+//		}
 		return true;
 	}
 }
