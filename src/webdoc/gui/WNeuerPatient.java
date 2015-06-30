@@ -811,9 +811,9 @@ public class WNeuerPatient extends WModelPane {
 			return false;
 //		if (strRufname.getText().isEmpty())
 //			return false;
-		if (strRufname.getText().length() > 20)
+		if (strRufname.getText().length() > 60)
 			return false;
-		if (strName.getText().length() > 50)
+		if (strName.getText().length() > 60)
 			return false;
 		if (strFarbe.getText().length() > 20)
 			return false;

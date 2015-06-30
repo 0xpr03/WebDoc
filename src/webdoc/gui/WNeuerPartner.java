@@ -852,6 +852,10 @@ public class WNeuerPartner extends WModelPane {
 			return false;
 		if (textName.equals(""))
 			return false;
+		if (textVorname.getText().length() > 20)
+			return false;
+		if (textName.getText().length() > 20)
+			return false;
 		if(textHausnummer.getText().equals(""))
 			return false;
 		if(textPostleitzahl.getText().equals(""))

@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS `race` (
 /* Table animal / Tier */
 CREATE TABLE IF NOT EXISTS `animal` (
  `AnimalID` int(10) unsigned NOT NULL AUTO_INCREMENT,
- `Name` varchar(50) NOT NULL,
- `Callname` varchar(20) NOT NULL,
+ `Name` varchar(60) NOT NULL,
+ `Callname` varchar(60) NOT NULL,
  `identification` varchar(30) NOT NULL,
  `coatcolor` varchar(40) NOT NULL,
  `weight` double NOT NULL,
@@ -90,8 +90,8 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `possesionsince` date DEFAULT NULL,
  `origin` varchar(50) DEFAULT NULL,
  `familystrchanges` text DEFAULT NULL,
- `abroadstays` varchar(250) DEFAULT NULL,
- `attitudeconspicuity` varchar(250) DEFAULT NULL,
+ `abroadstays` text DEFAULT NULL,
+ `attitudeconspicuity` text DEFAULT NULL,
  `injurys` text DEFAULT NULL,
  `scars` text DEFAULT NULL,
  `infectiousDisease` text DEFAULT NULL,
