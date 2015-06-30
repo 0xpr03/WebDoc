@@ -83,12 +83,13 @@ CREATE TABLE IF NOT EXISTS `animal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.7';
 /* Table Anamnese / anamnesis */
 CREATE TABLE IF NOT EXISTS `anamnesis` (
+ ROW_FORMAT=COMPRESSED
  `AnamnesisID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
- `purpose` varchar(25) DEFAULT NULL,
- `keeping` varchar(50) DEFAULT NULL,
- `possesionsince` date DEFAULT NULL,
- `origin` varchar(50) DEFAULT NULL,
+ `purpose` text DEFAULT NULL,
+ `keeping` text DEFAULT NULL,
+ `possesionsince` date NOT NULL,
+ `origin` text DEFAULT NULL,
  `familystrchanges` text DEFAULT NULL,
  `abroadstays` text DEFAULT NULL,
  `attitudeconspicuity` text DEFAULT NULL,
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `anamnesis` (
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`AnamnesisID`),
  KEY `AnimalID` (`AnimalID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.4';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='v0.5';
 /* Table Beziehungen / relationship */
 CREATE TABLE IF NOT EXISTS `relationship` (
  `PartnerID` int(10) unsigned NOT NULL,
@@ -154,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `examination` (
  `editDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (`ExaminationID`),
  KEY `AnimalID` (`AnimalID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.1';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='v0.2';
 /* Table Tierbehandlungen / animaltreatment */
 CREATE TABLE IF NOT EXISTS `animaltreatment` (
  `PetTreatmentID` int(10) unsigned NOT NULL AUTO_INCREMENT,
