@@ -36,6 +36,7 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import javax.swing.JFrame;
 
 public class WNeueBehandlungsart extends WModelPane {
 
@@ -51,6 +52,7 @@ public class WNeueBehandlungsart extends WModelPane {
 	private JButton btnEdit;
 	public WNeueBehandlungsart(long in_id) {
 		super(serialVersionUID);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setResizable(true);
 		this.id = in_id;
 		editable = id == -1 ? true : false;

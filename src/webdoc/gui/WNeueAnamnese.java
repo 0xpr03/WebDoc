@@ -196,7 +196,7 @@ public class WNeueAnamnese extends WModelPane {
 			 String patient_name, String patient_callname) {
 		super(serialVersionUID);
 		logger.debug("anamnesisid: {}\nanimalid: {}\neditable: {}", anamnesis_id, animal_id, is_editable);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.editable = is_editable;
 		initialize(patient_name);
 		this.animalID = animal_id;
