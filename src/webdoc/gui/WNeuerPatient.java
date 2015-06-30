@@ -587,7 +587,6 @@ public class WNeuerPatient extends WModelPane {
 	}
 
 	private synchronized void loadHistoryData() {
-		logger.entry();
 		if (id != -1 && !isLoading) {
 			isLoading = true;
 			setGlassPaneVisible(true);
@@ -601,7 +600,6 @@ public class WNeuerPatient extends WModelPane {
 								ResultSet rs = Database.getPatientRData(id);
 								LEType type = LEType.UNDEFINED;
 								while (rs.next()) {
-									logger.debug("got history data");
 									switch(rs.getInt(3)){
 									case 0:
 										type = LEType.TYPE_A;

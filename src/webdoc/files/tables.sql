@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `animal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='v0.7';
 /* Table Anamnese / anamnesis */
 CREATE TABLE IF NOT EXISTS `anamnesis` (
- ROW_FORMAT=COMPRESSED
  `AnamnesisID` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `AnimalID` int(10) unsigned NOT NULL,
  `purpose` text DEFAULT NULL,

@@ -128,7 +128,18 @@ public class dbTools {
 		
 		if(Config.getBoolValue("createDB")){
 			wpg.setText("Creating DB");
-			wpg.setSubMax(Config.getBoolValue("overwriteDB") ? 2 : 1);
+			wpg.setSubMax(Config.getBoolValue("overwriteDB") ? 3 : 2);
+			
+			wpg.setSubText("Setting system vars..");
+			try{
+				Database.execUpdateQuery("SET SESSION innodb_strict_mode = ON;");
+				Database.execUpdateQuery("SET GLOBAL innodb_file_format = 'Barracuda';");
+			}catch(SQLException e){
+				logger.fatal("Unable to set innodb_file_format! {}",e);
+				GUIManager.showErrorDialog("innodb_file_format konnte nicht gesetzt werden!\n Dies hat gravierende Auswirkungen auf die Performance & max. Anzahl an Textzeichen!", "Fehler @ innodb_file_format");
+			}
+			
+			wpg.addSubProgress();
 			
 			if(Config.getBoolValue("overwriteDB")){
 				wpg.setSubText("Dropping DB");
