@@ -35,6 +35,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -192,13 +193,15 @@ public class WNeuerPartner extends WModelPane {
 		pm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logger.debug("recived delete command");
-				try {
-					TDListElement elem = model.getTDLEAt(tableTiere.getSelectedRow());
-						Database.removeRelationship(id, elem.getID());
-						loadAnimals();
-				} catch (SQLException e1) {
-					GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e1, true));
+				logger.debug("received delete command");
+				if(GUIManager.showYesNoDialog(getParent(), "Wollen Sie die Zugehörigkeit wirklich löschen ?", JOptionPane.QUESTION_MESSAGE, "Verknüpfung löschen") == 0){
+					try {
+						TDListElement elem = model.getTDLEAt(tableTiere.getSelectedRow());
+							Database.removeRelationship(id, elem.getID());
+							loadAnimals();
+					} catch (SQLException e1) {
+						GUIManager.showDBErrorDialog(getParent(), Database.DBExceptionConverter(e1, true));
+					}
 				}
 			}
 		});
