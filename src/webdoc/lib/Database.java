@@ -344,10 +344,14 @@ public class Database{
 				+"UNION ALL "
 				+"SELECT `PetTreatmentID` as id, `datetime` as insdate, 1 as type FROM `animaltreatment` "
 				+"WHERE AnimalID = ? "
+				+"UNION ALL "
+				+"SELECT `ExaminationID` as id, `date` as insdate, 2 as type FROM `examination` "
+				+"WHERE AnimalID = ? "
 				+"ORDER BY insdate DESC";
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, patientID);
 		stm.setLong(2, patientID);
+		stm.setLong(3, patientID);
 		return stm.executeQuery();
 	}
 	
