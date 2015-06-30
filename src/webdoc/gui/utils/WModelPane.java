@@ -8,6 +8,8 @@ package webdoc.gui.utils;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JProgressBar;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 import webdoc.lib.GUIManager;
 
@@ -28,6 +30,12 @@ public class WModelPane extends JInternalFrame {
 		setGlassPane(glassPane);
 		progressBar.setIndeterminate(true);
 		glassPane.add(progressBar);
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosing(InternalFrameEvent arg0) {
+				dispose();
+			}
+		});
 	}
 
 	/**

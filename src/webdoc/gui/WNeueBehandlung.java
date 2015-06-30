@@ -43,6 +43,7 @@ import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.JSearchTextField.searchFieldAPI;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import javax.swing.JFrame;
 
 public class WNeueBehandlung extends WModelPane {
 
@@ -68,6 +69,7 @@ public class WNeueBehandlung extends WModelPane {
 
 	public WNeueBehandlung(long animalID, long in_id, String animal_name) {
 		super(serialVersionUID);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.animalID = animalID;
 		this.id = in_id;
 		editable = id == -1;

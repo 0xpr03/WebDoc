@@ -116,7 +116,7 @@ public class WNeuerPartner extends WModelPane {
 	 */
 	public WNeuerPartner(boolean editable, long id) {
 		super(serialVersionUID);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;
 		initialize();
@@ -845,9 +845,12 @@ public class WNeuerPartner extends WModelPane {
 	@Override
 	public void dispose() {
 		if (editable) {
-			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
+			if (GUIFunctions.showIgnoreChangesDialog(this) == 1){
+				logger.debug("running here..");
 				return;
+			}
 		}
+		logger.debug("running further..");
 		Database.closePStatement(searchAnimalStm);
 		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();

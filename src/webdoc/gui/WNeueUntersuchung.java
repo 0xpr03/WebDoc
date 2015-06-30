@@ -52,7 +52,7 @@ public class WNeueUntersuchung extends WModelPane {
 	private void initialize(String petName) {
 		editable = id == -1 ? true : false;
 		setBounds(100, 100, 450, 335);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
