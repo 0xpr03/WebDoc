@@ -1184,37 +1184,15 @@ public class WNeueAnamnese extends WModelPane {
 
 
 	private boolean allSet() {
-		if (tPAenderungenFamilie.getText().length() > 26)
+		if(tFHalltung.getText().length() > 50)
 			return false;
-		if (tPVerwendungszweck.getText().length() > 25)
+		if(tPVerwendungszweck.getText().length() > 25)
 			return false;
-		if (tFHalltung.getText().length() > 50)
-			return false;
-		if (tPTierStammtVon.getText().length() > 250)
-			return false;
-		if (tPAenderungenFamilie.getText().length() > 500)
-			return false;
-		if (tPAuslandsaufenthalte.getText().length() > 250)
-			return false;
-		if (tPVerhaltensaufaeligkeiten.getText().length() > 250)
-			return false;
-		if (tPInfektionen.getText().length() > 500)
-			return false;
-		if (tPAtmung.getText().length() > 250)
-			return false;
-		if (tPVerdauung.getText().length() > 250)
-			return false;
-		if (tPSchilddruese.getText().length() > 100)
-			return false;
-		if (tPBauchspeicheldruese.getText().length() > 100)
-			return false;
-		if (tPZNS.getText().length() > 100)
+		if(tPTierStammtVon.getText().length() > 250)
 			return false;
 		if (invalidDouble(spGehstrecke.getValue().toString()))
 			return false;
 		if (invalidDouble(spAuslauf.getValue().toString()))
-			return false;
-		if (tPBemerkungen.getText().length() > 1000)
 			return false;
 		return true;
 	}

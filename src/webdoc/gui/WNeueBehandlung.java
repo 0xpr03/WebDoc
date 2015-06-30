@@ -71,7 +71,7 @@ public class WNeueBehandlung extends WModelPane {
 		this.id = in_id;
 		editable = id == -1;
 		setSize(new Dimension(450, 301));
-		setTitle("Neue Behandlung");
+		setTitle(editable ? "Neue Behandlung" : "Behandlung");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel panel = new JPanel();

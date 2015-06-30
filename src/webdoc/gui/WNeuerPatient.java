@@ -800,18 +800,20 @@ public class WNeuerPatient extends WModelPane {
 
 	private boolean allSet() {
 		if (strName.getText().isEmpty())
-			return false;
+			if(!strRufname.getText().isEmpty()){
+				strName.setText(strRufname.getText());
+			}else{
+				return false;
+			}
 		if (textRasse.getText().equals(""))
 			return false;
 		if (enumGeschlecht.equals(GenderType.UNKNOWN))
 			return false;
-		if (((double) spinGewicht.getValue()) == 0.0)
+//		if (strRufname.getText().isEmpty())
+//			return false;
+		if (strRufname.getText().length() > 60)
 			return false;
-		if (strRufname.getText().isEmpty())
-			return false;
-		if (strRufname.getText().length() > 20)
-			return false;
-		if (strName.getText().length() > 50)
+		if (strName.getText().length() > 60)
 			return false;
 		if (strFarbe.getText().length() > 20)
 			return false;

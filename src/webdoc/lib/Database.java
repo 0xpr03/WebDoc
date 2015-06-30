@@ -1261,6 +1261,8 @@ public class Database{
 		stm.setLong(1, animalID);
 		stm.setDate(2, date);
 		stm.setString(3, statement);
+		
+		stm.executeUpdate();
 		long examinationID = getAutoID(stm.getGeneratedKeys());
 		stm.close();
 		return examinationID;
