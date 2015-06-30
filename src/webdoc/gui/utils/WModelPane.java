@@ -68,14 +68,12 @@ public class WModelPane extends JInternalFrame {
 	@Override
 	public void setVisible(boolean b){
 		if(b)
-			System.out.println("loading config");
 			loadConfiguration();
 		super.setVisible(b);
 	}
 	
 	@Override
 	public void dispose(){
-		System.out.println("settings config");
 		saveConfiguration();
 		super.dispose();
 	}
