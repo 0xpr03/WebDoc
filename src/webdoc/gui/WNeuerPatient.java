@@ -354,20 +354,27 @@ public class WNeuerPatient extends WModelPane {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent mevent) {
-				if (mevent.getButton() == MouseEvent.BUTTON1
-						&& table.getSelectedRow() != -1) {
+				// @formatter:off
+				if (mevent.getButton() == MouseEvent.BUTTON1 && table.getSelectedRow() != -1) {
 					if (mevent.getClickCount() >= 2) {
-						// @formatter:off
 						TDListElement elem = model.getTDLEAt(table.getSelectedRow());
-						if(elem.getType() == LEType.TYPE_A){
-							GUIManager.callWNewAnamnesis(false, id, elem.getID(),
-									strName.getText(), strRufname.getText());
-						}else{
+						switch(elem.getType()){
+						case TYPE_A:
+							GUIManager.callWNewAnamnesis(false, id, elem.getID(), strName.getText(), strRufname.getText());
+							break;
+						case TYPE_B:
 							GUIManager.callWNeueBehandlung(id, elem.getID(), strRufname.getText());
+							break;
+						case TYPE_C:
+							GUIManager.callWNeueUntersuchung(strRufname.getText(), elem.getID(), id);
+							break;
+						default:
+							logger.error("UNDEFINED element!");
+							break;
 						}
-						// @formatter:on
 					}
 				}
+				// @formatter:on
 			}
 		});
 		panelVerlauf.add(new JScrollPane( table ));
@@ -589,8 +596,20 @@ public class WNeuerPatient extends WModelPane {
 							try {
 								model.clearElements();
 								ResultSet rs = Database.getPatientRData(id);
+								LEType type = LEType.UNDEFINED;
 								while (rs.next()) {
-									model.add(new TDListElement(rs.getLong(1), rs.getInt(3) == 0 ? LEType.TYPE_A : LEType.TYPE_B, rs.getDate(2)));
+									switch(rs.getInt(3)){
+									case 0:
+										type = LEType.TYPE_A;
+										break;
+									case 1:
+										type = LEType.TYPE_B;
+										break;
+									case 2:
+										type = LEType.TYPE_C;
+										break;
+									}
+									model.add(new TDListElement(rs.getLong(1), type, rs.getDate(2)));
 								}
 								rs.close();
 							} catch (SQLException e) {

@@ -12,8 +12,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import webdoc.gui.utils.TDListElement.LEType;
-
 /**
  * Custom TableModel for Patient Treatment JTable
  * @author "Aron Heinecke"
@@ -74,7 +72,8 @@ public class PatientTableModel extends AbstractTableModel {
     /**
      * Return the values according to the headers, from the TDListElement
      */
-    @Override
+    @SuppressWarnings("incomplete-switch")
+	@Override
     public Object getValueAt(int rowIndex, int columnIndex){
     	TDListElement tdl = getTDLEAt(rowIndex);
     	Object value = null;
@@ -83,7 +82,17 @@ public class PatientTableModel extends AbstractTableModel {
     		value = tdl.getDate();
     		break;
     	case 1:
-    		value = tdl.getType() == LEType.TYPE_A ? "Anamnese" : "Behandlung";
+    		switch(tdl.getType()){
+			case TYPE_A:
+				value = "Anamnese";
+				break;
+			case TYPE_B:
+				value = "Behandlung";
+				break;
+			case TYPE_C:
+				value = "Untersuchung";
+				break;
+    		}
     		break;
     	}
     	return value;

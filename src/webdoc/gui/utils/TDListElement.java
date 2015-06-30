@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class TDListElement {
 	public static enum LEType{
-		UNDEFINED(-1),TYPE_A(0),TYPE_B(1);
+		UNDEFINED(-1),TYPE_A(0),TYPE_B(1),TYPE_C(2);
 		private LEType(int LEType){
 			this.LEType = LEType;
 		}

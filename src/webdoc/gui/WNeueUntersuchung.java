@@ -10,7 +10,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -170,9 +169,9 @@ public class WNeueUntersuchung extends WModelPane {
 		if(id != -1){
 			try {
 				ResultSet rs = Database.getExamination(id);
-				id = rs.getLong(1);
-				spDate.setValue(rs.getDate(2));
-				tPBefund.setText(rs.getString(3));
+				rs.next();
+				spDate.setValue(rs.getDate(1));
+				tPBefund.setText(rs.getString(2));
 				editable = false;
 				setEditable();
 			} catch (SQLException e) {
