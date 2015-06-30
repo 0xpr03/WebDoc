@@ -102,21 +102,22 @@ public class WNeuerPatient extends WModelPane {
 	private JTable table;
 	private PatientTableModel model = new PatientTableModel();
 	private JButton btnNeueUntersuchung;
+	private boolean isLoading = false;
 
 	/**
 	 * Create the application.
 	 */
 	public WNeuerPatient(boolean editable, long id) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.editable = editable;
+		this.id = id;
+		initialize();
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
 				loadHistoryData();
 			}
 		});
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.editable = editable;
-		this.id = id;
-		initialize();
 	}
 
 	/**
@@ -585,8 +586,10 @@ public class WNeuerPatient extends WModelPane {
 		this.setTitle("Patient - " + name + " " + rufname);
 	}
 
-	private void loadHistoryData() {
-		if (id != -1) {
+	private synchronized void loadHistoryData() {
+		logger.entry();
+		if (id != -1 && !isLoading) {
+			isLoading = true;
 			setGlassPaneVisible(true);
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
@@ -598,6 +601,7 @@ public class WNeuerPatient extends WModelPane {
 								ResultSet rs = Database.getPatientRData(id);
 								LEType type = LEType.UNDEFINED;
 								while (rs.next()) {
+									logger.debug("got history data");
 									switch(rs.getInt(3)){
 									case 0:
 										type = LEType.TYPE_A;
@@ -614,9 +618,11 @@ public class WNeuerPatient extends WModelPane {
 								rs.close();
 							} catch (SQLException e) {
 								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							}finally{
+								setGlassPaneVisible(false);
+								isLoading = false;
 							}
 							// @formatter:on
-							setGlassPaneVisible(false);
 						}
 					});
 					t.start();

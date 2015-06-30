@@ -109,22 +109,23 @@ public class WNeuerPartner extends WModelPane {
 	private ACElement pickedAnimal;
 	private JButton btnHinzufgen;
 	private JPopupMenu listmenu;
+	private boolean isLoading = false;
 
 	/**
 	 * Create the application.
 	 */
 	public WNeuerPartner(boolean editable, long id) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.editable = editable;
+		this.id = id;
+		initialize();
+		loadData();
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
 				loadAnimals();
 			}
 		});
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.editable = editable;
-		this.id = id;
-		initialize();
-		loadData();
 	}
 
 	/**
@@ -671,30 +672,35 @@ public class WNeuerPartner extends WModelPane {
 	/**
 	 * Load animals related to the partnerid
 	 */
-	private void loadAnimals(){
-		setGlassPaneVisible(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Thread t = new Thread(new Runnable() {
-					public void run() {
-				try {
-					// @formatter:off
-					ResultSet rs = Database.getPartnerAnimals(id);
-					model.clearElements();
-					while(rs.next()){
-						logger.debug("found another linked animal");
-						model.add(new TDListElement(rs.getLong(1),rs.getString(2), rs.getDate(3)));
-					}
-					// @formatter:on
-				} catch (SQLException e) {
-					GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+	private synchronized void loadAnimals(){
+		if (id != -1 && !isLoading) {
+			isLoading = true;
+			setGlassPaneVisible(true);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					Thread t = new Thread(new Runnable() {
+						public void run() {
+							try {
+								// @formatter:off
+								ResultSet rs = Database.getPartnerAnimals(id);
+								model.clearElements();
+								while (rs.next()) {
+									logger.debug("found another linked animal");
+									model.add(new TDListElement(rs.getLong(1), rs.getString(2), rs.getDate(3)));
+								}
+								// @formatter:on
+							} catch (SQLException e) {
+								GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+							} finally {
+								isLoading = false;
+								setGlassPaneVisible(false);
+							}
+						}
+					});
+					t.start();
 				}
-				setGlassPaneVisible(false);
-			}
-		});
-		t.start();
+			});
 		}
-		});
 	}
 
 	/**
