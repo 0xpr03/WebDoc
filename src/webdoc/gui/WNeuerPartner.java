@@ -115,6 +115,7 @@ public class WNeuerPartner extends WModelPane {
 	 * Create the application.
 	 */
 	public WNeuerPartner(boolean editable, long id) {
+		super(serialVersionUID);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;

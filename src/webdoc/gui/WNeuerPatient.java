@@ -108,6 +108,7 @@ public class WNeuerPatient extends WModelPane {
 	 * Create the application.
 	 */
 	public WNeuerPatient(boolean editable, long id) {
+		super(serialVersionUID);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.editable = editable;
 		this.id = id;

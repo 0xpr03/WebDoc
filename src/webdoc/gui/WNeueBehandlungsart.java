@@ -50,6 +50,7 @@ public class WNeueBehandlungsart extends WModelPane {
 	private JButton btnSave;
 	private JButton btnEdit;
 	public WNeueBehandlungsart(long in_id) {
+		super(serialVersionUID);
 		setResizable(true);
 		this.id = in_id;
 		editable = id == -1 ? true : false;

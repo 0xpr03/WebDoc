@@ -40,6 +40,7 @@ public class WNeueUntersuchung extends WModelPane {
 	private long animalID;
 
 	public WNeueUntersuchung(String petName,long in_id,long in_animalID) {
+		super(serialVersionUID);
 		this.id = in_id;
 		this.animalID = in_animalID;
 		initialize(petName);

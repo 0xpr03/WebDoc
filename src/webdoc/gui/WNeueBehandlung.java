@@ -67,6 +67,7 @@ public class WNeueBehandlung extends WModelPane {
 	private JSearchTextField searchTextField;
 
 	public WNeueBehandlung(long animalID, long in_id, String animal_name) {
+		super(serialVersionUID);
 		this.animalID = animalID;
 		this.id = in_id;
 		editable = id == -1;

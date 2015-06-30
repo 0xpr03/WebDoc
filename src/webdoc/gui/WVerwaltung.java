@@ -6,33 +6,26 @@
  *******************************************************************************/
 package webdoc.gui;
 
-import java.sql.SQLException;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.ActionMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
+import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
-import webdoc.lib.GUIManager;
-
-import java.awt.Dimension;
-
-import javax.swing.JList;
-
-import java.awt.BorderLayout;
-
 import webdoc.gui.utils.EnumObject;
-import webdoc.gui.utils.JSearchTextField;
-import javax.swing.JComboBox;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.DefaultComboBoxModel;
-import webdoc.gui.utils.WModelPane;
 import webdoc.gui.utils.EnumObject.EnumType;
+import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.WModelPane;
+import webdoc.lib.GUIManager;
 
 
 public class WVerwaltung extends WModelPane {
@@ -47,7 +40,7 @@ public class WVerwaltung extends WModelPane {
 	private JComboBox<EnumObject> cBAuswahl;
 	private JSearchTextField searchTextField;
 	public WVerwaltung() {
-		
+		super(serialVersionUID);
 		setSize(new Dimension(329, 543));
 		setClosable(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));

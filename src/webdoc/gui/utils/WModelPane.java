@@ -9,6 +9,8 @@ package webdoc.gui.utils;
 import javax.swing.JInternalFrame;
 import javax.swing.JProgressBar;
 
+import webdoc.lib.GUIManager;
+
 /**
  * Model Pane, basic InternalFrame for all other frames.<br>
  * Providing GlassPane,and other lib methods
@@ -17,10 +19,12 @@ import javax.swing.JProgressBar;
 public class WModelPane extends JInternalFrame {
 	private DisabledGlassPane glassPane = new DisabledGlassPane();
 	private JProgressBar progressBar = new JProgressBar();
+	private long id;
 	
 	private static final long serialVersionUID = -5487882455493200455L;
 	
-	public WModelPane(){
+	public WModelPane(long id){
+		this.id = id;
 		setGlassPane(glassPane);
 		progressBar.setIndeterminate(true);
 		glassPane.add(progressBar);
@@ -40,6 +44,40 @@ public class WModelPane extends JInternalFrame {
 			glassPane.deactivate();
 		}
 		progressBar.setVisible(enabled);
+	}
+	
+	/**
+	 * Loads and sets the current configuration from the GUIManager
+	 */
+	private void loadConfiguration(){
+		if(GUIManager.settingsDB.containsKey(id)){
+			WindowSettings ws = GUIManager.settingsDB.get(id);
+			this.setBounds(ws.getBounds());
+		}else{
+			GUIManager.settingsDB.put(id, new WindowSettings(this.getBounds()));
+		}
+	}
+	
+	/**
+	 * Saves the configuration back to the GUIManager
+	 */
+	private void saveConfiguration(){
+		GUIManager.settingsDB.get(id).setBounds(this.getBounds());
+	}
+	
+	@Override
+	public void setVisible(boolean b){
+		if(b)
+			System.out.println("loading config");
+			loadConfiguration();
+		super.setVisible(b);
+	}
+	
+	@Override
+	public void dispose(){
+		System.out.println("settings config");
+		saveConfiguration();
+		super.dispose();
 	}
 	
 	/**

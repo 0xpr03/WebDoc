@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 import webdoc.gui.WHomescreen;
 import webdoc.gui.WNeuerPatient;
 import webdoc.gui.WProgress;
+import webdoc.gui.utils.WindowSettings;
 import webdoc.lib.Database.DBError;
 
 /**
@@ -37,6 +39,7 @@ public final class GUIManager {
 	private static Font font = new Font(Font.SANS_SERIF, Font.PLAIN,14);
 	private static Font search_font = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 	private static Font search_font_default = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+	public static HashMap<Long,WindowSettings> settingsDB = new HashMap<Long,WindowSettings>();
 	
 	/**
 	 * initiates and shows the homescreen window
