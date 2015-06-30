@@ -30,7 +30,7 @@ public class WModelPane extends JInternalFrame {
 		setGlassPane(glassPane);
 		progressBar.setIndeterminate(true);
 		glassPane.add(progressBar);
-		addInternalFrameListener(new InternalFrameAdapter() {
+		addInternalFrameListener(new InternalFrameAdapter() { // dispose fix #67
 			@Override
 			public void internalFrameClosing(InternalFrameEvent arg0) {
 				dispose();
