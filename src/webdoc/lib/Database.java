@@ -28,7 +28,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.webdoc.Config;
 

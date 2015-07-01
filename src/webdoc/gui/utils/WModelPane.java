@@ -62,16 +62,26 @@ public class WModelPane extends JInternalFrame {
 		progressBar.setVisible(enabled);
 	}
 	
+	private boolean checkDesktopPane(){
+		if(getDesktopPane() == null){
+			logger.fatal("No desktop pane found! Error on resizing.");
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * Loads and sets the current configuration from the GUIManager
 	 */
 	private void loadConfiguration(){
-		LogManager.getLogger().debug("id: {}",id);
-		if(GUIManager.settingsDB.containsKey(id)){
-			WindowSettings ws = GUIManager.settingsDB.get(id);
-			this.setBounds(getTotalBounds(ws.getBounds()));
-		}else{
-			GUIManager.settingsDB.put(id, new WindowSettings(getPercBounds(this.getBounds())));
+		if(checkDesktopPane()){
+			LogManager.getLogger().debug("id: {}",id);
+			if(GUIManager.settingsDB.containsKey(id)){
+				WindowSettings ws = GUIManager.settingsDB.get(id);
+				this.setBounds(getTotalBounds(ws.getBounds()));
+			}else{
+				GUIManager.settingsDB.put(id, new WindowSettings(getPercBounds(this.getBounds())));
+			}
 		}
 	}
 	
@@ -106,15 +116,17 @@ public class WModelPane extends JInternalFrame {
 	 * Saves the configuration back to the GUIManager
 	 */
 	private void saveConfiguration(){
-		LogManager.getLogger().debug("id: {}",id);
-		if(!this.isMaximum()){
-			try {
-				this.setMaximum(false);
-			} catch (PropertyVetoException e) {
-				LogManager.getLogger().error(e);
+		if(checkDesktopPane()){
+			LogManager.getLogger().debug("id: {}",id);
+			if(!this.isMaximum()){
+				try {
+					this.setMaximum(false);
+				} catch (PropertyVetoException e) {
+					LogManager.getLogger().error(e);
+				}
 			}
+			GUIManager.settingsDB.get(id).setBounds(getPercBounds(this.getBounds()));
 		}
-		GUIManager.settingsDB.get(id).setBounds(getPercBounds(this.getBounds()));
 	}
 	
 	@Override
