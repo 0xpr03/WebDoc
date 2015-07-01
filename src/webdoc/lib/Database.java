@@ -1301,24 +1301,35 @@ public class Database{
 	/**
 	 * Returns all table entry for the table specified by type
 	 * @param type
-	 * @return ResultSet id,name
+	 * @return ResultSet id,name,secname,date - BASED ON THE TYPE!
 	 * @throws SQLException
 	 */
-	public static ResultSet getTableEntry(EnumType type) throws SQLException {
+	public static ResultSet getTableEntry(EnumType type,String comparator) throws SQLException {
 		String sql;
 		switch(type){
 		case A:
-			sql = "SELECT `TreatmentID` as id, `name` as name FROM `treatment` WHERE 1 ORDER BY name ASC";
+			sql = "SELECT `TreatmentID`, `name`,`price` as name1 FROM `treatment` WHERE `name` LIKE ? ORDER BY name1 ASC";
 			break;
 		case B:
-			sql = "SELECT `AnimalID` as id, `Callname` as name FROM `animal` WHERE 1 ORDER BY name ASC";
+			sql = "SELECT `AnimalID`, `Callname` as name1,`Name` as name2,`birthdate` FROM `animal` WHERE (`Callname` LIKE ? OR `Name` LIKE ?) ORDER BY name1 ASC";
 			break;
 		case C:
-			sql = "SELECT `PartnerID` as id, CONCAT(`firstname`,`secondname`) as name FROM `partner` WHERE 1 ORDER BY name ASC";
+			sql = "SELECT `PartnerID`, `firstname` as name1,`secondname` as name2, `birthday` FROM `partner` WHERE (`firstname` LIKE ? OR `secondname` LIKE ?) ORDER BY name1 ASC";
 			break;
 		default:
 			throw new SQLException("Unknown table type! @ getTableEntry");
 		}
-		return prepareStm(sql).executeQuery();
+		logger.debug(sql);
+		PreparedStatement stm = prepareStm(sql);
+		
+		stm.setString(1, comparator);
+		switch(type){
+		case B:
+		case C:
+			stm.setString(2, comparator);
+		default:
+		}
+		
+		return stm.executeQuery();
 	}
 }
