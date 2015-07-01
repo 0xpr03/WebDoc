@@ -994,7 +994,6 @@ public class WNeueAnamnese extends WModelPane {
 		
 		setEditable();
 		loadData();
-		this.setVisible(true);
 	}
 
 	private void initialize(String strName) {

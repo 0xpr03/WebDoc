@@ -6,8 +6,6 @@ import java.util.HashMap;
 public class WindowSettings {
 	private Rectangle bounds;
 	private HashMap<String,Integer> additionalSettings;
-	public WindowSettings(){}
-	
 	public WindowSettings(Rectangle bounds){
 		this.bounds = bounds;
 	}

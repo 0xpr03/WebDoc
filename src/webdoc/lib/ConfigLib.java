@@ -40,6 +40,7 @@ public class ConfigLib {
 	private HashMap<String,Object> defaults = new HashMap<String, Object>();
 	private int missing_entrys = 0;
 	private File CONFIG_FOLDER;
+	private final String GUI_SETTINGS = "gui_settings";
 	
 	public ConfigLib(String file, String default_path){
 		logger.debug("Initializing config");
@@ -96,6 +97,7 @@ public class ConfigLib {
 				config.put(key, Config.getValue(key));
 			}
 			logger.debug("Config: {}",config);
+			writeWindowConfig();
 			FileWriter writer = new FileWriter(FILE);
 			yaml.dump(config, writer);
 			writer.close();
@@ -106,6 +108,36 @@ public class ConfigLib {
 		return false;
 	}
 	
+	private void writeWindowConfig(){
+		HashMap<Long,HashMap<String,Integer>> wc = new HashMap<Long,HashMap<String,Integer>>();
+		HashMap<String,Integer> temp;
+		for(long i : GUIManager.settingsDB.keySet()){
+			java.awt.Rectangle b = GUIManager.settingsDB.get(i).getBounds();
+			temp = new HashMap<String,Integer>();
+			temp.put("posX", b.x);
+			temp.put("posY", b.y);
+			temp.put("width", b.width);
+			temp.put("height", b.height);
+			wc.put(i, temp);
+		}
+		config.put(GUI_SETTINGS, wc);
+	}
+	
+	private void loadWindowConfig(){
+		if(config.containsKey(GUI_SETTINGS)){
+			@SuppressWarnings("unchecked")
+			HashMap<Long,HashMap<String,Integer>> wc = (HashMap<Long, HashMap<String, Integer>>) config.get(GUI_SETTINGS);
+			HashMap<String,Integer> temp;
+			for(long i : wc.keySet()){
+				temp = wc.get(i);
+				GUIManager.settingsDB.put(i, new webdoc.gui.utils.WindowSettings(
+						new java.awt.Rectangle(temp.get("posX"),temp.get("posY"),temp.get("width"),temp.get("height"))
+						)
+				);
+			}
+		}
+	}
+	
 	/**
 	 * return an string entry
 	 * @param key value key
@@ -113,9 +145,15 @@ public class ConfigLib {
 	 * @return string or null
 	 */
 	private Object getEntry(String key, Map<String,Object> map){
-		if(map.containsKey(key))
+		boolean exists = false;
+		try{
+			exists = map.containsKey(key);
+		}catch(NullPointerException e){
+			
+		}
+		if(exists){
 			return map.get(key);
-		else{
+		}else{
 			logger.warn("Missing entry {}",key);
 			missing_entrys++;
 			return defaults.get(key);
@@ -127,6 +165,7 @@ public class ConfigLib {
 		for(String key : defaults.keySet()){
 			Config.setValue(key, getEntry(key,config));
 		}
+		loadWindowConfig();
 	}
 	
 	/***

@@ -6,10 +6,14 @@
  *******************************************************************************/
 package webdoc.gui.utils;
 
+import java.beans.PropertyVetoException;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JProgressBar;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+
+import org.apache.logging.log4j.LogManager;
 
 import webdoc.lib.GUIManager;
 
@@ -30,7 +34,7 @@ public class WModelPane extends JInternalFrame {
 		setGlassPane(glassPane);
 		progressBar.setIndeterminate(true);
 		glassPane.add(progressBar);
-		addInternalFrameListener(new InternalFrameAdapter() { // dispose fix #67
+		addInternalFrameListener(new InternalFrameAdapter() { // dispose fix #66
 			@Override
 			public void internalFrameClosing(InternalFrameEvent arg0) {
 				dispose();
@@ -58,6 +62,7 @@ public class WModelPane extends JInternalFrame {
 	 * Loads and sets the current configuration from the GUIManager
 	 */
 	private void loadConfiguration(){
+		LogManager.getLogger().debug("id: {}",id);
 		if(GUIManager.settingsDB.containsKey(id)){
 			WindowSettings ws = GUIManager.settingsDB.get(id);
 			this.setBounds(ws.getBounds());
@@ -70,6 +75,14 @@ public class WModelPane extends JInternalFrame {
 	 * Saves the configuration back to the GUIManager
 	 */
 	private void saveConfiguration(){
+		LogManager.getLogger().debug("id: {}",id);
+		if(!this.isMaximum()){
+			try {
+				this.setMaximum(false);
+			} catch (PropertyVetoException e) {
+				LogManager.getLogger().error(e);
+			}
+		}
 		GUIManager.settingsDB.get(id).setBounds(this.getBounds());
 	}
 	

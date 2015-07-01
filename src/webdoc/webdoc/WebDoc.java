@@ -249,14 +249,18 @@ public class WebDoc {
 	}
 	
 	private static void saveConfig(){
-		ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
-		cfg.loadConfig();
-		cfg.writeConfig();
+		try{
+			ConfigLib cfg = new ConfigLib(Config.getStrValue("configFileName"), Config.getStrValue("defaultConfigPath"));
+			cfg.loadConfig();
+			cfg.writeConfig();
+		}catch(Exception e){
+			logger.fatal("Error on config write {}",e);
+		}
 	}
 	
 	private static void ShutDown(){
 		logger.info("Shutting down");
 		Database.disconnect();
-		
+		saveConfig();
 	}
 }
