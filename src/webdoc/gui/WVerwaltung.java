@@ -31,11 +31,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
+import webdoc.gui.utils.AdminTableModel;
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.PatientTableModel;
 import webdoc.gui.utils.TDListElement;
+import webdoc.gui.utils.TDListElement.LEType;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
@@ -50,6 +52,7 @@ public class WVerwaltung extends WModelPane {
 	private static final long serialVersionUID = 4589284070560679651L;
 	private boolean editable;
 	private JTable table;
+	private AdminTableModel model = new AdminTableModel(EnumType.A);
 	private JButton btnSchliesen;
 	private JButton btnNeueBehandlungsart;
 	private JPanel panel_2;
@@ -79,16 +82,16 @@ public class WVerwaltung extends WModelPane {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		
-		//table = new JTable(model);
+		table = new JTable(model);
 		table.setShowGrid(false);
 		table.setShowHorizontalLines(false);
 		table.setShowVerticalLines(false);
 		table.setRowMargin(0);
 		table.setIntercellSpacing(new Dimension(0, 0));
 		table.setFillsViewportHeight(true);
-//		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(
-//				model);
-		//table.setRowSorter(sorter);
+		TableRowSorter<AdminTableModel> sorter = new TableRowSorter<AdminTableModel>(
+				model);
+		table.setRowSorter(sorter);
 		JScrollPane scrollPaneTable = new JScrollPane(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -117,7 +120,8 @@ public class WVerwaltung extends WModelPane {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
-					loadData();
+					//loadData();
+					model.setTableType(getTableType());
 				}
 			}
 		}
@@ -160,6 +164,10 @@ public class WVerwaltung extends WModelPane {
 			btnNeueBehandlungsart.setText("Neuer Partner");
 		}
 	}
+	
+	private EnumType getTableType(){
+		return ((EnumObject) cBAuswahl.getSelectedItem()).getType();
+	}
 
 	private void loadData() {
 		setGlassPaneVisible(true);
@@ -168,8 +176,7 @@ public class WVerwaltung extends WModelPane {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
 						try{
-							EnumObject element = (EnumObject) cBAuswahl.getSelectedItem();
-							ResultSet rs = Database.getTableEntry(element.getType());
+							ResultSet rs = Database.getTableEntry(getTableType());
 							if(rs != null){
 								try{
 									DefaultListModel<TDListElement> model = (DefaultListModel<TDListElement>) table.getModel();
