@@ -22,7 +22,7 @@ import webdoc.gui.utils.EnumObject.EnumType;
 public class AdminTableModel extends AbstractTableModel {
 	
     protected String[] COLUMN_NAMES;
-    
+    private EnumType type;
     private List<TDListElement> rowData;
     
     /**
@@ -30,6 +30,7 @@ public class AdminTableModel extends AbstractTableModel {
      * @param type A(treatment),B(partner),C(animal),D(null)
      */
     public AdminTableModel(EnumType type) {
+    	this.type = type;
     	rowData = new ArrayList<>(25);
     	setTableType(type);
     }
@@ -108,6 +109,9 @@ public class AdminTableModel extends AbstractTableModel {
     		value = tdl.getName();
     		break;
     	case 1:
+    		value = tdl.getSecname();
+    		break;
+    	case 2:
     		value = tdl.getDate();
     		break;
     	}

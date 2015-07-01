@@ -8,6 +8,10 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,36 +20,28 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.table.TableRowSorter;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JList;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.TableRowSorter;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.AdminTableModel;
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.gui.utils.JSearchTextField;
-import webdoc.gui.utils.PatientTableModel;
 import webdoc.gui.utils.TDListElement;
-import webdoc.gui.utils.TDListElement.LEType;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
 
 public class WVerwaltung extends WModelPane {
 
@@ -77,6 +73,11 @@ public class WVerwaltung extends WModelPane {
 		panel.add(btnSchliesen, "cell 1 0");
 		
 		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
+		btnNeueBehandlungsart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logger.warn("not implemented!");
+			}
+		});
 		panel.add(btnNeueBehandlungsart, "cell 3 0");
 		
 		JPanel panel_1 = new JPanel();
@@ -120,8 +121,8 @@ public class WVerwaltung extends WModelPane {
 			@Override
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
-					//loadData();
 					model.setTableType(getTableType());
+					loadData();
 				}
 			}
 		}
@@ -149,10 +150,12 @@ public class WVerwaltung extends WModelPane {
 		
 		setEditable(editable);
 	}
+	
 	private void setEditable(boolean editable) {
 		refreshBtn();
 		
 	}
+	
 	private void refreshBtn() {
 		if (cBAuswahl.getSelectedItem().toString() == "Patienten"){
 			btnNeueBehandlungsart.setText("Neuer Patient");
