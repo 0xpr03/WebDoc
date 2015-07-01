@@ -6,6 +6,7 @@
  *******************************************************************************/
 package webdoc.lib;
 
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -109,15 +110,15 @@ public class ConfigLib {
 	}
 	
 	private void writeWindowConfig(){
-		HashMap<Long,HashMap<String,Integer>> wc = new HashMap<Long,HashMap<String,Integer>>();
-		HashMap<String,Integer> temp;
+		HashMap<Long,HashMap<String,Double>> wc = new HashMap<Long,HashMap<String,Double>>();
+		HashMap<String,Double> temp;
 		for(long i : GUIManager.settingsDB.keySet()){
-			java.awt.Rectangle b = GUIManager.settingsDB.get(i).getBounds();
-			temp = new HashMap<String,Integer>();
-			temp.put("posX", b.x);
-			temp.put("posY", b.y);
-			temp.put("width", b.width);
-			temp.put("height", b.height);
+			Rectangle b = GUIManager.settingsDB.get(i).getBounds();
+			temp = new HashMap<String,Double>();
+			temp.put("posX", b.getX());
+			temp.put("posY", b.getY());
+			temp.put("width", b.getWidth());
+			temp.put("height", b.getHeight());
 			wc.put(i, temp);
 		}
 		config.put(GUI_SETTINGS, wc);
@@ -126,13 +127,13 @@ public class ConfigLib {
 	private void loadWindowConfig(){
 		if(config.containsKey(GUI_SETTINGS)){
 			@SuppressWarnings("unchecked")
-			HashMap<Long,HashMap<String,Integer>> wc = (HashMap<Long, HashMap<String, Integer>>) config.get(GUI_SETTINGS);
-			HashMap<String,Integer> temp;
+			HashMap<Long,HashMap<String,Double>> wc = (HashMap<Long, HashMap<String, Double>>) config.get(GUI_SETTINGS);
+			HashMap<String,Double> temp;
 			for(long i : wc.keySet()){
 				temp = wc.get(i);
-				GUIManager.settingsDB.put(i, new webdoc.gui.utils.WindowSettings(
-						new java.awt.Rectangle(temp.get("posX"),temp.get("posY"),temp.get("width"),temp.get("height"))
-						)
+				Rectangle r = new Rectangle();
+				r.setRect(temp.get("posX"),temp.get("posY"),temp.get("width"),temp.get("height"));
+				GUIManager.settingsDB.put(i, new webdoc.gui.utils.WindowSettings(r)
 				);
 			}
 		}
