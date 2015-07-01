@@ -27,6 +27,7 @@ import webdoc.lib.GUIManager;
 public class WModelPane extends JInternalFrame {
 	private DisabledGlassPane glassPane = new DisabledGlassPane();
 	private JProgressBar progressBar = new JProgressBar();
+	private final int PRECIZISION = 100000000;
 	Logger logger = LogManager.getLogger();
 	private long id;
 	
@@ -81,10 +82,11 @@ public class WModelPane extends JInternalFrame {
 	 * @return Rectangle
 	 */
 	private Rectangle getPercBounds(Rectangle values){
-//		logger.debug("maxX {} valX {} = {}",values.getX() / max.getX(),values.getX(),max.getX() );
+		logger.debug("maxX {} valX {} = {}",getDesktopPane().getWidth(),values.getX(),values.getX() / getDesktopPane().getWidth()*PRECIZISION );
 		Rectangle rect = new Rectangle();
-		rect.setRect(values.getX() / getDesktopPane().getHeight(), values.getY() / getDesktopPane().getWidth(), values.getWidth(), values.getHeight());
-		return values;
+		rect.setRect(values.getX() / getDesktopPane().getWidth() *PRECIZISION, values.getY() / getDesktopPane().getHeight() * PRECIZISION, values.getWidth(), values.getHeight());
+		logger.debug("valX {}",rect.getX());
+		return rect;
 	}
 	
 	/**
@@ -95,10 +97,11 @@ public class WModelPane extends JInternalFrame {
 	 */
 	private Rectangle getTotalBounds(Rectangle values){
 //		logger.debug("maxX: {}",this.getDesktopPane().getHeight());
-		logger.debug("maxX {} valX {} = {}",getDesktopPane().getHeight(),values.getX(),getDesktopPane().getHeight() * values.getX() );
-		values.setRect(getDesktopPane().getHeight() * values.getX(), getDesktopPane().getWidth() * values.getY(), values.getWidth(), values.getHeight());
+		logger.debug("maxX {} valX {} = {}",getDesktopPane().getWidth(),values.getX(),getDesktopPane().getWidth() * values.getX() / PRECIZISION );
+		values.setRect(getDesktopPane().getWidth() * values.getX() / PRECIZISION, getDesktopPane().getHeight() * values.getY() / PRECIZISION, values.getWidth(), values.getHeight());
 		return values;
 	}
+	
 	/**
 	 * Saves the configuration back to the GUIManager
 	 */
