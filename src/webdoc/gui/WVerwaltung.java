@@ -78,7 +78,7 @@ public class WVerwaltung extends WModelPane {
 		btnSchliesen = new JButton("Schließen");
 		btnSchliesen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
+				loadData();
 			}
 		});
 		panel.add(btnSchliesen, "cell 1 0");
@@ -86,7 +86,7 @@ public class WVerwaltung extends WModelPane {
 		btnNeuerEintrag = new JButton("Neue Behandlungsart");
 		btnNeuerEintrag.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				logger.warn("not implemented!");
+				callExternalWindows(-1);
 			}
 		});
 		panel.add(btnNeuerEintrag, "cell 3 0");
@@ -111,20 +111,7 @@ public class WVerwaltung extends WModelPane {
 				if (mevent.getButton() == MouseEvent.BUTTON1 && table.getSelectedRow() != -1) {
 					if (mevent.getClickCount() >= 2) {
 						TDListElement elem = model.getTDLEAt(table.getSelectedRow());
-						switch(getTableType()){
-						case A:
-							GUIManager.callWNeueBehandlungsArt(elem.getID());
-							break;
-						case B:
-							GUIManager.callWNewPartner(false,elem.getID());
-							break;
-						case C:
-							GUIManager.addWNeuerPatient(false, elem.getID());
-							break;
-						default:
-							logger.error("UNDEFINED element!");
-							break;
-						}
+						callExternalWindows(elem.getID());
 					}
 				}
 				// @formatter:on
@@ -203,6 +190,24 @@ public class WVerwaltung extends WModelPane {
 		}
 		if (cBAuswahl.getSelectedItem().toString() == "Partner"){
 			btnNeuerEintrag.setText("Neuer Partner");
+		}
+	}
+	
+	private void callExternalWindows(long id){
+		boolean editable = id != -1;
+		switch(getTableType()){
+		case A:
+			GUIManager.callWNeueBehandlungsArt(id);
+			break;
+		case B:
+			GUIManager.callWNewPartner(editable,id);
+			break;
+		case C:
+			GUIManager.addWNeuerPatient(editable, id);
+			break;
+		default:
+			logger.error("UNDEFINED element!");
+			break;
 		}
 	}
 	
