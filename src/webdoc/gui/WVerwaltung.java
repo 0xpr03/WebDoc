@@ -194,7 +194,7 @@ public class WVerwaltung extends WModelPane {
 	}
 	
 	private void callExternalWindows(long id){
-		boolean editable = id != -1;
+		boolean editable = id == -1;
 		switch(getTableType()){
 		case A:
 			GUIManager.callWNeueBehandlungsArt(id);
