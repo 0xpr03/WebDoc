@@ -75,7 +75,7 @@ public class WVerwaltung extends WModelPane {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new MigLayout("", "[][][][]", "[]"));
 		
-		btnSchliesen = new JButton("Schließen");
+		btnSchliesen = new JButton("Suchen");
 		btnSchliesen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				loadData();
