@@ -9,8 +9,10 @@ package webdoc.gui.utils;
 import java.util.Date;
 
 /**
- * Custom object to store list entrys
- * Lightweighter then ACElement
+ * Custom object to store list entrys<br>
+ * Lightweighter then ACElement<br>
+ * <br>
+ * The getters and setters are NOT nullpointer safe. You need to use the right constructor, otherwise they are not initialized!
  * @author "Aron Heinecke"
  */
 public class TDListElement {
@@ -27,6 +29,7 @@ public class TDListElement {
 	private long id;
 	private LEType elemType;
 	private String name;
+	private String secname;
 	private Date date;
 	
 	public TDListElement(long id, String name, LEType type, Date date){
@@ -52,6 +55,20 @@ public class TDListElement {
 		this.name = name;
 		this.date = date;
 		this.elemType = LEType.UNDEFINED;
+	}
+	
+	/**
+	 * WVerwaltung tbl constructor
+	 * @param id
+	 * @param name1
+	 * @param name2
+	 * @param date
+	 */
+	public TDListElement(long id, String name1, String name2, Date date){
+		this.id = id;
+		this.name = name1;
+		this.secname = name2;
+		this.date = date;
 	}
 	
 	public TDListElement(long id, String name_1, String name_2){
@@ -80,5 +97,8 @@ public class TDListElement {
 	}
 	public LEType getType(){
 		return elemType;
+	}
+	public String getSecname() {
+		return secname;
 	}
 }
