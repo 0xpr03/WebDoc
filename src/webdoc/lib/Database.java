@@ -28,6 +28,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import webdoc.gui.utils.EnumObject;
+import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.webdoc.Config;
 
 /**
@@ -1295,5 +1297,29 @@ public class Database{
 		PreparedStatement stm = prepareStm(sql);
 		stm.setLong(1, id);
 		return stm.executeQuery();
+	}
+	
+	/**
+	 * Returns all table entry for the table specified by type
+	 * @param type
+	 * @return ResultSet id,name
+	 * @throws SQLException
+	 */
+	public static ResultSet getTableEntry(EnumType type) throws SQLException {
+		String sql;
+		switch(type){
+		case A:
+			sql = "SELECT `TreatmentID` as id, `name` as name FROM `treatment` WHERE 1 ORDER BY name ASC";
+			break;
+		case B:
+			sql = "SELECT `AnimalID` as id, `Callname` as name FROM `animal` WHERE 1 ORDER BY name ASC";
+			break;
+		case C:
+			sql = "SELECT `PartnerID` as id, CONCAT(`firstname`,`secondname`) as name FROM `partner` WHERE 1 ORDER BY name ASC";
+			break;
+		default:
+			throw new SQLException("Unknown table type! @ getTableEntry");
+		}
+		return prepareStm(sql).executeQuery();
 	}
 }
