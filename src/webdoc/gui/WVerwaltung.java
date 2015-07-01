@@ -183,22 +183,17 @@ public class WVerwaltung extends WModelPane {
 							EnumType type = getTableType();
 							ResultSet rs = Database.getTableEntry(type,"%"+searchTextField.getText()+"%");
 							if(rs != null){
-								try{
-									model.clearElements();
-									while(rs.next()){
-										switch(type){
-										case A:
-											model.add(new TDListElement(rs.getLong(1), rs.getString(2)));
-										case B:
-										case C:
-											model.add(new TDListElement(rs.getLong(1), rs.getString(2),rs.getString(3),rs.getDate(4)));
-										}
-										
+								model.clearElements();
+								while(rs.next()){
+									switch(type){
+									case A:
+										model.add(new TDListElement(rs.getLong(1), rs.getString(2)));
+									case B:
+									case C:
+										model.add(new TDListElement(rs.getLong(1), rs.getString(2),rs.getString(3),rs.getDate(4)));
 									}
-									rs.close();
-								}catch(SQLException e){
-									GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 								}
+								rs.close();
 							}
 						}catch(SQLException e){
 							GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
