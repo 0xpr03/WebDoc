@@ -51,7 +51,8 @@ public class WVerwaltung extends WModelPane {
 	
 	public WVerwaltung() {
 		super(serialVersionUID);
-		setSize(new Dimension(329, 543));
+		
+		setBounds(0, 0, 329, 543);
 		setClosable(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -166,10 +167,6 @@ public class WVerwaltung extends WModelPane {
 	
 	@Override
 	public void dispose() {
-		if (editable) {
-			if (GUIFunctions.showIgnoreChangesDialog(this) == 1)
-				return;
-		}
 		((ActionMap) UIManager.getLookAndFeelDefaults().get("InternalFrame.actionMap")).remove("showSystemMenu");
 		super.dispose();
 		GUIManager.dropJID(this);
