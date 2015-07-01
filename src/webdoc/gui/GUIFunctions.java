@@ -67,8 +67,7 @@ public class GUIFunctions {
         DefaultMutableTreeNode neueBehandlungsart = new DefaultMutableTreeNode(new CustomTreeObj( "Neue Behandlungsart",EntryType.N_BEHANDLUNGSART) );
         DefaultMutableTreeNode neuerPartner = new DefaultMutableTreeNode(new CustomTreeObj( "Neuer Partner",EntryType.N_PARTNER) );
         DefaultMutableTreeNode patient = new DefaultMutableTreeNode(new CustomTreeObj( "Patient",EntryType.PATIENT) );
-        DefaultMutableTreeNode test = new DefaultMutableTreeNode(new CustomTreeObj( "TEST",EntryType.TEST) );
-        
+        DefaultMutableTreeNode verwaltung = new DefaultMutableTreeNode(new CustomTreeObj( "Verwaltung",EntryType.VERWALTUNG) );
         
         patientenundpartner.add( neuerPatient );
         patientenundpartner.add( neuerPartner );
@@ -79,7 +78,7 @@ public class GUIFunctions {
         root.add(main);
         root.add( patientenundpartner );
         root.add( behandlung );
-        root.add(test);
+        root.add(verwaltung);
 		
         return root;
 	}

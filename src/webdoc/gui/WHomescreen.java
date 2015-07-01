@@ -59,13 +59,12 @@ public final class WHomescreen extends JFrame {
 	private JSearchTextField txtSuche;
 	private WNeuerPartner FNeuerPartner = new WNeuerPartner(true, -1);
 	private WNeuerPatient FNeuerPatient = new WNeuerPatient(true, -1);
-	private WNeueBehandlungsart FNeueBehandlungsart = new WNeueBehandlungsart(-1);
-//	private WNeueBehandlung FNeueBehandlung = new WNeueBehandlung(-1);
+	private WNeueBehandlungsart FNeueBehandlungsart = null;
 	private JTree navigationsbaum;
 	private Logger logger = LogManager.getLogger();
 	private JDesktopPane desktopPane;
+	private WVerwaltung FVerwaltung = null;
 	private PreparedStatement searchStm = null;
-	private test FTest = new test();
 
 	/**
 	 * Create the application.
@@ -136,9 +135,6 @@ public final class WHomescreen extends JFrame {
 		FNeuerPartner.setLocation(86, 85);
 		desktopPane.add(FNeuerPartner);
 		desktopPane.add(FNeuerPatient);
-		desktopPane.add(FNeueBehandlungsart);
-//		desktopPane.add(FNeueBehandlung);
-		desktopPane.add(FTest);
 		desktopPane.setBackground(Color.WHITE);
 		GroupLayout gl_secPanel = new GroupLayout(secPanel);
 		gl_secPanel.setHorizontalGroup(
@@ -319,26 +315,23 @@ public final class WHomescreen extends JFrame {
 		int row = navigationsbaum.getRowForLocation(mevent.getX(), mevent.getY());
 		TreePath selPath = navigationsbaum.getPathForLocation(mevent.getX(), mevent.getY());
 		if(row != -1){
-			// detect doubleklick
 			if(mevent.getClickCount() >= 2){
 				CustomTreeObj selMenu = (CustomTreeObj) ((DefaultMutableTreeNode) selPath.getLastPathComponent()).getUserObject();
 				logger.debug("menu: {}", selMenu.getType());
 				switch(selMenu.getType()){
-				case HAUPTMENÜ:
-					break;
 				case N_PATIENT:
 					if(!jifToFront(FNeuerPatient)){
 						FNeuerPatient = new WNeuerPatient(true, -1);
-						FNeuerPatient.setVisible(true);
 						desktopPane.add(FNeuerPatient);
+						FNeuerPatient.setVisible(true);
 						FNeuerPatient.toFront();
 					}
 					break;
 				case N_PARTNER:
 					if(!jifToFront(FNeuerPartner)){
 						FNeuerPartner = new WNeuerPartner(true, -1);
-						FNeuerPartner.setVisible(true);
 						desktopPane.add(FNeuerPartner);
+						FNeuerPartner.setVisible(true);
 						FNeuerPartner.toFront();
 					}
 					break;
@@ -348,17 +341,17 @@ public final class WHomescreen extends JFrame {
 				case N_BEHANDLUNGSART:
 					if(!jifToFront(FNeueBehandlungsart)){
 						FNeueBehandlungsart = new WNeueBehandlungsart(-1);
-						FNeueBehandlungsart.setVisible(true);
 						desktopPane.add(FNeueBehandlungsart);
 						FNeueBehandlungsart.setVisible(true);
 						FNeueBehandlungsart.toFront();
 					}
 					break;
-				case TEST:
-					if(!jifToFront(FTest)){
-						FTest = new test();
-						FTest.setVisible(true);
-						desktopPane.add(FTest);
+				case VERWALTUNG:
+					if(!jifToFront(FVerwaltung)){
+						FVerwaltung = new WVerwaltung();
+						desktopPane.add(FVerwaltung);
+						FVerwaltung.setVisible(true);
+						FVerwaltung.toFront();
 					}
 					break;
 				default:
