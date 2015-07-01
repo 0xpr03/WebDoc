@@ -12,12 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -26,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.TableRowSorter;
@@ -37,12 +39,16 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.AdminTableModel;
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
-import webdoc.gui.utils.JSearchTextField;
 import webdoc.gui.utils.TDListElement;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
+/**
+ * WVerwaltung Pane
+ * Table-Lookup Window
+ * @author Aron
+ */
 public class WVerwaltung extends WModelPane {
 
 	private static final long serialVersionUID = 4589284070560679651L;
@@ -50,10 +56,10 @@ public class WVerwaltung extends WModelPane {
 	private JTable table;
 	private AdminTableModel model = new AdminTableModel(EnumType.A);
 	private JButton btnSchliesen;
-	private JButton btnNeueBehandlungsart;
+	private JButton btnNeuerEintrag;
 	private JPanel panel_2;
 	private JComboBox<EnumObject> cBAuswahl;
-	private JSearchTextField searchTextField;
+	private JTextField searchTextField;
 	private Logger logger = LogManager.getLogger();
 	
 	public WVerwaltung() {
@@ -70,15 +76,20 @@ public class WVerwaltung extends WModelPane {
 		panel.setLayout(new MigLayout("", "[][][][]", "[]"));
 		
 		btnSchliesen = new JButton("Schließen");
+		btnSchliesen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
 		panel.add(btnSchliesen, "cell 1 0");
 		
-		btnNeueBehandlungsart = new JButton("Neue Behandlungsart");
-		btnNeueBehandlungsart.addActionListener(new ActionListener() {
+		btnNeuerEintrag = new JButton("Neue Behandlungsart");
+		btnNeuerEintrag.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				logger.warn("not implemented!");
 			}
 		});
-		panel.add(btnNeueBehandlungsart, "cell 3 0");
+		panel.add(btnNeuerEintrag, "cell 3 0");
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
@@ -93,6 +104,33 @@ public class WVerwaltung extends WModelPane {
 		TableRowSorter<AdminTableModel> sorter = new TableRowSorter<AdminTableModel>(
 				model);
 		table.setRowSorter(sorter);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent mevent) {
+				// @formatter:off
+				if (mevent.getButton() == MouseEvent.BUTTON1 && table.getSelectedRow() != -1) {
+					if (mevent.getClickCount() >= 2) {
+						TDListElement elem = model.getTDLEAt(table.getSelectedRow());
+						switch(getTableType()){
+						case A:
+							GUIManager.callWNeueBehandlungsArt(elem.getID());
+							break;
+						case B:
+							GUIManager.callWNewPartner(false,elem.getID());
+							break;
+						case C:
+							GUIManager.addWNeuerPatient(false, elem.getID());
+							break;
+						default:
+							logger.error("UNDEFINED element!");
+							break;
+						}
+					}
+				}
+				// @formatter:on
+			}
+		});
+		
 		JScrollPane scrollPaneTable = new JScrollPane(table);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -114,7 +152,7 @@ public class WVerwaltung extends WModelPane {
 		panel_2 = new JPanel();
 		getContentPane().add(panel_2, BorderLayout.NORTH);
 		
-		searchTextField = new JSearchTextField(false);
+		searchTextField = new JTextField();
 		
 		cBAuswahl = new JComboBox<EnumObject>();
 		class ItemChangeListener implements ItemListener {
@@ -158,13 +196,13 @@ public class WVerwaltung extends WModelPane {
 	
 	private void refreshBtn() {
 		if (cBAuswahl.getSelectedItem().toString() == "Patienten"){
-			btnNeueBehandlungsart.setText("Neuer Patient");
+			btnNeuerEintrag.setText("Neuer Patient");
 		}
 		if (cBAuswahl.getSelectedItem().toString() == "Behandlungsarten"){
-			btnNeueBehandlungsart.setText("Neue Behandlungsart");
+			btnNeuerEintrag.setText("Neue Behandlungsart");
 		}
 		if (cBAuswahl.getSelectedItem().toString() == "Partner"){
-			btnNeueBehandlungsart.setText("Neuer Partner");
+			btnNeuerEintrag.setText("Neuer Partner");
 		}
 	}
 	
@@ -180,6 +218,7 @@ public class WVerwaltung extends WModelPane {
 					@SuppressWarnings("incomplete-switch")
 					public void run() {
 						try{
+							
 							EnumType type = getTableType();
 							logger.debug("Type: {}",type);
 							ResultSet rs = Database.getTableEntry(type,"%"+searchTextField.getText()+"%");
@@ -198,6 +237,7 @@ public class WVerwaltung extends WModelPane {
 								}
 								rs.close();
 							}
+							
 						}catch(SQLException e){
 							GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
 						}
