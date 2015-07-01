@@ -192,6 +192,13 @@ public final class GUIManager {
 	}
 	
 	/**
+	 * Calls WNeuerPartner
+	 */
+	public static void callWNewPartner(boolean editable, long partner_id){
+		whomescreen.addWNeuerPartner(editable, partner_id);
+	}
+	
+	/**
 	 * Calls WNeueUntersuchung
 	 */
 	public static void callWNeueUntersuchung(String petName,long in_id,long in_animalID){
