@@ -8,11 +8,18 @@ package webdoc.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -24,7 +31,9 @@ import net.miginfocom.swing.MigLayout;
 import webdoc.gui.utils.EnumObject;
 import webdoc.gui.utils.EnumObject.EnumType;
 import webdoc.gui.utils.JSearchTextField;
+import webdoc.gui.utils.TDListElement;
 import webdoc.gui.utils.WModelPane;
+import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 
 
@@ -32,13 +41,14 @@ public class WVerwaltung extends WModelPane {
 
 	private static final long serialVersionUID = 4589284070560679651L;
 	private boolean editable;
-	private long id;
-	private JList list;
+	private JList<TDListElement> list;
 	private JButton btnSchliesen;
 	private JButton btnNeueBehandlungsart;
 	private JPanel panel_2;
 	private JComboBox<EnumObject> cBAuswahl;
 	private JSearchTextField searchTextField;
+	private Logger logger = LogManager.getLogger();
+	
 	public WVerwaltung() {
 		super(serialVersionUID);
 		setSize(new Dimension(329, 543));
@@ -58,7 +68,7 @@ public class WVerwaltung extends WModelPane {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		
-		list = new JList();
+		list = new JList<TDListElement>(new DefaultListModel<TDListElement>());
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -121,19 +131,30 @@ public class WVerwaltung extends WModelPane {
 		}
 	}
 
-	private boolean allSet(){
-	   
-		return true;
-	}
-	
 	private void loadData() {
 		setGlassPaneVisible(true);
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Thread t = new Thread(new Runnable() {
 					public void run() {
-
-						////
+						try{
+							EnumObject element = (EnumObject) cBAuswahl.getSelectedItem();
+							ResultSet rs = Database.getTableEntry(element.getType());
+							if(rs != null){
+								try{
+									DefaultListModel<TDListElement> model = (DefaultListModel<TDListElement>) list.getModel();
+									model.clear();
+									while(rs.next()){
+										model.addElement(new TDListElement(rs.getLong(1), rs.getString(2)));
+									}
+									rs.close();
+								}catch(SQLException e){
+									GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+								}
+							}
+						}catch(SQLException e){
+							GUIManager.showDBErrorDialog(getFrame(), Database.DBExceptionConverter(e, true));
+						}
 						setGlassPaneVisible(false);
 					}
 				});
@@ -141,21 +162,6 @@ public class WVerwaltung extends WModelPane {
 			}
 		});
 		
-	}
-	private void setData(String name, double preis, String erklaerung){
-		setGlassPaneVisible(true);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Thread t = new Thread(new Runnable() {
-					public void run() {
-
-						////
-						setGlassPaneVisible(false);
-					}
-				});
-				t.start();
-			}
-		});
 	}
 	
 	@Override
