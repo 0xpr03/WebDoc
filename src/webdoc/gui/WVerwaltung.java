@@ -177,15 +177,23 @@ public class WVerwaltung extends WModelPane {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				Thread t = new Thread(new Runnable() {
+					@SuppressWarnings("incomplete-switch")
 					public void run() {
 						try{
-							ResultSet rs = Database.getTableEntry(getTableType());
+							EnumType type = getTableType();
+							ResultSet rs = Database.getTableEntry(type,"%"+searchTextField.getText()+"%");
 							if(rs != null){
 								try{
-									DefaultListModel<TDListElement> model = (DefaultListModel<TDListElement>) table.getModel();
-									model.clear();
+									model.clearElements();
 									while(rs.next()){
-										model.addElement(new TDListElement(rs.getLong(1), rs.getString(2)));
+										switch(type){
+										case A:
+											model.add(new TDListElement(rs.getLong(1), rs.getString(2)));
+										case B:
+										case C:
+											model.add(new TDListElement(rs.getLong(1), rs.getString(2),rs.getString(3),rs.getDate(4)));
+										}
+										
 									}
 									rs.close();
 								}catch(SQLException e){
