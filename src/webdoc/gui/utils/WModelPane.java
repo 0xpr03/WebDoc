@@ -6,6 +6,7 @@
  *******************************************************************************/
 package webdoc.gui.utils;
 
+import java.awt.Rectangle;
 import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
@@ -14,6 +15,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import webdoc.lib.GUIManager;
 
@@ -25,6 +27,7 @@ import webdoc.lib.GUIManager;
 public class WModelPane extends JInternalFrame {
 	private DisabledGlassPane glassPane = new DisabledGlassPane();
 	private JProgressBar progressBar = new JProgressBar();
+	Logger logger = LogManager.getLogger();
 	private long id;
 	
 	private static final long serialVersionUID = -5487882455493200455L;
@@ -65,12 +68,37 @@ public class WModelPane extends JInternalFrame {
 		LogManager.getLogger().debug("id: {}",id);
 		if(GUIManager.settingsDB.containsKey(id)){
 			WindowSettings ws = GUIManager.settingsDB.get(id);
-			this.setBounds(ws.getBounds());
+			this.setBounds(getTotalBounds(ws.getBounds()));
 		}else{
-			GUIManager.settingsDB.put(id, new WindowSettings(this.getBounds()));
+			GUIManager.settingsDB.put(id, new WindowSettings(getPercBounds(this.getBounds())));
 		}
 	}
 	
+	/**
+	 * Calculates the percentage location bounds based on the max & the current value
+	 * @param max
+	 * @param values
+	 * @return Rectangle
+	 */
+	private Rectangle getPercBounds(Rectangle values){
+//		logger.debug("maxX {} valX {} = {}",values.getX() / max.getX(),values.getX(),max.getX() );
+		Rectangle rect = new Rectangle();
+		rect.setRect(values.getX() / getDesktopPane().getHeight(), values.getY() / getDesktopPane().getWidth(), values.getWidth(), values.getHeight());
+		return values;
+	}
+	
+	/**
+	 * Retrive the real y,x values based on the max & percentage values
+	 * @param max
+	 * @param values
+	 * @return
+	 */
+	private Rectangle getTotalBounds(Rectangle values){
+//		logger.debug("maxX: {}",this.getDesktopPane().getHeight());
+		logger.debug("maxX {} valX {} = {}",getDesktopPane().getHeight(),values.getX(),getDesktopPane().getHeight() * values.getX() );
+		values.setRect(getDesktopPane().getHeight() * values.getX(), getDesktopPane().getWidth() * values.getY(), values.getWidth(), values.getHeight());
+		return values;
+	}
 	/**
 	 * Saves the configuration back to the GUIManager
 	 */
@@ -83,7 +111,7 @@ public class WModelPane extends JInternalFrame {
 				LogManager.getLogger().error(e);
 			}
 		}
-		GUIManager.settingsDB.get(id).setBounds(this.getBounds());
+		GUIManager.settingsDB.get(id).setBounds(getPercBounds(this.getBounds()));
 	}
 	
 	@Override
