@@ -35,6 +35,7 @@ public class WModelPane extends JInternalFrame {
 	
 	public WModelPane(long id){
 		this.id = id;
+		logger.debug("ID: {}",id);
 		setGlassPane(glassPane);
 		progressBar.setIndeterminate(true);
 		glassPane.add(progressBar);
