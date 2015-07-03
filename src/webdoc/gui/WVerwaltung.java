@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.TableRowSorter;
@@ -101,6 +102,7 @@ public class WVerwaltung extends WModelPane {
 		table.setRowMargin(0);
 		table.setIntercellSpacing(new Dimension(0, 0));
 		table.setFillsViewportHeight(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableRowSorter<AdminTableModel> sorter = new TableRowSorter<AdminTableModel>(
 				model);
 		table.setRowSorter(sorter);
@@ -147,9 +149,7 @@ public class WVerwaltung extends WModelPane {
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					model.setTableType(getTableType());
-					
 					loadData();
-					refreshBtn();
 				}
 			}
 		}
@@ -175,23 +175,23 @@ public class WVerwaltung extends WModelPane {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
+		setEditable(editable);
+	}
+	
+	private void setEditable(boolean editable) {
 		refreshBtn();
+		
 	}
 	
 	private void refreshBtn() {
-		switch(getTableType()){
-		case A:
-			btnNeuerEintrag.setText("Neue Behandlung");
-			break;
-		case B:
+		if (cBAuswahl.getSelectedItem().toString() == "Patienten"){
 			btnNeuerEintrag.setText("Neuer Patient");
-			break;
-		case C:
+		}
+		if (cBAuswahl.getSelectedItem().toString() == "Behandlungsarten"){
+			btnNeuerEintrag.setText("Neue Behandlungsart");
+		}
+		if (cBAuswahl.getSelectedItem().toString() == "Partner"){
 			btnNeuerEintrag.setText("Neuer Partner");
-			break;
-		default:
-			logger.error("UNDEFINED element!");
-			break;
 		}
 	}
 	
