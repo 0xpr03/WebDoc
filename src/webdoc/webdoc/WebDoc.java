@@ -36,7 +36,7 @@ public class WebDoc {
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	private static final String LICENSE_FILE_PATH = "/license.txt";
 	
-	private  static final Logger logger = LogManager.getLogger();
+	private static final Logger logger = LogManager.getLogger();
 	private static final String VERSION = "0.6 beta";
 	
 	public static void main(String[] args){
