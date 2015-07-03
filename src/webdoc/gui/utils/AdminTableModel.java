@@ -66,10 +66,10 @@ public class AdminTableModel extends AbstractTableModel {
 			COLUMN_NAMES = new String[]{"Name","Price"};
 			break;
 		case B:
-			COLUMN_NAMES = new String[]{"Name","Firstname","Birthday"};
+			COLUMN_NAMES = new String[]{"Name","Callname","Birthday"};
 			break;
 		case C:
-			COLUMN_NAMES = new String[]{"Name","Callname","Birthday"};
+			COLUMN_NAMES = new String[]{"Name","Firstname","Birthday"};
 			break;
 		default:
 			COLUMN_NAMES = new String[]{"unknown"};

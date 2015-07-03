@@ -53,7 +53,6 @@ import webdoc.lib.GUIManager;
 public class WVerwaltung extends WModelPane {
 
 	private static final long serialVersionUID = 4589284070560679651L;
-	private boolean editable;
 	private JTable table;
 	private AdminTableModel model = new AdminTableModel(EnumType.A);
 	private JButton btnSchliesen;
@@ -65,10 +64,12 @@ public class WVerwaltung extends WModelPane {
 	
 	public WVerwaltung() {
 		super(serialVersionUID);
+		setMaximizable(true);
+		setResizable(true);
 		setTitle("DB Admin Panel");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
-		setBounds(0, 0, 329, 543);
+		setBounds(0, 0, 341, 444);
 		setClosable(true);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -149,7 +150,6 @@ public class WVerwaltung extends WModelPane {
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					model.setTableType(getTableType());
-					
 					loadData();
 					refreshBtn();
 				}
@@ -204,10 +204,10 @@ public class WVerwaltung extends WModelPane {
 			GUIManager.callWNeueBehandlungsArt(id);
 			break;
 		case B:
-			GUIManager.callWNewPartner(editable,id);
+			GUIManager.callWNeuerPatient(editable, id);
 			break;
 		case C:
-			GUIManager.addWNeuerPatient(editable, id);
+			GUIManager.callWNewPartner(editable,id);
 			break;
 		default:
 			logger.error("UNDEFINED element!");
