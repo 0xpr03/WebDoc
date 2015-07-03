@@ -40,6 +40,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -350,6 +351,7 @@ public class WNeuerPatient extends WModelPane {
 		table.setRowMargin(0);
 		table.setIntercellSpacing(new Dimension(0, 0));
 		table.setFillsViewportHeight(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(
 				model);
 		table.setRowSorter(sorter);
