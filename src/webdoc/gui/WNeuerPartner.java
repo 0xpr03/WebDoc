@@ -41,6 +41,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
+import javax.swing.ListSelectionModel;
 import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -217,6 +218,7 @@ public class WNeuerPartner extends WModelPane {
 		tableTiere.setRowMargin(0);
 		tableTiere.setIntercellSpacing(new Dimension(0, 0));
 		tableTiere.setFillsViewportHeight(true);
+		tableTiere.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableRowSorter<PartnerTableModel> sorter = new TableRowSorter<PartnerTableModel>(
 				model);
 		tableTiere.setRowSorter(sorter);
