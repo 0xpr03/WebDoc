@@ -811,7 +811,7 @@ public class WNeuerPartner extends WModelPane {
 	 * Helper class to open a patient fired by JList listeners
 	 */
 	private void openPatient() {
-		GUIManager.addWNeuerPatient(false, model.getTDLEAt(tableTiere.getSelectedRow()).getID());
+		GUIManager.callWNeuerPatient(false, model.getTDLEAt(tableTiere.getSelectedRow()).getID());
 	}
 
 	private void commentViewAction(boolean show) {

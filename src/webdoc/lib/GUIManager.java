@@ -60,7 +60,7 @@ public final class GUIManager {
 	/**
 	 * adds an iframe
 	 */
-	public static synchronized void addWNeuerPatient(boolean editable, long id){
+	public static synchronized void callWNeuerPatient(boolean editable, long id){
 		whomescreen.addWNeuerPatient(editable, id);
 	}
 	
@@ -86,7 +86,7 @@ public final class GUIManager {
 //				public void run() {
 			wpg.setSubText(String.format("Allocating %s times..", max));
 			for(int i=0; i <= max; i++){
-				addWNeuerPatient(false, -1);
+				callWNeuerPatient(false, -1);
 				wpg.addSubProgress();
 			}
 //				}
