@@ -1311,7 +1311,7 @@ public class Database{
 			sql = "SELECT `TreatmentID`, `name`,`price` as name1 FROM `treatment` WHERE `name` LIKE ? ORDER BY name1 ASC";
 			break;
 		case B:
-			sql = "SELECT `AnimalID`, `Callname` as name1,`Name` as name2,`birthdate` FROM `animal` WHERE (`Callname` LIKE ? OR `Name` LIKE ?) ORDER BY name1 ASC";
+			sql = "SELECT `AnimalID`, `Name` as name1,`Callname` as name2,`birthdate` FROM `animal` WHERE (`Callname` LIKE ? OR `Name` LIKE ?) ORDER BY name1 ASC";
 			break;
 		case C:
 			sql = "SELECT `PartnerID`, `firstname` as name1,`secondname` as name2, `birthday` FROM `partner` WHERE (`firstname` LIKE ? OR `secondname` LIKE ?) ORDER BY name1 ASC";
@@ -1319,7 +1319,6 @@ public class Database{
 		default:
 			throw new SQLException("Unknown table type! @ getTableEntry");
 		}
-		logger.debug(sql);
 		PreparedStatement stm = prepareStm(sql);
 		
 		stm.setString(1, comparator);
