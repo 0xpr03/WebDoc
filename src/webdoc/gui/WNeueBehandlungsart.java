@@ -40,7 +40,7 @@ import javax.swing.JFrame;
 
 public class WNeueBehandlungsart extends WModelPane {
 
-	private static final long serialVersionUID = 4589284070560679651L;
+	private static final long serialVersionUID = 4331960787409253155L;
 	private JTextField txtBezeichnung;
 	private boolean editable;
 	private JScrollPane sPErklaerung;
