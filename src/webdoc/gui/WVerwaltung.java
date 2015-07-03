@@ -147,7 +147,9 @@ public class WVerwaltung extends WModelPane {
 			public void itemStateChanged(ItemEvent event) {
 				if (event.getStateChange() == ItemEvent.SELECTED) {
 					model.setTableType(getTableType());
+					
 					loadData();
+					refreshBtn();
 				}
 			}
 		}
@@ -173,23 +175,23 @@ public class WVerwaltung extends WModelPane {
 		);
 		panel_2.setLayout(gl_panel_2);
 		
-		setEditable(editable);
-	}
-	
-	private void setEditable(boolean editable) {
 		refreshBtn();
-		
 	}
 	
 	private void refreshBtn() {
-		if (cBAuswahl.getSelectedItem().toString() == "Patienten"){
+		switch(getTableType()){
+		case A:
+			btnNeuerEintrag.setText("Neue Behandlung");
+			break;
+		case B:
 			btnNeuerEintrag.setText("Neuer Patient");
-		}
-		if (cBAuswahl.getSelectedItem().toString() == "Behandlungsarten"){
-			btnNeuerEintrag.setText("Neue Behandlungsart");
-		}
-		if (cBAuswahl.getSelectedItem().toString() == "Partner"){
+			break;
+		case C:
 			btnNeuerEintrag.setText("Neuer Partner");
+			break;
+		default:
+			logger.error("UNDEFINED element!");
+			break;
 		}
 	}
 	
