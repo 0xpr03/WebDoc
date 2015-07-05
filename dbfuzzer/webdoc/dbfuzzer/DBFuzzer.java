@@ -1,12 +1,16 @@
 package webdoc.dbfuzzer;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import java.sql.SQLException;
+import java.util.Random;
 
 import webdoc.lib.ConfigLib;
 import webdoc.lib.Database;
 import webdoc.lib.PasswordGenerator;
 
+/**
+ * WebDoc DB Fuzzer & pen tester class, do NOT let this outside the dev evironment
+ * @author Aron Heinecke
+ */
 public class DBFuzzer {
 	private static final String CONFIG_FILE_NAME = "config.yml";
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
@@ -14,13 +18,19 @@ public class DBFuzzer {
 	public static void main(String[] args){
 		try{
 			init();
+//			 SecureRandom random = new SecureRandom();
+//			System.out.println(new BigInteger(130, random).toString(32));
 			PasswordGenerator pwg = new PasswordGenerator();
-//			for()
-//			Database.insertTreatment(pwg.generateGenericPassword(10), preis, erklaerung)
+			Random rand = new Random(System.nanoTime());
+			for(int i = 0; i <= 10000; i++)
+				Database.insertTreatment(pwg.generateGenericPassword(10), (double)rand.nextInt(50), pwg.generateGenericPassword(20));
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}finally{
 			Database.disconnect();
 		}
+		
 	}
 	
 	private static void init(){
@@ -30,11 +40,4 @@ public class DBFuzzer {
 		Database.connect(true, false);
 	}
 	
-	public final class SessionIdentifierGenerator {
-		private SecureRandom random = new SecureRandom();
-
-		public String nextSessionId() {
-			return new BigInteger(130, random).toString(32);
-		}
-	}
 }
