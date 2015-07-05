@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  * @author "Aron Heinecke"
  *
  */
-public class PasswordGenerator {
+public final class PasswordGenerator {
 	
 	/**
 	 * generates the password

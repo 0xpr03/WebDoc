@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @author "Aron Heinecke"
  *
  */
-public class Config {
+public final class Config {
 	private static HashMap<String,Object> SETTINGS = new HashMap<String,Object>();
 	
 	/**

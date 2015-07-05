@@ -31,7 +31,7 @@ import webdoc.lib.dbTools;
  * WebDoc Main Class
  * @author "Aron Heinecke"
  */
-public class WebDoc {
+public final class WebDoc {
 	private static final String CONFIG_FILE_NAME = "config.yml";
 	private static final String DEFAULT_CONFIG_PATH = "/webdoc/files/config.yml";
 	private static final String LICENSE_FILE_PATH = "/license.txt";

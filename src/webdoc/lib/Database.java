@@ -36,7 +36,7 @@ import webdoc.webdoc.Config;
  * @author "Aron Heinecke"
  *
  */
-public class Database{
+public final class Database{
 	
 	private static Logger logger = LogManager.getLogger("database");
 	private static Connection connection;

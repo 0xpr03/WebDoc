@@ -30,7 +30,7 @@ import webdoc.webdoc.Config;
  * @author "Aron Heinecke"
  *
  */
-public class ConfigLib {
+public final class ConfigLib {
 	
 	private File FILE;
 	private Yaml yaml = new Yaml();

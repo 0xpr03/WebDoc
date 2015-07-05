@@ -13,7 +13,7 @@ import webdoc.lib.Database.DBError;
  * @author "Aron Heinecke"
  *
  */
-public class DBEError{
+public final class DBEError{
 	private DBError dberror;
 	private String msg;
 	/**
