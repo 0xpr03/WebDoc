@@ -13,10 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -31,11 +27,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-
-import org.apache.logging.log4j.LogManager;
-
-import webdoc.lib.GUIManager;
-import webdoc.webdoc.Config;
 
 /**
  * License Agreement window
@@ -130,7 +121,7 @@ public class WLicense extends JDialog {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setEditable(false);
-		textPane.setText(getLicense());
+		textPane.setText(GUIFunctions.getLicense(this));
 		scrollPane.setViewportView(textPane);
 		licensePanel.setLayout(gl_licensePanel);
 		{
@@ -175,26 +166,6 @@ public class WLicense extends JDialog {
 			JLabel lblLicenseAgreement = new JLabel("<html><b>License Agreement</b><br><div style=\"margin-left:10px;\">Please read the following important information before continuing.</div></html>");
 			panelTop.add(lblLicenseAgreement);
 			panelTop.add(separator, BoxLayout.Y_AXIS);
-		}
-	}
-
-	private String getLicense() {
-		try {
-			InputStream is = getClass().getResourceAsStream(Config.getStrValue("licenseFilePath"));
-		    InputStreamReader isr = new InputStreamReader(is, "UTF8");
-			BufferedReader br = new BufferedReader(isr);
-			
-			StringBuilder sb = new StringBuilder();
-			
-			for(String line = br.readLine(); line != null;line=br.readLine()){
-				sb.append(line+"\n");
-			}
-			return sb.toString();
-		}catch(IOException | NullPointerException e){
-			LogManager.getLogger().fatal("Error loading license!\n{}",e);
-			GUIManager.showErrorDialog(this, "Unable to load license!\nAborting..", "Error: License Loading");
-			System.exit(404);
-			return null;
 		}
 	}
 }

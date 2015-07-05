@@ -7,6 +7,11 @@
 package webdoc.gui;
 
 import java.awt.Component;
+import java.awt.Dialog;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,9 +24,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 
+import org.apache.logging.log4j.LogManager;
+
 import webdoc.gui.utils.CustomTreeObj;
 import webdoc.gui.utils.CustomTreeObj.EntryType;
 import webdoc.lib.GUIManager;
+import webdoc.webdoc.Config;
 
 public class GUIFunctions {
 	private static Calendar calendar = Calendar.getInstance();
@@ -105,5 +113,24 @@ public class GUIFunctions {
 	public static int showIgnoreChangesDialog(Component parent){
 		return GUIManager.showYesNoDialog(parent, "Änderungen verwerfen ?", JOptionPane.WARNING_MESSAGE, "Ungespeicherte Änderungen");
 	}
-
+	
+	public static <U extends Dialog > String getLicense(U parent) {
+		try {
+			InputStream is = GUIFunctions.class.getResourceAsStream(Config.getStrValue("licenseFilePath"));
+		    InputStreamReader isr = new InputStreamReader(is, "UTF8");
+			BufferedReader br = new BufferedReader(isr);
+			
+			StringBuilder sb = new StringBuilder();
+			
+			for(String line = br.readLine(); line != null;line=br.readLine()){
+				sb.append(line+"\n");
+			}
+			return sb.toString();
+		}catch(IOException | NullPointerException e){
+			LogManager.getLogger().fatal("Error loading license!\n{}",e);
+			GUIManager.showErrorDialog(parent, "Unable to load license!\nAborting..", "Error: License Loading");
+			System.exit(404);
+			return null;
+		}
+	}
 }

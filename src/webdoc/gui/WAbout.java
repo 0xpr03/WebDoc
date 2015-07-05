@@ -26,6 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import webdoc.webdoc.Config;
+import javax.swing.JTextPane;
 
 /**
  * About window
@@ -143,6 +144,21 @@ public class WAbout extends JDialog {
 				{
 					Component placeHolder = Box.createHorizontalStrut(5);
 					jpanel.add(placeHolder, BorderLayout.EAST);
+				}
+			}
+		}
+		{
+			JPanel panelLicense = new JPanel();
+			tabbedPane.addTab("CC", null, panelLicense, null);
+			panelLicense.setLayout(new BoxLayout(panelLicense, BoxLayout.X_AXIS));
+			{
+				JScrollPane scrollPane = new JScrollPane();
+				panelLicense.add(scrollPane);
+				{
+					JTextPane textPane = new JTextPane();
+					textPane.setEditable(false);
+					textPane.setText(GUIFunctions.getLicense(this));
+					scrollPane.setViewportView(textPane);
 				}
 			}
 		}
