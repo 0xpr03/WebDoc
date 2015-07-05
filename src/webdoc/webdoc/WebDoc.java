@@ -142,7 +142,7 @@ public class WebDoc {
 				showsetup = true;
 				break;
 			case INVALID_LOGIN:
-				GUIManager.showErrorDialog("Der Login auf den Datenbankserver ist fehlgeschalgen!", "Login Fehler");
+				GUIManager.showErrorDialog("Der Login auf dem Datenbankserver ist fehlgeschlagen!", "Login Fehler");
 				showsetup = true;
 				break;
 			case NO_DB:
@@ -233,7 +233,7 @@ public class WebDoc {
 				GUIManager.showErrorDialog("Einer der Befehle konnte nicht ausgeführt werden!\n"+dbee.getMsg(), "Fehler beim Setup");
 				break;
 			case NO_DB_OR_NO_PERM:
-				GUIManager.showErrorDialog("Der Benutzer besitzt nicht genug Rechte auf die Datenbank!", "Fehler beim Setup");
+				GUIManager.showErrorDialog("Der Benutzer besitzt nicht genug Rechte für die Datenbank!", "Fehler beim Setup");
 				break;
 			case NO_PERMISSIONS:
 				GUIManager.showErrorDialog("Der angegebene Benutzer besitzt nicht genug Rechte!", "Fehler beim Setup");
