@@ -44,6 +44,7 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import webdoc.gui.utils.DisabledGlassPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import webdoc.lib.PasswordGenerator;
 import webdoc.lib.Database.DBError;
 import webdoc.webdoc.Config;
 
@@ -75,6 +76,7 @@ public class WDBConnect extends JDialog {
 	private JTextField txtAdminUser;
 	private JPasswordField txtAdminPW;
 	private JCheckBox chckbxAdv;
+	private JCheckBox chckbxGeneriereZufallspasswort;
 	
 	/**
 	 * Create the dialog.
@@ -297,6 +299,14 @@ public class WDBConnect extends JDialog {
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setText(password);
+		
+		chckbxGeneriereZufallspasswort = new JCheckBox("generiere Zufallspasswort");
+		chckbxGeneriereZufallspasswort.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				adminInputChange();
+			}
+		});
+		chckbxGeneriereZufallspasswort.setEnabled(false);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -309,20 +319,23 @@ public class WDBConnect extends JDialog {
 								.addComponent(lblPort))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtIP, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-								.addComponent(txtPort, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+								.addComponent(txtIP, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+								.addComponent(txtPort, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblDb)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(txtDB, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)))
+							.addComponent(txtDB, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
 					.addGap(58)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblUser)
-						.addComponent(lblPassword))
-					.addGap(10)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(txtPassword)
-						.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblUser)
+								.addComponent(lblPassword))
+							.addGap(10)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(txtPassword)
+								.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(chckbxGeneriereZufallspasswort))
 					.addGap(29))
 		);
 		gl_panel.setVerticalGroup(
@@ -337,7 +350,9 @@ public class WDBConnect extends JDialog {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPassword)))
+								.addComponent(lblPassword))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(chckbxGeneriereZufallspasswort))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblIp)
@@ -350,7 +365,7 @@ public class WDBConnect extends JDialog {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDb)
 								.addComponent(txtDB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(95, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPanel.setLayout(gl_contentPanel);
@@ -404,11 +419,14 @@ public class WDBConnect extends JDialog {
 		boolean state = chckbxErstelleNutzer.isSelected() || chckbxCreateDB.isSelected() || chckbxOverwriteTables.isSelected() ? true : false;
 		txtAdminUser.setEnabled(state);
 		txtAdminPW.setEnabled(state);
+		chckbxGeneriereZufallspasswort.setEnabled(chckbxErstelleNutzer.isSelected());
+		txtPassword.setEnabled(!(chckbxErstelleNutzer.isSelected() && chckbxGeneriereZufallspasswort.isSelected()));
 		txtZugriffsIPs.setEnabled(chckbxErstelleNutzer.isSelected());
 	}
 	
 	private void advSettingsChange(WDBConnect wdbc,boolean selected) {
 		panel_1.setVisible(selected);
+		chckbxGeneriereZufallspasswort.setVisible(selected);
 		this.pack();
 	}
 	
@@ -446,15 +464,24 @@ public class WDBConnect extends JDialog {
 						Config.setValue("createDB", chckbxCreateDB.isSelected());
 						Config.setValue("createUser", chckbxErstelleNutzer.isSelected());
 						Config.setValue("overwriteDB", chckbxOverwriteTables.isSelected());
-						if(Config.getBoolValue("createUser"))
+						boolean pwset = false;
+						if(Config.getBoolValue("createUser")){
 							Config.setValue("userIPs", txtZugriffsIPs.getText());
+							if(chckbxGeneriereZufallspasswort.isSelected()){
+								PasswordGenerator pwdg = new PasswordGenerator();
+								Config.setValue("password", pwdg.generateGenericPassword(20));
+								pwset = true;
+							}
+						}
 						if(Config.getBoolValue("createDB") || Config.getBoolValue("createUser") || Config.getBoolValue("overwriteDB")){
 							Config.setValue("r_user", txtAdminUser.getText());
 							Config.setValue("r_password", String.valueOf(txtAdminPW.getPassword()));
 						}
+						
 						logger.debug("crateDB: {}", createDB);
 						Config.setValue("user", txtUser.getText());
-						Config.setValue("password", String.valueOf(txtPassword.getPassword()));
+						if(!pwset)
+							Config.setValue("password", String.valueOf(txtPassword.getPassword()));
 						Config.setValue("ip", txtIP.getText());
 						Config.setIntValue("port", txtPort.getText());
 						Config.setValue("db", txtDB.getText());

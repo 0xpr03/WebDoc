@@ -5,7 +5,7 @@ licenseKey: EB2-926-1A1-EDE-7E5-E8A
 ip: "localhost" # ip or localhost
 port: 3306
 user: webdoc
-password: webdoc
+password: ''
 db: webdoc # database to use
 
 #internal

@@ -154,7 +154,7 @@ public class dbTools {
 		}
 		
 		wpg.setText("Using DB");
-		Database.execUpdateQuery(String.format("use `%s`", Config.getStrValue("db")));
+		Database.execUpdateQuery(String.format("USE `%s`", Config.getStrValue("db")));
 		wpg.addProgress();
 		
 		if (Config.getBoolValue("overwriteDB")) {
@@ -196,9 +196,6 @@ public class dbTools {
 			wpg.setText("Creating User..");
 			wpg.setSubMax(2);
 			wpg.setSubText("Creating user webdoc");
-			PasswordGenerator pwdg = new PasswordGenerator();
-			Config.setValue("password", pwdg.generateGenericPassword(20));
-			Config.setValue("user", "webdoc");
 			try{
 				String query = String.format("CREATE USER '%s'@'%s' IDENTIFIED BY '%s' ;", Config.getStrValue("user"),Config.getStrValue("userIPs"), Config.getStrValue("password"));
 				Database.execUpdateQuery(query);
