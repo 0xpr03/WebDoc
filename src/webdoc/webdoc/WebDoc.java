@@ -175,6 +175,7 @@ public final class WebDoc {
 					
 					if(le == LicenseError.VALID){
 						logger.debug("valid online license");
+						setLICMetadata( verifier.getExpiration(), verifier.isTrial());
 						verifier.insertOfflLZ(lz);
 					}else{
 						logger.info("online license validation: {}",le);
@@ -186,6 +187,7 @@ public final class WebDoc {
 							Verifier vef = new Verifier();
 							LicenseError le = vef.checkLicense(lz);
 							if(le == LicenseError.VALID || le == LicenseError.EXPIRED){
+								setLICMetadata( vef.getExpiration(), vef.isTrial());
 								vef.insertOfflLZ(lz);
 							}
 						}
@@ -211,6 +213,11 @@ public final class WebDoc {
 			}
 		}
 		logger.exit();
+	}
+	
+	private static void setLICMetadata(long days, boolean istrial){
+		Config.setValue("isTrial", istrial);
+		Config.setValue("LIC_days", days);
 	}
 	
 	private static void setup(){
