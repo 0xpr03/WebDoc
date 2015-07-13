@@ -37,7 +37,7 @@ public final class WebDoc {
 	private static final String LICENSE_FILE_PATH = "/license.txt";
 	
 	private static final Logger logger = LogManager.getLogger();
-	private static final String VERSION = "0.6 beta";
+	private static final String VERSION = "0.7 beta";
 	
 	public static void main(String[] args){
 		logger.info("Starting up {}", VERSION);
