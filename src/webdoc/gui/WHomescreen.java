@@ -253,7 +253,7 @@ public final class WHomescreen extends JFrame {
 			}
 		});
 		
-		JMenuItem mntmRestart = new JMenuItem("Restart");
+		JMenuItem mntmRestart = new JMenuItem("Neu Starten");
 		mntmRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(GUIManager.showYesNoDialog(getFrame(), "Wollen Sie wirklich neustarten?\n(Ungesp. Änderungen gehen verloren)", JOptionPane.QUESTION_MESSAGE, "Neustarten") == 0){
@@ -265,13 +265,24 @@ public final class WHomescreen extends JFrame {
 				}
 			}
 		});
+		
+		JMenuItem mntmOptions = new JMenuItem("Optionen");
+		mntmOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new WOptions();
+			}
+
+
+		});
+		mnMenu.add(mntmOptions);
 		mnMenu.add(mntmRestart);
+		
 		
 		JSeparator separator_1 = new JSeparator();
 		mnMenu.add(separator_1);
 		mnMenu.add(mntmExit);
 		
-		JMenu mnHelp = new JMenu("Help");
+		JMenu mnHelp = new JMenu("Hilfe");
 		menuBar.add(mnHelp);
 		
 		JMenuItem mntmAbout = new JMenuItem("About");

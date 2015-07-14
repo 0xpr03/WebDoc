@@ -156,7 +156,7 @@ public class WVerwaltung extends WModelPane {
 			}
 		}
 		cBAuswahl.addItemListener(new ItemChangeListener());
-		cBAuswahl.setModel((new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Behandlungsarten", EnumType.A), new EnumObject("Patienten", EnumType.B), new EnumObject("Partner", EnumType.C)})));
+		cBAuswahl.setModel((new DefaultComboBoxModel<EnumObject>(new EnumObject[] {new EnumObject("Behandlungsarten", EnumType.A), new EnumObject("Patienten", EnumType.B), new EnumObject("Partner", EnumType.C),  new EnumObject("Rassen", EnumType.D)})));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.TRAILING)
@@ -191,6 +191,9 @@ public class WVerwaltung extends WModelPane {
 		case C:
 			btnNeuerEintrag.setText("Neuer Partner");
 			break;
+		case D:
+			btnNeuerEintrag.setText("Importiere Rassen");
+			break;
 		default:
 			logger.error("UNDEFINED element!");
 			break;
@@ -208,6 +211,8 @@ public class WVerwaltung extends WModelPane {
 			break;
 		case C:
 			GUIManager.callWNewPartner(editable,id);
+			break;
+		case D:
 			break;
 		default:
 			logger.error("UNDEFINED element!");
