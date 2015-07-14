@@ -144,6 +144,12 @@ public class WNeueAnamneseTabs extends WModelPane {
 	private JPanel panel_6;
 	private JPanel panel_16;
 	private JSplitPane splitPane_3;
+	private JPanel panel_4;
+	private JSplitPane splitPane_4;
+	private JPanel panel_17;
+	private JScrollPane scrollPane_2;
+	private JLabel label;
+	private JLabel lblDenkenSieIhr;
 	
 	
 
@@ -686,12 +692,15 @@ public class WNeueAnamneseTabs extends WModelPane {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(new TitledBorder(null, "Bauchspeicheldr\u00FCse:", TitledBorder.CENTER,
 						TitledBorder.TOP, null, null));
+		String symtombezogeneANamnese = "spezielle symtombezogene Anamnese";
+		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		tabber.addTab(symtombezogeneANamnese, null, tabbedPane_1, null);
 
 		
 
 
 		JPanel panel_8 = new JPanel();
-		tabber.addTab("spezielle symptombezogene Anamnese", null, panel_8, null);
+		tabbedPane_1.addTab("New tab", null, panel_8, null);
 
 		JPanel panel_9 = new JPanel();
 
@@ -707,14 +716,14 @@ public class WNeueAnamneseTabs extends WModelPane {
 		sPUnternommen.setViewportBorder(new TitledBorder(null, "Was wurde unternommen?:", TitledBorder.CENTER,
 				TitledBorder.TOP, null, null));
 
-		JLabel label_9 = new JLabel("Schmerzempfindlichkeit:");
+		label = new JLabel("Schmerzempfindlichkeit:");
 
 		cBSchmerzempfindlichkeit = new JComboBox<EnumObject>();
 		cBSchmerzempfindlichkeit.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
 				new EnumObject("Bitte Auswählen", EnumType.UNKNOWN), new EnumObject("Ja", EnumType.A),
 				new EnumObject("Nein", EnumType.B) }));
 
-		JLabel lblDenkenSieIhr = new JLabel("Denken sie ihr Tier hat Schmerzen?:");
+		lblDenkenSieIhr = new JLabel("Denken sie ihr Tier hat Schmerzen?:");
 
 		cBDenkenSchmerzen = new JComboBox<EnumObject>();
 		cBDenkenSchmerzen.setModel(new DefaultComboBoxModel<EnumObject>(new EnumObject[] {
@@ -744,62 +753,12 @@ public class WNeueAnamneseTabs extends WModelPane {
 				.addGroup(gl_panel_8.createSequentialGroup()
 					.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		gl_panel_8.setVerticalGroup(
 			gl_panel_8.createParallelGroup(Alignment.LEADING)
 				.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-				.addComponent(panel_10, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
 		);
-		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
-		gl_panel_9.setHorizontalGroup(
-			gl_panel_9.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(7)
-							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDenkenSieIhr)
-								.addComponent(label_9))
-							.addGap(1)
-							.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-								.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, 290, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(1)
-							.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(1)
-							.addGroup(gl_panel_9.createParallelGroup(Alignment.TRAILING)
-								.addComponent(sPHauptproblem, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
-								.addComponent(sPSchilderung, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE))))
-					.addGap(1))
-		);
-		gl_panel_9.setVerticalGroup(
-			gl_panel_9.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addGap(1)
-					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-					.addGap(1)
-					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-					.addGap(7)
-					.addComponent(label_9)
-					.addGap(1)
-					.addGroup(gl_panel_9.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_9.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblDenkenSieIhr))
-						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(1))
-				.addGroup(gl_panel_9.createSequentialGroup()
-					.addContainerGap(367, Short.MAX_VALUE)
-					.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(24))
-		);
-		panel_9.setLayout(gl_panel_9);
 
 		sPVerusachenSchmerzen = new JScrollPane();
 		sPVerusachenSchmerzen.setViewportBorder(new TitledBorder(null, "Welche Bewegungen verursachen den Schmerz?",
@@ -810,24 +769,97 @@ public class WNeueAnamneseTabs extends WModelPane {
 		GroupLayout gl_panel_10 = new GroupLayout(panel_10);
 		gl_panel_10.setHorizontalGroup(
 			gl_panel_10.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_10.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel_10.createSequentialGroup()
 					.addGap(1)
 					.addGroup(gl_panel_10.createParallelGroup(Alignment.LEADING)
-						.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE)
-						.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
+						.addComponent(sPVerusachenSchmerzen, Alignment.TRAILING)
+						.addComponent(sPSchmerzmittel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
 					.addGap(1))
 		);
 		gl_panel_10.setVerticalGroup(
 			gl_panel_10.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_10.createSequentialGroup()
 					.addGap(1)
-					.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+					.addComponent(sPSchmerzmittel, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
 					.addGap(1)
-					.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+					.addComponent(sPVerusachenSchmerzen, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
 					.addGap(1))
 		);
 		panel_10.setLayout(gl_panel_10);
 		panel_8.setLayout(gl_panel_8);
+		tPHauptproblem.setFont(GUIManager.getCommentFont());
+		tPUnternommen.setFont(GUIManager.getCommentFont());
+		tPVerusachenSchmerzen.setFont(GUIManager.getCommentFont());
+		tPSchmerzmittel.setFont(GUIManager.getCommentFont());
+		tPSchilderung.setFont(GUIManager.getCommentFont());
+		GroupLayout gl_panel_9 = new GroupLayout(panel_9);
+		gl_panel_9.setHorizontalGroup(
+			gl_panel_9.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+					.addGap(1))
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		gl_panel_9.setVerticalGroup(
+			gl_panel_9.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_9.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPHauptproblem, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+					.addGap(1)
+					.addComponent(sPSchilderung, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+					.addGap(1))
+		);
+		panel_9.setLayout(gl_panel_9);
+		
+		panel_4 = new JPanel();
+		tabbedPane_1.addTab("New tab", null, panel_4, null);
+		panel_4.setLayout(new BorderLayout(0, 0));
+		
+		splitPane_4 = new JSplitPane();
+		panel_4.add(splitPane_4, BorderLayout.CENTER);
+		splitPane_4.setRightComponent(panel_10);
+		
+		panel_17 = new JPanel();
+		splitPane_4.setLeftComponent(panel_17);
+		GroupLayout gl_panel_17 = new GroupLayout(panel_17);
+		gl_panel_17.setHorizontalGroup(
+			gl_panel_17.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_17.createSequentialGroup()
+					.addGap(1)
+					.addGroup(gl_panel_17.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_17.createSequentialGroup()
+							.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+							.addGap(1))
+						.addGroup(gl_panel_17.createSequentialGroup()
+							.addComponent(lblDenkenSieIhr)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_17.createParallelGroup(Alignment.LEADING)
+								.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(157))))
+				.addGroup(gl_panel_17.createSequentialGroup()
+					.addComponent(label)
+					.addContainerGap(321, Short.MAX_VALUE))
+		);
+		gl_panel_17.setVerticalGroup(
+			gl_panel_17.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_17.createSequentialGroup()
+					.addGap(1)
+					.addComponent(sPUnternommen, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+					.addGap(1)
+					.addGroup(gl_panel_17.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label)
+						.addComponent(cBSchmerzempfindlichkeit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_17.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDenkenSieIhr)
+						.addComponent(cBDenkenSchmerzen, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		panel_17.setLayout(gl_panel_17);
 
 		JPanel panel_14 = new JPanel();
 		tabber.addTab("Funktionsanamnese", null, panel_14, null);
@@ -1027,17 +1059,12 @@ public class WNeueAnamneseTabs extends WModelPane {
 		});
 		panel_3.add(btnEdit, "cell 2 0");
 		spAuslauf.setFont(GUIManager.getCommentFont());
-		tPHauptproblem.setFont(GUIManager.getCommentFont());
-		tPUnternommen.setFont(GUIManager.getCommentFont());
-		tPVerusachenSchmerzen.setFont(GUIManager.getCommentFont());
-		tPSchmerzmittel.setFont(GUIManager.getCommentFont());
 		tPFunktionenMotorik.setFont(GUIManager.getCommentFont());
 		tPBemerkungen.setFont(GUIManager.getCommentFont());
 		spavailTimeCons.setFont(GUIManager.getCommentFont());
 		spavailTimeCons.setFont(GUIManager.getCommentFont());
 		spGehstrecke.setFont(GUIManager.getCommentFont());
 		spGehzeit.setFont(GUIManager.getCommentFont());
-		tPSchilderung.setFont(GUIManager.getCommentFont());
 		
 		setEditable();
 		loadData();
