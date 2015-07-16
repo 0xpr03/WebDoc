@@ -7,18 +7,27 @@
 package webdoc.lib;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JFileChooser;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import webdoc.gui.WProgress;
 import webdoc.lib.Database.DBError;
@@ -295,5 +304,54 @@ public class dbTools {
 			logger.fatal("Unable to open file!",e);
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * Race importer
+	 * @param file file to XML sceme
+	 * @throws SQLException
+	 */
+	public void importRaces(File file) throws SQLException {
+		HSSFWorkbook datei = null;
+		String sql = "INSERT INTO `race` (`race`) VALUES(?);";
+		PreparedStatement stm = Database.prepareStm(sql);
+		try { // null catched by getContent
+			datei = new HSSFWorkbook(new FileInputStream(file));
+		} catch (Exception e) {
+			logger.debug("{}",e);
+		}
+		
+		ArrayList<String> content = getImpContent(datei);
+		for (String value : content) {
+			stm.setString(1, value);
+			stm.executeUpdate();
+			
+			logger.debug(value);
+		}
+		stm.close();
+	}
+	public ArrayList<String> getImpContent(HSSFWorkbook datei) {
+		ArrayList<String> content = new ArrayList<String>();
+		if(datei != null){
+			try{
+				Sheet blatt = datei.getSheetAt(0);
+				
+				for(Row reihe : blatt){
+					for (Cell zelle :reihe){
+						zelle.setCellType(Cell.CELL_TYPE_STRING);
+						content.add(zelle.getStringCellValue());
+					}
+				}
+				return content;
+				
+			}catch(Exception e){
+				System.out.println("Fehler:" + e);
+				return null;
+			}
+		}
+		System.out.println("Datei ungültig");
+		return null;
+		
 	}
 }

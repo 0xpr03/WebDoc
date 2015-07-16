@@ -23,6 +23,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,6 +45,7 @@ import webdoc.gui.utils.TDListElement;
 import webdoc.gui.utils.WModelPane;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
+import webdoc.lib.dbTools;
 
 /**
  * WVerwaltung Pane
@@ -55,6 +57,7 @@ public class WVerwaltung extends WModelPane {
 	private static final long serialVersionUID = 4589284070560679651L;
 	private JTable table;
 	private AdminTableModel model = new AdminTableModel(EnumType.A);
+	private dbTools dbtools = new dbTools();
 	private JButton btnSchliesen;
 	private JButton btnNeuerEintrag;
 	private JPanel panel_2;
@@ -200,7 +203,7 @@ public class WVerwaltung extends WModelPane {
 		}
 	}
 	
-	private void callExternalWindows(long id){
+	private void callExternalWindows(long id) {
 		boolean editable = id == -1;
 		switch(getTableType()){
 		case A:
@@ -213,6 +216,13 @@ public class WVerwaltung extends WModelPane {
 			GUIManager.callWNewPartner(editable,id);
 			break;
 		case D:
+			try {
+				JFileChooser chooser = new JFileChooser();
+				if(chooser.showOpenDialog(this) == 0)
+					dbtools.importRaces(chooser.getSelectedFile());
+			} catch (SQLException e) {
+				logger.warn("{}",e);
+			}
 			break;
 		default:
 			logger.error("UNDEFINED element!");
