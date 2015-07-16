@@ -195,7 +195,7 @@ public class WVerwaltung extends WModelPane {
 			btnNeuerEintrag.setText("Neuer Partner");
 			break;
 		case D:
-			btnNeuerEintrag.setText("Importiere Rassen");
+			btnNeuerEintrag.setText("Rassen importieren");
 			break;
 		default:
 			logger.error("UNDEFINED element!");
