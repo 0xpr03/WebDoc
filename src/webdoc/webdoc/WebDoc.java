@@ -166,7 +166,7 @@ public final class WebDoc {
 		
 		LicenseError le = LicenseError.NO_KEY;
 		
-		if(!lz.equals("")){
+		if(lz.length() != 0){
 			try {
 				le = verifier.checkOfflineLicense(lz);
 				if(le != LicenseError.VALID){
