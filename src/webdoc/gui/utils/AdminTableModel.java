@@ -71,6 +71,9 @@ public class AdminTableModel extends AbstractTableModel {
 		case C:
 			COLUMN_NAMES = new String[]{"Name","Firstname","Birthday"};
 			break;
+		case D:
+			COLUMN_NAMES = new String[]{"Rasse"};
+			break;
 		default:
 			COLUMN_NAMES = new String[]{"unknown"};
 			break;

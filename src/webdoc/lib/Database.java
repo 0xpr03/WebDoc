@@ -1317,7 +1317,7 @@ public final class Database{
 			sql = "SELECT `PartnerID`, `firstname` as name1,`secondname` as name2, `birthday` FROM `partner` WHERE (`firstname` LIKE ? OR `secondname` LIKE ?) ORDER BY name1 ASC";
 			break;
 		case D:
-			sql = "SELECT `race` FROM `race` WHERE `race` LIKE ? ";
+			sql = "SELECT `RaceID`, `race` as name1 FROM `race` WHERE `race` LIKE ? ";
 			break;
 		default:
 			throw new SQLException("Unknown table type! @ getTableEntry");
@@ -1329,6 +1329,7 @@ public final class Database{
 		case B:
 		case C:
 			stm.setString(2, comparator);
+			break;
 		default:
 		}
 		

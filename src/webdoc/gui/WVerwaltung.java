@@ -257,6 +257,9 @@ public class WVerwaltung extends WModelPane {
 									case C:
 										model.add(new TDListElement(rs.getLong(1), rs.getString(2),rs.getString(3),rs.getDate(4)));
 										break;
+									case D:
+										model.add(new TDListElement(rs.getLong(1), rs.getString(2)));
+										break;
 									}
 								}
 								rs.close();
