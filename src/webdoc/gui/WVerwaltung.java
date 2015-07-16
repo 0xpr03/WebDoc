@@ -221,7 +221,9 @@ public class WVerwaltung extends WModelPane {
 				if(chooser.showOpenDialog(this) == 0)
 					dbtools.importRaces(chooser.getSelectedFile());
 			} catch (SQLException e) {
-				logger.warn("{}",e);
+				GUIManager.showDBErrorDialog(this, Database.DBExceptionConverter(e, true));
+			} catch (NullPointerException e){
+				GUIManager.showErrorDialog(this, "Fehlerhafte Datei!", "Import fehlgeschlagen");
 			}
 			break;
 		default:

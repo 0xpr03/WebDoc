@@ -346,11 +346,11 @@ public class dbTools {
 				return content;
 				
 			}catch(Exception e){
-				System.out.println("Fehler:" + e);
+				logger.error("Import error: {}",e);
 				return null;
 			}
 		}
-		System.out.println("Datei ungültig");
+		logger.warn("Ungültige import Datei!");
 		return null;
 		
 	}
