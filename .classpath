@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="httpcore-4.4.1.jar"/>
 	<classpathentry kind="lib" path="httpmime-4.4.1.jar"/>
 	<classpathentry kind="lib" path="json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="poi-3.12-20150511.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
