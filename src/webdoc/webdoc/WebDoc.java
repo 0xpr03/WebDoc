@@ -171,7 +171,7 @@ public final class WebDoc {
 				le = verifier.checkOfflineLicense(lz);
 				if(le != LicenseError.VALID){
 					logger.info("offline license validation: {}",le);
-					le = verifier.checkLicense(lz);
+					le = verifier.checkLicense(lz, false);
 					
 					if(le == LicenseError.VALID){
 						logger.debug("valid online license");
@@ -185,7 +185,7 @@ public final class WebDoc {
 						public void run() {
 							logger.debug("Valid offline license, lazy refresh..");
 							Verifier vef = new Verifier();
-							LicenseError le = vef.checkLicense(lz);
+							LicenseError le = vef.checkLicense(lz, true);
 							if(le == LicenseError.VALID || le == LicenseError.EXPIRED){
 								setLICMetadata( vef.getExpiration(), vef.isTrial());
 								vef.insertOfflLZ(lz);
