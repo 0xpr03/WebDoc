@@ -78,8 +78,7 @@ public final class ConfigLib {
 			logger.warn("Config file not found");
 		}catch(ScannerException e){
 			scanner_exception = true;
-			logger.error("Faulty config file!");
-			logger.debug(e.getProblemMark().get_snippet());
+			logger.error("Faulty config file! @ \n{}",e.getProblemMark().get_snippet());
 		}catch(Exception e){
 			logger.error("Error loading the configuration", e);
 		}
