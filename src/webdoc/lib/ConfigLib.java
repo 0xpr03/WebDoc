@@ -79,7 +79,7 @@ public final class ConfigLib {
 		}catch(ScannerException e){
 			scanner_exception = true;
 			logger.error("Faulty config file!");
-			logger.debug(e);
+			logger.debug(e.getProblemMark().get_snippet());
 		}catch(Exception e){
 			logger.error("Error loading the configuration", e);
 		}
@@ -109,6 +109,9 @@ public final class ConfigLib {
 		return false;
 	}
 	
+	/**
+	 * Write JInternalFrame config
+	 */
 	private void writeWindowConfig(){
 		HashMap<Long,HashMap<String,Double>> wc = new HashMap<Long,HashMap<String,Double>>();
 		HashMap<String,Double> temp;
@@ -124,6 +127,9 @@ public final class ConfigLib {
 		config.put(GUI_SETTINGS, wc);
 	}
 	
+	/**
+	 * Load JInternalFrame config
+	 */
 	private void loadWindowConfig(){
 		if(config.containsKey(GUI_SETTINGS)){
 			@SuppressWarnings("unchecked")
