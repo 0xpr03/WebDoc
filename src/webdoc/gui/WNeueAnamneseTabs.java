@@ -49,7 +49,6 @@ import webdoc.lib.AnamnesisBP;
 import webdoc.lib.Database;
 import webdoc.lib.GUIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.BoxLayout;
 
 public class WNeueAnamneseTabs extends WModelPane {
 
