@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 
 import webdoc.gui.GUIFunctions;
 import webdoc.gui.WDBConnect;
@@ -40,6 +41,7 @@ public final class WebDoc {
 	private static final String VERSION = "0.7 beta";
 	
 	public static void main(String[] args){
+		checkLoggingConf();
 		logger.info("Starting up {}", VERSION);
 		
 		loadConfig();
@@ -72,6 +74,18 @@ public final class WebDoc {
 				// Make sure that the Java VM don't quit this program.
 				Thread.sleep(100);
 			} catch (Exception e) {/* ignore */
+			}
+		}
+	}
+	
+	/**
+	 * Checks if a new config is existing, to overwrite the internal logging conf
+	 */
+	private static void checkLoggingConf() {
+		java.io.File f = new java.io.File( ClassLoader.getSystemClassLoader().getResource(".").getPath()+"/log.xml");
+		if (f.exists() && f.isFile()){
+			if (Configurator.initialize(null, f.getAbsolutePath()) == null) {
+				System.err.println("Faulty log config!");
 			}
 		}
 	}
