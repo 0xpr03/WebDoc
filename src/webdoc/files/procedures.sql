@@ -1,5 +1,5 @@
 /* **** PROCEDURES ** DO NOT TOUCH! **********/
-/* Copyright (c) 2015 by the WebDoc group */
+/* Copyright (c) 2015 by Aron Heinecke & Jonathan Peper */
 DROP PROCEDURE IF EXISTS `insertPatient`$$
 CREATE PROCEDURE `insertPatient`(
 	IN `param_name` VARCHAR(50) CHARSET utf8,

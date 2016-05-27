@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015 by the WebDoc group
+ * Copyright (c) 2015 by Aron Heinecke & Jonathan Peper
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the WebDoc license.
  * Available inside this binary and at http://webdoc.proctet.net/license.txt

@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 by the WebDoc group */
+/* Copyright (c) 2015 by Aron Heinecke & Jonathan Peper */
 /* SQL File for the table creation DO NOT edit this, unless you know what you're doing! */
 /* lines starting with this are IGNORES! completely, "IF NOT EXISTS" is REQUIRED! */
 /* Table partner / Partner */

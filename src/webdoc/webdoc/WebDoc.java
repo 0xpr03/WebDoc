@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************
- * Copyright (c) 2015 by the WebDoc group
+ * Copyright (c) 2015 by Aron Heinecke & Jonathan Peper
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the WebDoc license.
  * Available inside this binary and at http://webdoc.proctet.net/license.txt
@@ -38,7 +38,7 @@ public final class WebDoc {
 	private static final String LICENSE_FILE_PATH = "/license.txt";
 	
 	private static final Logger logger = LogManager.getLogger();
-	private static final String VERSION = "0.7 beta";
+	private static final String VERSION = "0.7";
 	
 	public static void main(String[] args){
 		checkLoggingConf();
