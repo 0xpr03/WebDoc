@@ -5,7 +5,9 @@ Handles Data of patients and holders
 Currently only localized in german
 
 Copyright © 2015 by Aron Heinecke & Jonathan Peper
-License: MIT http://webdoc.proctet.net/license.txt
+License: MIT see LICENSE file
+
+Demo: <a href="demo.png">Demo Picture</a>
 
 ## Structure
 * src/webdoc quellcode
