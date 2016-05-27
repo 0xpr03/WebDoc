@@ -1,17 +1,18 @@
 # WebDoc
-For the docs please look into the wiki
-Protocoll is also there
+Management software for veterinarians  
+Handles Data of patients and holders
 
-Copyright © 2015 WebDoc group Aron Heinecke & Jonathan Peper
-License: http://webdoc.proctet.net/license.txt
+Copyright © 2015 by Aron Heinecke & Jonathan Peper
+License: MIT http://webdoc.proctet.net/license.txt
 
 ## Structure
 * src/webdoc quellcode
-  * gui GUI Klassen
-  * lib eigene Bibliotheken (config, log etc)
-  * webdoc Hauptklassen ordner
-  
-**Please use UTF-8 for compatibility reasons!**
+  * gui GUI Classes
+  * lib own libs (config, log etc)
+  * webdoc Mainclass dir
 
 [Is it any good?](https://news.ycombinator.com/item?id=3067434)
-Yes
+Yes  
+  
+  
+Created during the Q2 Phase of the A-Levels
