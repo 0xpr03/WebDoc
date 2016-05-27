@@ -76,7 +76,7 @@ public class WAbout extends JDialog {
 				JPanel jpanel = new JPanel();
 				jpanel.setBackground(Color.WHITE);
 				jpanel.setLayout(new BorderLayout(0, 0));
-				JLabel lblwebdoc = new JLabel("<html>WebDoc<br><br>Version: %v<br><br>Written by<br>Aron Heinecke (aron.heinecke@t-online.de)<br>Jonathan Peper</div><br><br>For license details please see under \"License\"</html>".replace("%v", Config.getStrValue("version")));
+				JLabel lblwebdoc = new JLabel("<html>WebDoc<br><br>Version: %v<br><br>Written by<br>Aron Heinecke (aron.heinecke@t-online.de)<br>Jonathan Peper (jonathan.peper@web.de)</div><br><br>For license details please see under \"License\"</html>".replace("%v", Config.getStrValue("version")));
 				lblwebdoc.setOpaque(true);
 				lblwebdoc.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
 				lblwebdoc.setAlignmentY(0.0f);
