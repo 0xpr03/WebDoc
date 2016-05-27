@@ -73,7 +73,7 @@ public final class Database{
 		if(db){
 			base += "/"+Config.getStrValue("db");
 		}
-		base +="?tcpKeepAlive=true";
+//		base +="?tcpKeepAlive=true";
 		logger.debug("DB conn base: {} {} {}",base,Config.getStrValue("user"), Config.getStrValue("password"));
 		try{
 			//Class.forName("org.mariadb.jdbc.Driver"); not necessary here atm?

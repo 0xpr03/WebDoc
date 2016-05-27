@@ -1,6 +1,8 @@
 # WebDoc
 Management software for veterinarians  
-Handles Data of patients and holders
+Handles Data of patients and holders  
+  
+Currently only localized in german
 
 Copyright © 2015 by Aron Heinecke & Jonathan Peper
 License: MIT http://webdoc.proctet.net/license.txt
